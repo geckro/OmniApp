@@ -4,10 +4,33 @@ namespace GameManager.Core.Data;
 
 public class Data<T>(T data, string jsonFile)
 {
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
+
     public void Serialize()
     {
-        string jsonString = JsonSerializer.Serialize(data);
-        File.WriteAllText(jsonFile, jsonString);
+        try
+        {
+            List<object> items = [];
+
+            if (File.Exists(jsonFile))
+            {
+                string existingJson = File.ReadAllText(jsonFile);
+                if (!string.IsNullOrWhiteSpace(existingJson))
+                {
+                    items = JsonSerializer.Deserialize<List<object>>(existingJson);
+                }
+            }
+
+            items.Add(data);
+
+            string jsonString = JsonSerializer.Serialize(items, _jsonSerializerOptions);
+
+            File.WriteAllText(jsonFile, jsonString);
+        }
+        catch (FileNotFoundException)
+        {
+            File.Create(jsonFile);
+        }
     }
 
     public T Deserialize()
@@ -15,14 +38,16 @@ public class Data<T>(T data, string jsonFile)
         try
         {
             string jsonString = File.ReadAllText(jsonFile);
-            return JsonSerializer.Deserialize<T>(jsonString)!;
+            data = JsonSerializer.Deserialize<T>(jsonString) ?? DefaultData();
         }
         catch (FileNotFoundException)
         {
-            T defaultData = DefaultData();
+            data = DefaultData();
             Serialize();
             return defaultData;
         }
+
+        return data;
     }
 
     protected virtual T DefaultData()
@@ -32,9 +57,7 @@ public class Data<T>(T data, string jsonFile)
 }
 
 public class GameData(string title, Genre[]? genres, Platform[]? platforms)
-    : Data<Game>(new Game(title, genres, platforms), "games.json")
-{
-}
+    : Data<Game>(new Game(title, genres, platforms), "games.json");
 
 public class GenreData() : Data<List<Genre>>([], "genres.json")
 {
