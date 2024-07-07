@@ -2,63 +2,66 @@
 
 namespace GameManager.Core.Data;
 
-public class Data<T>(T data, string jsonFile)
+public abstract class Data<T>(string jsonFile)
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new();
 
-    public void Serialize()
+    protected void Serialize(List<T> items)
     {
         try
         {
-            List<object> items = [];
-
-            if (File.Exists(jsonFile))
-            {
-                string existingJson = File.ReadAllText(jsonFile);
-                if (!string.IsNullOrWhiteSpace(existingJson))
-                {
-                    items = JsonSerializer.Deserialize<List<object>>(existingJson);
-                }
-            }
-
-            items.Add(data);
-
             string jsonString = JsonSerializer.Serialize(items, _jsonSerializerOptions);
-
             File.WriteAllText(jsonFile, jsonString);
         }
         catch (FileNotFoundException)
         {
             File.Create(jsonFile);
+            string jsonString = JsonSerializer.Serialize(items, _jsonSerializerOptions);
+            File.WriteAllText(jsonFile, jsonString);
         }
     }
 
-    public T Deserialize()
+    public List<T> Deserialize()
     {
         try
         {
             string jsonString = File.ReadAllText(jsonFile);
-            data = JsonSerializer.Deserialize<T>(jsonString) ?? DefaultData();
+            return JsonSerializer.Deserialize<List<T>>(jsonString) ?? DefaultData();
         }
         catch (FileNotFoundException)
         {
-            data = DefaultData();
-            Serialize();
+            List<T> dataList = DefaultData();
+            Serialize(dataList);
+            return dataList;
         }
-
-        return data;
     }
 
-    protected virtual T DefaultData()
+    protected abstract List<T> DefaultData();
+
+    public abstract void Add(T item);
+}
+
+public class GameData() : Data<Game>("games.json")
+{
+    public override void Add(Game game)
     {
-        throw new NotSupportedException("DefaultData method must be implemented in subclass.");
+        List<Game> games = Deserialize();
+        games.Add(game);
+        Serialize(games);
+    }
+
+    public List<Game> GetGames()
+    {
+        return Deserialize();
+    }
+
+    protected override List<Game> DefaultData()
+    {
+        return [];
     }
 }
 
-public class GameData(string title, Genre[]? genres, Platform[]? platforms)
-    : Data<Game>(new Game(title, genres, platforms), "games.json");
-
-public class GenreData() : Data<List<Genre>>([], "genres.json")
+public class GenreData() : Data<Genre>("genres.json")
 {
     protected override List<Genre> DefaultData()
     {
@@ -68,9 +71,16 @@ public class GenreData() : Data<List<Genre>>([], "genres.json")
             new Genre("Shooter")
         ];
     }
+
+    public override void Add(Genre genre)
+    {
+        List<Genre> genres = Deserialize();
+        genres.Add(genre);
+        Serialize(genres);
+    }
 }
 
-public class PlatformData() : Data<List<Platform>>([], "platforms.json")
+public class PlatformData() : Data<Platform>("platforms.json")
 {
     protected override List<Platform> DefaultData()
     {
@@ -79,5 +89,12 @@ public class PlatformData() : Data<List<Platform>>([], "platforms.json")
             new Platform("NES"),
             new Platform("SNES")
         ];
+    }
+
+    public override void Add(Platform platform)
+    {
+        List<Platform> platforms = Deserialize();
+        platforms.Add(platform);
+        Serialize(platforms);
     }
 }

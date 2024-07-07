@@ -2,9 +2,9 @@
 
 public class Game(string title, Genre[]? genres, Platform[]? platforms)
 {
-    public string Title { get; init; } = title;
-    public Genre[]? Genres { get; init; } = genres;
-    public Platform[]? Platforms { get; init; } = platforms;
+    public string Title { get; } = title;
+    public Genre[]? Genres { get; } = genres;
+    public Platform[]? Platforms { get; } = platforms;
 }
 
 public class Genre(string name)

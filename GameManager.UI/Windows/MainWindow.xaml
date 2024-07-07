@@ -14,11 +14,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Add Game" Click="AddGameButton_Click" Grid.Column="0" />
+            <Button Content="Add..." Click="AddButton_Click" Grid.Column="0" />
             <Menu Grid.Column="1">
-                <MenuItem Header="Filters">
-                    <MenuItem Header="Genre" />
-                </MenuItem>
+                <MenuItem x:Name="GenreFilter" Header="Genre" />
+                <MenuItem x:Name="PlatformFilter" Header="Platform" />
             </Menu>
 
             <Label Content="Search" Grid.Column="2" />

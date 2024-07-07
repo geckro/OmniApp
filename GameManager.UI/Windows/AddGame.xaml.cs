@@ -1,22 +1,19 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using GameManager.Core.Data;
+using GameManager.UI.Helpers;
 
 namespace GameManager.UI.Windows;
 
 public partial class AddGame
 {
-    private readonly GenreData _genreData;
-    private readonly PlatformData _platformData;
-
     public AddGame()
     {
         InitializeComponent();
-        _genreData = new GenreData();
-        _platformData = new PlatformData();
 
-        InitializePlatformsMenu();
-        InitializeGenresMenu();
+        Menus menuHelper = new();
+        menuHelper.InitializePlatformsMenu(PlatformsMenu);
+        menuHelper.InitializeGenresMenu(GenresMenu);
     }
 
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
@@ -42,42 +39,12 @@ public partial class AddGame
             where item.IsChecked
             select new Platform(item.Header.ToString())).ToList();
 
-        GameData gameData = new(title, genres.ToArray(), platforms.ToArray());
+        Game newGame = new(title, genres.ToArray(), platforms.ToArray());
 
-        gameData.Serialize();
-    }
+        GameData gameData = new();
+        gameData.Add(newGame);
 
-    private void InitializePlatformsMenu()
-    {
-        List<Platform> platforms = _platformData.Deserialize();
-
-        PlatformsMenu.Items.Clear();
-
-        foreach (Platform platform in platforms)
-        {
-            MenuItem menuItem = new()
-            {
-                Header = platform.Name,
-                IsCheckable = true
-            };
-            PlatformsMenu.Items.Add(menuItem);
-        }
-    }
-
-    private void InitializeGenresMenu()
-    {
-        List<Genre> genres = _genreData.Deserialize();
-
-        GenresMenu.Items.Clear();
-
-        foreach (Genre genre in genres)
-        {
-            MenuItem menuItem = new()
-            {
-                Header = genre.Name,
-                IsCheckable = true
-            };
-            GenresMenu.Items.Add(menuItem);
-        }
+        MainWindow mainWindow = new();
+        mainWindow.UpdateGameListBox();
     }
 }
