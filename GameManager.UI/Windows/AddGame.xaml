@@ -16,12 +16,12 @@
             <TextBox MinWidth="150" HorizontalAlignment="Left" />
 
             <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="PlatformsMenu" Header="Platforms" Click="PlatformsMenu_OnClick" />
+                <MenuItem x:Name="GenresMenu" Header="Genres" />
             </Menu>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="GenresMenu" Header="Genres" Click="GenresMenu_OnClick" />
+                <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
             </Menu>
             <Button Content="Add new" Click="AddNewGenre_Click" />
         </StackPanel>

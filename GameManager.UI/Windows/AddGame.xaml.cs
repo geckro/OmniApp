@@ -14,11 +14,9 @@ public partial class AddGame
         InitializeComponent();
         _genreData = new GenreData();
         _platformData = new PlatformData();
-    }
 
-    private void AddNewGenre_Click(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
+        InitializePlatformsMenu();
+        InitializeGenresMenu();
     }
 
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
@@ -26,7 +24,7 @@ public partial class AddGame
         throw new NotImplementedException();
     }
 
-    private void PlatformsMenu_OnClick(object sender, RoutedEventArgs e)
+    private void InitializePlatformsMenu()
     {
         List<Platform> platforms = _platformData.Deserialize();
 
@@ -36,13 +34,14 @@ public partial class AddGame
         {
             MenuItem menuItem = new()
             {
-                Header = platform.Name
+                Header = platform.Name,
+                IsCheckable = true
             };
             PlatformsMenu.Items.Add(menuItem);
         }
     }
 
-    private void GenresMenu_OnClick(object sender, RoutedEventArgs e)
+    private void InitializeGenresMenu()
     {
         List<Genre> genres = _genreData.Deserialize();
 
@@ -52,7 +51,8 @@ public partial class AddGame
         {
             MenuItem menuItem = new()
             {
-                Header = genre.Name
+                Header = genre.Name,
+                IsCheckable = true
             };
             GenresMenu.Items.Add(menuItem);
         }

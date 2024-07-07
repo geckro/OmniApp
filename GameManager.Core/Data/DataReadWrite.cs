@@ -44,7 +44,6 @@ public class Data<T>(T data, string jsonFile)
         {
             data = DefaultData();
             Serialize();
-            return defaultData;
         }
 
         return data;
@@ -52,7 +51,7 @@ public class Data<T>(T data, string jsonFile)
 
     protected virtual T DefaultData()
     {
-        throw new NotImplementedException("DefaultData method must be implemented in subclass.");
+        throw new NotSupportedException("DefaultData method must be implemented in subclass.");
     }
 }
 
