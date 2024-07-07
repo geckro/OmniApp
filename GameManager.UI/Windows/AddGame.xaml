@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Add Game" Height="160" Width="400">
+        Title="Add Game" Height="200" Width="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,17 +13,15 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="Title" />
-            <TextBox MinWidth="150" HorizontalAlignment="Left" />
-
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="GenresMenu" Header="Genres" />
-            </Menu>
+            <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Menu VerticalAlignment="Center">
+                <MenuItem x:Name="GenresMenu" Header="Genres" />
+            </Menu>
+            <Menu VerticalAlignment="Center">
                 <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
             </Menu>
-            <Button Content="Add new" Click="AddNewGenre_Click" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2">

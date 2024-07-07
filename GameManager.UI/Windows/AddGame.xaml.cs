@@ -21,7 +21,30 @@ public partial class AddGame
 
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        string title = TitleBox.Text;
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            MessageBox.Show(
+                "Please enter a valid title.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            return;
+        }
+
+        List<Genre> genres = (from MenuItem item in GenresMenu.Items
+            where item.IsChecked
+            select new Genre(item.Header.ToString())).ToList();
+
+        List<Platform> platforms = (from MenuItem item in PlatformsMenu.Items
+            where item.IsChecked
+            select new Platform(item.Header.ToString())).ToList();
+
+        GameData gameData = new(title, genres.ToArray(), platforms.ToArray());
+
+        gameData.Serialize();
     }
 
     private void InitializePlatformsMenu()

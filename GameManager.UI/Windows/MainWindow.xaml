@@ -26,7 +26,7 @@
         </Grid>
 
         <StackPanel>
-            <ListBox MinHeight="40" />
+            <ListBox MinHeight="40" x:Name="GameListBox" />
         </StackPanel>
     </StackPanel>
 </Window>
