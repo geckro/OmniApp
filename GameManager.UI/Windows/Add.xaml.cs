@@ -9,21 +9,23 @@ public partial class Add
         InitializeComponent();
     }
 
+    private void LoadContent(Window window)
+    {
+        AddContentArea.Content = window.Content;
+    }
+
     private void AddGame_Click(object sender, RoutedEventArgs e)
     {
-        AddGame addGameWindow = new();
-        AddContentArea.Content = addGameWindow.Content;
+        LoadContent(new AddGame());
     }
 
     private void AddGenre_Click(object sender, RoutedEventArgs e)
     {
-        AddGenre addGenreWindow = new();
-        AddContentArea.Content = addGenreWindow.Content;
+        LoadContent(new AddGenre());
     }
 
     private void AddPlatform_Click(object sender, RoutedEventArgs e)
     {
-        AddPlatform addPlatformWindow = new();
-        AddContentArea.Content = addPlatformWindow.Content;
+        LoadContent(new AddPlatform());
     }
 }
