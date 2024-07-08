@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using static GameManager.Core.Data.PlatformType;
 
 namespace GameManager.Core.Data;
 
@@ -91,9 +92,47 @@ public class PlatformData() : Data<Platform>("platforms.json")
     {
         return
         [
-            new Platform("NES"),
-            new Platform("Super Nintendo"),
-            new Platform("Xbox 360")
+            new Platform("2600", "Atari", Home),
+            new Platform("32X", "Sega", Home),
+            new Platform("3DS", "Nintendo", Handheld),
+            new Platform("5200", "Atari", Home),
+            new Platform("7800", "Atari", Home),
+            new Platform("Android", "Google", Home),
+            new Platform("DS", "Nintendo", Handheld),
+            new Platform("Dreamcast", "Sega", Home),
+            new Platform("Game Boy Advance", "Nintendo", Handheld),
+            new Platform("Game Boy Color", "Nintendo", Handheld),
+            new Platform("Game Boy", "Nintendo", Handheld),
+            new Platform("Game Gear", "Sega", Handheld),
+            new Platform("GameCube", "Nintendo", Home),
+            new Platform("Genesis", "Sega", Home),
+            new Platform("Jaguar", "Atari", Home),
+            new Platform("Linux", type: Home),
+            new Platform("Lynx", "Atari", Handheld),
+            new Platform("MacOS", "Apple", Home),
+            new Platform("Master System", "Sega", Home),
+            new Platform("NES", "Nintendo", Home),
+            new Platform("Nintendo 64", "Nintendo", Home),
+            new Platform("PlayStation 2", "Sony", Home),
+            new Platform("PlayStation 3", "Sony", Home),
+            new Platform("PlayStation 4", "Sony", Home),
+            new Platform("PlayStation 5", "Sony", Home),
+            new Platform("PlayStation Portable", "Sony", Handheld),
+            new Platform("PlayStation Vita", "Sony", Handheld),
+            new Platform("PlayStation", "Sony", Home),
+            new Platform("Saturn", "Sega", Home),
+            new Platform("Sega CD", "Sega", Home),
+            new Platform("Super Nintendo", "Nintendo", Home),
+            new Platform("Switch", "Nintendo", Hybrid),
+            new Platform("Virtual Boy", "Nintendo", Handheld),
+            new Platform("Wii U", "Nintendo", Home),
+            new Platform("Wii", "Nintendo", Home),
+            new Platform("Windows", "Microsoft", Home),
+            new Platform("Xbox 360", "Microsoft", Home),
+            new Platform("Xbox One", "Microsoft", Home),
+            new Platform("Xbox Series X/S", "Microsoft", Home),
+            new Platform("Xbox", "Microsoft", Home),
+            new Platform("iOS", "Apple", Handheld),
         ];
     }
 

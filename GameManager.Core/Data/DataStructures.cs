@@ -30,9 +30,19 @@ public class Genre(string name) : IMetadata
     public string Name { get; } = name;
 }
 
-public class Platform(string name) : IMetadata
+public class Platform(string name, string? company = null, PlatformType? type = null) : IMetadata
 {
     public string Name { get; } = name;
+    public string? Company { get; } = company;
+    public PlatformType? Type { get; } = type;
+}
+
+public enum PlatformType : byte
+{
+    Home = 0,
+    Handheld = 1,
+    Hybrid = 2,
+    Other = 3
 }
 
 public class Developer(string name) : IMetadata

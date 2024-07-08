@@ -17,7 +17,19 @@ public class ListBoxHelper
         listBox.Items.Clear();
         foreach (T metadata in metadataList)
         {
-            listBox.Items.Add(metadata.Name);
+            string displayText = metadata.Name;
+
+            PropertyInfo? categoryProperty = metadata.GetType().GetProperty("Category");
+            if (categoryProperty != null)
+            {
+                string category = (categoryProperty.GetValue(metadata) as string);
+                if (!string.IsNullOrEmpty(category))
+                {
+                    displayText = $"{category} - {metadata.Name}";
+                }
+            }
+
+            listBox.Items.Add(displayText);
         }
     }
 
