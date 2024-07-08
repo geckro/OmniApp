@@ -71,7 +71,10 @@ public partial class MainWindow
         {
             ListBoxItem listBoxItem = new()
             {
-                Content = $"{game.Title} | {string.Join(", ", (game.Platforms ?? []).Select(p => p.Name))} | {string.Join(", ", (game.Genres ?? []).Select(g => g.Name))}",
+                Content = $"{game.Title} | " +
+                          $"{string.Join(", ", (game.Platforms ?? []).Select(p => p.Name))} | " +
+                          $"{string.Join(", ", (game.Genres ?? []).Select(g => g.Name))}" +
+                          $"{(game.Date.HasValue ? $" | {game.Date.Value.Date:yyyy-MMMM-dd}" : "")}",
                 DataContext = game
             };
             gameListBox.Items.Add(listBoxItem);

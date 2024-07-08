@@ -39,7 +39,9 @@ public partial class AddGame
             where item.IsChecked
             select new Platform(item.Header.ToString())).ToList();
 
-        Game newGame = new(title, genres.ToArray(), platforms.ToArray());
+        DateTime? date = Date.SelectedDate;
+
+        Game newGame = new(title, genres.ToArray(), platforms.ToArray(), date);
 
         GameData gameData = new();
         gameData.Add(newGame);

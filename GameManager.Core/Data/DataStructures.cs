@@ -1,10 +1,11 @@
 ﻿namespace GameManager.Core.Data;
 
-public class Game(string title, Genre[]? genres, Platform[]? platforms) : IMetadata
+public class Game(string title, Genre[]? genres, Platform[]? platforms, DateTime? date) : IMetadata
 {
     public string Title { get; } = title;
     public Genre[]? Genres { get; } = genres;
     public Platform[]? Platforms { get; } = platforms;
+    public DateTime? Date { get; } = date;
 
     string IMetadata.Name => Title;
 }

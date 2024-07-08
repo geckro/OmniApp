@@ -22,6 +22,7 @@
             <Menu VerticalAlignment="Center">
                 <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
             </Menu>
+            <DatePicker x:Name="Date" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2">
