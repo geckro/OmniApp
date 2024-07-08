@@ -12,18 +12,18 @@ public partial class Add
     private void AddGame_Click(object sender, RoutedEventArgs e)
     {
         AddGame addGameWindow = new();
-        addGameWindow.Show();
+        AddContentArea.Content = addGameWindow.Content;
     }
 
     private void AddGenre_Click(object sender, RoutedEventArgs e)
     {
         AddGenre addGenreWindow = new();
-        addGenreWindow.Show();
+        AddContentArea.Content = addGenreWindow.Content;
     }
 
     private void AddPlatform_Click(object sender, RoutedEventArgs e)
     {
         AddPlatform addPlatformWindow = new();
-        addPlatformWindow.Show();
+        AddContentArea.Content = addPlatformWindow.Content;
     }
 }
