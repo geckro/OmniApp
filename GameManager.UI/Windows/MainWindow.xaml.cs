@@ -20,8 +20,7 @@ public partial class MainWindow
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        Add addWindow = new();
-        addWindow.Show();
+        WindowHelper.ShowWindow(new Add());
     }
 
     private void FilterListBox(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using GameManager.UI.Helpers;
 
 namespace GameManager.UI.Windows;
 
@@ -9,23 +10,18 @@ public partial class Add
         InitializeComponent();
     }
 
-    private void LoadContent(Window window)
-    {
-        AddContentArea.Content = window.Content;
-    }
-
     private void AddGame_Click(object sender, RoutedEventArgs e)
     {
-        LoadContent(new AddGame());
+        WindowHelper.LoadContent(AddContentArea, new AddGame());
     }
 
     private void AddGenre_Click(object sender, RoutedEventArgs e)
     {
-        LoadContent(new AddGenre());
+        WindowHelper.LoadContent(AddContentArea, new AddGenre());
     }
 
     private void AddPlatform_Click(object sender, RoutedEventArgs e)
     {
-        LoadContent(new AddPlatform());
+        WindowHelper.LoadContent(AddContentArea, new AddPlatform());
     }
 }
