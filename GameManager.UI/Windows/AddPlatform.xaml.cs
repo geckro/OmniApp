@@ -9,6 +9,8 @@ public partial class AddPlatform
     public AddPlatform()
     {
         InitializeComponent();
+        ListBoxHelper listBoxHelper = new();
+        listBoxHelper.UpdatePlatformListBox(PlatformListBox);
     }
 
     private void AddNewPlatform_Click(object sender, RoutedEventArgs e)

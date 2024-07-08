@@ -13,9 +13,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="Genre" />
             <TextBox x:Name="GenreBox" MinWidth="150" HorizontalAlignment="Left" />
+            <Button Content="Add new genre" Click="AddNewGenre_Click" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Content="Add new genre" Click="AddNewGenre_Click" />
+            <ListBox x:Name="GenreListBox" />
         </StackPanel>
     </Grid>
 </Window>

@@ -9,6 +9,8 @@ public partial class AddGenre
     public AddGenre()
     {
         InitializeComponent();
+        ListBoxHelper listBoxHelper = new();
+        listBoxHelper.UpdateGenreListBox(GenreListBox);
     }
 
     private void AddNewGenre_Click(object sender, RoutedEventArgs e)

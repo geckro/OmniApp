@@ -13,9 +13,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="Platform" />
             <TextBox x:Name="PlatformBox" MinWidth="150" HorizontalAlignment="Left" />
+            <Button Content="Add new platform" Click="AddNewPlatform_Click" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button Content="Add new platform" Click="AddNewPlatform_Click" />
+            <ListBox x:Name="PlatformListBox" />
         </StackPanel>
     </Grid>
 </Window>
