@@ -12,7 +12,16 @@ public static class MetadataHelper
     {
         string metadata = metadataTextBox.Text;
 
-        if (string.IsNullOrWhiteSpace(metadata)) return;
+        if (string.IsNullOrWhiteSpace(metadata))
+        {
+            MessageBox.Show(
+                "Please enter valid metadata.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            return;
+        }
 
         T newMetadata = (T)Activator.CreateInstance(typeof(T), metadata);
         metadataData.Add(newMetadata);
