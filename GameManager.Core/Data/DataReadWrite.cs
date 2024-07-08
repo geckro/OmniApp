@@ -2,7 +2,12 @@
 
 namespace GameManager.Core.Data;
 
-public abstract class Data<T>(string jsonFile)
+public interface IMetadataData<in T> where T : IMetadata
+{
+    void Add(T metadata);
+}
+
+public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMetadata
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new();
 

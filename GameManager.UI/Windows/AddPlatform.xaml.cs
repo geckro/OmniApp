@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using GameManager.Core.Data;
+using GameManager.UI.Helpers;
 
 namespace GameManager.UI.Windows;
 
@@ -12,13 +13,6 @@ public partial class AddPlatform
 
     private void AddNewPlatform_Click(object sender, RoutedEventArgs e)
     {
-        string platformToAdd = PlatformBox.Text;
-
-        if (string.IsNullOrWhiteSpace(platformToAdd)) return;
-
-        Platform newPlatform = new(platformToAdd);
-        PlatformData platformData = new();
-
-        platformData.Add(newPlatform);
+        MetadataHelper.AddNewMetadata<Platform, PlatformData>(PlatformBox, new PlatformData());
     }
 }
