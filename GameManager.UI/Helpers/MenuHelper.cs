@@ -8,6 +8,9 @@ public class Menus
 {
     private readonly GenreData _genreData = new();
     private readonly PlatformData _platformData = new();
+    private readonly DeveloperData _developerData = new();
+    private readonly PublisherData _publisherData = new();
+    private readonly SeriesData _seriesData = new();
 
     private static void InitializeMenu<T>(
         MenuItem menu,
@@ -41,5 +44,20 @@ public class Menus
     public void InitializeGenresMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
     {
         InitializeMenu(menu, _genreData.Deserialize(), clickHandler);
+    }
+
+    public void InitializeDevelopersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
+    {
+        InitializeMenu(menu, _developerData.Deserialize(), clickHandler);
+    }
+
+    public void InitializePublishersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
+    {
+        InitializeMenu(menu, _publisherData.Deserialize(), clickHandler);
+    }
+
+    public void InitializeSeriesMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
+    {
+        InitializeMenu(menu, _seriesData.Deserialize(), clickHandler);
     }
 }

@@ -92,7 +92,8 @@ public class PlatformData() : Data<Platform>("platforms.json")
         return
         [
             new Platform("NES"),
-            new Platform("SNES")
+            new Platform("Super Nintendo"),
+            new Platform("Xbox 360")
         ];
     }
 
@@ -101,5 +102,63 @@ public class PlatformData() : Data<Platform>("platforms.json")
         List<Platform> platforms = Deserialize();
         platforms.Add(platform);
         Serialize(platforms);
+    }
+}
+
+public class DeveloperData() : Data<Developer>("developers.json")
+{
+    protected override List<Developer> DefaultData()
+    {
+        return
+        [
+            new Developer("Insomniac Games"),
+            new Developer("Nintendo EPD"),
+            new Developer("Xbox Game Studios")
+        ];
+    }
+
+    public override void Add(Developer developer)
+    {
+        List<Developer> developers = Deserialize();
+        developers.Add(developer);
+        Serialize(developers);
+    }
+}
+
+public class PublisherData() : Data<Publisher>("publishers.json")
+{
+    protected override List<Publisher> DefaultData()
+    {
+        return
+        [
+            new Publisher("Microsoft"),
+            new Publisher("Nintendo"),
+            new Publisher("Sony")
+        ];
+    }
+
+    public override void Add(Publisher publisher)
+    {
+        List<Publisher> publishers = Deserialize();
+        publishers.Add(publisher);
+        Serialize(publishers);
+    }
+}
+
+public class SeriesData() : Data<Series>("series.json")
+{
+    protected override List<Series> DefaultData()
+    {
+        return
+        [
+            new Series("Mario")
+        ];
+    }
+
+    public override void Add(Series series)
+    {
+        List<Series> seriess = Deserialize();
+        seriess.Add(series);
+        Serialize(seriess);
     }
 }
