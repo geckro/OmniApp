@@ -9,45 +9,37 @@ public class Menus
     private readonly GenreData _genreData = new();
     private readonly PlatformData _platformData = new();
 
-    public void InitializePlatformsMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
+    private static void InitializeMenu<T>(
+        MenuItem menu,
+        IEnumerable<T> metadataList,
+        RoutedEventHandler? clickHandler = null
+    )
+        where T : IMetadata
     {
-        List<Platform> platforms = _platformData.Deserialize();
-
         menu.Items.Clear();
-
-        foreach (Platform platform in platforms)
+        foreach (T metadata in metadataList)
         {
             MenuItem menuItem = new()
             {
-                Header = platform.Name,
+                Header = metadata.Name,
                 IsCheckable = true
             };
             if (clickHandler != null)
             {
                 menuItem.Click += clickHandler;
             }
+
             menu.Items.Add(menuItem);
         }
     }
 
+    public void InitializePlatformsMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
+    {
+        InitializeMenu(menu, _platformData.Deserialize(), clickHandler);
+    }
+
     public void InitializeGenresMenu(MenuItem menu, RoutedEventHandler? clickHandler = null)
     {
-        List<Genre> genres = _genreData.Deserialize();
-
-        menu.Items.Clear();
-
-        foreach (Genre genre in genres)
-        {
-            MenuItem menuItem = new()
-            {
-                Header = genre.Name,
-                IsCheckable = true
-            };
-            if (clickHandler != null)
-            {
-                menuItem.Click += clickHandler;
-            }
-            menu.Items.Add(menuItem);
-        }
+        InitializeMenu(menu, _genreData.Deserialize(), clickHandler);
     }
 }
