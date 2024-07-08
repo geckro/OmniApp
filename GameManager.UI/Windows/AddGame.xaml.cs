@@ -67,8 +67,5 @@ public partial class AddGame
 
         GameData gameData = new();
         gameData.Add(newGame);
-
-        MainWindow mainWindow = new();
-        mainWindow.UpdateGameListBox();
     }
 }

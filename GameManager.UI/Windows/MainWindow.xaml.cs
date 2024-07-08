@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Data;
+using System.Windows;
 using System.Windows.Controls;
 using GameManager.Core.Data;
 using GameManager.UI.Helpers;
@@ -11,7 +12,7 @@ public partial class MainWindow
     {
         InitializeComponent();
 
-        UpdateGameListBox();
+        UpdateGameDataGrid();
 
         Menus menuHelper = new();
         menuHelper.InitializePlatformsMenu(PlatformFilter, FilterListBox);
@@ -25,7 +26,7 @@ public partial class MainWindow
 
     private void FilterListBox(object sender, RoutedEventArgs e)
     {
-        ListBox gameListBox = GameListBox;
+        DataGrid gameDataGrid = GameDataGrid;
 
         List<Genre> selectedGenres = GenreFilter.Items
             .OfType<MenuItem>()
@@ -39,9 +40,10 @@ public partial class MainWindow
             .Select(item => new Platform(item.Header.ToString()))
             .ToList();
 
-        foreach (ListBoxItem item in gameListBox.Items)
+        foreach (object? row in gameDataGrid.Items)
         {
-            Game game = item.DataContext as Game;
+            Game game = (row as DataRowView)?.Row.ItemArray[0] as Game;
+
             if (game == null) continue;
             bool shouldHide = false;
 
@@ -55,29 +57,30 @@ public partial class MainWindow
                 shouldHide = shouldHide || !game.Genres.Any(g => selectedGenres.Any(sg => sg.Name == g.Name));
             }
 
-            item.Visibility = shouldHide ? Visibility.Collapsed : Visibility.Visible;
+            if (gameDataGrid.ItemContainerGenerator.ContainerFromItem(row) is DataGridRow rowItem)
+            {
+                rowItem.Visibility = shouldHide ? Visibility.Collapsed : Visibility.Visible;
+            }
         }
     }
 
-    public void UpdateGameListBox()
+    public void UpdateGameDataGrid()
     {
-        ListBox gameListBox = GameListBox;
-
-        gameListBox.Items.Clear();
-
+        DataGrid gameDataGrid = GameDataGrid;
+        gameDataGrid.Items.Clear();
         GameData gameData = new();
 
-        foreach (Game game in gameData.GetGames())
+        var gameRows = gameData.GetGames().Select(game => new
         {
-            ListBoxItem listBoxItem = new()
-            {
-                Content = $"{game.Title} | " +
-                          $"{string.Join(", ", (game.Platforms ?? []).Select(p => p.Name))} | " +
-                          $"{string.Join(", ", (game.Genres ?? []).Select(g => g.Name))}" +
-                          $"{(game.Date.HasValue ? $" | {game.Date.Value.Date:yyyy-MMMM-dd}" : "")}",
-                DataContext = game
-            };
-            gameListBox.Items.Add(listBoxItem);
-        }
+            game.Title,
+            Genres = game.Genres != null ? string.Join(", ", game.Genres.Select(g => g.Name)) : "",
+            Platforms = game.Platforms != null ? string.Join(", ", game.Platforms.Select(p => p.Name)) : "",
+            Date = game.Date.HasValue ? game.Date.Value.ToString("yyyy-MMMM-dd") : "",
+            Developers = game.Developers != null ? string.Join(", ", game.Developers.Select(d => d.Name)) : "",
+            Publishers = game.Publishers != null ? string.Join(", ", game.Publishers.Select(p => p.Name)) : "",
+            Series = game.Series != null ? string.Join(", ", game.Series.Select(s => s.Name)) : ""
+        }).ToList();
+
+        GameDataGrid.ItemsSource = gameRows;
     }
 }
