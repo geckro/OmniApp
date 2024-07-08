@@ -25,7 +25,52 @@
         </Grid>
 
         <StackPanel>
-            <DataGrid MinHeight="40" x:Name="GameDataGrid" />
+            <DataGrid x:Name="GameDataGrid"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True"
+                      AlternatingRowBackground="WhiteSmoke"
+                      GridLinesVisibility="None"
+                      RowHeaderWidth="0">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGrid">
+                        <Style.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Style.Resources>
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="WhiteSmoke"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                    <Border x:Name="PART_HeaderBorder"
+                                            Background="{TemplateBinding Background}">
+                                            <ContentPresenter />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="PART_HeaderBorder" Property="Background" Value="LightBlue"/>
+                                            <Setter TargetName="PART_HeaderBorder" Property="BorderBrush" Value="Black"/>
+                                            <Setter TargetName="PART_HeaderBorder" Property="BorderThickness" Value="1, 0, 1, 1"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
         </StackPanel>
     </StackPanel>
 </Window>
