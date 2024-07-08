@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Reflection;
+using System.Windows.Controls;
 using GameManager.Core.Data;
 
 namespace GameManager.UI.Helpers;
