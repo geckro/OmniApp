@@ -33,7 +33,7 @@ public partial class Import
                         game.Platforms.Select(p =>
                             !string.IsNullOrEmpty(p.Company) ? $"{p.Company} - {p.Name}" : p.Name))
                     : "",
-            Date = game.DateWw.HasValue ? game.DateWw.Value.ToString("yyyy-MMMM-dd") : "",
+            Date = game.ReleaseDateWw.HasValue ? game.ReleaseDateWw.Value.ToString("yyyy-MMMM-dd") : "",
             Developers = game.Developers != null ? string.Join(", ", game.Developers.Select(d => d.Name)) : "",
             Publishers = game.Publishers != null ? string.Join(", ", game.Publishers.Select(p => p.Name)) : "",
             Series = game.Series != null ? string.Join(", ", game.Series.Select(s => s.Name)) : ""
