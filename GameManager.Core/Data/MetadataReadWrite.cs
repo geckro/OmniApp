@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using static GameManager.Core.Data.PlatformType;
 
 namespace GameManager.Core.Data;
@@ -10,7 +11,11 @@ public interface IMetadataData<in T> where T : IMetadata
 
 public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMetadata
 {
-    private readonly JsonSerializerOptions _jsonSerializerOptions = new();
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        IncludeFields = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+    };
 
     public abstract void Add(T item);
 

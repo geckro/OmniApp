@@ -57,11 +57,12 @@ public partial class AddGame
         DateTime? dateWw = Date.SelectedDate;
 
         Game newGame = new(
-            title, genres.ToArray(),
-            platforms.ToArray(),
-            developers.ToArray(),
-            publishers.ToArray(),
-            series.ToArray(),
+            title,
+            genres.Count != 0 ? genres.ToArray() : null,
+            platforms.Count != 0 ? platforms.ToArray() : null,
+            developers.Count != 0 ? developers.ToArray() : null,
+            publishers.Count != 0 ? publishers.ToArray() : null,
+            series.Count != 0 ? series.ToArray() : null,
             dateWw
         );
 
