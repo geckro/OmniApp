@@ -54,15 +54,15 @@ public partial class AddGame
             where item.IsChecked
             select new Series(item.Header.ToString())).ToList();
 
-        DateTime? date = Date.SelectedDate;
+        DateTime? dateWw = Date.SelectedDate;
 
         Game newGame = new(
             title, genres.ToArray(),
             platforms.ToArray(),
-            date,
             developers.ToArray(),
             publishers.ToArray(),
-            series.ToArray()
+            series.ToArray(),
+            dateWw
         );
 
         GameData gameData = new();

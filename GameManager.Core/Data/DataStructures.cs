@@ -4,10 +4,28 @@ public class Game(
     string title,
     Genre[]? genres = null,
     Platform[]? platforms = null,
-    DateTime? date = null,
     Developer[]? developers = null,
     Publisher[]? publishers = null,
     Series[]? series = null,
+
+    DateTime? dateWw = null,
+    DateTime? dateAu = null,
+    DateTime? dateCa = null,
+    DateTime? dateCh = null,
+    DateTime? dateEu = null,
+    DateTime? dateFr = null,
+    DateTime? dateGe = null,
+    DateTime? dateJp = null,
+    DateTime? dateKo = null,
+    DateTime? dateNa = null,
+    DateTime? dateNo = null,
+    DateTime? datePal = null,
+    DateTime? dateRu = null,
+    DateTime? dateSp = null,
+    DateTime? dateSw = null,
+    DateTime? dateUk = null,
+    DateTime? dateUs = null,
+
     bool? isRemake = null,
     Game? remakeOf = null,
     bool? isRemaster = null,
@@ -28,10 +46,34 @@ public class Game(
     public string Title { get; } = title;
     public Genre[]? Genres { get; } = genres;
     public Platform[]? Platforms { get; } = platforms;
-    public DateTime? Date { get; } = date;
     public Developer[]? Developers { get; } = developers;
     public Publisher[]? Publishers { get; } = publishers;
     public Series[]? Series { get; } = series;
+
+    /// <summary>
+    /// Default date if no region is specified
+    /// </summary>
+    public DateTime? DateWw { get; } = dateWw;
+
+    /// <summary>
+    /// Region-specific dates
+    /// </summary>
+    public DateTime? DateAu { get; } = dateAu;
+    public DateTime? DateCa { get; } = dateCa;
+    public DateTime? DateCh { get; } = dateCh;
+    public DateTime? DateEu { get; } = dateEu;
+    public DateTime? DateFr { get; } = dateFr;
+    public DateTime? DateGe { get; } = dateGe;
+    public DateTime? DateJp { get; } = dateJp;
+    public DateTime? DateKo { get; } = dateKo;
+    public DateTime? DateNa { get; } = dateNa;
+    public DateTime? DateNo { get; } = dateNo;
+    public DateTime? DatePal { get; } = datePal;
+    public DateTime? DateRu { get; } = dateRu;
+    public DateTime? DateSp { get; } = dateSp;
+    public DateTime? DateSw { get; } = dateSw;
+    public DateTime? DateUk { get; } = dateUk;
+    public DateTime? DateUs { get; } = dateUs;
 
     public bool? IsRemake { get; } = isRemake;
     public Game? RemakeOf { get; } = remakeOf;

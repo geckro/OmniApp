@@ -2,9 +2,9 @@
 
 public static class Overloads
 {
-    public static Game Game(string title, Genre[]? genres = null, Platform[]? platforms = null, DateTime? date = null,
+    public static Game Game(string title, Genre[]? genres = null, Platform[]? platforms = null, DateTime? dateWw = null,
         Developer[]? developers = null, Publisher[]? publishers = null, Series[]? series = null)
-        => new(title, genres, platforms, date, developers, publishers, series);
+        => new(title, genres, platforms, developers, publishers, series, dateWw);
 
     public static Developer Dev(string name) => new(name);
     public static Genre G(string name) => new(name);
