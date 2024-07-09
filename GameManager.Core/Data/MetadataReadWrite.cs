@@ -201,8 +201,8 @@ public class SeriesData() : Data<Series>("series.json")
 
     public override void Add(Series series)
     {
-        List<Series> seriess = Deserialize();
-        seriess.Add(series);
-        Serialize(seriess);
+        List<Series> seriesList = Deserialize();
+        seriesList.Add(series);
+        Serialize(seriesList);
     }
 }
