@@ -88,6 +88,11 @@ public class GenreData() : Data<Genre>("genres.json")
 
 public class PlatformData() : Data<Platform>("platforms.json")
 {
+    public List<Platform> GetAllPlatforms()
+    {
+        return Deserialize();
+    }
+
     protected override List<Platform> DefaultData()
     {
         return

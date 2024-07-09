@@ -24,6 +24,11 @@ public partial class MainWindow
         WindowHelper.ShowWindow(new Add());
     }
 
+    private void ImportButton_Click(object sender, RoutedEventArgs e)
+    {
+        WindowHelper.ShowWindow(new Import());
+    }
+
     private void FilterListBox(object sender, RoutedEventArgs e)
     {
         DataGrid gameDataGrid = GameDataGrid;

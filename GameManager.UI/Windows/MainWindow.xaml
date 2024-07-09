@@ -9,19 +9,22 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button Content="Add..." Click="AddButton_Click" Grid.Column="0" />
-            <Menu Grid.Column="1">
+            <Button Content="Import..." Click="ImportButton_Click" Grid.Column="1" />
+
+            <Menu Grid.Column="2">
                 <MenuItem x:Name="GenreFilter" Header="Genre" />
                 <MenuItem x:Name="PlatformFilter" Header="Platform" />
             </Menu>
 
-            <Label Content="Search" Grid.Column="2" />
-            <TextBox MinWidth="150" Grid.Column="3" />
+            <Label Content="Search" Grid.Column="3" />
+            <TextBox MinWidth="150" Grid.Column="4" />
         </Grid>
 
         <StackPanel>

@@ -2,12 +2,12 @@
 
 public class Game(
     string title,
-    Genre[]? genres,
-    Platform[]? platforms,
-    DateTime? date,
-    Developer[]? developers,
-    Publisher[]? publishers,
-    Series[]? series) : IMetadata
+    Genre[]? genres = null,
+    Platform[]? platforms = null,
+    DateTime? date = null,
+    Developer[]? developers = null,
+    Publisher[]? publishers = null,
+    Series[]? series = null) : IMetadata
 {
     public string Title { get; } = title;
     public Genre[]? Genres { get; } = genres;
