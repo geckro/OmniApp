@@ -31,20 +31,19 @@ public partial class MainWindow
         List<Genre> selectedGenres = GenreFilter.Items
             .OfType<MenuItem>()
             .Where(item => item.IsChecked)
-            .Select(item => new Genre(item.Header.ToString()))
+            .Select(item => new Genre(item.Header.ToString()!))
             .ToList();
 
         List<Platform> selectedPlatforms = PlatformFilter.Items
             .OfType<MenuItem>()
             .Where(item => item.IsChecked)
-            .Select(item => new Platform(item.Header.ToString()))
+            .Select(item => new Platform(item.Header.ToString()!))
             .ToList();
 
         foreach (object? row in gameDataGrid.Items)
         {
-            Game game = (row as DataRowView)?.Row.ItemArray[0] as Game;
+            Game game = (row as DataRowView)?.Row.ItemArray[0] as Game ?? throw new InvalidOperationException();
 
-            if (game == null) continue;
             bool shouldHide = false;
 
             if (selectedPlatforms.Count > 0 && game.Platforms != null)

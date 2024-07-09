@@ -23,8 +23,8 @@ public static class MetadataHelper
             return;
         }
 
-        T newMetadata = (T)Activator.CreateInstance(typeof(T), metadata);
-        metadataData.Add(newMetadata);
+        T newMetadata = (T)Activator.CreateInstance(typeof(T), metadata)!;
+        metadataData.Add(newMetadata ?? throw new InvalidOperationException());
 
         MessageBox.Show($"Added {newMetadata.Name} in {newMetadata.GetType()}");
     }

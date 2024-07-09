@@ -23,7 +23,7 @@ public class ListBoxHelper
             PropertyInfo? categoryProperty = metadata.GetType().GetProperty("Category");
             if (categoryProperty != null)
             {
-                string category = (categoryProperty.GetValue(metadata) as string);
+                string? category = (categoryProperty.GetValue(metadata) as string);
                 if (!string.IsNullOrEmpty(category))
                 {
                     displayText = $"{category} - {metadata.Name}";
