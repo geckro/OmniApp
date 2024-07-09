@@ -1,14 +1,14 @@
-﻿using System.Windows;
+﻿using GameManager.Core.Data;
+using System.Windows;
 using System.Windows.Controls;
-using GameManager.Core.Data;
 
 namespace GameManager.UI.Helpers;
 
 public class Menus
 {
+    private readonly DeveloperData _developerData = new();
     private readonly GenreData _genreData = new();
     private readonly PlatformData _platformData = new();
-    private readonly DeveloperData _developerData = new();
     private readonly PublisherData _publisherData = new();
     private readonly SeriesData _seriesData = new();
 
@@ -23,12 +23,7 @@ public class Menus
         menu.Items.Clear();
         foreach (T metadata in metadataList)
         {
-            MenuItem menuItem = new()
-            {
-                Header = metadata.Name,
-                Margin = new Thickness(0),
-                IsCheckable = true
-            };
+            MenuItem menuItem = new() { Header = metadata.Name, Margin = new Thickness(0), IsCheckable = true };
 
             if (clickHandler != null)
             {

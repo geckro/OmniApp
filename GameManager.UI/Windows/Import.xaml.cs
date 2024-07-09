@@ -1,15 +1,16 @@
-﻿using System.ComponentModel;
+﻿using GameManager.Core.Data;
+using GameManager.UI.Helpers;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using GameManager.Core.Data;
-using GameManager.UI.Helpers;
 
 namespace GameManager.UI.Windows;
 
 public partial class Import
 {
     private readonly Menus _menuHelper = new();
+
     public Import()
     {
         InitializeComponent();
@@ -26,7 +27,12 @@ public partial class Import
         {
             game.Title,
             Genres = game.Genres != null ? string.Join(", ", game.Genres.Select(g => g.Name)) : "",
-            Platforms = game.Platforms != null ? string.Join(", ", game.Platforms.Select(p => !string.IsNullOrEmpty(p.Company) ? $"{p.Company} - {p.Name}" : p.Name)) : "",
+            Platforms =
+                game.Platforms != null
+                    ? string.Join(", ",
+                        game.Platforms.Select(p =>
+                            !string.IsNullOrEmpty(p.Company) ? $"{p.Company} - {p.Name}" : p.Name))
+                    : "",
             Date = game.DateWw.HasValue ? game.DateWw.Value.ToString("yyyy-MMMM-dd") : "",
             Developers = game.Developers != null ? string.Join(", ", game.Developers.Select(d => d.Name)) : "",
             Publishers = game.Publishers != null ? string.Join(", ", game.Publishers.Select(p => p.Name)) : "",
@@ -36,7 +42,11 @@ public partial class Import
         ImportGameDataGrid.ItemsSource = gameRows;
 
         ICollectionView collectionView = CollectionViewSource.GetDefaultView(ImportGameDataGrid.ItemsSource);
-        if (collectionView is not { CanSort: true }) return;
+        if (collectionView is not { CanSort: true })
+        {
+            return;
+        }
+
         collectionView.SortDescriptions.Clear();
         collectionView.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
     }
@@ -45,10 +55,7 @@ public partial class Import
     {
         ImportFilters importFilters = new();
         Menu filterMenu = importFilters.FilterMenu;
-        MenuItem menuItem = new()
-        {
-            Header = menuHeader
-        };
+        MenuItem menuItem = new() { Header = menuHeader };
         filterMenu.Items.Add(menuItem);
 
         importFilters.Show();

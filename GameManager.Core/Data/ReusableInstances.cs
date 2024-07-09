@@ -42,11 +42,6 @@ public static class ReusableInstances
     public static class Platforms
     {
         private static readonly PlatformData platformData = new();
-        private static Platform GetPlatform(string name)
-        {
-            List<Platform> platforms = platformData.GetAllPlatforms();
-            return platforms.Find(p => p.Name == name) ?? throw new InvalidOperationException("Cannot find Platform.");
-        }
 
         public static readonly Platform PS3 = GetPlatform("PlayStation 3");
         public static readonly Platform PS4 = GetPlatform("PlayStation 4");
@@ -59,5 +54,11 @@ public static class ReusableInstances
         public static readonly Platform Windows = GetPlatform("Windows");
 
         public static readonly Platform Switch = GetPlatform("Switch");
+
+        private static Platform GetPlatform(string name)
+        {
+            List<Platform> platforms = platformData.GetAllPlatforms();
+            return platforms.Find(p => p.Name == name) ?? throw new InvalidOperationException("Cannot find Platform.");
+        }
     }
 }

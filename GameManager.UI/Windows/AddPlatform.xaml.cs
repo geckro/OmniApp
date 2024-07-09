@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using GameManager.Core.Data;
+﻿using GameManager.Core.Data;
 using GameManager.UI.Helpers;
+using System.Windows;
 
 namespace GameManager.UI.Windows;
 

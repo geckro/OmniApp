@@ -7,7 +7,6 @@ public class Game(
     Developer[]? developers = null,
     Publisher[]? publishers = null,
     Series[]? series = null,
-
     DateTime? dateWw = null,
     DateTime? dateAu = null,
     DateTime? dateCa = null,
@@ -25,7 +24,6 @@ public class Game(
     DateTime? dateSw = null,
     DateTime? dateUk = null,
     DateTime? dateUs = null,
-
     bool? isRemake = null,
     Game? remakeOf = null,
     bool? isRemaster = null,
@@ -51,14 +49,15 @@ public class Game(
     public Series[]? Series { get; } = series;
 
     /// <summary>
-    /// Default date if no region is specified
+    ///     Default date if no region is specified
     /// </summary>
     public DateTime? DateWw { get; } = dateWw;
 
     /// <summary>
-    /// Region-specific dates
+    ///     Region-specific dates
     /// </summary>
     public DateTime? DateAu { get; } = dateAu;
+
     public DateTime? DateCa { get; } = dateCa;
     public DateTime? DateCh { get; } = dateCh;
     public DateTime? DateEu { get; } = dateEu;
@@ -108,9 +107,9 @@ public class Genre(string name) : IMetadata
 
 public class Platform(string name, string? company = null, PlatformType? type = null) : IMetadata
 {
-    public string Name { get; } = name;
     public string? Company { get; } = company;
     public PlatformType? Type { get; } = type;
+    public string Name { get; } = name;
 }
 
 public enum PlatformType : byte

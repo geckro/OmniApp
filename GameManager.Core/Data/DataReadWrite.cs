@@ -12,6 +12,8 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new();
 
+    public abstract void Add(T item);
+
     protected void Serialize(List<T> items)
     {
         try
@@ -43,8 +45,6 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
     }
 
     protected abstract List<T> DefaultData();
-
-    public abstract void Add(T item);
 }
 
 public class GameData() : Data<Game>("games.json")
@@ -137,7 +137,7 @@ public class PlatformData() : Data<Platform>("platforms.json")
             new Platform("Xbox One", "Microsoft", Home),
             new Platform("Xbox Series X/S", "Microsoft", Home),
             new Platform("Xbox", "Microsoft", Home),
-            new Platform("iOS", "Apple", Handheld),
+            new Platform("iOS", "Apple", Handheld)
         ];
     }
 
