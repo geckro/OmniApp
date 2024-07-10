@@ -1,7 +1,7 @@
 ﻿using OmniApp.Common.Logging;
 using System.Windows;
 
-namespace OmniApp.UI;
+namespace OmniApp.UI.Windows;
 
 public partial class MainWindow
 {
