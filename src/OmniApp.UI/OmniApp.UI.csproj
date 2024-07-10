@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameManager.UI\GameManager.UI.csproj" />
+    <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

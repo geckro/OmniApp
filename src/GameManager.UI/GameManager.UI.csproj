@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameManager.Core\GameManager.Core.csproj"/>
+    <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Windows\Add.xaml">

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using OmniApp.Common.Logging;
+using System.Windows;
 
 namespace OmniApp.UI;
 
@@ -6,6 +7,7 @@ public partial class MainWindow
 {
     public MainWindow()
     {
+        Logger.Info(LogClass.OmniUi, "Starting MainWindow");
         InitializeComponent();
     }
 

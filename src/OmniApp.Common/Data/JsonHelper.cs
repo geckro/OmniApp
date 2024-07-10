@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using OmniApp.Common.Logging;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace OmniApp.Common.Data;
@@ -42,10 +43,11 @@ public class JsonHelper
         try
         {
             File.WriteAllText($"/Data/{jsonFileName}", SerializeToJson(value));
+            Logger.Info(LogClass.OmniCommon, $"Serialized {value} in {jsonFileName}");
         }
         catch (JsonException ex)
         {
-            Console.WriteLine($"Exception when writing to JSON: {ex}");
+            Logger.Error(LogClass.OmniCommon, $"Exception when writing to JSON: {ex}");
         }
     }
 
@@ -65,7 +67,7 @@ public class JsonHelper
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception when reading from JSON: {ex}");
+            Logger.Error(LogClass.OmniCommon, $"Exception when reading from JSON: {ex}");
             return [];
         }
     }

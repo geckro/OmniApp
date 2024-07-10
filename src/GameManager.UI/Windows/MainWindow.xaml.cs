@@ -1,5 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.UI.Helpers;
+using OmniApp.Common.Logging;
 using System.Windows;
 
 namespace GameManager.UI.Windows;
@@ -10,6 +11,8 @@ public partial class MainWindow
 
     public MainWindow()
     {
+        Logger.Info(LogClass.GameMgrUi, "Starting MainWindow");
+
         InitializeComponent();
 
         UpdateGameDataGrid();
