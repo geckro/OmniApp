@@ -1,10 +1,5 @@
 ﻿namespace GameManager.Core.Data;
 
-public interface IMetadata
-{
-    string Name { get; }
-}
-
 public class Engine(string name) : IMetadata
 {
     public string Name { get; } = name;

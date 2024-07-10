@@ -3,8 +3,7 @@
 namespace GameManager.Core.Data;
 
 [method: JsonConstructor]
-public class Game()
-    : IMetadata
+public class Game() : IMetadata
 {
     /// <summary>
     ///     The title or name of the game if no region is specified. Defaults to Worldwide.
