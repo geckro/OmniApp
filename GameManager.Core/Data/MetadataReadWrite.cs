@@ -39,9 +39,6 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
         try
         {
             string jsonString = File.ReadAllText(jsonFile);
-
-            Console.WriteLine(jsonString);
-
             return JsonSerializer.Deserialize<IList<T>>(jsonString, _jsonSerializerOptions) ?? DefaultData();
         }
         catch (FileNotFoundException)

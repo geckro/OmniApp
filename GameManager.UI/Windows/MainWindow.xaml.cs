@@ -12,11 +12,15 @@ public partial class MainWindow
     {
         InitializeComponent();
 
-        UpdateGameDataGrid();
-
         Menus menuHelper = new();
         menuHelper.InitializePlatformsMenu(PlatformFilter, FilterDataGrid);
         menuHelper.InitializeGenresMenu(GenreFilter, FilterDataGrid);
+
+        UpdateGameDataGrid();
+
+        ViewFilter viewFilter = new();
+        WindowHelper.LoadContent(ViewFilterArea, viewFilter);
+        viewFilter.PopulateViewStackPanel();
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)

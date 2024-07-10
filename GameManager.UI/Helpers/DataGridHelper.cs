@@ -8,6 +8,8 @@ namespace GameManager.UI.Helpers;
 
 public static class DataGridHelper
 {
+    public static readonly List<string> AutoHeaders = [];
+
     private static void ClearDataGridItems(DataGrid dataGrid)
     {
         dataGrid.Items.Clear();
@@ -37,8 +39,9 @@ public static class DataGridHelper
 
     public static void ShowHideColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
     {
-        HashSet<string> visibleColumns = ["Title", "Date", "Genres", "Developers", "Publishers", "Series"];
+        AutoHeaders.Add(e.Column.Header.ToString());
 
+        HashSet<string> visibleColumns = ["Title", "Date", "Genres", "Developers", "Publishers", "Series"];
         e.Column.Visibility = visibleColumns.Contains(e.Column.Header.ToString()!) ? Visibility.Visible : Visibility.Collapsed;
     }
 
@@ -46,9 +49,7 @@ public static class DataGridHelper
     {
         IList<Game> games = gameData.GetGames();
         ClearDataGridItems(dataGrid);
-
         SetDataGridItemSource(dataGrid, games);
-
         dataGrid.AutoGeneratingColumn += ShowHideColumn!;
     }
 }

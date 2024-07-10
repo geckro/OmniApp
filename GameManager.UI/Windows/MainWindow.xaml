@@ -8,74 +8,88 @@
     <StackPanel Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <Button Content="Add..." Click="AddButton_Click" Grid.Column="0" />
-            <Button Content="Import..." Click="ImportButton_Click" Grid.Column="1" />
+                <Button Content="Add..." Click="AddButton_Click" Grid.Column="0" />
+                <Button Content="Import..." Click="ImportButton_Click" Grid.Column="1" />
 
-            <Menu Grid.Column="2">
-                <MenuItem x:Name="GenreFilter" Header="Genre" />
-                <MenuItem x:Name="PlatformFilter" Header="Platform" />
-            </Menu>
+                <Menu Grid.Column="2">
+                    <MenuItem x:Name="GenreFilter" Header="Genre" />
+                    <MenuItem x:Name="PlatformFilter" Header="Platform" />
+                </Menu>
 
-            <Label Content="Search" Grid.Column="3" />
-            <TextBox MinWidth="150" Grid.Column="4" />
+                <Label Content="Search" Grid.Column="3" />
+                <TextBox MinWidth="150" Grid.Column="4" />
+            </Grid>
+
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <DataGrid x:Name="GameDataGrid"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          IsReadOnly="True"
+                          AlternatingRowBackground="WhiteSmoke"
+                          GridLinesVisibility="None"
+                          RowHeaderWidth="0">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Style.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Style.Resources>
+                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="BorderThickness" Value="1" />
+                        </Style>
+
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="WhiteSmoke" />
+                            <Setter Property="BorderThickness" Value="0" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                        <Border x:Name="PART_HeaderBorder"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="PART_HeaderBorder" Property="Background"
+                                                        Value="LightBlue" />
+                                                <Setter TargetName="PART_HeaderBorder" Property="BorderBrush" Value="Black" />
+                                                <Setter TargetName="PART_HeaderBorder" Property="BorderThickness"
+                                                        Value="1, 0, 1, 1" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <ContentControl x:Name="ViewFilterArea" />
+            </StackPanel>
         </Grid>
-
-        <StackPanel>
-            <DataGrid x:Name="GameDataGrid"
-                      CanUserAddRows="False"
-                      CanUserDeleteRows="False"
-                      IsReadOnly="True"
-                      AlternatingRowBackground="WhiteSmoke"
-                      GridLinesVisibility="None"
-                      RowHeaderWidth="0">
-                <DataGrid.Resources>
-                    <Style TargetType="DataGrid">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5" />
-                            </Style>
-                        </Style.Resources>
-                        <Setter Property="BorderBrush" Value="Black" />
-                        <Setter Property="BorderThickness" Value="1" />
-                    </Style>
-
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="WhiteSmoke" />
-                        <Setter Property="BorderThickness" Value="0" />
-
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
-                                    <Border x:Name="PART_HeaderBorder"
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="PART_HeaderBorder" Property="Background"
-                                                    Value="LightBlue" />
-                                            <Setter TargetName="PART_HeaderBorder" Property="BorderBrush" Value="Black" />
-                                            <Setter TargetName="PART_HeaderBorder" Property="BorderThickness"
-                                                    Value="1, 0, 1, 1" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="BorderThickness" Value="0" />
-                    </Style>
-                </DataGrid.Resources>
-            </DataGrid>
         </StackPanel>
-    </StackPanel>
 </Window>
