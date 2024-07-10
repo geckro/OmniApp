@@ -70,26 +70,6 @@ public partial class MainWindow
 
     public void UpdateGameDataGrid()
     {
-        DataGrid gameDataGrid = GameDataGrid;
-        gameDataGrid.Items.Clear();
-        GameData gameData = new();
-
-        var gameRows = gameData.GetGames().Select(game => new
-        {
-            game.Title,
-            Genres = game.Genres != null ? string.Join(", ", game.Genres.Select(g => g.Name)) : "",
-            Platforms =
-                game.Platforms != null
-                    ? string.Join(", ",
-                        game.Platforms.Select(p =>
-                            !string.IsNullOrEmpty(p.Company) ? $"{p.Company} - {p.Name}" : p.Name))
-                    : "",
-            Date = game.ReleaseDateWw.HasValue ? game.ReleaseDateWw.Value.ToString("yyyy-MMMM-dd") : "",
-            Developers = game.Developers != null ? string.Join(", ", game.Developers.Select(d => d.Name)) : "",
-            Publishers = game.Publishers != null ? string.Join(", ", game.Publishers.Select(p => p.Name)) : "",
-            Series = game.Series != null ? string.Join(", ", game.Series.Select(s => s.Name)) : ""
-        }).ToList();
-
-        GameDataGrid.ItemsSource = gameRows;
+        DataGridHelper.UpdateGameDataGrid(GameDataGrid, new GameData());
     }
 }
