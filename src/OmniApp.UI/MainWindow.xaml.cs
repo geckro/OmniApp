@@ -14,4 +14,14 @@ public partial class MainWindow
         GameManager.UI.Windows.MainWindow gameWindow = new();
         gameWindow.Show();
     }
+
+    private void FinanceManager_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OtherButton_Click(object sender, RoutedEventArgs e)
+    {
+        throw new NotSupportedException();
+    }
 }
