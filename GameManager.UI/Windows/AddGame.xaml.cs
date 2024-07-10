@@ -59,12 +59,14 @@ public partial class AddGame
         Game newGame = new()
         {
             Title = title,
-            Genres = genres.ToArray(),
-            Platforms = platforms.ToArray(),
-            Developers = developers.ToArray(),
-            Publishers = publishers.ToArray(),
-            Series = series.ToArray(),
-            ReleaseDateWw = dateWw
+            Genres = genres,
+            Platforms = platforms,
+            Developers = developers,
+            Publishers = publishers,
+            Series = series,
+            ReleaseDateWw = dateWw,
+            CreatedOn = DateTime.Now,
+            LastUpdated = DateTime.Now,
         };
 
         GameData gameData = new();

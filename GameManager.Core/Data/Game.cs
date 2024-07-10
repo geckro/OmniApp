@@ -22,31 +22,31 @@ public class Game()
     ///     A list of genres that apply to the game.
     /// </summary>
     [JsonPropertyName("genres")]
-    public Genre[]? Genres { get; set; }
+    public ICollection<Genre>? Genres { get; set; }
 
     /// <summary>
     ///     A list of platforms or systems that the game is available on.
     /// </summary>
     [JsonPropertyName("platforms")]
-    public Platform[]? Platforms { get; set; }
+    public ICollection<Platform>? Platforms { get; set; }
 
     /// <summary>
     ///     A list of developers of the game.
     /// </summary>
     [JsonPropertyName("devs")]
-    public Developer[]? Developers { get; set; }
+    public ICollection<Developer>? Developers { get; set; }
 
     /// <summary>
     ///     A list of publishers of the game.
     /// </summary>
     [JsonPropertyName("pubs")]
-    public Publisher[]? Publishers { get; set; }
+    public ICollection<Publisher>? Publishers { get; set; }
 
     /// <summary>
     ///     A list of series that the game belongs to.
     /// </summary>
     [JsonPropertyName("series")]
-    public Series[]? Series { get; set; }
+    public ICollection<Series>? Series { get; set; }
 
     /// <summary>
     ///     Default release date if no region is specified, assumes that the game released worldwide on the same date.
@@ -141,43 +141,43 @@ public class Game()
     ///     A list of composers of the game.
     /// </summary>
     [JsonPropertyName("composers")]
-    public Composer[]? Composers { get; set; }
+    public ICollection<Composer>? Composers { get; set; }
 
     /// <summary>
     ///     A list of directors of the game.
     /// </summary>
     [JsonPropertyName("directors")]
-    public Director[]? Directors { get; set; }
+    public ICollection<Director>? Directors { get; set; }
 
     /// <summary>
     ///     A list of writers of the game.
     /// </summary>
     [JsonPropertyName("writers")]
-    public Writer[]? Writers { get; set; }
+    public ICollection<Writer>? Writers { get; set; }
 
     /// <summary>
     ///     A list of producers of the game.
     /// </summary>
     [JsonPropertyName("producers")]
-    public Producer[]? Producers { get; set; }
+    public ICollection<Producer>? Producers { get; set; }
 
     /// <summary>
     ///     A list of programmers of the game.
     /// </summary>
     [JsonPropertyName("programmers")]
-    public Programmer[]? Programmers { get; set; }
+    public ICollection<Programmer>? Programmers { get; set; }
 
     /// <summary>
     ///     A list of artists of the game.
     /// </summary>
     [JsonPropertyName("artists")]
-    public Artist[]? Artists { get; set; }
+    public ICollection<Artist>? Artists { get; set; }
 
     /// <summary>
     ///     A list of designers of the game.
     /// </summary>
     [JsonPropertyName("designers")]
-    public Designer[]? Designers { get; set; }
+    public ICollection<Designer>? Designers { get; set; }
 
     /// <summary>
     ///     The engine that the game uses to run.
