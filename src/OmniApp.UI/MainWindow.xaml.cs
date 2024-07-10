@@ -11,8 +11,7 @@ public partial class MainWindow
 
     private void GameManager_OnClick(object sender, RoutedEventArgs e)
     {
-        GameManager.UI.App gameApp = new();
-        gameApp.InitializeComponent();
-        gameApp.Run();
+        GameManager.UI.Windows.MainWindow gameWindow = new();
+        gameWindow.Show();
     }
 }

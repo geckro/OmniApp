@@ -7,7 +7,7 @@
   mc:Ignorable="d"
   Title="Game Manager"
   WindowStartupLocation="CenterScreen"
-  Icon="/Images/icon.ico"
+  Icon="../Images/icon.ico"
   d:DesignWidth="1280"
   d:DesignHeight="720"
   MinWidth="800"
