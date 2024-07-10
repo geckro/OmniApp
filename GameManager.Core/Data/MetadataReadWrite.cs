@@ -13,13 +13,13 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        IncludeFields = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+        PropertyNameCaseInsensitive = true,
     };
 
     public abstract void Add(T item);
 
-    protected void Serialize(List<T> items)
+    protected void Serialize(IList<T> items)
     {
         try
         {
@@ -34,18 +34,26 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
         }
     }
 
-    public List<T> Deserialize()
+    public IList<T> Deserialize()
     {
         try
         {
             string jsonString = File.ReadAllText(jsonFile);
-            return JsonSerializer.Deserialize<List<T>>(jsonString) ?? DefaultData();
+
+            Console.WriteLine(jsonString);
+
+            return JsonSerializer.Deserialize<IList<T>>(jsonString, _jsonSerializerOptions) ?? DefaultData();
         }
         catch (FileNotFoundException)
         {
-            List<T> dataList = DefaultData();
+            IList<T> dataList = DefaultData();
             Serialize(dataList);
             return dataList;
+        }
+        catch (JsonException ex)
+        {
+            Console.WriteLine($"JSON deserialization error: {ex.Message}");
+            throw;
         }
     }
 
@@ -56,12 +64,12 @@ public class GameData() : Data<Game>("games.json")
 {
     public override void Add(Game game)
     {
-        List<Game> games = Deserialize();
+        IList<Game> games = Deserialize();
         games.Add(game);
         Serialize(games);
     }
 
-    public List<Game> GetGames()
+    public IList<Game> GetGames()
     {
         return Deserialize();
     }
@@ -85,7 +93,7 @@ public class GenreData() : Data<Genre>("genres.json")
 
     public override void Add(Genre genre)
     {
-        List<Genre> genres = Deserialize();
+        IList<Genre> genres = Deserialize();
         genres.Add(genre);
         Serialize(genres);
     }
@@ -93,7 +101,7 @@ public class GenreData() : Data<Genre>("genres.json")
 
 public class PlatformData() : Data<Platform>("platforms.json")
 {
-    public List<Platform> GetAllPlatforms()
+    public IList<Platform> GetAllPlatforms()
     {
         return Deserialize();
     }
@@ -148,7 +156,7 @@ public class PlatformData() : Data<Platform>("platforms.json")
 
     public override void Add(Platform platform)
     {
-        List<Platform> platforms = Deserialize();
+        IList<Platform> platforms = Deserialize();
         platforms.Add(platform);
         Serialize(platforms);
     }
@@ -168,7 +176,7 @@ public class DeveloperData() : Data<Developer>("developers.json")
 
     public override void Add(Developer developer)
     {
-        List<Developer> developers = Deserialize();
+        IList<Developer> developers = Deserialize();
         developers.Add(developer);
         Serialize(developers);
     }
@@ -188,7 +196,7 @@ public class PublisherData() : Data<Publisher>("publishers.json")
 
     public override void Add(Publisher publisher)
     {
-        List<Publisher> publishers = Deserialize();
+        IList<Publisher> publishers = Deserialize();
         publishers.Add(publisher);
         Serialize(publishers);
     }
@@ -206,7 +214,7 @@ public class SeriesData() : Data<Series>("series.json")
 
     public override void Add(Series series)
     {
-        List<Series> seriesList = Deserialize();
+        IList<Series> seriesList = Deserialize();
         seriesList.Add(series);
         Serialize(seriesList);
     }
