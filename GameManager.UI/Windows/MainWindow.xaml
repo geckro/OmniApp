@@ -38,21 +38,6 @@
                   AlternatingRowBackground="WhiteSmoke"
                   GridLinesVisibility="None"
                   RowHeaderWidth="0">
-          <DataGrid.Resources>
-            <Style TargetType="DataGrid">
-              <Setter Property="BorderBrush" Value="Black" />
-              <Setter Property="BorderThickness" Value="1" />
-            </Style>
-
-            <Style TargetType="DataGridColumnHeader">
-              <Setter Property="Background" Value="WhiteSmoke" />
-              <Setter Property="BorderThickness" Value="0" />
-            </Style>
-
-            <Style TargetType="DataGridRow">
-              <Setter Property="BorderThickness" Value="0" />
-            </Style>
-          </DataGrid.Resources>
         </DataGrid>
       </StackPanel>
 
