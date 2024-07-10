@@ -15,8 +15,8 @@ public partial class MainWindow
         UpdateGameDataGrid();
 
         Menus menuHelper = new();
-        menuHelper.InitializePlatformsMenu(PlatformFilter, FilterListBox);
-        menuHelper.InitializeGenresMenu(GenreFilter, FilterListBox);
+        menuHelper.InitializePlatformsMenu(PlatformFilter, FilterDataGrid);
+        menuHelper.InitializeGenresMenu(GenreFilter, FilterDataGrid);
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -29,43 +29,8 @@ public partial class MainWindow
         WindowHelper.ShowWindow(new Import());
     }
 
-    private void FilterListBox(object sender, RoutedEventArgs e)
+    private void FilterDataGrid(object sender, RoutedEventArgs e)
     {
-        DataGrid gameDataGrid = GameDataGrid;
-
-        List<Genre> selectedGenres = GenreFilter.Items
-            .OfType<MenuItem>()
-            .Where(item => item.IsChecked)
-            .Select(item => new Genre(item.Header.ToString()!))
-            .ToList();
-
-        List<Platform> selectedPlatforms = PlatformFilter.Items
-            .OfType<MenuItem>()
-            .Where(item => item.IsChecked)
-            .Select(item => new Platform(item.Header.ToString()!))
-            .ToList();
-
-        foreach (object? row in gameDataGrid.Items)
-        {
-            Game game = (row as DataRowView)?.Row.ItemArray[0] as Game ?? throw new InvalidOperationException();
-
-            bool shouldHide = false;
-
-            if (selectedPlatforms.Count > 0 && game.Platforms != null)
-            {
-                shouldHide = !game.Platforms.Any(p => selectedPlatforms.Any(sp => sp.Name == p.Name));
-            }
-
-            if (selectedGenres.Count > 0 && game.Genres != null)
-            {
-                shouldHide = shouldHide || !game.Genres.Any(g => selectedGenres.Any(sg => sg.Name == g.Name));
-            }
-
-            if (gameDataGrid.ItemContainerGenerator.ContainerFromItem(row) is DataGridRow rowItem)
-            {
-                rowItem.Visibility = shouldHide ? Visibility.Collapsed : Visibility.Visible;
-            }
-        }
     }
 
     public void UpdateGameDataGrid()
