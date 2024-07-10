@@ -3,248 +3,211 @@
 namespace GameManager.Core.Data;
 
 [method: JsonConstructor]
-public class Game(
-    string title,
-    Genre[]? genres = null,
-    Platform[]? platforms = null,
-    Developer[]? developers = null,
-    Publisher[]? publishers = null,
-    Series[]? series = null,
-    DateTime? releaseDateWw = null,
-    Dictionary<Region, DateTime?>? regionReleaseDates = null,
-    bool? isRemake = null,
-    Game? remakeOf = null,
-    bool? isRemaster = null,
-    Game? remasterOf = null,
-    bool? isPort = null,
-    Game? portOf = null,
-    bool? isSequel = null,
-    Game? sequelOf = null,
-    bool? isPrequel = null,
-    Game? prequelOf = null,
-    bool? isDlc = null,
-    Game? dlcOf = null,
-    bool? isMod = null,
-    Game? modOf = null,
-    bool? isHack = null,
-    Game? hackOf = null,
-    Dictionary<Region, string>? regionTitles = null,
-    Director[]? directors = null,
-    Producer[]? producers = null,
-    Designer[]? designers = null,
-    Programmer[]? programmers = null,
-    Artist[]? artists = null,
-    Writer[]? writers = null,
-    Composer[]? composers = null,
-    Engine? engine = null,
-    bool? hasPlayed = null,
-    bool? hasFinished = null,
-    bool? hasCompleted = null,
-    string? ageRating = null)
+public class Game()
     : IMetadata
 {
     /// <summary>
     ///     The title or name of the game if no region is specified. Defaults to Worldwide.
     /// </summary>
     [JsonPropertyName("title")]
-    public string Title { get; set; } = title;
+    public string Title { get; set; }
 
     /// <summary>
     ///     Region-specific titles.
     /// </summary>
     [JsonPropertyName("regionTitle")]
-    public Dictionary<Region, string>? RegionTitle { get; set; } = regionTitles;
+    public Dictionary<Region, string>? RegionTitle { get; set; }
 
     /// <summary>
     ///     A list of genres that apply to the game.
     /// </summary>
     [JsonPropertyName("genres")]
-    public Genre[]? Genres { get; set; } = genres;
+    public Genre[]? Genres { get; set; }
 
     /// <summary>
     ///     A list of platforms or systems that the game is available on.
     /// </summary>
     [JsonPropertyName("platforms")]
-    public Platform[]? Platforms { get; set; } = platforms;
+    public Platform[]? Platforms { get; set; }
 
     /// <summary>
     ///     A list of developers of the game.
     /// </summary>
     [JsonPropertyName("devs")]
-    public Developer[]? Developers { get; set; } = developers;
+    public Developer[]? Developers { get; set; }
 
     /// <summary>
     ///     A list of publishers of the game.
     /// </summary>
     [JsonPropertyName("pubs")]
-    public Publisher[]? Publishers { get; set; } = publishers;
+    public Publisher[]? Publishers { get; set; }
 
     /// <summary>
     ///     A list of series that the game belongs to.
     /// </summary>
     [JsonPropertyName("series")]
-    public Series[]? Series { get; set; } = series;
+    public Series[]? Series { get; set; }
 
     /// <summary>
     ///     Default release date if no region is specified, assumes that the game released worldwide on the same date.
     /// </summary>
     [JsonPropertyName("rDate")]
-    public DateTime? ReleaseDateWw { get; set; } = releaseDateWw;
+    public DateTime? ReleaseDateWw { get; set; }
 
     /// <summary>
     ///     Region-specific release dates.
     /// </summary>
     [JsonPropertyName("rDates")]
-    public Dictionary<Region, DateTime?> RegionReleaseDates { get; set; } = regionReleaseDates ?? new Dictionary<Region, DateTime?>();
+    public Dictionary<Region, DateTime?> RegionReleaseDates { get; set; }
 
     /// <summary>
     ///     If the game is a from the ground up remake.
     /// </summary>
     [JsonPropertyName("remake")]
-    public bool? IsRemake { get; set; } = isRemake;
+    public bool? IsRemake { get; set; }
 
-    [JsonPropertyName("remakeOf")] public Game? RemakeOf { get; set; } = remakeOf;
+    [JsonPropertyName("remakeOf")] public Game? RemakeOf { get; set; }
 
     /// <summary>
     ///     If the game is a remaster.
     /// </summary>
 
     [JsonPropertyName("remaster")]
-    public bool? IsRemaster { get; set; } = isRemaster;
+    public bool? IsRemaster { get; set; }
 
-    [JsonPropertyName("remasterOf")] public Game? RemasterOf { get; set; } = remasterOf;
+    [JsonPropertyName("remasterOf")] public Game? RemasterOf { get; set; }
 
     /// <summary>
     ///     If the game is a port.
     /// </summary>
     [JsonPropertyName("port")]
-    public bool? IsPort { get; set; } = isPort;
+    public bool? IsPort { get; set; }
 
-    [JsonPropertyName("portOf")] public Game? PortOf { get; set; } = portOf;
+    [JsonPropertyName("portOf")] public Game? PortOf { get; set; }
 
     /// <summary>
     ///     If the game is a sequel to another game.
     /// </summary>
     [JsonPropertyName("sequel")]
-    public bool? IsSequel { get; set; } = isSequel;
+    public bool? IsSequel { get; set; }
 
-    [JsonPropertyName("sequelOf")] public Game? SequelOf { get; set; } = sequelOf;
+    [JsonPropertyName("sequelOf")] public Game? SequelOf { get; set; }
 
     /// <summary>
     ///     If the game is a prequel to another game.
     /// </summary>
     [JsonPropertyName("prequel")]
-    public bool? IsPrequel { get; set; } = isPrequel;
+    public bool? IsPrequel { get; set; }
 
-    [JsonPropertyName("prequelOf")] public Game? PrequelOf { get; set; } = prequelOf;
+    [JsonPropertyName("prequelOf")] public Game? PrequelOf { get; set; }
 
     /// <summary>
     ///     If the Game is downloadable content.
     /// </summary>
     [JsonPropertyName("dlc")]
-    public bool? IsDlc { get; set; } = isDlc;
+    public bool? IsDlc { get; set; }
 
-    [JsonPropertyName("dlcOf")] public Game? DlcOf { get; set; } = dlcOf;
+    [JsonPropertyName("dlcOf")] public Game? DlcOf { get; set; }
 
     /// <summary>
     ///     If the game is a mod of a game, whether it be official or not.
     /// </summary>
     [JsonPropertyName("mod")]
-    public bool? IsMod { get; set; } = isMod;
+    public bool? IsMod { get; set; }
 
-    [JsonPropertyName("modOf")] public Game? ModOf { get; set; } = modOf;
+    [JsonPropertyName("modOf")] public Game? ModOf { get; set; }
 
     /// <summary>
     ///     If the game is a hack of a game, whether it be official or not.
     /// </summary>
     [JsonPropertyName("hack")]
-    public bool? IsHack { get; set; } = isHack;
+    public bool? IsHack { get; set; }
 
-    [JsonPropertyName("hackOf")] public Game? HackOf { get; set; } = hackOf;
+    [JsonPropertyName("hackOf")] public Game? HackOf { get; set; }
 
     /// <summary>
     ///     The creation date of the game entry.
     /// </summary>
     [JsonPropertyName("dateCr")]
-    public DateTime CreatedOn { get; set; } = DateTime.Now;
+    public DateTime CreatedOn { get; set; }
 
     /// <summary>
     ///     The last time the game entry was updated.
     /// </summary>
     [JsonPropertyName("dateUp")]
-    public DateTime LastUpdated { get; set; } = DateTime.Now;
+    public DateTime LastUpdated { get; set; }
 
     /// <summary>
     ///     A list of composers of the game.
     /// </summary>
     [JsonPropertyName("composers")]
-    public Composer[]? Composers { get; set; } = composers;
+    public Composer[]? Composers { get; set; }
 
     /// <summary>
     ///     A list of directors of the game.
     /// </summary>
     [JsonPropertyName("directors")]
-    public Director[]? Directors { get; set; } = directors;
+    public Director[]? Directors { get; set; }
 
     /// <summary>
     ///     A list of writers of the game.
     /// </summary>
     [JsonPropertyName("writers")]
-    public Writer[]? Writers { get; set; } = writers;
+    public Writer[]? Writers { get; set; }
 
     /// <summary>
     ///     A list of producers of the game.
     /// </summary>
     [JsonPropertyName("producers")]
-    public Producer[]? Producers { get; set; } = producers;
+    public Producer[]? Producers { get; set; }
 
     /// <summary>
     ///     A list of programmers of the game.
     /// </summary>
     [JsonPropertyName("programmers")]
-    public Programmer[]? Programmers { get; set; } = programmers;
+    public Programmer[]? Programmers { get; set; }
 
     /// <summary>
     ///     A list of artists of the game.
     /// </summary>
     [JsonPropertyName("artists")]
-    public Artist[]? Artists { get; set; } = artists;
+    public Artist[]? Artists { get; set; }
 
     /// <summary>
     ///     A list of designers of the game.
     /// </summary>
     [JsonPropertyName("designers")]
-    public Designer[]? Designers { get; set; } = designers;
+    public Designer[]? Designers { get; set; }
 
     /// <summary>
     ///     The engine that the game uses to run.
     /// </summary>
     [JsonPropertyName("engine")]
-    public Engine? Engine { get; set; } = engine;
+    public Engine? Engine { get; set; }
 
     /// <summary>
     ///     If the user has played the game.
     /// </summary>
     [JsonPropertyName("played")]
-    public bool? HasPlayed { get; set; } = hasPlayed;
+    public bool? HasPlayed { get; set; }
 
     /// <summary>
     ///     If the user has finished the game.
     /// </summary>
     [JsonPropertyName("finished")]
-    public bool? HasFinished { get; set; } = hasFinished;
+    public bool? HasFinished { get; set; }
 
     /// <summary>
     ///     If the user has fully completed the game.
     /// </summary>
     [JsonPropertyName("completed")]
-    public bool? HasCompleted { get; set; } = hasCompleted;
+    public bool? HasCompleted { get; set; }
 
     /// <summary>
     ///     The age rating of the game.
     /// </summary>
     [JsonPropertyName("ageRating")]
-    public string? AgeRating { get; set; } = ageRating;
+    public string? AgeRating { get; set; }
 
     string IMetadata.Name => Title;
 }
