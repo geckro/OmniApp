@@ -13,8 +13,7 @@ public abstract class Data<T>(string jsonFile) : IMetadataData<T> where T : IMet
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault, PropertyNameCaseInsensitive = true
     };
 
     public abstract void Add(T item);

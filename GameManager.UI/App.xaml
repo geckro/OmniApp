@@ -3,43 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GameManager.UI.Windows"
              StartupUri="/Windows/MainWindow.xaml">
-    <Application.Resources>
-        <Style TargetType="{x:Type local:MainWindow}">
-            <Setter Property="Background" Value="WhiteSmoke" />
-        </Style>
+  <Application.Resources>
+    <Style TargetType="{x:Type local:MainWindow}">
+      <Setter Property="Background" Value="WhiteSmoke" />
+    </Style>
 
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="FontSize" Value="14" />
-        </Style>
+    <Style TargetType="{x:Type TextBlock}">
+      <Setter Property="Margin" Value="5" />
+      <Setter Property="FontSize" Value="14" />
+    </Style>
 
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+    <Style TargetType="{x:Type Label}">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 
-        <Style TargetType="FrameworkElement">
-            <Setter Property="Margin" Value="5" />
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-            </Style.Resources>
+    <Style TargetType="FrameworkElement">
+      <Setter Property="Margin" Value="5" />
+      <Style.Resources>
+        <Style TargetType="Border">
+          <Setter Property="CornerRadius" Value="5" />
         </Style>
+      </Style.Resources>
+    </Style>
 
-        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
-            <Setter Property="Background" Value="White" />
-        </Style>
-        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
-            <Setter Property="Margin" Value="0" />
-        </Style>
-        <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
-            <Setter Property="BorderBrush" Value="LightGray" />
-            <Setter Property="BorderThickness" Value="1" />
-        </Style>
-        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type FrameworkElement}}" />
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type FrameworkElement}}" />
-    </Application.Resources>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+      <Setter Property="Background" Value="White" />
+    </Style>
+    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+      <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+      <Setter Property="BorderBrush" Value="LightGray" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type FrameworkElement}}" />
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type FrameworkElement}}" />
+  </Application.Resources>
 </Application>

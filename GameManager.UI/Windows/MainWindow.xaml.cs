@@ -1,6 +1,5 @@
 ﻿using GameManager.Core.Data;
 using GameManager.UI.Helpers;
-using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,19 +7,14 @@ namespace GameManager.UI.Windows;
 
 public partial class MainWindow
 {
+    private readonly DataGridHelper _dataGridHelper = DataGridHelper.Instance;
+
     public MainWindow()
     {
         InitializeComponent();
 
-        Menus menuHelper = new();
-        menuHelper.InitializePlatformsMenu(PlatformFilter, FilterDataGrid);
-        menuHelper.InitializeGenresMenu(GenreFilter, FilterDataGrid);
-
         UpdateGameDataGrid();
-
-        ViewFilter viewFilter = new();
-        WindowHelper.LoadContent(ViewFilterArea, viewFilter);
-        viewFilter.PopulateViewStackPanel();
+        PopulateViewStackPanel();
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -39,6 +33,27 @@ public partial class MainWindow
 
     public void UpdateGameDataGrid()
     {
-        DataGridHelper.UpdateGameDataGrid(GameDataGrid, new GameData());
+        Console.WriteLine("Running UpdateGameDataGrid");
+        _dataGridHelper.UpdateGameDataGrid(GameDataGrid, new GameData());
+    }
+
+    private static void PopulateStackPanel(StackPanel stackPanel, IEnumerable<string> headers)
+    {
+        Console.WriteLine("Running PopulateStackPanel");
+        foreach (string header in headers)
+        {
+            CheckBox checkBox = new() { Content = header, Name = header };
+            stackPanel.Children.Add(checkBox);
+        }
+    }
+
+    private void PopulateViewStackPanel()
+    {
+        Console.WriteLine("Running PopulateViewStackPanel");
+        ICollection<string> headers = _dataGridHelper.AutoHeaders;
+
+        Console.WriteLine($"Headers: {string.Join(", ", headers)}");
+
+        PopulateStackPanel(ViewStackPanel, headers);
     }
 }

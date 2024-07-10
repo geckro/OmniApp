@@ -7,14 +7,14 @@
         Title="Import filters"
         Height="500"
         Width="300">
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Menu x:Name="FilterMenu">
-                <!-- FILTERS GO HERE, check Import.xaml.cs -->
-            </Menu>
-        </StackPanel>
-    </Grid>
+  <Grid Margin="10">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+    </Grid.ColumnDefinitions>
+    <StackPanel Grid.Column="0">
+      <Menu x:Name="FilterMenu">
+        <!-- FILTERS GO HERE, check Import.xaml.cs -->
+      </Menu>
+    </StackPanel>
+  </Grid>
 </Window>

@@ -1,9 +1,6 @@
-﻿using GameManager.Core.Data;
-using GameManager.UI.Helpers;
-using System.ComponentModel;
+﻿using GameManager.UI.Helpers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace GameManager.UI.Windows;
 

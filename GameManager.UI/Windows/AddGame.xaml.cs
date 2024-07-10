@@ -66,13 +66,10 @@ public partial class AddGame
             Series = series,
             ReleaseDateWw = dateWw,
             CreatedOn = DateTime.Now,
-            LastUpdated = DateTime.Now,
+            LastUpdated = DateTime.Now
         };
 
         GameData gameData = new();
         gameData.Add(newGame);
-
-        MainWindow mainWindow = new();
-        mainWindow.UpdateGameDataGrid();
     }
 }

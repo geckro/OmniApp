@@ -5,37 +5,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         Title="Add Game" Height="200" Width="400">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Label Content="Title" />
-            <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="GenresMenu" Header="Genres" />
-            </Menu>
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
-            </Menu>
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="DevelopersMenu" Header="Developers" />
-            </Menu>
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="PublishersMenu" Header="Publishers" />
-            </Menu>
-            <Menu VerticalAlignment="Center">
-                <MenuItem x:Name="SeriesMenu" Header="Series" />
-            </Menu>
-            <DatePicker x:Name="Date" />
-        </StackPanel>
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal" Grid.Row="0">
+      <Label Content="Title" />
+      <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Grid.Row="1">
+      <Menu VerticalAlignment="Center">
+        <MenuItem x:Name="GenresMenu" Header="Genres" />
+      </Menu>
+      <Menu VerticalAlignment="Center">
+        <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
+      </Menu>
+      <Menu VerticalAlignment="Center">
+        <MenuItem x:Name="DevelopersMenu" Header="Developers" />
+      </Menu>
+      <Menu VerticalAlignment="Center">
+        <MenuItem x:Name="PublishersMenu" Header="Publishers" />
+      </Menu>
+      <Menu VerticalAlignment="Center">
+        <MenuItem x:Name="SeriesMenu" Header="Series" />
+      </Menu>
+      <DatePicker x:Name="Date" />
+    </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Content="Add new game" Click="AddNewGameFinish_Click" />
-        </StackPanel>
-    </Grid>
+    <StackPanel Orientation="Horizontal" Grid.Row="2">
+      <Button Content="Add new game" Click="AddNewGameFinish_Click" />
+    </StackPanel>
+  </Grid>
 </Window>
