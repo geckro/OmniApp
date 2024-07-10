@@ -23,32 +23,6 @@ public partial class Import
 
     private void PopulateDataGrid()
     {
-        var gameRows = GameImports.GetGames().Select(game => new
-        {
-            game.Title,
-            Genres = game.Genres != null ? string.Join(", ", game.Genres.Select(g => g.Name)) : "",
-            Platforms =
-                game.Platforms != null
-                    ? string.Join(", ",
-                        game.Platforms.Select(p =>
-                            !string.IsNullOrEmpty(p.Company) ? $"{p.Company} - {p.Name}" : p.Name))
-                    : "",
-            Date = game.ReleaseDateWw.HasValue ? game.ReleaseDateWw.Value.ToString("yyyy-MMMM-dd") : "",
-            Developers = game.Developers != null ? string.Join(", ", game.Developers.Select(d => d.Name)) : "",
-            Publishers = game.Publishers != null ? string.Join(", ", game.Publishers.Select(p => p.Name)) : "",
-            Series = game.Series != null ? string.Join(", ", game.Series.Select(s => s.Name)) : ""
-        }).ToList();
-
-        ImportGameDataGrid.ItemsSource = gameRows;
-
-        ICollectionView collectionView = CollectionViewSource.GetDefaultView(ImportGameDataGrid.ItemsSource);
-        if (collectionView is not { CanSort: true })
-        {
-            return;
-        }
-
-        collectionView.SortDescriptions.Clear();
-        collectionView.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
     }
 
     private static MenuItem GetFilterMenuItem(string menuHeader)
