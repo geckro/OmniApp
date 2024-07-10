@@ -37,4 +37,8 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Resource Include="Images/icon.ico" />
+  </ItemGroup>
 </Project>

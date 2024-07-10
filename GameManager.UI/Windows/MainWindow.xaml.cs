@@ -7,6 +7,7 @@ namespace GameManager.UI.Windows;
 
 public partial class MainWindow
 {
+
     private readonly DataGridHelper _dataGridHelper = DataGridHelper.Instance;
 
     public MainWindow()
