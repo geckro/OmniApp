@@ -40,7 +40,7 @@ public partial class AddGame
 
         List<Platform> platforms = (from MenuItem item in PlatformsMenu.Items
             where item.IsChecked
-            select new Platform(item.Header.ToString())).ToList();
+            select new Platform{Name = item.Header.ToString()}).ToList();
 
         List<Developer> developers = (from MenuItem item in DevelopersMenu.Items
             where item.IsChecked

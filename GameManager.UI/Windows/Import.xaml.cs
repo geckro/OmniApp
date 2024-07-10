@@ -14,12 +14,6 @@ public partial class Import
 
         ImportGameDataGrid.ColumnWidth = new DataGridLength(100);
         ImportGameDataGrid.MinColumnWidth = 50;
-
-        PopulateDataGrid();
-    }
-
-    private void PopulateDataGrid()
-    {
     }
 
     private static MenuItem GetFilterMenuItem(string menuHeader)

@@ -5,7 +5,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
-  Title="Add Genre" Height="200" Width="400">
+  Title="Add Genre"
+  Height="200"
+  Width="400">
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
