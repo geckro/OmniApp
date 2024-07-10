@@ -11,31 +11,44 @@
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" Grid.Row="0">
       <Label Content="Title" />
       <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
     </StackPanel>
-    <StackPanel Orientation="Horizontal" Grid.Row="1">
-      <Menu VerticalAlignment="Center">
-        <MenuItem x:Name="GenresMenu" Header="Genres" />
-      </Menu>
-      <Menu VerticalAlignment="Center">
-        <MenuItem x:Name="PlatformsMenu" Header="Platforms" />
-      </Menu>
-      <Menu VerticalAlignment="Center">
-        <MenuItem x:Name="DevelopersMenu" Header="Developers" />
-      </Menu>
-      <Menu VerticalAlignment="Center">
-        <MenuItem x:Name="PublishersMenu" Header="Publishers" />
-      </Menu>
-      <Menu VerticalAlignment="Center">
-        <MenuItem x:Name="SeriesMenu" Header="Series" />
-      </Menu>
-      <DatePicker x:Name="Date" />
-    </StackPanel>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Orientation="Vertical" Grid.Column="0">
+        <Label Content="Genres" />
+        <ListView x:Name="GenresListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Grid.Column="1">
+        <Label Content="Platforms" />
+        <ListView x:Name="PlatformsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Grid.Column="2">
+        <Label Content="Developers" />
+        <ListView x:Name="DevelopersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Grid.Column="3">
+        <Label Content="Publishers" />
+        <ListView x:Name="PublishersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Grid.Column="4">
+        <Label Content="Series" />
+        <ListView x:Name="SeriesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <DatePicker x:Name="Date" />
+      </StackPanel>
+    </Grid>
 
     <StackPanel Orientation="Horizontal" Grid.Row="2">
       <Button Content="Add new game" Click="AddNewGameFinish_Click" />
