@@ -36,11 +36,11 @@ public class ListBoxHelper
 
     public void UpdateGenreListBox(ListBox listBox)
     {
-        UpdateListBox(listBox, _genreData.Deserialize());
+        UpdateListBox(listBox, _genreData.ReadFromJson());
     }
 
     public void UpdatePlatformListBox(ListBox listBox)
     {
-        UpdateListBox(listBox, _platformData.Deserialize());
+        UpdateListBox(listBox, _platformData.ReadFromJson());
     }
 }

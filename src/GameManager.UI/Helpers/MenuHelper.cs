@@ -47,28 +47,28 @@ public class Menus
     public void InitializePlatformsMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _platformData.Deserialize(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _platformData.ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeGenresMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _genreData.Deserialize(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _genreData.ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeDevelopersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _developerData.Deserialize(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _developerData.ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializePublishersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _publisherData.Deserialize(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _publisherData.ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeSeriesMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _seriesData.Deserialize(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _seriesData.ReadFromJson(), clickHandler, menuStaysOpen);
     }
 }

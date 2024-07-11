@@ -15,6 +15,6 @@ public partial class AddGenre
 
     private void AddNewGenre_Click(object sender, RoutedEventArgs e)
     {
-        MetadataHelper.AddNewMetadata<Genre, GenreData>(GenreBox, new GenreData());
+        // MetadataHelper.AddNewMetadata<Genre, GenreData>(GenreBox, new GenreData());
     }
 }

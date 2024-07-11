@@ -7,7 +7,7 @@ public class DataGridHelper
 {
     public void UpdateGameDataGrid(DataGrid dataGrid, GameData gameData)
     {
-        IList<Game> games = gameData.GetGames();
+        ICollection<Game> games = gameData.ReadFromJson();
 
         dataGrid.Items.Clear();
         dataGrid.ItemsSource = games;

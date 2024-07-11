@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameManager.Core\GameManager.Core.csproj"/>
-    <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj" />
+    <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Windows\Add.xaml">
@@ -39,7 +39,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
-    <Resource Include="Images\icon.ico" />
+    <Folder Include="Images\"/>
+    <Resource Include="Images\icon.ico"/>
   </ItemGroup>
 </Project>

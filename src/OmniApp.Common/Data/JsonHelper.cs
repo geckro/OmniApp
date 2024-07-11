@@ -42,7 +42,7 @@ public class JsonHelper
     {
         try
         {
-            File.WriteAllText($"/Data/{jsonFileName}", SerializeToJson(value));
+            File.WriteAllText(jsonFileName, SerializeToJson(value));
             Logger.Info(LogClass.OmniCommon, $"Serialized {value} in {jsonFileName}");
         }
         catch (JsonException ex)
@@ -62,12 +62,16 @@ public class JsonHelper
     {
         try
         {
-            string jsonRawString = $"/Data/{File.ReadAllText(jsonFileName)}";
+            if (!File.Exists(jsonFileName))
+            {
+                File.WriteAllText(jsonFileName, "[]");
+            }
+            string jsonRawString = File.ReadAllText(jsonFileName);
             return DeserializeFromJson<T>(jsonRawString);
         }
-        catch (Exception ex)
+        catch (JsonException ex)
         {
-            Logger.Error(LogClass.OmniCommon, $"Exception when reading from JSON: {ex}");
+            Logger.Error(LogClass.OmniCommon, $"JSON Exception when reading from {jsonFileName}: {ex}");
             return [];
         }
     }

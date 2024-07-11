@@ -15,6 +15,6 @@ public partial class AddPlatform
 
     private void AddNewPlatform_Click(object sender, RoutedEventArgs e)
     {
-        MetadataHelper.AddNewMetadata<Platform, PlatformData>(PlatformBox, new PlatformData());
+        // MetadataHelper.AddNewMetadata<Platform, PlatformData>(PlatformBox, new PlatformData());
     }
 }

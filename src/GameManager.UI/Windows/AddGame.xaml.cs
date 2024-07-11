@@ -10,14 +10,14 @@ public partial class AddGame
     {
         InitializeComponent();
 
-        InitializeListView(GenresListView, new GenreData().Deserialize());
-        InitializeListView(PlatformsListView, new PlatformData().Deserialize());
-        InitializeListView(DevelopersListView, new DeveloperData().Deserialize());
-        InitializeListView(PublishersListView, new PublisherData().Deserialize());
-        InitializeListView(SeriesListView, new SeriesData().Deserialize());
+        InitializeListView(GenresListView, new GenreData().ReadFromJson());
+        InitializeListView(PlatformsListView, new PlatformData().ReadFromJson());
+        InitializeListView(DevelopersListView, new DeveloperData().ReadFromJson());
+        InitializeListView(PublishersListView, new PublisherData().ReadFromJson());
+        InitializeListView(SeriesListView, new SeriesData().ReadFromJson());
     }
 
-    private void InitializeListView<T>(ListView listView, IEnumerable<T> metadataList) where T : IMetadata
+    private static void InitializeListView<T>(ListView listView, IEnumerable<T> metadataList) where T : IMetadata
     {
         foreach (T metadata in metadataList)
         {
@@ -26,37 +26,55 @@ public partial class AddGame
         }
     }
 
+    private static List<T> ExtractCheckBoxes<T>(ListView listView, Func<string, T> metadataFactory)
+    {
+        return listView.Items
+            .OfType<CheckBox>()
+            .Where(item => item.IsChecked == true)
+            .Select(item => metadataFactory(item.Name))
+            .ToList();
+    }
+
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
     {
-        // string title = TitleBox.Text;
-        //
-        // if (string.IsNullOrWhiteSpace(title))
-        // {
-        //     MessageBox.Show(
-        //         "Please enter a valid title.",
-        //         "Error",
-        //         MessageBoxButton.OK,
-        //         MessageBoxImage.Error
-        //     );
-        //     return;
-        // }
-        //
-        // DateTime? dateWw = Date.SelectedDate;
-        //
-        // Game newGame = new()
-        // {
-        //     Title = title,
-        //     Genres = genres,
-        //     Platforms = platforms,
-        //     Developers = developers,
-        //     Publishers = publishers,
-        //     Series = series,
-        //     ReleaseDateWw = dateWw,
-        //     CreatedOn = DateTime.Now,
-        //     LastUpdated = DateTime.Now
-        // };
-        //
-        // GameData gameData = new();
-        // gameData.Add(newGame);
+        string title = TitleBox.Text;
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            MessageBox.Show(
+                "Please enter a valid title for the game.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            return;
+        }
+
+        DateTime? dateWw = Date.SelectedDate;
+
+        List<Genre> genres = ExtractCheckBoxes(GenresListView, name => new Genre(name));
+        List<Developer> developers = ExtractCheckBoxes(DevelopersListView, name => new Developer(name));
+        List<Publisher> publishers = ExtractCheckBoxes(PublishersListView, name => new Publisher(name));
+        List<Series> series = ExtractCheckBoxes(SeriesListView, name => new Series(name));
+        List<Platform> platforms = ExtractCheckBoxes(PlatformsListView, name => new Platform { Name = name });
+
+        Game newGame = new()
+        {
+            Title = title,
+            Genres = genres,
+            Platforms = platforms,
+            Developers = developers,
+            Publishers = publishers,
+            Series = series,
+            ReleaseDateWw = dateWw,
+            CreatedOn = DateTime.Now,
+            LastUpdated = DateTime.Now
+        };
+
+        GameData gameData = new();
+
+        ICollection<Game> games = gameData.ReadFromJson();
+        games.Add(newGame);
+        gameData.WriteJson(games);
     }
 }
