@@ -38,13 +38,19 @@
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0">
-        <DataGrid x:Name="GameDataGrid"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  AlternatingRowBackground="WhiteSmoke"
-                  GridLinesVisibility="None"
-                  RowHeaderWidth="0" />
+        <DataGrid
+          x:Name="GameDataGrid"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          IsReadOnly="True"
+          GridLinesVisibility="None"
+          RowHeaderWidth="0">
+          <DataGrid.ContextMenu>
+            <ContextMenu x:Name="GameDataGridContextMenu">
+              <!-- PopulateDataGridContextMenu() -->
+            </ContextMenu>
+          </DataGrid.ContextMenu>
+        </DataGrid>
       </StackPanel>
 
       <StackPanel Grid.Column="1">

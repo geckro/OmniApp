@@ -2,6 +2,7 @@
 using GameManager.UI.Helpers;
 using OmniApp.Common.Logging;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GameManager.UI.Windows;
 
@@ -16,6 +17,8 @@ public partial class MainWindow
         InitializeComponent();
 
         UpdateGameDataGrid();
+
+        PopulateDataGridContextMenu();
     }
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -31,5 +34,36 @@ public partial class MainWindow
     public void UpdateGameDataGrid()
     {
         _dataGridHelper.UpdateGameDataGrid(GameDataGrid);
+    }
+
+    private void PopulateDataGridContextMenu()
+    {
+        ContextMenu contextMenu = GameDataGridContextMenu;
+
+        IEnumerable<string> metadata = ["played", "finished", "completed"];
+        foreach (string data in metadata)
+        {
+            MenuItem menuItem = new()
+            {
+                Header = $"Mark as {data}",
+                IsCheckable = true
+            };
+            contextMenu.Items.Add(menuItem);
+        }
+    }
+
+    private void MarkPlayed_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void MarkFinished_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void MarkCompleted_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

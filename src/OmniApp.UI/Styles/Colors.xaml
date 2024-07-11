@@ -6,4 +6,8 @@
   <SolidColorBrush x:Key="DataGridColumnColor" Color="#ffeaecf0" />
   <SolidColorBrush x:Key="ButtonColor" Color="#ffe8ebef" />
   <SolidColorBrush x:Key="MenuColor" Color="#ffe8ebef" />
+
+  <SolidColorBrush x:Key="BlueBase" Color="#FFB7D7F7" />
+  <SolidColorBrush x:Key="BlueSolid" Color="#FF7AAFE3" />
+  <SolidColorBrush x:Key="BlueSolidLight" Color="#FF8BBAE8" />
 </ResourceDictionary>
