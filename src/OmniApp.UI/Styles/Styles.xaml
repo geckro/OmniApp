@@ -1,10 +1,9 @@
 ﻿<ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:windows="clr-namespace:OmniApp.UI.Windows"
   xmlns:gameWindows="clr-namespace:GameManager.UI.Windows;assembly=GameManager.UI">
-  <Style TargetType="{x:Type gameWindows:MainWindow}">
-    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
+
+  <Style x:Key="BaseGameWindowStyle">
     <Style.Resources>
       <Style TargetType="Control" x:Key="BaseControlStyle">
         <Setter Property="Margin" Value="5" />
@@ -42,7 +41,7 @@
           <Trigger Property="IsMouseOver" Value="True">
             <Setter Property="Effect">
               <Setter.Value>
-                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="1" Direction="270"/>
+                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="1" Direction="270" />
               </Setter.Value>
             </Setter>
           </Trigger>
@@ -68,5 +67,11 @@
       <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseControlStyle}" />
       <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource BaseControlStyle}" />
     </Style.Resources>
+  </Style>
+  <Style TargetType="{x:Type gameWindows:MainWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
+    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
+  </Style>
+  <Style TargetType="{x:Type gameWindows:Add}" BasedOn="{StaticResource BaseGameWindowStyle}">
+    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
 </ResourceDictionary>
