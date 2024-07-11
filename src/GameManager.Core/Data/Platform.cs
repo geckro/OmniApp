@@ -16,6 +16,10 @@ public class Platform : IMetadata
     ///     The type of the platform.
     /// </summary>
     public PlatformType? Type { get; set; }
+
+    public const string JsonFile = "platforms.json";
+
+    string IMetadata.JsonFile => JsonFile;
 }
 
 public enum PlatformType : byte

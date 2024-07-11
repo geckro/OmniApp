@@ -30,6 +30,6 @@ public partial class MainWindow
 
     public void UpdateGameDataGrid()
     {
-        _dataGridHelper.UpdateGameDataGrid(GameDataGrid, new GameData());
+        _dataGridHelper.UpdateGameDataGrid(GameDataGrid);
     }
 }

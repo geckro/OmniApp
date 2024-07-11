@@ -3,4 +3,5 @@
 public interface IMetadata
 {
     string Name { get; }
+    string? JsonFile { get; }
 }

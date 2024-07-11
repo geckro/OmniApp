@@ -10,11 +10,22 @@ public partial class AddGame
     {
         InitializeComponent();
 
-        InitializeListView(GenresListView, new GenreData().ReadFromJson());
-        InitializeListView(PlatformsListView, new PlatformData().ReadFromJson());
-        InitializeListView(DevelopersListView, new DeveloperData().ReadFromJson());
-        InitializeListView(PublishersListView, new PublisherData().ReadFromJson());
-        InitializeListView(SeriesListView, new SeriesData().ReadFromJson());
+        DataManagerFactory factory = new();
+
+        InitializeListView(GenresListView, factory.CreateData<Game>().ReadFromJson());
+        InitializeListView(PlatformsListView, factory.CreateData<Platform>().ReadFromJson());
+        InitializeListView(DevelopersListView, factory.CreateData<Developer>().ReadFromJson());
+        InitializeListView(PublishersListView, factory.CreateData<Publisher>().ReadFromJson());
+        InitializeListView(SeriesListView, factory.CreateData<Series>().ReadFromJson());
+        InitializeListView(DirectorsListView, factory.CreateData<Director>().ReadFromJson());
+        InitializeListView(ProducersListView, factory.CreateData<Producer>().ReadFromJson());
+        InitializeListView(DesignersListView, factory.CreateData<Designer>().ReadFromJson());
+        InitializeListView(ComposersListView, factory.CreateData<Composer>().ReadFromJson());
+        InitializeListView(ArtistsListView, factory.CreateData<Artist>().ReadFromJson());
+        InitializeListView(ProgrammersListView, factory.CreateData<Programmer>().ReadFromJson());
+        InitializeListView(WritersListView, factory.CreateData<Writer>().ReadFromJson());
+        InitializeListView(EnginesListView, factory.CreateData<Engine>().ReadFromJson());
+        InitializeListView(AgeRatingsListView, factory.CreateData<AgeRatings>().ReadFromJson());
     }
 
     private static void InitializeListView<T>(ListView listView, IEnumerable<T> metadataList) where T : IMetadata
@@ -52,11 +63,11 @@ public partial class AddGame
 
         DateTime? dateWw = Date.SelectedDate;
 
-        List<Genre> genres = ExtractCheckBoxes(GenresListView, name => new Genre(name));
-        List<Developer> developers = ExtractCheckBoxes(DevelopersListView, name => new Developer(name));
-        List<Publisher> publishers = ExtractCheckBoxes(PublishersListView, name => new Publisher(name));
-        List<Series> series = ExtractCheckBoxes(SeriesListView, name => new Series(name));
-        List<Platform> platforms = ExtractCheckBoxes(PlatformsListView, name => new Platform { Name = name });
+        List<Genre> genres = ExtractCheckBoxes(GenresListView, name => new Genre {Name = name });
+        List<Developer> developers = ExtractCheckBoxes(DevelopersListView, name => new Developer {Name = name });
+        List<Publisher> publishers = ExtractCheckBoxes(PublishersListView, name => new Publisher {Name = name });
+        List<Series> series = ExtractCheckBoxes(SeriesListView, name => new Series {Name = name });
+        List<Platform> platforms = ExtractCheckBoxes(PlatformsListView, name => new Platform { Name = name});
 
         Game newGame = new()
         {
@@ -71,7 +82,9 @@ public partial class AddGame
             LastUpdated = DateTime.Now
         };
 
-        GameData gameData = new();
+
+        DataManagerFactory factory = new();
+        JsonData<Game> gameData = factory.CreateData<Game>();
 
         ICollection<Game> games = gameData.ReadFromJson();
         games.Add(newGame);

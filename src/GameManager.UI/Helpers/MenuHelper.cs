@@ -6,12 +6,6 @@ namespace GameManager.UI.Helpers;
 
 public class Menus
 {
-    private readonly DeveloperData _developerData = new();
-    private readonly GenreData _genreData = new();
-    private readonly PlatformData _platformData = new();
-    private readonly PublisherData _publisherData = new();
-    private readonly SeriesData _seriesData = new();
-
     private static void InitializeMenu<T>(
         MenuItem menu,
         IEnumerable<T> metadataList,
@@ -47,28 +41,28 @@ public class Menus
     public void InitializePlatformsMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _platformData.ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, new DataManagerFactory().CreateData<Platform>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeGenresMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _genreData.ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, new DataManagerFactory().CreateData<Genre>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeDevelopersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _developerData.ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, new DataManagerFactory().CreateData<Developer>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializePublishersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _publisherData.ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, new DataManagerFactory().CreateData<Publisher>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeSeriesMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, _seriesData.ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, new DataManagerFactory().CreateData<Series>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 }

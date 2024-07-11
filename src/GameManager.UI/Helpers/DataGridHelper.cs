@@ -5,9 +5,9 @@ namespace GameManager.UI.Helpers;
 
 public class DataGridHelper
 {
-    public void UpdateGameDataGrid(DataGrid dataGrid, GameData gameData)
+    public void UpdateGameDataGrid(DataGrid dataGrid)
     {
-        ICollection<Game> games = gameData.ReadFromJson();
+        ICollection<Game> games = new DataManagerFactory().CreateData<Game>().ReadFromJson();
 
         dataGrid.Items.Clear();
         dataGrid.ItemsSource = games;

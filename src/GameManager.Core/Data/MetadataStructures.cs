@@ -1,61 +1,90 @@
 ﻿namespace GameManager.Core.Data;
 
-public class Engine(string name) : IMetadata
+public class Engine() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "engines.json";
+
 }
 
-public class Composer(string name) : IMetadata
+public class Composer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "composers.json";
+
 }
 
-public class Writer(string name) : IMetadata
+public class Writer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "writers.json";
+
 }
 
-public class Programmer(string name) : IMetadata
+public class Programmer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "programmers.json";
+
 }
 
-public class Artist(string name) : IMetadata
+public class Artist() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "artists.json";
+
 }
 
-public class Designer(string name) : IMetadata
+public class Designer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "designers.json";
+
 }
 
-public class Producer(string name) : IMetadata
+public class Producer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "producers.json";
+
 }
 
-public class Director(string name) : IMetadata
+public class Director() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "directors.json";
+
 }
 
-public class Genre(string name) : IMetadata
+public class Genre() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "genres.json";
+
 }
 
-public class Developer(string name) : IMetadata
+public class Developer() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "developers.json";
+
 }
 
-public class Publisher(string name) : IMetadata
+public class Publisher() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "publishers.json";
+
 }
 
-public class Series(string name) : IMetadata
+public class Series() : IMetadata
 {
-    public string Name { get; } = name;
+    public string Name { get; set; }
+    public string JsonFile => "series.json";
+}
+
+public class AgeRatings() : IMetadata
+{
+    public string Name { get; set; }
+    public string JsonFile => "ageratings.json";
 }

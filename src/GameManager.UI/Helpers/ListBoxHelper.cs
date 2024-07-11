@@ -6,9 +6,6 @@ namespace GameManager.UI.Helpers;
 
 public class ListBoxHelper
 {
-    private readonly GenreData _genreData = new();
-    private readonly PlatformData _platformData = new();
-
     private static void UpdateListBox<T>(
         ListBox listBox,
         IEnumerable<T> metadataList
@@ -36,11 +33,11 @@ public class ListBoxHelper
 
     public void UpdateGenreListBox(ListBox listBox)
     {
-        UpdateListBox(listBox, _genreData.ReadFromJson());
+        UpdateListBox(listBox, new DataManagerFactory().CreateData<Genre>().ReadFromJson());
     }
 
     public void UpdatePlatformListBox(ListBox listBox)
     {
-        UpdateListBox(listBox, _platformData.ReadFromJson());
+        UpdateListBox(listBox, new DataManagerFactory().CreateData<Platform>().ReadFromJson());
     }
 }

@@ -208,5 +208,7 @@ public class Game() : IMetadata
     [JsonPropertyName("ageRating")]
     public string? AgeRating { get; set; }
 
+    public string JsonFile => "games.json";
+
     string IMetadata.Name => Title;
 }

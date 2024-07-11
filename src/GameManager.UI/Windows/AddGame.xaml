@@ -6,8 +6,8 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
   Title="Add Game"
-  Height="200"
-  Width="400">
+  Height="400"
+  Width="500">
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -19,35 +19,100 @@
       <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
     </StackPanel>
     <Grid Grid.Row="1">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
 
-      <StackPanel Orientation="Vertical" Grid.Column="0">
-        <Label Content="Genres" />
-        <ListView x:Name="GenresListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-      </StackPanel>
-      <StackPanel Orientation="Vertical" Grid.Column="1">
-        <Label Content="Platforms" />
-        <ListView x:Name="PlatformsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-      </StackPanel>
-      <StackPanel Orientation="Vertical" Grid.Column="2">
-        <Label Content="Developers" />
-        <ListView x:Name="DevelopersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-      </StackPanel>
-      <StackPanel Orientation="Vertical" Grid.Column="3">
-        <Label Content="Publishers" />
-        <ListView x:Name="PublishersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-      </StackPanel>
-      <StackPanel Orientation="Vertical" Grid.Column="4">
-        <Label Content="Series" />
-        <ListView x:Name="SeriesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        <DatePicker x:Name="Date" />
-      </StackPanel>
+      <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+          <Label Content="Genres" />
+          <ListView x:Name="GenresListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+          <Label Content="Platforms" />
+          <ListView x:Name="PlatformsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+          <Label Content="Developers" />
+          <ListView x:Name="DevelopersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="3">
+          <Label Content="Publishers" />
+          <ListView x:Name="PublishersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="4">
+          <Label Content="Series" />
+          <ListView x:Name="SeriesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="5">
+          <CheckBox Content="Is remake"/>
+          <CheckBox Content="Is remaster"/>
+          <CheckBox Content="Is port"/>
+          <CheckBox Content="Is sequel"/>
+          <CheckBox Content="Is prequel"/>
+          <CheckBox Content="Is DLC"/>
+          <CheckBox Content="Is mod"/>
+          <CheckBox Content="Is hack"/>
+        </StackPanel>
+      </Grid>
+
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+          <Label Content="Composers" />
+          <ListView x:Name="ComposersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+          <Label Content="Directors" />
+          <ListView x:Name="DirectorsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <Label Content="Engine" />
+          <ListView x:Name="EnginesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+          <Label Content="Writers" />
+          <ListView x:Name="WritersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <Label Content="Age Rating" />
+          <ListView x:Name="AgeRatingsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="3">
+          <Label Content="Producers" />
+          <ListView x:Name="ProducersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <Label Content="Designers" />
+          <ListView x:Name="DesignersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="4">
+          <Label Content="Programmers" />
+          <ListView x:Name="ProgrammersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <Label Content="Artists" />
+          <ListView x:Name="ArtistsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="5">
+          <Label Content="Date (WW)"/>
+          <DatePicker x:Name="Date" />
+          <Label Content="Date (Japan)"/>
+          <DatePicker x:Name="DateJp" />
+          <Label Content="Date (North America)"/>
+          <DatePicker x:Name="DateNa" />
+          <Label Content="Date (Europe)"/>
+          <DatePicker x:Name="DateEu" />
+        </StackPanel>
+      </Grid>
     </Grid>
 
     <StackPanel Orientation="Horizontal" Grid.Row="2">
