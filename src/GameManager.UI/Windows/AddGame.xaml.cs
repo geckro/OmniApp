@@ -9,27 +9,28 @@ namespace GameManager.UI.Windows;
 
 public partial class AddGame
 {
+    private readonly DataManagerFactory _dataManagerFactory = new();
+
     private readonly Dictionary<string, bool> _checkedStates = new();
     public AddGame()
     {
         InitializeComponent();
 
-        DataManagerFactory dmf = new();
-        MakeMetadataAreas("Genre", GenreStackPanel, dmf.CreateData<Genre>().ReadFromJson());
-        MakeMetadataAreas("Platform", PlatformStackPanel, dmf.CreateData<Platform>().ReadFromJson());
-        MakeMetadataAreas("Developer", DeveloperStackPanel, dmf.CreateData<Developer>().ReadFromJson());
-        MakeMetadataAreas("Publisher", PublisherStackPanel, dmf.CreateData<Publisher>().ReadFromJson());
-        MakeMetadataAreas("Series", SeriesStackPanel, dmf.CreateData<Series>().ReadFromJson());
+        MakeMetadataAreas("Genre", GenreStackPanel, _dataManagerFactory.CreateData<Genre>().ReadFromJson());
+        MakeMetadataAreas("Platform", PlatformStackPanel, _dataManagerFactory.CreateData<Platform>().ReadFromJson());
+        MakeMetadataAreas("Developer", DeveloperStackPanel, _dataManagerFactory.CreateData<Developer>().ReadFromJson());
+        MakeMetadataAreas("Publisher", PublisherStackPanel, _dataManagerFactory.CreateData<Publisher>().ReadFromJson());
+        MakeMetadataAreas("Series", SeriesStackPanel, _dataManagerFactory.CreateData<Series>().ReadFromJson());
 
-        MakeMetadataAreas("Composer", ComposerStackPanel, dmf.CreateData<Composer>().ReadFromJson());
-        MakeMetadataAreas("Director", DirectorStackPanel, dmf.CreateData<Director>().ReadFromJson());
-        MakeMetadataAreas("Engine", EngineStackPanel, dmf.CreateData<Engine>().ReadFromJson());
-        MakeMetadataAreas("Writer", WriterStackPanel, dmf.CreateData<Writer>().ReadFromJson());
-        MakeMetadataAreas("AgeRating", AgeRatingStackPanel, dmf.CreateData<AgeRatings>().ReadFromJson());
-        MakeMetadataAreas("Producer", ProducerStackPanel, dmf.CreateData<Producer>().ReadFromJson());
-        MakeMetadataAreas("Designer", DesignerStackPanel, dmf.CreateData<Designer>().ReadFromJson());
-        MakeMetadataAreas("Programmer", ProgrammerStackPanel, dmf.CreateData<Programmer>().ReadFromJson());
-        MakeMetadataAreas("Artist", ArtistStackPanel, dmf.CreateData<Artist>().ReadFromJson());
+        MakeMetadataAreas("Composer", ComposerStackPanel, _dataManagerFactory.CreateData<Composer>().ReadFromJson());
+        MakeMetadataAreas("Director", DirectorStackPanel, _dataManagerFactory.CreateData<Director>().ReadFromJson());
+        MakeMetadataAreas("Engine", EngineStackPanel, _dataManagerFactory.CreateData<Engine>().ReadFromJson());
+        MakeMetadataAreas("Writer", WriterStackPanel, _dataManagerFactory.CreateData<Writer>().ReadFromJson());
+        MakeMetadataAreas("AgeRating", AgeRatingStackPanel, _dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
+        MakeMetadataAreas("Producer", ProducerStackPanel, _dataManagerFactory.CreateData<Producer>().ReadFromJson());
+        MakeMetadataAreas("Designer", DesignerStackPanel, _dataManagerFactory.CreateData<Designer>().ReadFromJson());
+        MakeMetadataAreas("Programmer", ProgrammerStackPanel, _dataManagerFactory.CreateData<Programmer>().ReadFromJson());
+        MakeMetadataAreas("Artist", ArtistStackPanel, _dataManagerFactory.CreateData<Artist>().ReadFromJson());
     }
 
     private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<string, T> metadataFactory)
@@ -111,9 +112,7 @@ public partial class AddGame
             LastUpdated = DateTime.Now
         };
 
-
-        DataManagerFactory factory = new();
-        JsonData<Game> gameData = factory.CreateData<Game>();
+        JsonData<Game> gameData = _dataManagerFactory.CreateData<Game>();
 
         ICollection<Game> games = gameData.ReadFromJson();
         games.Add(newGame);
@@ -219,12 +218,12 @@ public partial class AddGame
             return;
         }
 
-        CreateMetadata(dataType, new DataManagerFactory(), text);
+        CreateMetadata(dataType, text);
 
         textBox.Clear();
     }
 
-    private static void CreateMetadata(Type dataType, DataManagerFactory dataManagerFactory, string text)
+    private void CreateMetadata(Type dataType, string text)
     {
         Dictionary<Type, Func<object>> typeMap = new()
         {
@@ -254,7 +253,7 @@ public partial class AddGame
             .GetMethod("CreateData")
             ?.MakeGenericMethod(dataType);
 
-        object? data = method?.Invoke(dataManagerFactory, null);
+        object? data = method?.Invoke(_dataManagerFactory, null);
         data?.GetType().GetMethod("AppendAndWriteJson")?.Invoke(data, [instance]);
     }
 

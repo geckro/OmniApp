@@ -38,31 +38,33 @@ public class Menus
         }
     }
 
+    private readonly DataManagerFactory _dataManagerFactory = new();
+
     public void InitializePlatformsMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, new DataManagerFactory().CreateData<Platform>().ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _dataManagerFactory.CreateData<Platform>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeGenresMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, new DataManagerFactory().CreateData<Genre>().ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _dataManagerFactory.CreateData<Genre>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeDevelopersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, new DataManagerFactory().CreateData<Developer>().ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _dataManagerFactory.CreateData<Developer>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializePublishersMenu(MenuItem menu, RoutedEventHandler? clickHandler = null,
         bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, new DataManagerFactory().CreateData<Publisher>().ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _dataManagerFactory.CreateData<Publisher>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 
     public void InitializeSeriesMenu(MenuItem menu, RoutedEventHandler? clickHandler = null, bool menuStaysOpen = false)
     {
-        InitializeMenu(menu, new DataManagerFactory().CreateData<Series>().ReadFromJson(), clickHandler, menuStaysOpen);
+        InitializeMenu(menu, _dataManagerFactory.CreateData<Series>().ReadFromJson(), clickHandler, menuStaysOpen);
     }
 }
