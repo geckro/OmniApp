@@ -43,6 +43,15 @@ public class JsonData<T>(JsonDataManager dataManager, string jsonFile)
         dataManager.WriteJson(value, jsonFile);
     }
 
+    public void AppendAndWriteJson(T newItem)
+    {
+        ICollection<T> existingData = dataManager.ReadFromJson<T>(jsonFile);
+
+        existingData.Add(newItem);
+
+        dataManager.WriteJson(existingData, jsonFile);
+    }
+
     public ICollection<T> ReadFromJson()
     {
         return dataManager.ReadFromJson<T>(jsonFile);

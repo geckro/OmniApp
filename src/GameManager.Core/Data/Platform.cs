@@ -1,4 +1,6 @@
-﻿namespace GameManager.Core.Data;
+﻿using System.Text.Json.Serialization;
+
+namespace GameManager.Core.Data;
 
 public class Platform : IMetadata
 {
@@ -17,7 +19,7 @@ public class Platform : IMetadata
     /// </summary>
     public PlatformType? Type { get; set; }
 
-    public const string JsonFile = "platforms.json";
+    [JsonIgnore] public const string JsonFile = "platforms.json";
 
     string IMetadata.JsonFile => JsonFile;
 }

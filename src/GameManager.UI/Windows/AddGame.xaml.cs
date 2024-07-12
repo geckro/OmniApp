@@ -1,4 +1,5 @@
 ﻿using GameManager.Core.Data;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -86,6 +87,7 @@ public partial class AddGame
         TextBox textBox = new() { Name = $"{name}TextBox" };
         RegisterName(textBox.Name, textBox);
         textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, dataSource);
+        textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
 
         ListBox listBox = new()
         {
@@ -156,6 +158,64 @@ public partial class AddGame
 
         listBox.ItemsSource = checkBoxList;
         listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void TextBox_KeyDown(object sender, KeyEventArgs keyEventArgs, Type dataType)
+    {
+        if (keyEventArgs.Key != Key.Enter)
+        {
+            return;
+        }
+        TextBox textBox = sender as TextBox;
+        if (textBox == null)
+        {
+            return;
+        }
+
+        string text = textBox.Text.Trim();
+
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+
+        CreateMetadata(dataType, new DataManagerFactory(), text);
+
+        textBox.Clear();
+    }
+
+    private static void CreateMetadata(Type dataType, DataManagerFactory dataManagerFactory, string text)
+    {
+        Dictionary<Type, Func<object>> typeMap = new()
+        {
+            { typeof(Genre), () => new Genre { Name = text } },
+            { typeof(Platform), () => new Platform { Name = text } },
+            { typeof(Developer), () => new Developer { Name = text } },
+            { typeof(Publisher), () => new Publisher { Name = text } },
+            { typeof(Series), () => new Series { Name = text } },
+            { typeof(Composer), () => new Composer { Name = text } },
+            { typeof(Director), () => new Director { Name = text } },
+            { typeof(Writer), () => new Writer { Name = text } },
+            { typeof(Producer), () => new Producer { Name = text } },
+            { typeof(Programmer), () => new Programmer { Name = text } },
+            { typeof(Engine), () => new Engine { Name = text } },
+            { typeof(AgeRatings), () => new AgeRatings { Name = text } },
+            { typeof(Designer), () => new Designer { Name = text } },
+            { typeof(Artist), () => new Artist { Name = text } }
+        };
+
+        if (!typeMap.TryGetValue(dataType, out Func<object>? createInstance))
+        {
+            return;
+        }
+
+        object instance = createInstance();
+        MethodInfo? method = typeof(DataManagerFactory)
+            .GetMethod("CreateData")
+            ?.MakeGenericMethod(dataType);
+
+        object? data = method?.Invoke(dataManagerFactory, null);
+        data?.GetType().GetMethod("AppendAndWriteJson")?.Invoke(data, [instance]);
     }
 
     private void TitleBox_Rename(object sender, KeyEventArgs e)

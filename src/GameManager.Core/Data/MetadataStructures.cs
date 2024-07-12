@@ -1,90 +1,82 @@
-﻿namespace GameManager.Core.Data;
+﻿using System.Text.Json.Serialization;
+
+namespace GameManager.Core.Data;
 
 public class Engine() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "engines.json";
-
+    [JsonIgnore] public string JsonFile => "engines.json";
 }
 
 public class Composer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "composers.json";
-
+    [JsonIgnore] public string JsonFile => "composers.json";
 }
 
 public class Writer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "writers.json";
-
+    [JsonIgnore] public string JsonFile => "writers.json";
 }
 
 public class Programmer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "programmers.json";
-
+    [JsonIgnore] public string JsonFile => "programmers.json";
 }
 
 public class Artist() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "artists.json";
-
+    [JsonIgnore] public string JsonFile => "artists.json";
 }
 
 public class Designer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "designers.json";
-
+    [JsonIgnore] public string JsonFile => "designers.json";
 }
 
 public class Producer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "producers.json";
-
+    [JsonIgnore] public string JsonFile => "producers.json";
 }
 
 public class Director() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "directors.json";
-
+    [JsonIgnore] public string JsonFile => "directors.json";
 }
 
 public class Genre() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "genres.json";
 
+    [JsonIgnore] public string JsonFile => "genres.json";
 }
 
 public class Developer() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "developers.json";
-
+    [JsonIgnore] public string JsonFile => "developers.json";
 }
 
 public class Publisher() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "publishers.json";
-
+    [JsonIgnore] public string JsonFile => "publishers.json";
 }
 
 public class Series() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "series.json";
+    [JsonIgnore] public string JsonFile => "series.json";
 }
 
 public class AgeRatings() : IMetadata
 {
     public string Name { get; set; }
-    public string JsonFile => "ageratings.json";
+    [JsonIgnore] public string JsonFile => "ageratings.json";
 }

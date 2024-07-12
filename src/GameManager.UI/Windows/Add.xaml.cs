@@ -14,14 +14,4 @@ public partial class Add
     {
         WindowHelper.LoadContent(AddContentArea, new AddGame());
     }
-
-    private void AddGenre_Click(object sender, RoutedEventArgs e)
-    {
-        WindowHelper.LoadContent(AddContentArea, new AddGenre());
-    }
-
-    private void AddPlatform_Click(object sender, RoutedEventArgs e)
-    {
-        WindowHelper.LoadContent(AddContentArea, new AddPlatform());
-    }
 }

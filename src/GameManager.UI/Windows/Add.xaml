@@ -16,8 +16,6 @@
     </Grid.ColumnDefinitions>
     <StackPanel Grid.Column="0">
       <Button Content="Add game" Click="AddGame_Click" />
-      <Button Content="Add genre" Click="AddGenre_Click" />
-      <Button Content="Add platform" Click="AddPlatform_Click" />
     </StackPanel>
     <ContentControl x:Name="AddContentArea" Grid.Column="1" />
   </Grid>
