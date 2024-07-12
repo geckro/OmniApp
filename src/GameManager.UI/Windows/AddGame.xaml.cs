@@ -1,6 +1,7 @@
 ﻿using GameManager.Core.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
 
@@ -155,5 +156,34 @@ public partial class AddGame
 
         listBox.ItemsSource = checkBoxList;
         listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void TitleBox_Capitalize(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Enter)
+        {
+            return;
+        }
+        TextBox textBox = sender as TextBox;
+        if (textBox == null)
+        {
+            return;
+        }
+
+        string text = textBox.Text;
+
+        IEnumerable<string> words = text.Split(' ');
+        ICollection<string> capitalizedWords = [];
+
+        foreach (string word in words)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+            {
+                continue;
+            }
+            capitalizedWords.Add(word[0].ToString().ToUpper() + word[1..]);
+        }
+
+        textBox.Text = string.Join(' ', capitalizedWords);
     }
 }

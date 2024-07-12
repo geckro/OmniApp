@@ -15,8 +15,8 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" Grid.Row="0">
-      <Label Content="Title" />
-      <TextBox x:Name="TitleBox" MinWidth="150" HorizontalAlignment="Left" />
+      <Label Content="Title" VerticalAlignment="Center" />
+      <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Left" KeyDown="TitleBox_Capitalize" />
     </StackPanel>
     <Grid Grid.Row="1">
       <Grid.RowDefinitions>
