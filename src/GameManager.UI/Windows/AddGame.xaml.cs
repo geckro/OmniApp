@@ -6,35 +6,27 @@ namespace GameManager.UI.Windows;
 
 public partial class AddGame
 {
+    private readonly Dictionary<string, bool> _checkedStates = new();
     public AddGame()
     {
         InitializeComponent();
 
-        DataManagerFactory factory = new();
+        DataManagerFactory dmf = new();
+        MakeMetadataAreas("Genre", GenreStackPanel, dmf.CreateData<Genre>().ReadFromJson());
+        MakeMetadataAreas("Platform", PlatformStackPanel, dmf.CreateData<Platform>().ReadFromJson());
+        MakeMetadataAreas("Developer", DeveloperStackPanel, dmf.CreateData<Developer>().ReadFromJson());
+        MakeMetadataAreas("Publisher", PublisherStackPanel, dmf.CreateData<Publisher>().ReadFromJson());
+        MakeMetadataAreas("Series", SeriesStackPanel, dmf.CreateData<Series>().ReadFromJson());
 
-        InitializeListView(GenresListView, factory.CreateData<Game>().ReadFromJson());
-        InitializeListView(PlatformsListView, factory.CreateData<Platform>().ReadFromJson());
-        InitializeListView(DevelopersListView, factory.CreateData<Developer>().ReadFromJson());
-        InitializeListView(PublishersListView, factory.CreateData<Publisher>().ReadFromJson());
-        InitializeListView(SeriesListView, factory.CreateData<Series>().ReadFromJson());
-        InitializeListView(DirectorsListView, factory.CreateData<Director>().ReadFromJson());
-        InitializeListView(ProducersListView, factory.CreateData<Producer>().ReadFromJson());
-        InitializeListView(DesignersListView, factory.CreateData<Designer>().ReadFromJson());
-        InitializeListView(ComposersListView, factory.CreateData<Composer>().ReadFromJson());
-        InitializeListView(ArtistsListView, factory.CreateData<Artist>().ReadFromJson());
-        InitializeListView(ProgrammersListView, factory.CreateData<Programmer>().ReadFromJson());
-        InitializeListView(WritersListView, factory.CreateData<Writer>().ReadFromJson());
-        InitializeListView(EnginesListView, factory.CreateData<Engine>().ReadFromJson());
-        InitializeListView(AgeRatingsListView, factory.CreateData<AgeRatings>().ReadFromJson());
-    }
-
-    private static void InitializeListView<T>(ListView listView, IEnumerable<T> metadataList) where T : IMetadata
-    {
-        foreach (T metadata in metadataList)
-        {
-            CheckBox checkBox = new() { Content = metadata.Name };
-            listView.Items.Add(checkBox);
-        }
+        MakeMetadataAreas("Composer", ComposerStackPanel, dmf.CreateData<Composer>().ReadFromJson());
+        MakeMetadataAreas("Director", DirectorStackPanel, dmf.CreateData<Director>().ReadFromJson());
+        MakeMetadataAreas("Engine", EngineStackPanel, dmf.CreateData<Engine>().ReadFromJson());
+        MakeMetadataAreas("Writer", WriterStackPanel, dmf.CreateData<Writer>().ReadFromJson());
+        MakeMetadataAreas("AgeRating", AgeRatingStackPanel, dmf.CreateData<AgeRatings>().ReadFromJson());
+        MakeMetadataAreas("Producer", ProducerStackPanel, dmf.CreateData<Producer>().ReadFromJson());
+        MakeMetadataAreas("Designer", DesignerStackPanel, dmf.CreateData<Designer>().ReadFromJson());
+        MakeMetadataAreas("Programmer", ProgrammerStackPanel, dmf.CreateData<Programmer>().ReadFromJson());
+        MakeMetadataAreas("Artist", ArtistStackPanel, dmf.CreateData<Artist>().ReadFromJson());
     }
 
     private static List<T> ExtractCheckBoxes<T>(ListView listView, Func<string, T> metadataFactory)
@@ -48,46 +40,120 @@ public partial class AddGame
 
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
     {
-        string title = TitleBox.Text;
+        // string title = TitleBox.Text;
+        //
+        // if (string.IsNullOrWhiteSpace(title))
+        // {
+        //     MessageBox.Show(
+        //         "Please enter a valid title for the game.",
+        //         "Error",
+        //         MessageBoxButton.OK,
+        //         MessageBoxImage.Error
+        //     );
+        //     return;
+        // }
 
-        if (string.IsNullOrWhiteSpace(title))
+        // DateTime? dateWw = Date.SelectedDate;
+
+
+        // Game newGame = new()
+        // {
+        //     Title = title,
+        //     Genres = genres,
+        //     Platforms = platforms,
+        //     Developers = developers,
+        //     Publishers = publishers,
+        //     Series = series,
+        //     ReleaseDateWw = dateWw,
+        //     CreatedOn = DateTime.Now,
+        //     LastUpdated = DateTime.Now
+        // };
+
+
+        // DataManagerFactory factory = new();
+        // JsonData<Game> gameData = factory.CreateData<Game>();
+        //
+        // ICollection<Game> games = gameData.ReadFromJson();
+        // games.Add(newGame);
+        // gameData.WriteJson(games);
+    }
+
+    private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
+    {
+        Label label = new() { Content = name };
+
+        TextBox textBox = new() { Name = $"{name}TextBox" };
+        RegisterName(textBox.Name, textBox);
+        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, dataSource);
+
+        ListBox listBox = new()
         {
-            MessageBox.Show(
-                "Please enter a valid title for the game.",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            Name = $"{name}ListBox",
+            MaxHeight = 250,
+            Visibility = Visibility.Collapsed,
+            Padding = new Thickness(0),
+            Margin = new Thickness(0),
+            FontSize = 14,
+            ItemContainerStyle = CreateListBoxItemStyle()
+        };
+        RegisterName(listBox.Name, listBox);
+
+        stackPanel.Children.Add(label);
+        stackPanel.Children.Add(textBox);
+        stackPanel.Children.Add(listBox);
+    }
+
+    private static Style CreateListBoxItemStyle()
+    {
+        Style style = new(typeof(ListBoxItem));
+        style.Setters.Add(new Setter(PaddingProperty, new Thickness(2)));
+        style.Setters.Add(new Setter(MarginProperty, new Thickness(0)));
+
+        return style;
+    }
+
+    private void TextBox_TextChanged<T>(object sender, TextChangedEventArgs e, ICollection<T> suggestions)
+        where T : IMetadata
+    {
+        TextBox? textBox = sender as TextBox;
+        if (textBox == null)
+        {
             return;
         }
 
-        DateTime? dateWw = Date.SelectedDate;
-
-        List<Genre> genres = ExtractCheckBoxes(GenresListView, name => new Genre {Name = name });
-        List<Developer> developers = ExtractCheckBoxes(DevelopersListView, name => new Developer {Name = name });
-        List<Publisher> publishers = ExtractCheckBoxes(PublishersListView, name => new Publisher {Name = name });
-        List<Series> series = ExtractCheckBoxes(SeriesListView, name => new Series {Name = name });
-        List<Platform> platforms = ExtractCheckBoxes(PlatformsListView, name => new Platform { Name = name});
-
-        Game newGame = new()
+        string listBoxName = textBox.Name.Replace("TextBox", "ListBox");
+        ListBox? listBox = FindName(listBoxName) as ListBox;
+        if (listBox == null)
         {
-            Title = title,
-            Genres = genres,
-            Platforms = platforms,
-            Developers = developers,
-            Publishers = publishers,
-            Series = series,
-            ReleaseDateWw = dateWw,
-            CreatedOn = DateTime.Now,
-            LastUpdated = DateTime.Now
-        };
+            return;
+        }
 
+        string text = textBox.Text.Trim();
 
-        DataManagerFactory factory = new();
-        JsonData<Game> gameData = factory.CreateData<Game>();
+        if (string.IsNullOrEmpty(text))
+        {
+            listBox.Visibility = Visibility.Collapsed;
+            return;
+        }
 
-        ICollection<Game> games = gameData.ReadFromJson();
-        games.Add(newGame);
-        gameData.WriteJson(games);
+        foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
+        {
+            _checkedStates[cb.Content.ToString()] = cb.IsChecked ?? false;
+        }
+
+        List<T> filteredSuggestionList = suggestions
+            .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+
+        List<CheckBox> checkBoxList = filteredSuggestionList
+            .Select(item => new CheckBox
+            {
+                Content = item.Name,
+                IsChecked = _checkedStates.TryGetValue(item.Name, out bool isChecked) ? isChecked : false
+            })
+            .ToList();
+
+        listBox.ItemsSource = checkBoxList;
+        listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 }

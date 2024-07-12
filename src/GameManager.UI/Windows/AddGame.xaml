@@ -33,26 +33,11 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Column="0">
-          <Label Content="Genres" />
-          <ListView x:Name="GenresListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="1">
-          <Label Content="Platforms" />
-          <ListView x:Name="PlatformsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="2">
-          <Label Content="Developers" />
-          <ListView x:Name="DevelopersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="3">
-          <Label Content="Publishers" />
-          <ListView x:Name="PublishersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="4">
-          <Label Content="Series" />
-          <ListView x:Name="SeriesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
+        <StackPanel x:Name="GenreStackPanel" Orientation="Vertical" Grid.Column="0" />
+        <StackPanel x:Name="PlatformStackPanel" Orientation="Vertical" Grid.Column="1" />
+        <StackPanel x:Name="DeveloperStackPanel" Orientation="Vertical" Grid.Column="2" />
+        <StackPanel x:Name="PublisherStackPanel" Orientation="Vertical" Grid.Column="3" />
+        <StackPanel x:Name="SeriesStackPanel" Orientation="Vertical" Grid.Column="4" />
         <StackPanel Orientation="Vertical" Grid.Column="5">
           <CheckBox Content="Is remake"/>
           <CheckBox Content="Is remaster"/>
@@ -74,33 +59,22 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Column="0">
-          <Label Content="Composers" />
-          <ListView x:Name="ComposersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        </StackPanel>
+        <StackPanel x:Name="ComposerStackPanel" Orientation="Vertical" Grid.Column="0" />
         <StackPanel Orientation="Vertical" Grid.Column="1">
-          <Label Content="Directors" />
-          <ListView x:Name="DirectorsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-          <Label Content="Engine" />
-          <ListView x:Name="EnginesListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <StackPanel x:Name="DirectorStackPanel" />
+          <StackPanel x:Name="EngineStackPanel" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="2">
-          <Label Content="Writers" />
-          <ListView x:Name="WritersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-          <Label Content="Age Rating" />
-          <ListView x:Name="AgeRatingsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <StackPanel x:Name="WriterStackPanel" />
+          <StackPanel x:Name="AgeRatingStackPanel" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="3">
-          <Label Content="Producers" />
-          <ListView x:Name="ProducersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-          <Label Content="Designers" />
-          <ListView x:Name="DesignersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <StackPanel x:Name="ProducerStackPanel" />
+          <StackPanel x:Name="DesignerStackPanel" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="4">
-          <Label Content="Programmers" />
-          <ListView x:Name="ProgrammersListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-          <Label Content="Artists" />
-          <ListView x:Name="ArtistsListView" MaxHeight="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+          <StackPanel x:Name="ProgrammerStackPanel" />
+          <StackPanel x:Name="ArtistStackPanel" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="5">
           <Label Content="Date (WW)"/>

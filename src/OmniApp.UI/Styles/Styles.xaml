@@ -55,7 +55,9 @@
         <Setter Property="FontFamily" Value="Inter" />
         <Setter Property="FontWeight" Value="Medium" />
       </Style>
-      <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}" />
+      <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="BorderThickness" Value="0" />
+      </Style>
       <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="Padding" Value="2" />
       </Style>

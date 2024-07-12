@@ -40,13 +40,23 @@ public partial class MainWindow
     {
         ContextMenu contextMenu = GameDataGridContextMenu;
 
-        IEnumerable<string> metadata = ["played", "finished", "completed"];
-        foreach (string data in metadata)
+        IEnumerable<string> metadataCheckable = ["played", "finished", "completed"];
+        foreach (string data in metadataCheckable)
         {
             MenuItem menuItem = new()
             {
                 Header = $"Mark as {data}",
                 IsCheckable = true
+            };
+            contextMenu.Items.Add(menuItem);
+        }
+
+        IEnumerable<string> metadata = ["Edit", "Delete"];
+        foreach (string data in metadata)
+        {
+            MenuItem menuItem = new()
+            {
+                Header = $"{data}"
             };
             contextMenu.Items.Add(menuItem);
         }
