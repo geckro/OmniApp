@@ -1,4 +1,5 @@
 ﻿using GameManager.Core.Data;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,53 +32,92 @@ public partial class AddGame
         MakeMetadataAreas("Artist", ArtistStackPanel, dmf.CreateData<Artist>().ReadFromJson());
     }
 
-    private static List<T> ExtractCheckBoxes<T>(ListView listView, Func<string, T> metadataFactory)
+    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<string, T> metadataFactory)
     {
-        return listView.Items
-            .OfType<CheckBox>()
-            .Where(item => item.IsChecked == true)
-            .Select(item => metadataFactory(item.Name))
-            .ToList();
+        if (listBox == null)
+        {
+            throw new Exception($"ListBox {listBox} does not exist");
+        }
+
+        Collection<T> result = [];
+
+        foreach (object? item in listBox.Items)
+        {
+            CheckBox? checkBox = item switch
+            {
+                CheckBox cb => cb,
+                ListBoxItem lbi => lbi.Content as CheckBox,
+                _ => null
+            };
+
+            if (checkBox?.IsChecked == true)
+            {
+                result.Add(metadataFactory(checkBox.Content.ToString()));
+            }
+        }
+
+        return result;
     }
 
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
     {
-        // string title = TitleBox.Text;
-        //
-        // if (string.IsNullOrWhiteSpace(title))
-        // {
-        //     MessageBox.Show(
-        //         "Please enter a valid title for the game.",
-        //         "Error",
-        //         MessageBoxButton.OK,
-        //         MessageBoxImage.Error
-        //     );
-        //     return;
-        // }
+        string title = TitleBox.Text;
 
-        // DateTime? dateWw = Date.SelectedDate;
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            MessageBox.Show(
+                "Please enter a valid title for the game.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+            return;
+        }
+
+        DateTime? dateWw = Date.SelectedDate;
+
+        ICollection<Genre> genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre {Name = name });
+        ICollection<Platform> platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name});
+        ICollection<Developer> developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer {Name = name });
+        ICollection<Publisher> publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher {Name = name });
+        ICollection<Series> series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series {Name = name });
+        ICollection<Writer> writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer {Name = name });
+        ICollection<Director> directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name});
+        ICollection<Designer> designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer {Name = name });
+        ICollection<Artist> artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist {Name = name });
+        ICollection<Programmer> programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer {Name = name });
+        ICollection<Composer> composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer {Name = name });
+        ICollection<AgeRatings> ageRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings {Name = name });
+        ICollection<Engine> engines = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine {Name = name });
+
+        Game newGame = new()
+        {
+            Title = title,
+            Genres = genres,
+            Platforms = platforms,
+            Developers = developers,
+            Publishers = publishers,
+            Series = series,
+            Writers = writers,
+            Directors = directors,
+            Artists = artists,
+            Designers = designers,
+            Programmers = programmers,
+            Composers = composers,
+            AgeRatings = ageRatings,
+            Engine = engines,
+            ReleaseDateWw = dateWw,
+            CreatedOn = DateTime.Now,
+            LastUpdated = DateTime.Now
+        };
 
 
-        // Game newGame = new()
-        // {
-        //     Title = title,
-        //     Genres = genres,
-        //     Platforms = platforms,
-        //     Developers = developers,
-        //     Publishers = publishers,
-        //     Series = series,
-        //     ReleaseDateWw = dateWw,
-        //     CreatedOn = DateTime.Now,
-        //     LastUpdated = DateTime.Now
-        // };
+        DataManagerFactory factory = new();
+        JsonData<Game> gameData = factory.CreateData<Game>();
 
-
-        // DataManagerFactory factory = new();
-        // JsonData<Game> gameData = factory.CreateData<Game>();
-        //
-        // ICollection<Game> games = gameData.ReadFromJson();
-        // games.Add(newGame);
-        // gameData.WriteJson(games);
+        ICollection<Game> games = gameData.ReadFromJson();
+        games.Add(newGame);
+        gameData.WriteJson(games);
     }
 
     private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata

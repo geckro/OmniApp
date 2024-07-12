@@ -182,7 +182,7 @@ public class Game() : IMetadata
     ///     The engine that the game uses to run.
     /// </summary>
     [JsonPropertyName("engine")]
-    public Engine? Engine { get; set; }
+    public ICollection<Engine>? Engine { get; set; }
 
     /// <summary>
     ///     If the user has played the game.
@@ -205,8 +205,8 @@ public class Game() : IMetadata
     /// <summary>
     ///     The age rating of the game.
     /// </summary>
-    [JsonPropertyName("ageRating")]
-    public string? AgeRating { get; set; }
+    [JsonPropertyName("ageRatings")]
+    public ICollection<AgeRatings>? AgeRatings { get; set; }
 
     [JsonIgnore] public string JsonFile => "games.json";
 
