@@ -5,23 +5,21 @@ namespace GameManager.Core.Data;
 public class Platform : IMetadata
 {
     /// <summary>
-    ///     The name of the platform.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
     ///     The company that owns the platform.
     /// </summary>
-    public string? Company { get; set;  }
+    public string? Company { get; set; }
 
     /// <summary>
     ///     The type of the platform.
     /// </summary>
     public PlatformType? Type { get; set; }
 
-    [JsonIgnore] public const string JsonFile = "platforms.json";
+    /// <summary>
+    ///     The name of the platform.
+    /// </summary>
+    public string Name { get; set; }
 
-    string IMetadata.JsonFile => JsonFile;
+    [JsonIgnore] public string JsonFile => "platforms.json";
 }
 
 public enum PlatformType : byte

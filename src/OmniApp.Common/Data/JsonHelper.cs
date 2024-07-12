@@ -66,6 +66,7 @@ public class JsonHelper
             {
                 File.WriteAllText(jsonFileName, "[]");
             }
+
             string jsonRawString = File.ReadAllText(jsonFileName);
             return DeserializeFromJson<T>(jsonRawString);
         }

@@ -39,14 +39,14 @@
         <StackPanel x:Name="PublisherStackPanel" Orientation="Vertical" Grid.Column="3" />
         <StackPanel x:Name="SeriesStackPanel" Orientation="Vertical" Grid.Column="4" />
         <StackPanel Orientation="Vertical" Grid.Column="5">
-          <CheckBox Content="Is remake"/>
-          <CheckBox Content="Is remaster"/>
-          <CheckBox Content="Is port"/>
-          <CheckBox Content="Is sequel"/>
-          <CheckBox Content="Is prequel"/>
-          <CheckBox Content="Is DLC"/>
-          <CheckBox Content="Is mod"/>
-          <CheckBox Content="Is hack"/>
+          <CheckBox Content="Is remake" />
+          <CheckBox Content="Is remaster" />
+          <CheckBox Content="Is port" />
+          <CheckBox Content="Is sequel" />
+          <CheckBox Content="Is prequel" />
+          <CheckBox Content="Is DLC" />
+          <CheckBox Content="Is mod" />
+          <CheckBox Content="Is hack" />
         </StackPanel>
       </Grid>
 
@@ -77,13 +77,13 @@
           <StackPanel x:Name="ArtistStackPanel" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="5">
-          <Label Content="Date (WW)"/>
+          <Label Content="Date (WW)" />
           <DatePicker x:Name="Date" />
-          <Label Content="Date (Japan)"/>
+          <Label Content="Date (Japan)" />
           <DatePicker x:Name="DateJp" />
-          <Label Content="Date (North America)"/>
+          <Label Content="Date (North America)" />
           <DatePicker x:Name="DateNa" />
-          <Label Content="Date (Europe)"/>
+          <Label Content="Date (Europe)" />
           <DatePicker x:Name="DateEu" />
         </StackPanel>
       </Grid>

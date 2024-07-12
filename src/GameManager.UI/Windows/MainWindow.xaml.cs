@@ -1,5 +1,4 @@
-﻿using GameManager.Core.Data;
-using GameManager.UI.Helpers;
+﻿using GameManager.UI.Helpers;
 using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,9 +14,7 @@ public partial class MainWindow
         Logger.Info(LogClass.GameMgrUi, "Starting MainWindow");
 
         InitializeComponent();
-
         UpdateGameDataGrid();
-
         PopulateDataGridContextMenu();
     }
 
@@ -31,9 +28,9 @@ public partial class MainWindow
         WindowHelper.ShowWindow(new Import());
     }
 
-    public void UpdateGameDataGrid()
+    private void UpdateGameDataGrid()
     {
-        _dataGridHelper.UpdateGameDataGrid(GameDataGrid);
+        DataGridHelper.UpdateGameDataGrid(GameDataGrid);
     }
 
     private void PopulateDataGridContextMenu()
@@ -43,37 +40,15 @@ public partial class MainWindow
         IEnumerable<string> metadataCheckable = ["played", "finished", "completed"];
         foreach (string data in metadataCheckable)
         {
-            MenuItem menuItem = new()
-            {
-                Header = $"Mark as {data}",
-                IsCheckable = true
-            };
+            MenuItem menuItem = new() { Header = $"Mark as {data}", IsCheckable = true };
             contextMenu.Items.Add(menuItem);
         }
 
         IEnumerable<string> metadata = ["Edit", "Delete"];
         foreach (string data in metadata)
         {
-            MenuItem menuItem = new()
-            {
-                Header = $"{data}"
-            };
+            MenuItem menuItem = new() { Header = $"{data}" };
             contextMenu.Items.Add(menuItem);
         }
-    }
-
-    private void MarkPlayed_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void MarkFinished_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void MarkCompleted_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
     }
 }

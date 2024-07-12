@@ -9,9 +9,14 @@ namespace GameManager.UI.Windows;
 
 public partial class AddGame
 {
+    private readonly Dictionary<string, bool> _checkedStates = new();
+
+    private readonly Dictionary<char, int> _commonRomanNumerals = new() { { 'I', 1 }, { 'V', 5 }, { 'X', 10 } };
+
     private readonly DataManagerFactory _dataManagerFactory = new();
 
-    private readonly Dictionary<string, bool> _checkedStates = new();
+    private int _totalRomanNumeralValue;
+
     public AddGame()
     {
         InitializeComponent();
@@ -26,10 +31,12 @@ public partial class AddGame
         MakeMetadataAreas("Director", DirectorStackPanel, _dataManagerFactory.CreateData<Director>().ReadFromJson());
         MakeMetadataAreas("Engine", EngineStackPanel, _dataManagerFactory.CreateData<Engine>().ReadFromJson());
         MakeMetadataAreas("Writer", WriterStackPanel, _dataManagerFactory.CreateData<Writer>().ReadFromJson());
-        MakeMetadataAreas("AgeRating", AgeRatingStackPanel, _dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
+        MakeMetadataAreas("AgeRating", AgeRatingStackPanel,
+            _dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
         MakeMetadataAreas("Producer", ProducerStackPanel, _dataManagerFactory.CreateData<Producer>().ReadFromJson());
         MakeMetadataAreas("Designer", DesignerStackPanel, _dataManagerFactory.CreateData<Designer>().ReadFromJson());
-        MakeMetadataAreas("Programmer", ProgrammerStackPanel, _dataManagerFactory.CreateData<Programmer>().ReadFromJson());
+        MakeMetadataAreas("Programmer", ProgrammerStackPanel,
+            _dataManagerFactory.CreateData<Programmer>().ReadFromJson());
         MakeMetadataAreas("Artist", ArtistStackPanel, _dataManagerFactory.CreateData<Artist>().ReadFromJson());
     }
 
@@ -77,19 +84,32 @@ public partial class AddGame
 
         DateTime? dateWw = Date.SelectedDate;
 
-        ICollection<Genre> genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre {Name = name });
-        ICollection<Platform> platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name});
-        ICollection<Developer> developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer {Name = name });
-        ICollection<Publisher> publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher {Name = name });
-        ICollection<Series> series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series {Name = name });
-        ICollection<Writer> writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer {Name = name });
-        ICollection<Director> directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name});
-        ICollection<Designer> designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer {Name = name });
-        ICollection<Artist> artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist {Name = name });
-        ICollection<Programmer> programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer {Name = name });
-        ICollection<Composer> composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer {Name = name });
-        ICollection<AgeRatings> ageRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings {Name = name });
-        ICollection<Engine> engines = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine {Name = name });
+        ICollection<Genre> genres =
+            ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre { Name = name });
+        ICollection<Platform> platforms =
+            ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name });
+        ICollection<Developer> developers =
+            ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name });
+        ICollection<Publisher> publishers =
+            ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name });
+        ICollection<Series> series =
+            ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series { Name = name });
+        ICollection<Writer> writers =
+            ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer { Name = name });
+        ICollection<Director> directors =
+            ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name });
+        ICollection<Designer> designers =
+            ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name });
+        ICollection<Artist> artists =
+            ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist { Name = name });
+        ICollection<Programmer> programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"),
+            name => new Programmer { Name = name });
+        ICollection<Composer> composers =
+            ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name });
+        ICollection<AgeRatings> ageRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"),
+            name => new AgeRatings { Name = name });
+        ICollection<Engine> engines =
+            ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine { Name = name });
 
         Game newGame = new()
         {
@@ -205,6 +225,7 @@ public partial class AddGame
         {
             return;
         }
+
         TextBox textBox = sender as TextBox;
         if (textBox == null)
         {
@@ -263,6 +284,7 @@ public partial class AddGame
         {
             return;
         }
+
         TextBox textBox = sender as TextBox;
         if (textBox == null)
         {
@@ -289,6 +311,7 @@ public partial class AddGame
             {
                 continue;
             }
+
             if (wordsToNotCapitalize.Contains(word.ToLower()))
             {
                 capitalizedWords.Add(word);
@@ -300,20 +323,12 @@ public partial class AddGame
                 capitalizedWords.Add(_totalRomanNumeralValue.ToString());
                 continue;
             }
+
             capitalizedWords.Add(word[0].ToString().ToUpper() + word[1..]);
         }
 
         textBox.Text = string.Join(' ', capitalizedWords);
     }
-
-    private int _totalRomanNumeralValue;
-
-    private readonly Dictionary<char, int> _commonRomanNumerals = new()
-    {
-        { 'I', 1 },
-        { 'V', 5 },
-        { 'X', 10 }
-    };
 
     private bool IsRomanNumeral(string word)
     {

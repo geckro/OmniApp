@@ -2,9 +2,8 @@
 
 public static class Logger
 {
-    private static readonly object LockObject = new();
-
     private const string LogFormat = "{0} - {1}: {2}";
+    private static readonly object LockObject = new();
 
     public static void Info(LogClass logClass, string message)
     {
@@ -41,6 +40,7 @@ public static class Logger
                 return;
             }
         }
+
         lock (LockObject)
         {
             System.Diagnostics.Debug.WriteLine(

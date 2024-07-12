@@ -16,11 +16,6 @@
     </Grid.ColumnDefinitions>
     <StackPanel Grid.Column="0">
       <TextBox x:Name="ImportSearchBox" MinWidth="100" />
-      <Button Click="SeriesButton_OnClick" x:Name="SeriesButton" Content="Series" />
-      <Button Click="GenreButton_OnClick" x:Name="GenreButton" Content="Genre" />
-      <Button Click="PlatformButton_OnClick" x:Name="PlatformButton" Content="Platform" />
-      <Button Click="DeveloperButton_OnClick" x:Name="DeveloperButton" Content="Developer" />
-      <Button Click="PublisherButton_OnClick" x:Name="PublisherButton" Content="Publisher" />
     </StackPanel>
     <DataGrid Grid.Column="1" x:Name="ImportGameDataGrid"
               CanUserAddRows="False"
