@@ -82,54 +82,35 @@ public partial class AddGame
             return;
         }
 
-        DateTime? dateWw = Date.SelectedDate;
-
-        ICollection<Genre> genres =
-            ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre { Name = name });
-        ICollection<Platform> platforms =
-            ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name });
-        ICollection<Developer> developers =
-            ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name });
-        ICollection<Publisher> publishers =
-            ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name });
-        ICollection<Series> series =
-            ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series { Name = name });
-        ICollection<Writer> writers =
-            ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer { Name = name });
-        ICollection<Director> directors =
-            ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name });
-        ICollection<Designer> designers =
-            ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name });
-        ICollection<Artist> artists =
-            ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist { Name = name });
-        ICollection<Programmer> programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"),
-            name => new Programmer { Name = name });
-        ICollection<Composer> composers =
-            ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name });
-        ICollection<AgeRatings> ageRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"),
-            name => new AgeRatings { Name = name });
-        ICollection<Engine> engines =
-            ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine { Name = name });
+        DateTime currentTime = DateTime.Now;
 
         Game newGame = new()
         {
             Title = title,
-            Genres = genres,
-            Platforms = platforms,
-            Developers = developers,
-            Publishers = publishers,
-            Series = series,
-            Writers = writers,
-            Directors = directors,
-            Artists = artists,
-            Designers = designers,
-            Programmers = programmers,
-            Composers = composers,
-            AgeRatings = ageRatings,
-            Engine = engines,
-            ReleaseDateWw = dateWw,
-            CreatedOn = DateTime.Now,
-            LastUpdated = DateTime.Now
+            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre { Name = name }),
+            Platforms =
+                ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name }),
+            Developers =
+                ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name }),
+            Publishers =
+                ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name }),
+            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series { Name = name }),
+            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer { Name = name }),
+            Directors =
+                ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name }),
+            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist { Name = name }),
+            Designers =
+                ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name }),
+            Programmers =
+                ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer { Name = name }),
+            Composers =
+                ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name }),
+            AgeRatings =
+                ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings { Name = name }),
+            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine { Name = name }),
+            ReleaseDateWw = Date.SelectedDate,
+            CreatedOn = currentTime,
+            LastUpdated = currentTime
         };
 
         JsonData<Game> gameData = _dataManagerFactory.CreateData<Game>();
@@ -145,7 +126,7 @@ public partial class AddGame
 
         TextBox textBox = new() { Name = $"{name}TextBox" };
         RegisterName(textBox.Name, textBox);
-        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, dataSource);
+        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender, dataSource);
         textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
 
         ListBox listBox = new()
@@ -174,18 +155,16 @@ public partial class AddGame
         return style;
     }
 
-    private void TextBox_TextChanged<T>(object sender, TextChangedEventArgs e, ICollection<T> suggestions)
+    private void TextBox_TextChanged<T>(object sender, ICollection<T> suggestions)
         where T : IMetadata
     {
-        TextBox? textBox = sender as TextBox;
-        if (textBox == null)
+        if (sender is not TextBox textBox)
         {
             return;
         }
 
         string listBoxName = textBox.Name.Replace("TextBox", "ListBox");
-        ListBox? listBox = FindName(listBoxName) as ListBox;
-        if (listBox == null)
+        if (FindName(listBoxName) is not ListBox listBox)
         {
             return;
         }
