@@ -16,7 +16,7 @@
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" Grid.Row="0">
       <Label Content="Title" VerticalAlignment="Center" />
-      <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Left" KeyDown="TitleBox_Capitalize" />
+      <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Left" KeyDown="TitleBox_Rename" />
     </StackPanel>
     <Grid Grid.Row="1">
       <Grid.RowDefinitions>

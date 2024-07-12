@@ -158,7 +158,7 @@ public partial class AddGame
         listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private void TitleBox_Capitalize(object sender, KeyEventArgs e)
+    private void TitleBox_Rename(object sender, KeyEventArgs e)
     {
         if (e.Key != Key.Enter)
         {
@@ -175,15 +175,78 @@ public partial class AddGame
         IEnumerable<string> words = text.Split(' ');
         ICollection<string> capitalizedWords = [];
 
+        ICollection<string> wordsToNotCapitalize =
+        [
+            "and",
+            "of",
+            "the",
+            "vs",
+            "vs."
+        ];
+
         foreach (string word in words)
         {
             if (string.IsNullOrWhiteSpace(word))
             {
                 continue;
             }
+            if (wordsToNotCapitalize.Contains(word.ToLower()))
+            {
+                capitalizedWords.Add(word);
+                continue;
+            }
+
+            if (IsRomanNumeral(word))
+            {
+                capitalizedWords.Add(_totalRomanNumeralValue.ToString());
+                continue;
+            }
             capitalizedWords.Add(word[0].ToString().ToUpper() + word[1..]);
         }
 
         textBox.Text = string.Join(' ', capitalizedWords);
+    }
+
+    private int _totalRomanNumeralValue;
+
+    private readonly Dictionary<char, int> _commonRomanNumerals = new()
+    {
+        { 'I', 1 },
+        { 'V', 5 },
+        { 'X', 10 }
+    };
+
+    private bool IsRomanNumeral(string word)
+    {
+        // The maximum length roman numeral is XVIII, also add another letter for edge cases
+        if (word.Length > 6)
+        {
+            return false;
+        }
+
+        if (word.Any(character => !_commonRomanNumerals.ContainsKey(character)))
+        {
+            return false;
+        }
+
+        int totalValue = 0;
+        int previousValue = 0;
+
+        foreach (int currentValue in word.Select(t => _commonRomanNumerals[char.ToUpper(t)]))
+        {
+            if (currentValue > previousValue)
+            {
+                totalValue += currentValue - (2 * previousValue);
+            }
+            else
+            {
+                totalValue += currentValue;
+            }
+
+            previousValue = currentValue;
+        }
+
+        _totalRomanNumeralValue = totalValue;
+        return totalValue > 0;
     }
 }
