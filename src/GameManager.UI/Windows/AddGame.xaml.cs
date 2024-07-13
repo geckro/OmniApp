@@ -184,25 +184,17 @@ public partial class AddGame
         {
             Title = title,
             Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre { Name = name }),
-            Platforms =
-                ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name }),
-            Developers =
-                ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name }),
-            Publishers =
-                ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name }),
+            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name }),
+            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name }),
+            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name }),
             Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series { Name = name }),
             Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer { Name = name }),
-            Directors =
-                ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name }),
+            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name }),
             Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist { Name = name }),
-            Designers =
-                ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name }),
-            Programmers =
-                ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer { Name = name }),
-            Composers =
-                ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name }),
-            AgeRatings =
-                ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings { Name = name }),
+            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name }),
+            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer { Name = name }),
+            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name }),
+            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings { Name = name }),
             Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine { Name = name }),
             ReleaseDateWw = Date.SelectedDate,
             CreatedOn = currentTime,

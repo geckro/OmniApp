@@ -13,8 +13,7 @@ public partial class MainWindow
 
     private void GameManager_OnClick(object sender, RoutedEventArgs e)
     {
-        GameManager.UI.Windows.MainWindow gameWindow = new();
-        gameWindow.Show();
+        new GameManager.UI.Windows.MainWindow().Show();
     }
 
     private void FinanceManager_OnClick(object sender, RoutedEventArgs e)

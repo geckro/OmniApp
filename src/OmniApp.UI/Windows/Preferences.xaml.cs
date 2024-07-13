@@ -1,8 +1,6 @@
-﻿using System.Windows;
+﻿namespace OmniApp.UI.Windows;
 
-namespace OmniApp.UI.Windows;
-
-public partial class Preferences : Window
+public partial class Preferences
 {
     public Preferences()
     {
