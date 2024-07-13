@@ -25,4 +25,9 @@ public partial class MainWindow
     {
         throw new NotSupportedException();
     }
+
+    private void CSharpTesting_OnClick(object sender, RoutedEventArgs e)
+    {
+        new CSharpReferences.UI.MainWindow().Show();
+    }
 }

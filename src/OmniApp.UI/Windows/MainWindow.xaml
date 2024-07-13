@@ -48,7 +48,7 @@
         <Button Grid.Row="3" Grid.Column="0" Content="Free slot" Click="OtherButton_Click" />
         <Button Grid.Row="3" Grid.Column="1" Content="Free slot" Click="OtherButton_Click" />
         <Button Grid.Row="3" Grid.Column="2" Content="Free slot" Click="OtherButton_Click" />
-        <Button Grid.Row="3" Grid.Column="3" Content="Free slot" Click="OtherButton_Click" />
+        <Button Grid.Row="3" Grid.Column="3" Content="C# Testing" Click="CSharpTesting_OnClick" />
       </Grid>
     </StackPanel>
   </Grid>
