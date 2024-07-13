@@ -15,7 +15,6 @@ public partial class MainWindow
     {
         TenMillion tenMillion = new();
 
-        tenMillion.InitializeTenMillion();
-        tenMillion.TenMilBillionTest();
+        tenMillion.TenMillionTest();
     }
 }

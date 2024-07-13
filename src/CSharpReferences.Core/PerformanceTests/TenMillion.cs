@@ -13,16 +13,9 @@ public class TenMillion
     private readonly decimal[] _decimals = new decimal[TenMillionCount];
     private readonly decimal[] _decimals2 = new decimal[TenMillionCount];
 
-    private readonly short[] _shorts = new short[TenMillionCount];
-    private readonly short[] _shorts2 = new short[TenMillionCount];
-    private readonly int[] _ints = new int[TenMillionCount];
-    private readonly int[] _ints2 = new int[TenMillionCount];
-    private readonly long[] _longs = new long[TenMillionCount];
-    private readonly long[] _longs2 = new long[TenMillionCount];
-
     private readonly Random _random = new();
 
-    public void InitializeTenMillion()
+    private void InitializeTenMillion()
     {
         for (int i = 0; i < TenMillionCount; i++)
         {
@@ -43,8 +36,10 @@ public class TenMillion
         Console.WriteLine($"{testName}: Elapsed time = {stopwatch.ElapsedMilliseconds} ms");
     }
 
-    public void TenMilBillionTest()
+    public void TenMillionTest()
     {
+        InitializeTenMillion();
+
         TestPerformance("Float addition", () =>
         {
             float sum = _floats.Sum();
