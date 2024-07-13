@@ -8,13 +8,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniApp.UI", "src\OmniApp.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniApp.Common", "src\OmniApp.Common\OmniApp.Common.csproj", "{F2EE0C2F-B7EE-4B81-912B-8D2DC8719B81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialManager.UI", "FinancialManager.UI\FinancialManager.UI.csproj", "{85C314DB-70CB-4667-8231-12FAF1A28624}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialManager.UI", "src\FinancialManager.UI\FinancialManager.UI.csproj", "{85C314DB-70CB-4667-8231-12FAF1A28624}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialManager.Core", "FinancialManager.Core\FinancialManager.Core.csproj", "{C6862376-388E-4913-8AFF-14EF7F9A715C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialManager.Core", "src\FinancialManager.Core\FinancialManager.Core.csproj", "{C6862376-388E-4913-8AFF-14EF7F9A715C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.UI", "CSharpReferences.UI\CSharpReferences.UI.csproj", "{42A42DAE-67F8-4064-A59B-742995B2C1C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.UI", "src\CSharpReferences.UI\CSharpReferences.UI.csproj", "{42A42DAE-67F8-4064-A59B-742995B2C1C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.Core", "CSharpReferences.Core\CSharpReferences.Core.csproj", "{46813335-30AB-4B86-9D47-F36FA897554F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.Core", "src\CSharpReferences.Core\CSharpReferences.Core.csproj", "{46813335-30AB-4B86-9D47-F36FA897554F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
