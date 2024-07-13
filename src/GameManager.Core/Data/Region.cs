@@ -2,83 +2,73 @@
 
 public enum Region
 {
-    [RegionName(RegionName.Australia), RegionName(RegionName.Worldwide), RegionLanguage(Language.English)]
+    [RegName(Name.Australia), RegName(Name.Worldwide), RegLang(Lang.English)]
     Au,
 
-    [RegionName(RegionName.Brazil), RegionName(RegionName.Worldwide), RegionName(RegionName.Pal),
-     RegionLanguage(Language.Portuguese)]
+    [RegName(Name.Brazil), RegName(Name.Worldwide), RegName(Name.Pal), RegLang(Lang.Portuguese)]
     Br,
 
-    [RegionName(RegionName.NorthAmerica), RegionName(RegionName.Canada), RegionName(RegionName.Worldwide),
-     RegionLanguage(Language.English)]
+    [RegName(Name.NorthAmerica), RegName(Name.Canada), RegName(Name.Worldwide), RegLang(Lang.English)]
     Ca,
 
-    [RegionName(RegionName.China), RegionName(RegionName.Worldwide), RegionLanguage(Language.Chinese)]
+    [RegName(Name.China), RegName(Name.Worldwide), RegLang(Lang.Chinese)]
     Cn,
 
-    [RegionName(RegionName.Europe), RegionName(RegionName.Pal), RegionName(RegionName.Worldwide)]
+    [RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide)]
     Eu,
 
-    [RegionName(RegionName.France), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.French)]
+    [RegName(Name.France), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.French)]
     Fr,
 
-    [RegionName(RegionName.Germany), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.German)]
+    [RegName(Name.Germany), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.German)]
     Ger,
 
-    [RegionName(RegionName.Italy), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.Italian)]
+    [RegName(Name.Italy), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Italian)]
     It,
 
-    [RegionName(RegionName.Japan), RegionName(RegionName.Worldwide), RegionLanguage(Language.Japanese)]
+    [RegName(Name.Japan), RegName(Name.Worldwide), RegLang(Lang.Japanese)]
     Jp,
 
-    [RegionName(RegionName.Korea), RegionName(RegionName.Worldwide), RegionLanguage(Language.Korean)]
+    [RegName(Name.Korea), RegName(Name.Worldwide), RegLang(Lang.Korean)]
     Ko,
 
-    [RegionName(RegionName.Netherlands), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.Dutch)]
+    [RegName(Name.Netherlands), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Dutch)]
     Ne,
 
-    [RegionName(RegionName.NorthAmerica), RegionName(RegionName.Worldwide)]
+    [RegName(Name.NorthAmerica), RegName(Name.Worldwide)]
     Na,
 
-    [RegionName(RegionName.Norway), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.Norwegian)]
+    [RegName(Name.Norway), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Norwegian)]
     No,
 
-    [RegionName(RegionName.Pal), RegionName(RegionName.Worldwide)]
+    [RegName(Name.Pal), RegName(Name.Worldwide)]
     Pal,
 
-    [RegionName(RegionName.Russia), RegionName(RegionName.Pal), RegionName(RegionName.Worldwide),
-     RegionLanguage(Language.Russian)]
+    [RegName(Name.Russia), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Russian)]
     Ru,
 
-    [RegionName(RegionName.Spain), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.Spanish)]
+    [RegName(Name.Spain), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Spanish)]
     Sp,
 
-    [RegionName(RegionName.Sweden), RegionName(RegionName.Europe), RegionName(RegionName.Pal),
-     RegionName(RegionName.Worldwide), RegionLanguage(Language.Swedish)]
+    [RegName(Name.Sweden), RegName(Name.Europe), RegName(Name.Pal), RegName(Name.Worldwide), RegLang(Lang.Swedish)]
     Sw,
 
-    [RegionName(RegionName.UnitedKingdom), RegionName(RegionName.Worldwide), RegionLanguage(Language.English)]
+    [RegName(Name.UnitedKingdom), RegName(Name.Worldwide), RegLang(Lang.English)]
     Uk,
 
-    [RegionName(RegionName.NorthAmerica), RegionName(RegionName.UnitedStates), RegionName(RegionName.Worldwide)]
+    [RegName(Name.NorthAmerica), RegName(Name.UnitedStates), RegName(Name.Worldwide)]
     Usa,
 
-    [RegionName(RegionName.Worldwide)] Ww
+    [RegName(Name.Worldwide)] Ww
 }
 
 [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-public class RegionNameAttribute(RegionName fullName) : Attribute
+public class RegName(Name fullName) : Attribute
 {
-    public RegionName FullName { get; } = fullName;
+    public Name FullName { get; } = fullName;
 }
 
-public enum RegionName
+public enum Name
 {
     Australia,
     Brazil,
@@ -103,12 +93,12 @@ public enum RegionName
 }
 
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = true)]
-public class RegionLanguageAttribute(Language language) : Attribute
+public class RegLang(Lang lang) : Attribute
 {
-    public Language Language { get; } = language;
+    public Lang Lang { get; } = lang;
 }
 
-public enum Language
+public enum Lang
 {
     Chinese,
     Dutch,

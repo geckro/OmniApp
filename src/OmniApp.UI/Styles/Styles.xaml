@@ -18,22 +18,13 @@
         </Style.Resources>
       </Style>
       <Style TargetType="DataGridColumnHeader">
-        <Setter Property="Background" Value="{DynamicResource BlueSolid}" />
-        <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Padding" Value="5, 2, 5, 2" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
       </Style>
-      <Style TargetType="DataGridRow">
-        <Setter Property="Background" Value="{DynamicResource BlueSolid}" />
-      </Style>
       <Style TargetType="DataGridCell">
-        <Setter Property="Background" Value="{DynamicResource BlueSolid}" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
-      </Style>
-      <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="BorderThickness" Value="0" />
       </Style>
       <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />

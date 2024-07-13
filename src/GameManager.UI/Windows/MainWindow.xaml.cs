@@ -7,8 +7,6 @@ namespace GameManager.UI.Windows;
 
 public partial class MainWindow
 {
-    private readonly DataGridHelper _dataGridHelper = new();
-
     public MainWindow()
     {
         Logger.Info(LogClass.GameMgrUi, "Starting MainWindow");

@@ -10,34 +10,130 @@ namespace GameManager.UI.Windows;
 public partial class AddGame
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
-
     private readonly Dictionary<char, int> _commonRomanNumerals = new() { { 'I', 1 }, { 'V', 5 }, { 'X', 10 } };
-
     private readonly DataManagerFactory _dataManagerFactory = new();
-
     private int _totalRomanNumeralValue;
 
     public AddGame()
     {
         InitializeComponent();
+        InitializeMetadataAreas();
+    }
 
+    private void InitializeMetadataAreas()
+    {
         MakeMetadataAreas("Genre", GenreStackPanel, _dataManagerFactory.CreateData<Genre>().ReadFromJson());
         MakeMetadataAreas("Platform", PlatformStackPanel, _dataManagerFactory.CreateData<Platform>().ReadFromJson());
         MakeMetadataAreas("Developer", DeveloperStackPanel, _dataManagerFactory.CreateData<Developer>().ReadFromJson());
         MakeMetadataAreas("Publisher", PublisherStackPanel, _dataManagerFactory.CreateData<Publisher>().ReadFromJson());
         MakeMetadataAreas("Series", SeriesStackPanel, _dataManagerFactory.CreateData<Series>().ReadFromJson());
-
         MakeMetadataAreas("Composer", ComposerStackPanel, _dataManagerFactory.CreateData<Composer>().ReadFromJson());
         MakeMetadataAreas("Director", DirectorStackPanel, _dataManagerFactory.CreateData<Director>().ReadFromJson());
         MakeMetadataAreas("Engine", EngineStackPanel, _dataManagerFactory.CreateData<Engine>().ReadFromJson());
         MakeMetadataAreas("Writer", WriterStackPanel, _dataManagerFactory.CreateData<Writer>().ReadFromJson());
-        MakeMetadataAreas("AgeRating", AgeRatingStackPanel,
-            _dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
+        MakeMetadataAreas("AgeRating", AgeRatingStackPanel, _dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
         MakeMetadataAreas("Producer", ProducerStackPanel, _dataManagerFactory.CreateData<Producer>().ReadFromJson());
         MakeMetadataAreas("Designer", DesignerStackPanel, _dataManagerFactory.CreateData<Designer>().ReadFromJson());
-        MakeMetadataAreas("Programmer", ProgrammerStackPanel,
-            _dataManagerFactory.CreateData<Programmer>().ReadFromJson());
+        MakeMetadataAreas("Programmer", ProgrammerStackPanel, _dataManagerFactory.CreateData<Programmer>().ReadFromJson());
         MakeMetadataAreas("Artist", ArtistStackPanel, _dataManagerFactory.CreateData<Artist>().ReadFromJson());
+    }
+
+    private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
+    {
+        Label label = new() { Content = name };
+
+        TextBox textBox = new() { Name = $"{name}TextBox" };
+        RegisterName(textBox.Name, textBox);
+        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender, dataSource);
+        textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
+
+        ListBox listBox = new()
+        {
+            Name = $"{name}ListBox",
+            MaxHeight = 250,
+            Visibility = Visibility.Collapsed,
+            Padding = new Thickness(0),
+            Margin = new Thickness(0),
+            FontSize = 14,
+            ItemContainerStyle = CreateListBoxItemStyle()
+        };
+        RegisterName(listBox.Name, listBox);
+
+        stackPanel.Children.Add(label);
+        stackPanel.Children.Add(textBox);
+        stackPanel.Children.Add(listBox);
+    }
+
+    private static Style CreateListBoxItemStyle()
+    {
+        Style style = new(typeof(ListBoxItem));
+        style.Setters.Add(new Setter(PaddingProperty, new Thickness(2)));
+        style.Setters.Add(new Setter(MarginProperty, new Thickness(0)));
+
+        return style;
+    }
+
+    private void TextBox_TextChanged<T>(object sender, ICollection<T> suggestions) where T : IMetadata
+    {
+        if (sender is not TextBox textBox)
+        {
+            return;
+        }
+
+        string listBoxName = textBox.Name.Replace("TextBox", "ListBox");
+        if (FindName(listBoxName) is not ListBox listBox)
+        {
+            return;
+        }
+
+        string text = textBox.Text.Trim();
+
+        if (string.IsNullOrEmpty(text))
+        {
+            listBox.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
+        {
+            _checkedStates[cb.Content.ToString()] = cb.IsChecked ?? false;
+        }
+
+        List<T> filteredSuggestionList = suggestions
+            .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+
+        List<CheckBox> checkBoxList = filteredSuggestionList
+            .Select(item => new CheckBox { Content = item.Name, IsChecked = _checkedStates.GetValueOrDefault(item.Name, false) })
+            .ToList();
+
+        listBox.ItemsSource = checkBoxList;
+        listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void TextBox_KeyDown(object sender, KeyEventArgs keyEventArgs, Type dataType)
+    {
+        if (keyEventArgs.Key != Key.Enter)
+        {
+            return;
+        }
+
+        TextBox textBox = sender as TextBox;
+        if (textBox == null)
+        {
+            return;
+        }
+
+        string text = textBox.Text.Trim();
+
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+
+        CreateMetadata(dataType, text);
+
+        textBox.Clear();
     }
 
     private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<string, T> metadataFactory)
@@ -118,109 +214,6 @@ public partial class AddGame
         ICollection<Game> games = gameData.ReadFromJson();
         games.Add(newGame);
         gameData.WriteJson(games);
-    }
-
-    private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
-    {
-        Label label = new() { Content = name };
-
-        TextBox textBox = new() { Name = $"{name}TextBox" };
-        RegisterName(textBox.Name, textBox);
-        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender, dataSource);
-        textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
-
-        ListBox listBox = new()
-        {
-            Name = $"{name}ListBox",
-            MaxHeight = 250,
-            Visibility = Visibility.Collapsed,
-            Padding = new Thickness(0),
-            Margin = new Thickness(0),
-            FontSize = 14,
-            ItemContainerStyle = CreateListBoxItemStyle()
-        };
-        RegisterName(listBox.Name, listBox);
-
-        stackPanel.Children.Add(label);
-        stackPanel.Children.Add(textBox);
-        stackPanel.Children.Add(listBox);
-    }
-
-    private static Style CreateListBoxItemStyle()
-    {
-        Style style = new(typeof(ListBoxItem));
-        style.Setters.Add(new Setter(PaddingProperty, new Thickness(2)));
-        style.Setters.Add(new Setter(MarginProperty, new Thickness(0)));
-
-        return style;
-    }
-
-    private void TextBox_TextChanged<T>(object sender, ICollection<T> suggestions)
-        where T : IMetadata
-    {
-        if (sender is not TextBox textBox)
-        {
-            return;
-        }
-
-        string listBoxName = textBox.Name.Replace("TextBox", "ListBox");
-        if (FindName(listBoxName) is not ListBox listBox)
-        {
-            return;
-        }
-
-        string text = textBox.Text.Trim();
-
-        if (string.IsNullOrEmpty(text))
-        {
-            listBox.Visibility = Visibility.Collapsed;
-            return;
-        }
-
-        foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
-        {
-            _checkedStates[cb.Content.ToString()] = cb.IsChecked ?? false;
-        }
-
-        List<T> filteredSuggestionList = suggestions
-            .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
-            .ToList();
-
-        List<CheckBox> checkBoxList = filteredSuggestionList
-            .Select(item => new CheckBox
-            {
-                Content = item.Name,
-                IsChecked = _checkedStates.TryGetValue(item.Name, out bool isChecked) ? isChecked : false
-            })
-            .ToList();
-
-        listBox.ItemsSource = checkBoxList;
-        listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    private void TextBox_KeyDown(object sender, KeyEventArgs keyEventArgs, Type dataType)
-    {
-        if (keyEventArgs.Key != Key.Enter)
-        {
-            return;
-        }
-
-        TextBox textBox = sender as TextBox;
-        if (textBox == null)
-        {
-            return;
-        }
-
-        string text = textBox.Text.Trim();
-
-        if (string.IsNullOrEmpty(text))
-        {
-            return;
-        }
-
-        CreateMetadata(dataType, text);
-
-        textBox.Clear();
     }
 
     private void CreateMetadata(Type dataType, string text)

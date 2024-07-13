@@ -41,15 +41,31 @@
         <DataGrid
           x:Name="GameDataGrid"
           CanUserAddRows="False"
+          BorderThickness="0"
           CanUserDeleteRows="False"
           IsReadOnly="True"
+          AlternatingRowBackground="#FF8BBAE8"
           GridLinesVisibility="None"
+          FontFamily="Inter"
+          FontSize="16"
           RowHeaderWidth="0">
           <DataGrid.ContextMenu>
             <ContextMenu x:Name="GameDataGridContextMenu">
               <!-- PopulateDataGridContextMenu() -->
             </ContextMenu>
           </DataGrid.ContextMenu>
+          <DataGrid.ColumnHeaderStyle>
+            <Style TargetType="DataGridColumnHeader">
+              <Setter Property="Background" Value="#ff568ec4" />
+              <Setter Property="FontWeight" Value="Medium" />
+              <Setter Property="Padding" Value="5, 2, 5, 2" />
+            </Style>
+          </DataGrid.ColumnHeaderStyle>
+          <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow">
+              <Setter Property="Background" Value="#FF7AAFE3" />
+            </Style>
+          </DataGrid.RowStyle>
         </DataGrid>
       </StackPanel>
 

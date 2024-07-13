@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace GameManager.UI.Helpers;
 
-public class DataGridHelper
+public static class DataGridHelper
 {
     public static void UpdateGameDataGrid(DataGrid dataGrid)
     {

@@ -36,7 +36,7 @@ public class DataManagerFactory
     }
 }
 
-public class JsonData<T>(JsonDataManager dataManager, string jsonFile)
+public class JsonData<T>(JsonDataManager dataManager, string jsonFile) where T : IMetadata
 {
     public void WriteJson(ICollection<T> value)
     {
@@ -46,6 +46,14 @@ public class JsonData<T>(JsonDataManager dataManager, string jsonFile)
     public void AppendAndWriteJson(T newItem)
     {
         ICollection<T> existingData = dataManager.ReadFromJson<T>(jsonFile);
+
+        string newItemKey = newItem.Name;
+
+        if (existingData.Any(item => item.Name == newItemKey))
+        {
+            Console.WriteLine("Item with the same key already exists.");
+            return;
+        }
 
         existingData.Add(newItem);
 
