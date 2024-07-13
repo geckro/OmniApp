@@ -10,6 +10,11 @@ public class Platform : IMetadata
     public string? Company { get; set; }
 
     /// <summary>
+    ///     The logo of the game platform.
+    /// </summary>
+    public Uri? Logo { get; set; }
+
+    /// <summary>
     ///     The type of the platform.
     /// </summary>
     public PlatformType? Type { get; set; }

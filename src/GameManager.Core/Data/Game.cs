@@ -183,6 +183,7 @@ public class Game() : IMetadata
 
     /// <summary>
     ///     The engine that the game uses to run.
+    ///     Is collection as Games could technically use multiple engines.
     /// </summary>
     [JsonPropertyName("engine")]
     public ICollection<Engine>? Engine { get; set; }
