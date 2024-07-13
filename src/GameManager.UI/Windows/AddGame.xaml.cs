@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
 
+/// <summary>
+///     Logic for AddGame.xaml
+/// </summary>
 public partial class AddGame
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
@@ -14,12 +17,18 @@ public partial class AddGame
     private readonly DataManagerFactory _dataManagerFactory = new();
     private int _totalRomanNumeralValue;
 
+    /// <summary>
+    ///     Initializes a new instance of the AddGame class.
+    /// </summary>
     public AddGame()
     {
         InitializeComponent();
         InitializeMetadataAreas();
     }
 
+    /// <summary>
+    ///     Initializes the metadata areas for various Game categories.
+    /// </summary>
     private void InitializeMetadataAreas()
     {
         MakeMetadataAreas("Genre", GenreStackPanel, _dataManagerFactory.CreateData<Genre>().ReadFromJson());
@@ -38,6 +47,13 @@ public partial class AddGame
         MakeMetadataAreas("Artist", ArtistStackPanel, _dataManagerFactory.CreateData<Artist>().ReadFromJson());
     }
 
+    /// <summary>
+    ///     Creates metadata areas for a specific category.
+    /// </summary>
+    /// <param name="name">The name of the metadata category.</param>
+    /// <param name="stackPanel">The stack panel to add the generated controls to.</param>
+    /// <param name="dataSource">The actual data source of the metadata.</param>
+    /// <typeparam name="T">The type of IMetadata.</typeparam>
     private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
     {
         Label label = new() { Content = name };
@@ -64,6 +80,10 @@ public partial class AddGame
         stackPanel.Children.Add(listBox);
     }
 
+    /// <summary>
+    ///     Creates a style for the list box item for the metadata areas.
+    /// </summary>
+    /// <returns>The created list box item style.</returns>
     private static Style CreateListBoxItemStyle()
     {
         Style style = new(typeof(ListBoxItem));
@@ -73,6 +93,12 @@ public partial class AddGame
         return style;
     }
 
+    /// <summary>
+    ///     Handles the TextChanged event of the current text box.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="suggestions">The collection of suggestions to show.</param>
+    /// <typeparam name="T">The type of IMetadata.</typeparam>
     private void TextBox_TextChanged<T>(object sender, ICollection<T> suggestions) where T : IMetadata
     {
         if (sender is not TextBox textBox)
@@ -111,6 +137,12 @@ public partial class AddGame
         listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>
+    ///     Handles the KeyDown event of the TextBox.
+    /// </summary>
+    /// <param name="sender">The source of the event</param>
+    /// <param name="keyEventArgs">KeyEventArgs event data</param>
+    /// <param name="dataType">The type of data</param>
     private void TextBox_KeyDown(object sender, KeyEventArgs keyEventArgs, Type dataType)
     {
         if (keyEventArgs.Key != Key.Enter)
@@ -136,6 +168,14 @@ public partial class AddGame
         textBox.Clear();
     }
 
+    /// <summary>
+    ///     Extracts checked boxes from a ListBox
+    /// </summary>
+    /// <param name="listBox">The ListBox to extract CheckBoxes from</param>
+    /// <param name="metadataFactory">Method to create metadata instances</param>
+    /// <typeparam name="T">The type of IMetadata</typeparam>
+    /// <returns>Collection of an IMetadata instance</returns>
+    /// <exception cref="Exception"></exception>
     private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<string, T> metadataFactory)
     {
         if (listBox == null)
@@ -163,6 +203,11 @@ public partial class AddGame
         return result;
     }
 
+    /// <summary>
+    ///     Handles the click event of the finish button to add a new Game
+    /// </summary>
+    /// <param name="sender">The source of the event</param>
+    /// <param name="e">RoutedEventArgs event data</param>
     private void AddNewGameFinish_Click(object sender, RoutedEventArgs e)
     {
         string title = TitleBox.Text;
@@ -208,6 +253,11 @@ public partial class AddGame
         gameData.WriteJson(games);
     }
 
+    /// <summary>
+    ///     Create Name metadata for the specified type
+    /// </summary>
+    /// <param name="dataType">The type to add</param>
+    /// <param name="text">The text to add to Name for IMetadata</param>
     private void CreateMetadata(Type dataType, string text)
     {
         Dictionary<Type, Func<object>> typeMap = new()
@@ -242,6 +292,11 @@ public partial class AddGame
         data?.GetType().GetMethod("AppendAndWriteJson")?.Invoke(data, [instance]);
     }
 
+    /// <summary>
+    ///     Automatically renames the Title when you press enter.
+    /// </summary>
+    /// <param name="sender">The source of the event</param>
+    /// <param name="e">KeyEventArgs event data</param>
     private void TitleBox_Rename(object sender, KeyEventArgs e)
     {
         if (e.Key != Key.Enter)
@@ -294,6 +349,11 @@ public partial class AddGame
         textBox.Text = string.Join(' ', capitalizedWords);
     }
 
+    /// <summary>
+    ///     Checks to see if a word is a roman numeral or not
+    /// </summary>
+    /// <param name="word">The string to check.</param>
+    /// <returns>True if it is a roman numeral, False otherwise.</returns>
     private bool IsRomanNumeral(string word)
     {
         // The maximum length roman numeral is XVIII, also add another letter for edge cases

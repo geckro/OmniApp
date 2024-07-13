@@ -2,6 +2,9 @@
 
 namespace GameManager.Core.Data;
 
+/// <summary>
+///     Constructor for a Game.
+/// </summary>
 [method: JsonConstructor]
 public class Game() : IMetadata
 {

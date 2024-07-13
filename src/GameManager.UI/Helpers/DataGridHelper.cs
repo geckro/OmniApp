@@ -4,8 +4,15 @@ using System.Windows.Data;
 
 namespace GameManager.UI.Helpers;
 
+/// <summary>
+///     Helper for the DataGrid control.
+/// </summary>
 public static class DataGridHelper
 {
+    /// <summary>
+    ///     Updates the main Game DataGrid on the MainWindow
+    /// </summary>
+    /// <param name="dataGrid">The Game DataGrid</param>
     public static void UpdateGameDataGrid(DataGrid dataGrid)
     {
         ICollection<Game> games = new DataManagerFactory().CreateData<Game>().ReadFromJson();

@@ -5,13 +5,13 @@ namespace CSharpReferences.Core.PerformanceTests;
 public class TenMillion
 {
     private const int TenMillionCount = 10000000;
+    private readonly decimal[] _decimals = new decimal[TenMillionCount];
+    private readonly decimal[] _decimals2 = new decimal[TenMillionCount];
+    private readonly double[] _doubles = new double[TenMillionCount];
+    private readonly double[] _doubles2 = new double[TenMillionCount];
 
     private readonly float[] _floats = new float[TenMillionCount];
     private readonly float[] _floats2 = new float[TenMillionCount];
-    private readonly double[] _doubles = new double[TenMillionCount];
-    private readonly double[] _doubles2 = new double[TenMillionCount];
-    private readonly decimal[] _decimals = new decimal[TenMillionCount];
-    private readonly decimal[] _decimals2 = new decimal[TenMillionCount];
 
     private readonly Random _random = new();
 

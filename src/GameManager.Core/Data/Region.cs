@@ -1,5 +1,8 @@
 ﻿namespace GameManager.Core.Data;
 
+/// <summary>
+///     A list of regions that games commonly exclusively release in
+/// </summary>
 public enum Region
 {
     [RegName(Name.Australia), RegName(Name.Worldwide), RegLang(Lang.English)]
