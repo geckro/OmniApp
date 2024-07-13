@@ -18,7 +18,7 @@ public partial class MainWindow
 
     private void FinanceManager_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        new FinancialManager.UI.Windows.MainWindow().Show();
     }
 
     private void OtherButton_Click(object sender, RoutedEventArgs e)

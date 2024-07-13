@@ -1,4 +1,4 @@
-﻿namespace FinancialManager.UI;
+﻿namespace FinancialManager.UI.Windows;
 
 public partial class MainWindow
 {
