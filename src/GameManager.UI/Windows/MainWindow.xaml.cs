@@ -51,11 +51,19 @@ public partial class MainWindow
         DataGridHelper.UpdateGameDataGrid(GameDataGrid);
     }
 
+    private Dictionary<string, Action> _menuItems = new();
+
     /// <summary>
     ///     Populates the context menu of the Game DataGrid.
     /// </summary>
     private void PopulateDataGridContextMenu()
     {
+        _menuItems.Add("Mark as played", MarkAsPlayed);
+        _menuItems.Add("Mark as finished", MarkAsFinished);
+        _menuItems.Add("Mark as completed", MarkAsCompleted);
+        _menuItems.Add("Edit", Edit);
+        _menuItems.Add("Delete", Delete);
+
         GameDataGrid.ContextMenu ??= new ContextMenu();
 
         GameDataGrid.ContextMenu.Items.Clear();
@@ -124,9 +132,43 @@ public partial class MainWindow
 
     private void MenuItem_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuItem menuItem)
+        if (sender is not MenuItem { Header: string header })
         {
-            MessageBox.Show($"Clicked: {menuItem.Header}");
+            return;
         }
+
+        if (_menuItems.TryGetValue(header, out Action? value))
+        {
+            value.Invoke();
+        }
+        else
+        {
+            MessageBox.Show($"Action not defined for '{header}'");
+        }
+    }
+
+    private void MarkAsPlayed()
+    {
+        MessageBox.Show("MarkAsPlayed");
+    }
+
+    private void MarkAsFinished()
+    {
+        MessageBox.Show("MarkAsFinished");
+    }
+
+    private void MarkAsCompleted()
+    {
+        MessageBox.Show("MarkAsCompleted");
+    }
+
+    private void Edit()
+    {
+        MessageBox.Show("Edit");
+    }
+
+    private void Delete()
+    {
+        MessageBox.Show("Delete");
     }
 }
