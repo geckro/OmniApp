@@ -1,5 +1,7 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -27,17 +29,53 @@ public class DataGridHelper
 
         _dataGrid.Columns.Clear();
 
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Title", Binding = new Binding("Title") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Played", Binding = new Binding("HasPlayed") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Finished", Binding = new Binding("HasFinished") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Complete", Binding = new Binding("HasCompleted") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Genres", Binding = new Binding("Genres") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Developers", Binding = new Binding("Developers") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Publishers", Binding = new Binding("Publishers") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Series", Binding = new Binding("Series") });
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Date", Binding = new Binding("ReleaseDateWw") });
+        AddTextColumn("Title", "Title");
+        AddTrueFalseColumn("Played", "HasPlayed");
+        AddTrueFalseColumn("Finished", "HasFinished");
+        AddTrueFalseColumn("Complete", "HasCompleted");
+        AddTextColumn("Genres", "Genres");
+        AddTextColumn("Developers", "Developers");
+        AddTextColumn("Publishers", "Publishers");
+        AddTextColumn("Series", "Series");
+        AddTextColumn("Date", "ReleaseDateWw");
 
         _dataGrid.ItemsSource = _games;
+    }
+
+    private void AddTextColumn(string header, string bindingPath)
+    {
+        _dataGrid.Columns.Add(new DataGridTextColumn
+        {
+            Header = header,
+            Binding = new Binding(bindingPath)
+        });
+    }
+
+    private void AddTrueFalseColumn(string header, string propertyName)
+    {
+        _dataGrid.Columns.Add(CreateTrueFalseColumn(header, propertyName));
+    }
+
+    private static DataGridTemplateColumn CreateTrueFalseColumn(string header, string propertyName)
+    {
+        DataGridTemplateColumn column = new()
+        {
+            Header = header
+        };
+
+        DataTemplate template = new(typeof(TextBlock))
+        {
+            VisualTree = new FrameworkElementFactory(typeof(TextBlock))
+        };
+
+        template.VisualTree.SetBinding(TextBlock.TextProperty, new Binding(propertyName)
+        {
+            Converter = new BooleanYesNoRenameConverter()
+        });
+
+        column.CellTemplate = template;
+
+        return column;
     }
 
     /// <summary>
@@ -48,5 +86,25 @@ public class DataGridHelper
     {
         _games = gameData.ReadFromJson();
         _dataGrid.ItemsSource = _games;
+    }
+}
+
+/// <summary>
+/// Converter to display True/False as Yes or No.
+/// </summary>
+public class BooleanYesNoRenameConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is bool boolValue)
+        {
+            return boolValue ? "Yes" : "No";
+        }
+        return string.Empty;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }
