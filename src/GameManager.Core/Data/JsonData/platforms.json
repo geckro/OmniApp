@@ -1,0 +1,293 @@
+﻿[
+  {
+    "name": "3DO",
+    "company": "Panasonic"
+  },
+  {
+    "name": "3DS",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Android",
+    "company": "Google"
+  },
+  {
+    "name": "Apple II",
+    "company": "Apple"
+  },
+  {
+    "name": "Atari 2600",
+    "company": "Atari"
+  },
+  {
+    "name": "Atari 5200",
+    "company": "Atari"
+  },
+  {
+    "name": "Atari 7800",
+    "company": "Atari"
+  },
+  {
+    "name": "CD-i",
+    "company": "Philips"
+  },
+  {
+    "name": "ColecoVision",
+    "company": "Coleco"
+  },
+  {
+    "name": "Commodore 64",
+    "company": "Commodore"
+  },
+  {
+    "name": "DS",
+    "company": "Nintendo"
+  },
+  {
+    "name": "DSiWare",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Dreamcast",
+    "company": "Sega"
+  },
+  {
+    "name": "Famicom Disk System",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Game & Watch",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Game Boy",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Game Boy Advance",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Game Boy Color",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Game Gear",
+    "company": "Sega"
+  },
+  {
+    "name": "Game.com",
+    "company": "Tiger"
+  },
+  {
+    "name": "GameCube",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Genesis / Mega Drive",
+    "company": "Sega"
+  },
+  {
+    "name": "Intellivision",
+    "company": "Mattel"
+  },
+  {
+    "name": "iOS",
+    "company": "Apple"
+  },
+  {
+    "name": "Jaguar",
+    "company": "Atari"
+  },
+  {
+    "name": "Jaguar CD",
+    "company": "Atari"
+  },
+  {
+    "name": "Linux"
+  },
+  {
+    "name": "Lynx",
+    "company": "Atari"
+  },
+  {
+    "name": "MS-DOS",
+    "company": "Microsoft"
+  },
+  {
+    "name": "MSX",
+    "company": "ASCII"
+  },
+  {
+    "name": "MacOS",
+    "company": "Apple"
+  },
+  {
+    "name": "Master System",
+    "company": "Sega"
+  },
+  {
+    "name": "N-Gage",
+    "company": "Nokia"
+  },
+  {
+    "name": "NES",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Neo Geo AES",
+    "company": "SNK"
+  },
+  {
+    "name": "Neo Geo Pocket",
+    "company": "SNK"
+  },
+  {
+    "name": "Neo Geo Pocket Color",
+    "company": "SNK"
+  },
+  {
+    "name": "Nintendo 64",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Nintendo 64DD",
+    "company": "Nintendo"
+  },
+  {
+    "name": "PC-98",
+    "company": "NEC"
+  },
+  {
+    "name": "PC-FX",
+    "company": "NEC"
+  },
+  {
+    "name": "PlayStation",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation 2",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation 3",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation 4",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation 5",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation Network",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation Portable",
+    "company": "Sony"
+  },
+  {
+    "name": "PlayStation Vita",
+    "company": "Sony"
+  },
+  {
+    "name": "Pokemon Mini",
+    "company": "Nintendo"
+  },
+  {
+    "name": "SG-1000",
+    "company": "Sega"
+  },
+  {
+    "name": "Satellaview",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Saturn",
+    "company": "Sega"
+  },
+  {
+    "name": "Sega 32X",
+    "company": "Sega"
+  },
+  {
+    "name": "Sega CD",
+    "company": "Sega"
+  },
+  {
+    "name": "Super Nintendo",
+    "company": "Nintendo"
+  },
+  {
+    "name": "SuperGrafx",
+    "company": "NEC"
+  },
+  {
+    "name": "Switch",
+    "company": "Nintendo"
+  },
+  {
+    "name": "TurboGrafx-16 / PC Engine",
+    "company": "NEC"
+  },
+  {
+    "name": "TurboGrafx-CD",
+    "company": "NEC"
+  },
+  {
+    "name": "Vectrex",
+    "company": "Smith Engineering"
+  },
+  {
+    "name": "Virtual Boy",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Wii",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Wii U",
+    "company": "Nintendo"
+  },
+  {
+    "name": "WiiWare",
+    "company": "Nintendo"
+  },
+  {
+    "name": "Windows",
+    "company": "Microsoft"
+  },
+  {
+    "name": "WonderSwan",
+    "company": "Bandai"
+  },
+  {
+    "name": "WonderSwan Color",
+    "company": "Bandai"
+  },
+  {
+    "name": "Xbox",
+    "company": "Microsoft"
+  },
+  {
+    "name": "Xbox 360",
+    "company": "Microsoft"
+  },
+  {
+    "name": "Xbox Live Arcade",
+    "company": "Microsoft"
+  },
+  {
+    "name": "Xbox One",
+    "company": "Microsoft"
+  },
+  {
+    "name": "Xbox Series X/S",
+    "company": "Microsoft"
+  }
+]

@@ -1,0 +1,152 @@
+﻿[
+  {
+    "name": "Action"
+  },
+  {
+    "name": "Action-adventure"
+  },
+  {
+    "name": "Adventure"
+  },
+  {
+    "name": "Beat 'em up"
+  },
+  {
+    "name": "Board game"
+  },
+  {
+    "name": "Card game"
+  },
+  {
+    "name": "City builder"
+  },
+  {
+    "name": "Edutainment"
+  },
+  {
+    "name": "Exergame"
+  },
+  {
+    "name": "Fighting (2D)"
+  },
+  {
+    "name": "Fighting (3D)"
+  },
+  {
+    "name": "Hack and slash"
+  },
+  {
+    "name": "Horror"
+  },
+  {
+    "name": "Incremental"
+  },
+  {
+    "name": "Interactive movie"
+  },
+  {
+    "name": "Metroidvania"
+  },
+  {
+    "name": "Party"
+  },
+  {
+    "name": "Platformer (2D)"
+  },
+  {
+    "name": "Platformer (3D)"
+  },
+  {
+    "name": "Puzzle"
+  },
+  {
+    "name": "Point and click"
+  },
+  {
+    "name": "RPG (Action)"
+  },
+  {
+    "name": "RPG (MMO)"
+  },
+  {
+    "name": "RPG (Tactical)"
+  },
+  {
+    "name": "RPG (Turn-Based)"
+  },
+  {
+    "name": "Racing (Arcade)"
+  },
+  {
+    "name": "Racing (Simulation)"
+  },
+  {
+    "name": "Rhythm"
+  },
+  {
+    "name": "Roguelike"
+  },
+  {
+    "name": "Run and gun"
+  },
+  {
+    "name": "Sandbox"
+  },
+  {
+    "name": "Simulator"
+  },
+  {
+    "name": "Simulator (Life)"
+  },
+  {
+    "name": "Shoot 'em up"
+  },
+  {
+    "name": "Shooter (First-Person)"
+  },
+  {
+    "name": "Shooter (Third-Person)"
+  },
+  {
+    "name": "Sports (Baseball)"
+  },
+  {
+    "name": "Sports (Basketball)"
+  },
+  {
+    "name": "Sports (Golf)"
+  },
+  {
+    "name": "Sports (Soccer)"
+  },
+  {
+    "name": "Sports (Tennis)"
+  },
+  {
+    "name": "Stealth"
+  },
+  {
+    "name": "Strategy (Grand)"
+  },
+  {
+    "name": "Strategy (4X)"
+  },
+  {
+    "name": "Strategy (Turn-based)"
+  },
+  {
+    "name": "Strategy (Real-time)"
+  },
+  {
+    "name": "Survival"
+  },
+  {
+    "name": "Trivia"
+  },
+  {
+    "name": "Tower defense"
+  },
+  {
+    "name": "Visual novel"
+  }
+]
