@@ -8,31 +8,45 @@ namespace GameManager.UI.Helpers;
 /// <summary>
 ///     Helper for the DataGrid control.
 /// </summary>
-public static class DataGridHelper
+public class DataGridHelper
 {
+    private ICollection<Game> _games = [];
+    private DataGrid _dataGrid = null!;
+
     /// <summary>
-    ///     Updates the main Game DataGrid on the MainWindow
+    ///     Populates the main Game DataGrid on the MainWindow.
     /// </summary>
-    /// <param name="dataGrid">The Game DataGrid</param>
-    /// <param name="gameData">Game data from an instance of DataFactoryManager</param>
-    public static void UpdateGameDataGrid(DataGrid dataGrid, JsonData<Game> gameData)
+    /// <param name="dataGrid">The Game DataGrid.</param>
+    /// <param name="gameData">Game data from an instance of DataFactoryManager.</param>
+    public void PopulateGameDataGrid(DataGrid dataGrid, JsonData<Game> gameData)
     {
-        ICollection<Game> games = gameData.ReadFromJson();
+        _games = gameData.ReadFromJson();
+        _dataGrid = dataGrid;
 
-        dataGrid.AutoGenerateColumns = false;
+        _dataGrid.AutoGenerateColumns = false;
 
-        dataGrid.Columns.Clear();
+        _dataGrid.Columns.Clear();
 
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Title", Binding = new Binding("Title") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Played", Binding = new Binding("HasPlayed") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Finished", Binding = new Binding("HasFinished") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Complete", Binding = new Binding("HasCompleted") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Genres", Binding = new Binding("Genres") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Developers", Binding = new Binding("Developers") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Publishers", Binding = new Binding("Publishers") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Series", Binding = new Binding("Series") });
-        dataGrid.Columns.Add(new DataGridTextColumn { Header = "Date", Binding = new Binding("ReleaseDateWw") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Title", Binding = new Binding("Title") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Played", Binding = new Binding("HasPlayed") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Finished", Binding = new Binding("HasFinished") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Complete", Binding = new Binding("HasCompleted") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Genres", Binding = new Binding("Genres") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Developers", Binding = new Binding("Developers") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Publishers", Binding = new Binding("Publishers") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Series", Binding = new Binding("Series") });
+        _dataGrid.Columns.Add(new DataGridTextColumn { Header = "Date", Binding = new Binding("ReleaseDateWw") });
 
-        dataGrid.ItemsSource = games;
+        _dataGrid.ItemsSource = _games;
+    }
+
+    /// <summary>
+    /// Refreshes the main Game DataGrid on the MainWindow.
+    /// </summary>
+    /// <param name="gameData">Game data from an instance of DataFactoryManager.</param>
+    public void RefreshGameDataGrid(JsonData<Game> gameData)
+    {
+        _games = gameData.ReadFromJson();
+        _dataGrid.ItemsSource = _games;
     }
 }

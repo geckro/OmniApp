@@ -14,7 +14,7 @@ namespace GameManager.UI.Windows;
 public partial class MainWindow
 {
     private readonly JsonData<Game> _jsonData = new DataManagerFactory().CreateData<Game>();
-
+    private DataGridHelper _dataGridHelper = new();
     /// <summary>
     ///     Initializes a new instance of the MainWindow class.
     /// </summary>
@@ -23,7 +23,7 @@ public partial class MainWindow
         Logger.Info(LogClass.GameMgrUi, "Starting MainWindow");
 
         InitializeComponent();
-        UpdateGameDataGrid();
+        PopulateGameDataGrid();
         PopulateDataGridContextMenu();
     }
 
@@ -50,9 +50,17 @@ public partial class MainWindow
     /// <summary>
     ///     Updates the Game DataGrid.
     /// </summary>
-    private void UpdateGameDataGrid()
+    private void PopulateGameDataGrid()
     {
-        DataGridHelper.UpdateGameDataGrid(GameDataGrid, _jsonData);
+        _dataGridHelper.PopulateGameDataGrid(GameDataGrid, _jsonData);
+    }
+
+    /// <summary>
+    ///     Refreshes the Game DataGrid.
+    /// </summary>
+    private void RefreshGameDataGrid()
+    {
+        _dataGridHelper.RefreshGameDataGrid(_jsonData);
     }
 
     private readonly Dictionary<string, (Action method, bool isCheckable)> _menuItems = new();
@@ -166,7 +174,7 @@ public partial class MainWindow
         {
             game.HasPlayed = true;
             _jsonData.UpdateAndWriteJson(_gameId, "HasPlayed", true);
-            UpdateGameDataGrid();
+            RefreshGameDataGrid();
         }
     }
 
@@ -176,7 +184,7 @@ public partial class MainWindow
         {
             game.HasFinished = true;
             _jsonData.UpdateAndWriteJson(_gameId, "HasFinished", true);
-            UpdateGameDataGrid();
+            RefreshGameDataGrid();
         }
     }
 
@@ -186,7 +194,7 @@ public partial class MainWindow
         {
             game.HasCompleted = true;
             _jsonData.UpdateAndWriteJson(_gameId, "HasCompleted", true);
-            UpdateGameDataGrid();
+            RefreshGameDataGrid();
         }
     }
 
