@@ -49,11 +49,6 @@
           FontFamily="Inter"
           FontSize="16"
           RowHeaderWidth="0">
-          <DataGrid.ContextMenu>
-            <ContextMenu x:Name="GameDataGridContextMenu">
-              <!-- PopulateDataGridContextMenu() -->
-            </ContextMenu>
-          </DataGrid.ContextMenu>
           <DataGrid.ColumnHeaderStyle>
             <Style TargetType="DataGridColumnHeader">
               <Setter Property="Background" Value="#ff568ec4" />

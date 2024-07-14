@@ -2,6 +2,7 @@
 using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
 
@@ -55,20 +56,77 @@ public partial class MainWindow
     /// </summary>
     private void PopulateDataGridContextMenu()
     {
-        ContextMenu contextMenu = GameDataGridContextMenu;
+        GameDataGrid.ContextMenu ??= new ContextMenu();
+
+        GameDataGrid.ContextMenu.Items.Clear();
 
         IEnumerable<string> metadataCheckable = ["played", "finished", "completed"];
         foreach (string data in metadataCheckable)
         {
             MenuItem menuItem = new() { Header = $"Mark as {data}", IsCheckable = true };
-            contextMenu.Items.Add(menuItem);
+            menuItem.Click += MenuItem_Click;
+            GameDataGrid.ContextMenu.Items.Add(menuItem);
         }
 
         IEnumerable<string> metadata = ["Edit", "Delete"];
         foreach (string data in metadata)
         {
             MenuItem menuItem = new() { Header = $"{data}" };
-            contextMenu.Items.Add(menuItem);
+            menuItem.Click += MenuItem_Click;
+            GameDataGrid.ContextMenu.Items.Add(menuItem);
+        }
+
+        GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
+    }
+
+    private void GameDataGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        if (e.OriginalSource is DependencyObject source)
+        {
+            DataGridRow? dataGridRow = FindAncestor<DataGridRow>(source);
+
+            if (dataGridRow != null)
+            {
+                if (GameDataGrid.ContextMenu != null)
+                {
+                    GameDataGrid.ContextMenu.DataContext = dataGridRow.DataContext;
+                }
+                else
+                {
+                    throw new Exception("ContextMenu is null");
+                }
+            }
+            else
+            {
+                throw new Exception("DataGridRow not found");
+            }
+        }
+        else
+        {
+            throw new Exception("OriginalSource is not a DependencyObject");
+        }
+    }
+
+    private static T? FindAncestor<T>(DependencyObject? current) where T : DependencyObject
+    {
+        while (current != null)
+        {
+            if (current is T ancestor)
+            {
+                return ancestor;
+            }
+
+            current = VisualTreeHelper.GetParent(current);
+        }
+
+        return null;
+    }
+
+    private void MenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem menuItem)
+        {
+            MessageBox.Show($"Clicked: {menuItem.Header}");
         }
     }
 }
