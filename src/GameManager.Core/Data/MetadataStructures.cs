@@ -7,85 +7,111 @@ namespace GameManager.Core.Data;
 /// </summary>
 public class Engine : IMetadata
 {
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
+    public ICollection<Company>? Developer { get; set; }
+    public ICollection<Platform>? SupportedPlatforms { get; set; }
+    public ICollection<string>? ProgrammingLanguages { get; set; }
+    public Licenses? License { get; set; }
+    public Uri? Logo { get; set; }
+    public Uri? Website { get; set; }
     [JsonIgnore] public string JsonFile => "engines.json";
 }
 
 /// <summary>
-///     An abstract class for a Person
+///     Generic person.
 /// </summary>
-public abstract class Person : IPerson
+public class Person : IMetadata
 {
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
-    public bool? MainPerson { get; set; }
+    public DateTime? BirthDate { get; set; }
     public Uri? Picture { get; set; }
-    [JsonIgnore] public abstract string JsonFile { get; }
-}
-
-/// <summary>
-///     An abstract class for a Company
-/// </summary>
-public abstract class Company : ICompany
-{
-    public required string Name { get; set; }
-    public Uri? Logo { get; set; }
-    [JsonIgnore] public abstract string JsonFile { get; }
+    [JsonIgnore] public string JsonFile => "people.json";
 }
 
 /// <summary>
 ///     A person that composed/made the music of the game.
 /// </summary>
-public class Composer : Person
+public class Composer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "composers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "composers.json";
 }
 
 /// <summary>
 ///     A person who wrote or helped write the game.
 /// </summary>
-public class Writer : Person
+public class Writer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "writers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "writers.json";
 }
 
 /// <summary>
 ///     A person who programmed parts of, or the whole game.
 /// </summary>
-public class Programmer : Person
+public class Programmer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "programmers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "programmers.json";
 }
 
 /// <summary>
 ///     A person who made the artwork and graphics of the game.
 /// </summary>
-public class Artist : Person
+public class Artist : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "artists.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "artists.json";
 }
 
 /// <summary>
 ///     A person who designed the game.
 /// </summary>
-public class Designer : Person
+public class Designer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "designers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "designers.json";
 }
 
 /// <summary>
 ///     A person who produced or help produce the game.
 /// </summary>
-public class Producer : Person
+public class Producer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "producers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "producers.json";
 }
 
 /// <summary>
 ///     A person who directed the making of the game.
 /// </summary>
-public class Director : Person
+public class Director : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "directors.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public Uri? Picture { get; set; }
+    public bool? IsMainPerson { get; set; }
+    [JsonIgnore] public string JsonFile => "directors.json";
 }
 
 /// <summary>
@@ -93,24 +119,54 @@ public class Director : Person
 /// </summary>
 public class Genre : IMetadata
 {
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     [JsonIgnore] public string JsonFile => "genres.json";
 }
 
 /// <summary>
+///     Generic company.
+/// </summary>
+public class Company : IMetadata
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public ICollection<string>? OtherNames { get; set; }
+    public DateTime? DateFounded { get; set; }
+    public Region? LocatedAt { get; set; }
+    public Uri? Logo { get; set; }
+    public Uri? Website { get; set; }
+    [JsonIgnore] public string JsonFile => "companies.json";
+}
+
+/// <summary>
 ///     A developer of the game.
 /// </summary>
-public class Developer : Company
+public class Developer : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "developers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public ICollection<string>? OtherNames { get; set; }
+    public DateTime? DateFounded { get; set; }
+    public Region? LocatedAt { get; set; }
+    public Uri? Logo { get; set; }
+    public Uri? Website { get; set; }
+    [JsonIgnore] public string JsonFile => "developers.json";
 }
 
 /// <summary>
 ///     A publisher of the game.
 /// </summary>
-public class Publisher : Company
+public class Publisher : IMetadata
 {
-    [JsonIgnore] public override string JsonFile => "publishers.json";
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public ICollection<string>? OtherNames { get; set; }
+    public DateTime? DateFounded { get; set; }
+    public Region? LocatedAt { get; set; }
+    public Uri? Logo { get; set; }
+    public Uri? Website { get; set; }
+    [JsonIgnore] public string JsonFile => "publishers.json";
 }
 
 /// <summary>
@@ -118,6 +174,7 @@ public class Publisher : Company
 /// </summary>
 public class Series : IMetadata
 {
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     public Uri? Logo { get; set; }
     [JsonIgnore] public string JsonFile => "series.json";
@@ -128,7 +185,18 @@ public class Series : IMetadata
 /// </summary>
 public class AgeRatings : IMetadata
 {
+    public required Guid Id { get; set; }
     public required string Name { get; set; }
     public Uri? RatingSymbol { get; set; }
     [JsonIgnore] public string JsonFile => "ageratings.json";
+}
+
+/// <summary>
+///     The license the game is under.
+/// </summary>
+public class Licenses : IMetadata
+{
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    [JsonIgnore] public string JsonFile => "licenses.json";
 }

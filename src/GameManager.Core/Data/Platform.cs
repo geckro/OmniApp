@@ -4,24 +4,14 @@ namespace GameManager.Core.Data;
 
 public class Platform : IMetadata
 {
-    /// <summary>
-    ///     The company that owns the platform.
-    /// </summary>
+    public required Guid Id { get; set; }
+
     public string? Company { get; set; }
 
-    /// <summary>
-    ///     The logo of the game platform.
-    /// </summary>
     public Uri? Logo { get; set; }
 
-    /// <summary>
-    ///     The type of the platform.
-    /// </summary>
     public PlatformType? Type { get; set; }
 
-    /// <summary>
-    ///     The name of the platform.
-    /// </summary>
     public string Name { get; set; }
 
     [JsonIgnore] public string JsonFile => "platforms.json";

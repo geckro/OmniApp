@@ -45,9 +45,14 @@ public class DataManagerFactory
     /// <typeparam name="T">The type of IMetadata</typeparam>
     /// <returns>A JsonDataManager for the specified type.</returns>
     /// <exception cref="ArgumentException">Thrown when the JsonFile property is not defined for the specified type.</exception>
-    public JsonData<T> CreateData<T>() where T : IMetadata, new()
+    public JsonData<T> CreateData<T>() where T : IMetadata
     {
-        T instance = new();
+        if (typeof(T).GetConstructor(Type.EmptyTypes) == null)
+        {
+            throw new ArgumentException($"{typeof(T).Name} must have a parameterless constructor.");
+        }
+
+        T instance = Activator.CreateInstance<T>();
 
         string jsonFile = instance.JsonFile ?? string.Empty;
 

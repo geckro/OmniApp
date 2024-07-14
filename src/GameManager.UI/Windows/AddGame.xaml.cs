@@ -130,7 +130,7 @@ public partial class AddGame
             .ToList();
 
         List<CheckBox> checkBoxList = filteredSuggestionList
-            .Select(item => new CheckBox { Content = item.Name, IsChecked = _checkedStates.GetValueOrDefault(item.Name, false) })
+            .Select(item => new CheckBox { Content = item.Name, Tag = item.Id, IsChecked = _checkedStates.GetValueOrDefault(item.Name, false) })
             .ToList();
 
         listBox.ItemsSource = checkBoxList;
@@ -176,7 +176,7 @@ public partial class AddGame
     /// <typeparam name="T">The type of IMetadata</typeparam>
     /// <returns>Collection of an IMetadata instance</returns>
     /// <exception cref="Exception"></exception>
-    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<string, T> metadataFactory)
+    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, string, T> metadataFactory) where T : IMetadata
     {
         if (listBox == null)
         {
@@ -194,10 +194,18 @@ public partial class AddGame
                 _ => null
             };
 
-            if (checkBox?.IsChecked == true)
+            if (checkBox?.IsChecked != true)
             {
-                result.Add(metadataFactory(checkBox.Content.ToString()));
+                continue;
             }
+
+            if (checkBox.Tag is not Guid guid || checkBox.Content is not string name)
+            {
+                continue;
+            }
+
+            T metadata = metadataFactory(guid, name);
+            result.Add(metadata);
         }
 
         return result;
@@ -227,20 +235,21 @@ public partial class AddGame
 
         Game newGame = new()
         {
+            Id = Guid.NewGuid(),
             Title = title,
-            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), name => new Genre { Name = name }),
-            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), name => new Platform { Name = name }),
-            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), name => new Developer { Name = name }),
-            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), name => new Publisher { Name = name }),
-            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), name => new Series { Name = name }),
-            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), name => new Writer { Name = name }),
-            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), name => new Director { Name = name }),
-            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), name => new Artist { Name = name }),
-            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), name => new Designer { Name = name }),
-            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), name => new Programmer { Name = name }),
-            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), name => new Composer { Name = name }),
-            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), name => new AgeRatings { Name = name }),
-            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), name => new Engine { Name = name }),
+            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), (id, name) => new Genre { Id = id, Name = name }),
+            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), (id, name) => new Platform { Id = id, Name = name }),
+            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), (id, name) => new Developer { Id = id, Name = name }),
+            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), (id, name) => new Publisher { Id = id, Name = name }),
+            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), (id, name) => new Series { Id = id, Name = name }),
+            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), (id, name) => new Writer { Id = id, Name = name }),
+            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), (id, name) => new Director { Id = id, Name = name }),
+            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), (id, name) => new Artist { Id = id, Name = name }),
+            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), (id, name) => new Designer { Id = id, Name = name }),
+            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), (id, name) => new Programmer { Id = id, Name = name }),
+            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), (id, name) => new Composer { Id = id, Name = name }),
+            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), (id, name) => new AgeRatings { Id = id, Name = name }),
+            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), (id, name) => new Engine { Id = id, Name = name }),
             ReleaseDateWw = Date.SelectedDate,
             CreatedOn = currentTime,
             LastUpdated = currentTime
@@ -262,20 +271,20 @@ public partial class AddGame
     {
         Dictionary<Type, Func<object>> typeMap = new()
         {
-            { typeof(Genre), () => new Genre { Name = text } },
-            { typeof(Platform), () => new Platform { Name = text } },
-            { typeof(Developer), () => new Developer { Name = text } },
-            { typeof(Publisher), () => new Publisher { Name = text } },
-            { typeof(Series), () => new Series { Name = text } },
-            { typeof(Composer), () => new Composer { Name = text } },
-            { typeof(Director), () => new Director { Name = text } },
-            { typeof(Writer), () => new Writer { Name = text } },
-            { typeof(Producer), () => new Producer { Name = text } },
-            { typeof(Programmer), () => new Programmer { Name = text } },
-            { typeof(Engine), () => new Engine { Name = text } },
-            { typeof(AgeRatings), () => new AgeRatings { Name = text } },
-            { typeof(Designer), () => new Designer { Name = text } },
-            { typeof(Artist), () => new Artist { Name = text } }
+            { typeof(Genre), () => new Genre { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Platform), () => new Platform { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Developer), () => new Developer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Publisher), () => new Publisher { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Composer), () => new Composer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Director), () => new Director { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Writer), () => new Writer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Producer), () => new Producer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Programmer), () => new Programmer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Engine), () => new Engine { Id = Guid.NewGuid(), Name = text } },
+            { typeof(AgeRatings), () => new AgeRatings { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Designer), () => new Designer { Id = Guid.NewGuid(), Name = text } },
+            { typeof(Artist), () => new Artist { Id = Guid.NewGuid(), Name = text } }
         };
 
         if (!typeMap.TryGetValue(dataType, out Func<object>? createInstance))
