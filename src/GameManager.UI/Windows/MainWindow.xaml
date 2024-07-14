@@ -23,7 +23,7 @@
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
-        <Button Content="Add..." Click="AddButton_Click" />
+        <Button x:Name="AddButton" Content="Add..." Click="AddButton_Click" />
         <Button Content="Import..." Click="ImportButton_Click" />
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">

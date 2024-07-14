@@ -5,6 +5,7 @@ using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
@@ -26,6 +27,7 @@ public partial class MainWindow
         InitializeComponent();
         PopulateGameDataGrid();
         PopulateDataGridContextMenu();
+        RegisterKeyboardShortcuts();
     }
 
     /// <summary>
@@ -221,5 +223,14 @@ public partial class MainWindow
     private void Delete()
     {
         MessageBox.Show("Delete");
+    }
+
+    private void RegisterKeyboardShortcuts()
+    {
+        RoutedCommand command = new();
+        command.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
+        CommandBinding binding = new(command, (_, _) => AddButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent)));
+        CommandBindings.Add(binding);
+        InputBindings.Add(new InputBinding(command, new KeyGesture(Key.N, ModifierKeys.Control)));
     }
 }
