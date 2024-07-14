@@ -90,7 +90,7 @@ public class DataGridHelper
 }
 
 /// <summary>
-/// Converter to display True/False as Yes or No.
+/// Converter to display True/False as ✅ or ❌.
 /// </summary>
 public class BooleanYesNoRenameConverter : IValueConverter
 {
@@ -98,7 +98,7 @@ public class BooleanYesNoRenameConverter : IValueConverter
     {
         if (value is bool boolValue)
         {
-            return boolValue ? "Yes" : "No";
+            return boolValue ? "\u2705" : "\u274c";
         }
         return string.Empty;
     }
