@@ -1,4 +1,5 @@
 ﻿using OmniApp.Common.Data;
+using System.Reflection;
 
 namespace GameManager.Core.Data;
 
@@ -110,5 +111,55 @@ public class JsonData<T>(JsonDataManager dataManager, string jsonFile) where T :
     public ICollection<T> ReadFromJson()
     {
         return dataManager.ReadFromJson<T>(jsonFile);
+    }
+
+    /// <summary>
+    /// Updates an item in the JSON file based on a key identifier and writes it back.
+    /// </summary>
+    /// <param name="id">The unique identifier of the game to update</param>
+    /// <param name="key">The key of the item to update.</param>
+    /// <param name="value">The new value to update.</param>
+    public void UpdateAndWriteJson(Guid id, string key, object value)
+    {
+        ICollection<T> existingData = dataManager.ReadFromJson<T>(jsonFile);
+
+        T? itemToUpdate = existingData.FirstOrDefault(item => item.Id == id);
+
+        if (itemToUpdate != null)
+        {
+            PropertyInfo? propertyInfo = typeof(T).GetProperty(key);
+            if (propertyInfo != null)
+            {
+                Type propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+
+                try
+                {
+                    object convertedValue = value == null ? null : Convert.ChangeType(value, propertyType);
+                    propertyInfo.SetValue(itemToUpdate, convertedValue);
+                }
+                catch (InvalidCastException ex)
+                {
+                    Console.WriteLine($"Invalid cast: {ex.Message}");
+                    Console.WriteLine($"Value: {value}, Expected Type: {propertyInfo.PropertyType}");
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error setting property '{key}': {ex.Message}");
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Property '{key}' not found in type {typeof(T).Name}");
+                return;
+            }
+
+            dataManager.WriteJson(existingData, jsonFile);
+        }
+        else
+        {
+            Console.WriteLine($"Item with key '{key}' not found.");
+        }
     }
 }

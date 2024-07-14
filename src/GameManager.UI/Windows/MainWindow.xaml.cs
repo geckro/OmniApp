@@ -1,4 +1,6 @@
-﻿using GameManager.UI.Helpers;
+﻿using GameManager.Core.Data;
+using GameManager.Core.Data.MetadataConstructors;
+using GameManager.UI.Helpers;
 using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,8 @@ namespace GameManager.UI.Windows;
 /// </summary>
 public partial class MainWindow
 {
+    private readonly JsonData<Game> _jsonData = new DataManagerFactory().CreateData<Game>();
+
     /// <summary>
     ///     Initializes a new instance of the MainWindow class.
     /// </summary>
@@ -48,7 +52,7 @@ public partial class MainWindow
     /// </summary>
     private void UpdateGameDataGrid()
     {
-        DataGridHelper.UpdateGameDataGrid(GameDataGrid);
+        DataGridHelper.UpdateGameDataGrid(GameDataGrid, _jsonData);
     }
 
     private readonly Dictionary<string, (Action method, bool isCheckable)> _menuItems = new();
@@ -127,6 +131,8 @@ public partial class MainWindow
         return null;
     }
 
+    private Guid _gameId;
+
     private void MenuItem_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem { Header: string header })
@@ -136,7 +142,17 @@ public partial class MainWindow
 
         if (_menuItems.TryGetValue(header, out (Action method, bool isCheckable) menuItemInfo))
         {
-            menuItemInfo.method.Invoke();
+            if (GameDataGrid.ContextMenu is { DataContext: Game game })
+            {
+                _gameId = game.Id;
+
+                // Invoke the method with gameId as an argument
+                menuItemInfo.method.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("DataContext is not a Game object.");
+            }
         }
         else
         {
@@ -146,17 +162,32 @@ public partial class MainWindow
 
     private void MarkAsPlayed()
     {
-        MessageBox.Show("MarkAsPlayed");
+        if (GameDataGrid.ContextMenu is { DataContext: Game game })
+        {
+            game.HasPlayed = true;
+            _jsonData.UpdateAndWriteJson(_gameId, "HasPlayed", true);
+            UpdateGameDataGrid();
+        }
     }
 
     private void MarkAsFinished()
     {
-        MessageBox.Show("MarkAsFinished");
+        if (GameDataGrid.ContextMenu is { DataContext: Game game })
+        {
+            game.HasFinished = true;
+            _jsonData.UpdateAndWriteJson(_gameId, "HasFinished", true);
+            UpdateGameDataGrid();
+        }
     }
 
     private void MarkAsCompleted()
     {
-        MessageBox.Show("MarkAsCompleted");
+        if (GameDataGrid.ContextMenu is { DataContext: Game game })
+        {
+            game.HasCompleted = true;
+            _jsonData.UpdateAndWriteJson(_gameId, "HasCompleted", true);
+            UpdateGameDataGrid();
+        }
     }
 
     private void Edit()

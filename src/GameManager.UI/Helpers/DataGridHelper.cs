@@ -14,11 +14,14 @@ public static class DataGridHelper
     ///     Updates the main Game DataGrid on the MainWindow
     /// </summary>
     /// <param name="dataGrid">The Game DataGrid</param>
-    public static void UpdateGameDataGrid(DataGrid dataGrid)
+    /// <param name="gameData">Game data from an instance of DataFactoryManager</param>
+    public static void UpdateGameDataGrid(DataGrid dataGrid, JsonData<Game> gameData)
     {
-        ICollection<Game> games = new DataManagerFactory().CreateData<Game>().ReadFromJson();
+        ICollection<Game> games = gameData.ReadFromJson();
 
         dataGrid.AutoGenerateColumns = false;
+
+        dataGrid.Columns.Clear();
 
         dataGrid.Columns.Add(new DataGridTextColumn { Header = "Title", Binding = new Binding("Title") });
         dataGrid.Columns.Add(new DataGridTextColumn { Header = "Played", Binding = new Binding("HasPlayed") });
@@ -30,7 +33,6 @@ public static class DataGridHelper
         dataGrid.Columns.Add(new DataGridTextColumn { Header = "Series", Binding = new Binding("Series") });
         dataGrid.Columns.Add(new DataGridTextColumn { Header = "Date", Binding = new Binding("ReleaseDateWw") });
 
-        dataGrid.Items.Clear();
         dataGrid.ItemsSource = games;
     }
 }
