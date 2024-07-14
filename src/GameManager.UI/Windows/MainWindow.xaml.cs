@@ -4,6 +4,7 @@ using GameManager.UI.Helpers;
 using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
@@ -100,6 +101,20 @@ public partial class MainWindow
     {
         if (e.OriginalSource is DependencyObject source)
         {
+            if (source is ScrollViewer)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            DataGridColumnHeader? dataGridColumn = FindAncestor<DataGridColumnHeader>(source);
+
+            if (dataGridColumn != null)
+            {
+                e.Handled = true;
+                return;
+            }
+
             DataGridRow? dataGridRow = FindAncestor<DataGridRow>(source);
 
             if (dataGridRow != null)
