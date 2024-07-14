@@ -18,7 +18,7 @@ public class JsonDataManager
     /// <typeparam name="T">The type of data to write.</typeparam>
     public void WriteJson<T>(ICollection<T> value, string jsonFile)
     {
-        _jsonHelper.WriteToJsonFile(value, jsonFile);
+        _jsonHelper.WriteToJsonFile(value, $"Data/GameMgr/{jsonFile}");
     }
 
     /// <summary>
@@ -29,7 +29,20 @@ public class JsonDataManager
     /// <returns>A collection of data read from the JSON file.</returns>
     public ICollection<T> ReadFromJson<T>(string jsonFile)
     {
-        return _jsonHelper.LoadFromJsonFile<T>(jsonFile);
+        try
+        {
+            return _jsonHelper.LoadFromJsonFile<T>($"Data/GameMgr/{jsonFile}");
+        }
+        catch (DirectoryNotFoundException)
+        {
+            MakeDirectories();
+            return ReadFromJson<T>(jsonFile);
+        }
+    }
+
+    private static void MakeDirectories()
+    {
+        Directory.CreateDirectory("Data/GameMgr/");
     }
 }
 
