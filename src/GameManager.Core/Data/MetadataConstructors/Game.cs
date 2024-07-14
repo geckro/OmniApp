@@ -10,10 +10,11 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Game() : IMetadata
 {
     public required Guid Id { get; set; }
+
     /// <summary>
     ///     The title or name of the game if no region is specified. Defaults to Worldwide.
     /// </summary>
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
     /// <summary>
     ///     Other game titles.
