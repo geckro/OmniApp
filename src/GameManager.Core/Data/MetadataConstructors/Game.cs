@@ -54,7 +54,7 @@ public class Game() : IMetadata
     /// <summary>
     ///     Region-specific release dates.
     /// </summary>
-    public Dictionary<Region, DateTime?> RegionReleaseDates { get; set; }
+    public Dictionary<Region, DateTime?>? RegionReleaseDates { get; set; }
 
     /// <summary>
     ///     If the game is a from the ground up remake.
