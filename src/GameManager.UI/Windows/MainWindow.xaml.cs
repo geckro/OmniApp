@@ -51,35 +51,32 @@ public partial class MainWindow
         DataGridHelper.UpdateGameDataGrid(GameDataGrid);
     }
 
-    private Dictionary<string, Action> _menuItems = new();
+    private readonly Dictionary<string, (Action method, bool isCheckable)> _menuItems = new();
 
     /// <summary>
     ///     Populates the context menu of the Game DataGrid.
     /// </summary>
     private void PopulateDataGridContextMenu()
     {
-        _menuItems.Add("Mark as played", MarkAsPlayed);
-        _menuItems.Add("Mark as finished", MarkAsFinished);
-        _menuItems.Add("Mark as completed", MarkAsCompleted);
-        _menuItems.Add("Edit", Edit);
-        _menuItems.Add("Delete", Delete);
+        _menuItems.Add("Mark as played", (MarkAsPlayed, true));
+        _menuItems.Add("Mark as finished", (MarkAsFinished, true));
+        _menuItems.Add("Mark as completed", (MarkAsCompleted, true));
+        _menuItems.Add("Edit", (Edit, false));
+        _menuItems.Add("Delete", (Delete, false));
 
         GameDataGrid.ContextMenu ??= new ContextMenu();
 
         GameDataGrid.ContextMenu.Items.Clear();
 
-        IEnumerable<string> metadataCheckable = ["played", "finished", "completed"];
-        foreach (string data in metadataCheckable)
+        foreach (KeyValuePair<string, (Action method, bool isCheckable)> entry in _menuItems)
         {
-            MenuItem menuItem = new() { Header = $"Mark as {data}", IsCheckable = true };
-            menuItem.Click += MenuItem_Click;
-            GameDataGrid.ContextMenu.Items.Add(menuItem);
-        }
+            MenuItem menuItem = new() { Header = entry.Key };
 
-        IEnumerable<string> metadata = ["Edit", "Delete"];
-        foreach (string data in metadata)
-        {
-            MenuItem menuItem = new() { Header = $"{data}" };
+            if (entry.Value.isCheckable)
+            {
+                menuItem.IsCheckable = true;
+            }
+
             menuItem.Click += MenuItem_Click;
             GameDataGrid.ContextMenu.Items.Add(menuItem);
         }
@@ -137,9 +134,9 @@ public partial class MainWindow
             return;
         }
 
-        if (_menuItems.TryGetValue(header, out Action? value))
+        if (_menuItems.TryGetValue(header, out (Action method, bool isCheckable) menuItemInfo))
         {
-            value.Invoke();
+            menuItemInfo.method.Invoke();
         }
         else
         {
