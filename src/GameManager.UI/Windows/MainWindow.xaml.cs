@@ -37,7 +37,7 @@ public partial class MainWindow
     /// <param name="e">RoutedEventArgs event data</param>
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        WindowHelper.ShowWindow(new Add());
+        WindowHelper.ShowWindow(new AddGame());
     }
 
     /// <summary>

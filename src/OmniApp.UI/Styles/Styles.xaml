@@ -64,7 +64,7 @@
   <Style TargetType="{x:Type gameWindows:MainWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:Add}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:AddGame}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
 </ResourceDictionary>
