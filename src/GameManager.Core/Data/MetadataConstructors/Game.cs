@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using GameManager.Core.Data.Enums;
+using System.Text.Json.Serialization;
 
-namespace GameManager.Core.Data;
+namespace GameManager.Core.Data.MetadataConstructors;
 
 /// <summary>
 ///     Constructor for a Game.

@@ -1,4 +1,4 @@
-﻿namespace GameManager.Core.Data;
+﻿namespace GameManager.Core.Data.Enums;
 
 /// <summary>
 ///     A list of regions that games commonly exclusively release in

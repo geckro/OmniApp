@@ -1,4 +1,5 @@
 ﻿using GameManager.Core.Data;
+using GameManager.Core.Data.MetadataConstructors;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;

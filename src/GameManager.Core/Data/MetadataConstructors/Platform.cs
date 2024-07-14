@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using GameManager.Core.Data.Enums;
+using System.Text.Json.Serialization;
 
-namespace GameManager.Core.Data;
+namespace GameManager.Core.Data.MetadataConstructors;
 
 public class Platform : IMetadata
 {
@@ -15,13 +16,4 @@ public class Platform : IMetadata
     public string Name { get; set; }
 
     [JsonIgnore] public string JsonFile => "platforms.json";
-}
-
-public enum PlatformType : byte
-{
-    Home = 0,
-    Handheld = 1,
-    Hybrid = 2,
-    Computer = 3,
-    Other = 4
 }

@@ -1,4 +1,5 @@
 ﻿using GameManager.Core.Data;
+using GameManager.Core.Data.MetadataConstructors;
 using System.Windows.Controls;
 using System.Windows.Data;
 
