@@ -1,4 +1,5 @@
 ﻿using OmniApp.Common.Data;
+using System.Collections;
 using System.Reflection;
 
 namespace GameManager.Core.Data;
@@ -31,6 +32,7 @@ public class JsonDataManager
     {
         try
         {
+            EnsureFileExistsWithDefaultData<T>(jsonFile);
             return _jsonHelper.LoadFromJsonFile<T>($"Data/GameMgr/{jsonFile}");
         }
         catch (DirectoryNotFoundException)
@@ -38,6 +40,39 @@ public class JsonDataManager
             MakeDirectories();
             return ReadFromJson<T>(jsonFile);
         }
+    }
+
+    private static void EnsureFileExistsWithDefaultData<T>(string jsonFile)
+    {
+        string filePath = $"Data/GameMgr/{jsonFile}";
+        if (File.Exists(filePath))
+        {
+            return;
+        }
+
+        PropertyInfo? jsonFileProperty = typeof(T).GetProperty("JsonFile");
+        if (jsonFileProperty == null)
+        {
+            throw new InvalidOperationException($"Type {typeof(T).Name} does not have a JsonFile property.");
+        }
+
+        string? defaultJsonFileName = (string?)jsonFileProperty.GetValue(Activator.CreateInstance<T>());
+        if (string.IsNullOrEmpty(defaultJsonFileName))
+        {
+            throw new InvalidOperationException($"The JsonFile property of {typeof(T).Name} is null or empty.");
+        }
+
+        string defaultDataPath = $"Data/JsonData/{defaultJsonFileName}";
+        if (!File.Exists(defaultDataPath))
+        {
+            Console.WriteLine($"Default JSON file '{defaultDataPath}' not found. Skipping.");
+            return;
+        }
+
+        string? targetDirectory = Path.GetDirectoryName(filePath);
+        Directory.CreateDirectory(targetDirectory!);
+
+        File.Copy(defaultDataPath, filePath, true);
     }
 
     private static void MakeDirectories()
