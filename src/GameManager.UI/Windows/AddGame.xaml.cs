@@ -14,7 +14,8 @@ namespace GameManager.UI.Windows;
 /// </summary>
 public partial class AddGame
 {
-    private readonly DataManagerFactory _dataManagerFactory = new();
+    private readonly IMetadataPersistence _metadataPersistence = new JsonMetadataPersistence();
+    private readonly IMetadataAccessorFactory _metadataAccessorFactory;
 
     /// <summary>
     ///     Initializes a new instance of the AddGame class.
@@ -22,7 +23,8 @@ public partial class AddGame
     public AddGame()
     {
         InitializeComponent();
-        new AddGameMetadataManager(this, _dataManagerFactory).InitializeMetadataAreas();
+        _metadataAccessorFactory = new MetadataAccessorFactory(_metadataPersistence);
+        new AddGameMetadataManager(this, _metadataAccessorFactory).InitializeMetadataAreas();
     }
 
     /// <summary>
@@ -112,11 +114,11 @@ public partial class AddGame
             LastUpdated = currentTime
         };
 
-        JsonData<Game> gameData = _dataManagerFactory.CreateData<Game>();
+        IMetadataAccessor<Game> gameMetadataAccessor = _metadataAccessorFactory.CreateMetadataAccessor<Game>();
 
-        ICollection<Game> games = gameData.ReadFromJson();
+        ICollection<Game> games = gameMetadataAccessor.LoadMetadataCollection();
         games.Add(newGame);
-        gameData.WriteJson(games);
+        gameMetadataAccessor.SaveMetadataCollection(games);
     }
 
     /// <summary>

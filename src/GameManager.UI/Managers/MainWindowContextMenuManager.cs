@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Managers;
 
-public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper dataGridHelper, JsonData<Game> jsonData)
+public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper dataGridHelper, IMetadataAccessor<Game> metadataAccessor)
 {
     private readonly Dictionary<string, (Action method, bool isCheckable)> _menuItems = new();
 
@@ -135,8 +135,8 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
         if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
         {
             game.HasPlayed = true;
-            jsonData.UpdateAndWriteJson(_gameId, "HasPlayed", true);
-            dataGridHelper.RefreshGameDataGrid(jsonData);
+            metadataAccessor.UpdateItemAndSave(_gameId, "HasPlayed", true);
+            dataGridHelper.RefreshGameDataGrid(metadataAccessor);
         }
     }
 
@@ -145,8 +145,8 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
         if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
         {
             game.HasFinished = true;
-            jsonData.UpdateAndWriteJson(_gameId, "HasFinished", true);
-            dataGridHelper.RefreshGameDataGrid(jsonData);
+            metadataAccessor.UpdateItemAndSave(_gameId, "HasFinished", true);
+            dataGridHelper.RefreshGameDataGrid(metadataAccessor);
         }
     }
 
@@ -155,8 +155,8 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
         if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
         {
             game.HasCompleted = true;
-            jsonData.UpdateAndWriteJson(_gameId, "HasCompleted", true);
-            dataGridHelper.RefreshGameDataGrid(jsonData);
+            metadataAccessor.UpdateItemAndSave(_gameId, "HasCompleted", true);
+            dataGridHelper.RefreshGameDataGrid(metadataAccessor);
         }
     }
 
@@ -164,7 +164,7 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
     {
         if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
         {
-            WindowHelper.ShowWindow(new EditEntry(game, jsonData, dataGridHelper));
+            WindowHelper.ShowWindow(new EditEntry(game, metadataAccessor, dataGridHelper));
         }
     }
 

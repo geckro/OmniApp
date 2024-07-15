@@ -10,15 +10,15 @@ namespace GameManager.UI.Windows;
 public partial class EditEntry
 {
     private readonly Game _gameData;
-    private readonly JsonData<Game> _gameJsonData;
+    private readonly IMetadataAccessor<Game> _gameMetadataAccessor;
     private readonly DataGridHelper _dataGridHelper;
 
-    public EditEntry(Game gameData, JsonData<Game> gameJsonData, DataGridHelper dataGridHelper)
+    public EditEntry(Game gameData, IMetadataAccessor<Game> gameMetadataAccessor, DataGridHelper dataGridHelper)
     {
         InitializeComponent();
 
         _gameData = gameData;
-        _gameJsonData = gameJsonData;
+        _gameMetadataAccessor = gameMetadataAccessor;
         _dataGridHelper = dataGridHelper;
 
         PopulateEditWindow();
@@ -107,8 +107,8 @@ public partial class EditEntry
     private void UpdateGameCheckBoxProperty(string checkBoxType, bool isChecked)
     {
         typeof(Game).GetProperty(checkBoxType)?.SetValue(_gameData, isChecked);
-        _gameJsonData.UpdateAndWriteJson(_gameData.Id, checkBoxType, isChecked);
-        _dataGridHelper.RefreshGameDataGrid(_gameJsonData);
+        _gameMetadataAccessor.UpdateItemAndSave(_gameData.Id, checkBoxType, isChecked);
+        _dataGridHelper.RefreshGameDataGrid(_gameMetadataAccessor);
     }
 }
 

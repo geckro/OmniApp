@@ -1,50 +1,80 @@
 ﻿using OmniApp.Common.Data;
-using System.Collections;
+using OmniApp.Common.Logging;
 using System.Reflection;
 
 namespace GameManager.Core.Data;
 
 /// <summary>
+///     Public interface to use for saving and loading metadata.
+/// </summary>
+public interface IMetadataPersistence
+{
+    /// <summary>
+    /// Saves a collection of metadata to a JSON file.
+    /// </summary>
+    /// <param name="value">The collection of metadata to save.</param>
+    /// <param name="metadataJsonFile">The json file.</param>
+    /// <typeparam name="T">The type of metadata.</typeparam>
+    void SaveMetadata<T>(ICollection<T> value, string metadataJsonFile);
+
+    /// <summary>
+    /// Loads a collection of metadata from a JSON file.
+    /// </summary>
+    /// <param name="metadataJsonFile">The json file.</param>
+    /// <typeparam name="T">The type of metadata.</typeparam>
+    /// <returns>The collection of loaded metadata.</returns>
+    ICollection<T> LoadMetadata<T>(string metadataJsonFile);
+}
+
+/// <summary>
 ///     Manages reading and writing of JSON data.
 /// </summary>
-public class JsonDataManager
+public class JsonMetadataPersistence : IMetadataPersistence
 {
+    private const string MetadataDirectory = "Data/GameMgr/";
     private readonly JsonHelper _jsonHelper = new();
 
     /// <summary>
     ///     Writes a collection of data to a JSON file.
     /// </summary>
     /// <param name="value">The collection of data to write.</param>
-    /// <param name="jsonFile">The path to the JSON file.</param>
+    /// <param name="metadataJsonFile">The path to the JSON file.</param>
     /// <typeparam name="T">The type of data to write.</typeparam>
-    public void WriteJson<T>(ICollection<T> value, string jsonFile)
+    public void SaveMetadata<T>(ICollection<T> value, string metadataJsonFile)
     {
-        _jsonHelper.WriteToJsonFile(value, $"Data/GameMgr/{jsonFile}");
+        string fullPath = Path.Combine(MetadataDirectory, metadataJsonFile);
+        _jsonHelper.WriteToJsonFile(value, fullPath);
     }
 
     /// <summary>
     ///     Reads a collection of data from a JSON file.
     /// </summary>
-    /// <param name="jsonFile">The path to the JSON file.</param>
+    /// <param name="metadataJsonFile">The path to the JSON file.</param>
     /// <typeparam name="T">The type of data.</typeparam>
     /// <returns>A collection of data read from the JSON file.</returns>
-    public ICollection<T> ReadFromJson<T>(string jsonFile)
+    public ICollection<T> LoadMetadata<T>(string metadataJsonFile)
     {
         try
         {
-            EnsureFileExistsWithDefaultData<T>(jsonFile);
-            return _jsonHelper.LoadFromJsonFile<T>($"Data/GameMgr/{jsonFile}");
+            InitializeMetadataWithDefaultData<T>(metadataJsonFile);
+            string fullPath = Path.Combine(MetadataDirectory, metadataJsonFile);
+            return _jsonHelper.LoadFromJsonFile<T>(fullPath);
         }
         catch (DirectoryNotFoundException)
         {
-            MakeDirectories();
-            return ReadFromJson<T>(jsonFile);
+            Directory.CreateDirectory(MetadataDirectory);
+            return LoadMetadata<T>(metadataJsonFile);
         }
     }
 
-    private static void EnsureFileExistsWithDefaultData<T>(string jsonFile)
+    /// <summary>
+    /// Initializes metadata with default data if the JSON file has not been generated yet.
+    /// </summary>
+    /// <param name="jsonFile">The name of the JSON file/</param>
+    /// <typeparam name="T">The type of data</typeparam>
+    private static void InitializeMetadataWithDefaultData<T>(string jsonFile)
     {
-        string filePath = $"Data/GameMgr/{jsonFile}";
+        string filePath = Path.Combine(MetadataDirectory, jsonFile);
         if (File.Exists(filePath))
         {
             return;
@@ -62,39 +92,46 @@ public class JsonDataManager
             throw new InvalidOperationException($"The JsonFile property of {typeof(T).Name} is null or empty.");
         }
 
-        string defaultDataPath = $"Data/JsonData/{defaultJsonFileName}";
+        string defaultDataPath = Path.Combine("Data/JsonData/", defaultJsonFileName);
         if (!File.Exists(defaultDataPath))
         {
-            Console.WriteLine($"Default JSON file '{defaultDataPath}' not found. Skipping.");
+            Logger.Warning(LogClass.GameMgrCore, $"Default JSON file '{defaultDataPath}' not found. Skipping.");
             return;
         }
 
-        string? targetDirectory = Path.GetDirectoryName(filePath);
-        Directory.CreateDirectory(targetDirectory!);
-
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
         File.Copy(defaultDataPath, filePath, true);
-    }
-
-    private static void MakeDirectories()
-    {
-        Directory.CreateDirectory("Data/GameMgr/");
     }
 }
 
 /// <summary>
-///     Factory class for making data managers.
+/// Methods for creating metadata accessors.
 /// </summary>
-public class DataManagerFactory
+public interface IMetadataAccessorFactory
 {
-    private readonly JsonDataManager _jsonDataManager = new();
+    /// <summary>
+    /// Creates a metadata accessor for the specified type.
+    /// </summary>
+    /// <typeparam name="T">The type of metadata.</typeparam>
+    /// <returns>An instance of <see cref="IMetadataAccessor{T}"/>.</returns>
+    IMetadataAccessor<T> CreateMetadataAccessor<T>() where T : IMetadata;
+}
+
+/// <summary>
+/// Factory class for creating metadata accessors.
+/// </summary>
+/// <param name="metadataPersistence">An instance of <see cref="IMetadataPersistence"/> for handling metadata.</param>
+public class MetadataAccessorFactory(IMetadataPersistence metadataPersistence) : IMetadataAccessorFactory
+{
+    private readonly IMetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
 
     /// <summary>
     ///     Creates a JSON data manager for the specified type.
     /// </summary>
     /// <typeparam name="T">The type of IMetadata</typeparam>
-    /// <returns>A JsonDataManager for the specified type.</returns>
+    /// <returns>An instance of <see cref="IMetadataAccessor{T}"/>.</returns>
     /// <exception cref="ArgumentException">Thrown when the JsonFile property is not defined for the specified type.</exception>
-    public JsonData<T> CreateData<T>() where T : IMetadata
+    public IMetadataAccessor<T> CreateMetadataAccessor<T>() where T : IMetadata
     {
         if (typeof(T).GetConstructor(Type.EmptyTypes) == null)
         {
@@ -102,112 +139,126 @@ public class DataManagerFactory
         }
 
         T instance = Activator.CreateInstance<T>();
+        string jsonFile = instance.JsonFile ?? throw new ArgumentException($"JsonFile property is not defined for type {typeof(T).Name}");
 
-        string jsonFile = instance.JsonFile ?? string.Empty;
-
-        if (string.IsNullOrEmpty(jsonFile))
-        {
-            throw new ArgumentException($"JsonFile property is not defined for type {typeof(T).Name}");
-        }
-
-        return new JsonData<T>(_jsonDataManager, jsonFile);
+        return new MetadataAccessor<T>(_metadataPersistence, jsonFile);
     }
 }
 
 /// <summary>
-///     Represents a JsonDataManager for a specific type.
+/// Methods for accessing and manipulating metadata.
 /// </summary>
-/// <param name="dataManager">The JsonDataManger instance</param>
-/// <param name="jsonFile">The path to the JSON file</param>
-/// <typeparam name="T">The type of IMetadata</typeparam>
-public class JsonData<T>(JsonDataManager dataManager, string jsonFile) where T : IMetadata
+/// <typeparam name="T">The type of <see cref="IMetadata"/>.</typeparam>
+public interface IMetadataAccessor<T> where T : IMetadata
 {
+    /// <summary>
+    /// Saves a collection of metadata.
+    /// </summary>
+    /// <param name="value">The collection of metadata to save.</param>
+    void SaveMetadataCollection(ICollection<T> value);
+
+    /// <summary>
+    /// Adds an item to the metadata collection and saves it.
+    /// </summary>
+    /// <param name="newItem">The item to add.</param>
+    void AddItemAndSave(T newItem);
+
+    /// <summary>
+    /// Loads a collection of metadata.
+    /// </summary>
+    /// <returns>The collection of loaded metadata.</returns>
+    ICollection<T> LoadMetadataCollection();
+
+    /// <summary>
+    /// Updates an item in the metadata collection and saves it.
+    /// </summary>
+    /// <param name="id">The unique identifier of the item to update.</param>
+    /// <param name="key">The key of the item to update.</param>
+    /// <param name="value">The new value to update.</param>
+    void UpdateItemAndSave(Guid id, string key, object? value);
+}
+
+/// <summary>
+///     Represents a metadata accessor for a specific type..
+/// </summary>
+/// <param name="metadataPersistence">The <see cref="IMetadataPersistence"/> instance.</param>
+/// <param name="jsonFile">The path to the JSON file</param>
+/// <typeparam name="T">The type of <see cref="IMetadata"/>.</typeparam>
+public class MetadataAccessor<T>(IMetadataPersistence metadataPersistence, string jsonFile) : IMetadataAccessor<T>
+    where T : IMetadata
+{
+    private readonly IMetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
+    private readonly string _metadataJsonFile = jsonFile ?? throw new ArgumentNullException(nameof(jsonFile));
+
     /// <summary>
     ///     Writes a collection of data to the JSON file.
     /// </summary>
     /// <param name="value">The collection of data to write.</param>
-    public void WriteJson(ICollection<T> value)
+    public void SaveMetadataCollection(ICollection<T> value)
     {
-        dataManager.WriteJson(value, jsonFile);
+        _metadataPersistence.SaveMetadata(value, _metadataJsonFile);
     }
 
+
     /// <summary>
-    ///     Appends a new item to the existing data and writes it to the JSON file.
+    /// Adds a new item to the metadata collection and saves it to the JSON file.
     /// </summary>
     /// <param name="newItem">The new item to add.</param>
-    public void AppendAndWriteJson(T newItem)
+    public void AddItemAndSave(T newItem)
     {
-        ICollection<T> existingData = dataManager.ReadFromJson<T>(jsonFile);
-
-        string newItemKey = newItem.Name;
-
-        if (existingData.Any(item => item.Name == newItemKey))
+        ICollection<T> existingData = LoadMetadataCollection();
+        if (existingData.Any(item => item.Name == newItem.Name))
         {
-            Console.WriteLine("Item with the same key already exists.");
+            Logger.Warning(LogClass.GameMgrCore, "Item with the same key already exists.");
             return;
         }
 
         existingData.Add(newItem);
-
-        dataManager.WriteJson(existingData, jsonFile);
+        SaveMetadataCollection(existingData);
     }
 
     /// <summary>
-    ///     Reads a collection of data from the JSON file.
+    /// Loads a collection of metadata from the JSON file.
     /// </summary>
-    /// <returns>A collection of data read from the JSON file.</returns>
-    public ICollection<T> ReadFromJson()
+    /// <returns>The collection of loaded metadata.</returns>
+    public ICollection<T> LoadMetadataCollection()
     {
-        return dataManager.ReadFromJson<T>(jsonFile);
+        return _metadataPersistence.LoadMetadata<T>(_metadataJsonFile);
     }
 
     /// <summary>
-    /// Updates an item in the JSON file based on a key identifier and writes it back.
+    ///     Updates an item in the JSON file based on a key identifier and writes it back.
     /// </summary>
     /// <param name="id">The unique identifier of the game to update</param>
     /// <param name="key">The key of the item to update.</param>
     /// <param name="value">The new value to update.</param>
-    public void UpdateAndWriteJson(Guid id, string key, object value)
+    public void UpdateItemAndSave(Guid id, string key, object? value)
     {
-        ICollection<T> existingData = dataManager.ReadFromJson<T>(jsonFile);
-
+        ICollection<T> existingData = LoadMetadataCollection();
         T? itemToUpdate = existingData.FirstOrDefault(item => item.Id == id);
-
-        if (itemToUpdate != null)
+        if (itemToUpdate == null)
         {
-            PropertyInfo? propertyInfo = typeof(T).GetProperty(key);
-            if (propertyInfo != null)
-            {
-                Type propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-
-                try
-                {
-                    object convertedValue = value == null ? null : Convert.ChangeType(value, propertyType);
-                    propertyInfo.SetValue(itemToUpdate, convertedValue);
-                }
-                catch (InvalidCastException ex)
-                {
-                    Console.WriteLine($"Invalid cast: {ex.Message}");
-                    Console.WriteLine($"Value: {value}, Expected Type: {propertyInfo.PropertyType}");
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error setting property '{key}': {ex.Message}");
-                    return;
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Property '{key}' not found in type {typeof(T).Name}");
-                return;
-            }
-
-            dataManager.WriteJson(existingData, jsonFile);
+            Logger.Warning(LogClass.GameMgrCore, $"Item with id '{id}' not found.");
+            return;
         }
-        else
+
+        PropertyInfo? propertyInfo = typeof(T).GetProperty(key);
+        if (propertyInfo == null)
         {
-            Console.WriteLine($"Item with key '{key}' not found.");
+            Logger.Warning(LogClass.GameMgrCore, $"Property '{key}' not found in type {typeof(T).Name}");
+            return;
+        }
+
+        try
+        {
+            Type propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+            object? convertedValue = value == null ? null : Convert.ChangeType(value, propertyType);
+            propertyInfo.SetValue(itemToUpdate, convertedValue);
+            SaveMetadataCollection(existingData);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(LogClass.GameMgrCore, $"Error updating property '{key}': {ex.Message}");
         }
     }
 }

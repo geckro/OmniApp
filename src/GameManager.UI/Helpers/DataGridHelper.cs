@@ -19,10 +19,10 @@ public class DataGridHelper
     ///     Populates the main Game DataGrid on the MainWindow.
     /// </summary>
     /// <param name="dataGrid">The Game DataGrid.</param>
-    /// <param name="gameData">Game data from an instance of DataFactoryManager.</param>
-    public void PopulateGameDataGrid(DataGrid dataGrid, JsonData<Game> gameData)
+    /// <param name="gameMetadataAccessor">Game data from an instance of DataFactoryManager.</param>
+    public void PopulateGameDataGrid(DataGrid dataGrid, IMetadataAccessor<Game> gameMetadataAccessor)
     {
-        _games = gameData.ReadFromJson();
+        _games = gameMetadataAccessor.LoadMetadataCollection();
         _dataGrid = dataGrid;
 
         _dataGrid.AutoGenerateColumns = false;
@@ -81,10 +81,10 @@ public class DataGridHelper
     /// <summary>
     /// Refreshes the main Game DataGrid on the MainWindow.
     /// </summary>
-    /// <param name="gameData">Game data from an instance of DataFactoryManager.</param>
-    public void RefreshGameDataGrid(JsonData<Game> gameData)
+    /// <param name="gameMetadataAccessor">Game data from an instance of DataFactoryManager.</param>
+    public void RefreshGameDataGrid(IMetadataAccessor<Game> gameMetadataAccessor)
     {
-        _games = gameData.ReadFromJson();
+        _games = gameMetadataAccessor.LoadMetadataCollection();
         _dataGrid.ItemsSource = _games;
     }
 }

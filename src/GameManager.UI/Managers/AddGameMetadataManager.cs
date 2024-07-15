@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Managers;
 
-public class AddGameMetadataManager(AddGame addGame, DataManagerFactory dataManagerFactory)
+public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iMetadataAccessorFactory)
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
 
@@ -17,20 +17,20 @@ public class AddGameMetadataManager(AddGame addGame, DataManagerFactory dataMana
     /// </summary>
     public void InitializeMetadataAreas()
     {
-        MakeMetadataAreas("Genre", addGame.GenreStackPanel, dataManagerFactory.CreateData<Genre>().ReadFromJson());
-        MakeMetadataAreas("Platform", addGame.PlatformStackPanel, dataManagerFactory.CreateData<Platform>().ReadFromJson());
-        MakeMetadataAreas("Developer", addGame.DeveloperStackPanel, dataManagerFactory.CreateData<Developer>().ReadFromJson());
-        MakeMetadataAreas("Publisher", addGame.PublisherStackPanel, dataManagerFactory.CreateData<Publisher>().ReadFromJson());
-        MakeMetadataAreas("Series", addGame.SeriesStackPanel, dataManagerFactory.CreateData<Series>().ReadFromJson());
-        MakeMetadataAreas("Composer", addGame.ComposerStackPanel, dataManagerFactory.CreateData<Composer>().ReadFromJson());
-        MakeMetadataAreas("Director", addGame.DirectorStackPanel, dataManagerFactory.CreateData<Director>().ReadFromJson());
-        MakeMetadataAreas("Engine", addGame.EngineStackPanel, dataManagerFactory.CreateData<Engine>().ReadFromJson());
-        MakeMetadataAreas("Writer", addGame.WriterStackPanel, dataManagerFactory.CreateData<Writer>().ReadFromJson());
-        MakeMetadataAreas("AgeRating", addGame.AgeRatingStackPanel, dataManagerFactory.CreateData<AgeRatings>().ReadFromJson());
-        MakeMetadataAreas("Producer", addGame.ProducerStackPanel, dataManagerFactory.CreateData<Producer>().ReadFromJson());
-        MakeMetadataAreas("Designer", addGame.DesignerStackPanel, dataManagerFactory.CreateData<Designer>().ReadFromJson());
-        MakeMetadataAreas("Programmer", addGame.ProgrammerStackPanel, dataManagerFactory.CreateData<Programmer>().ReadFromJson());
-        MakeMetadataAreas("Artist", addGame.ArtistStackPanel, dataManagerFactory.CreateData<Artist>().ReadFromJson());
+        MakeMetadataAreas("Genre", addGame.GenreStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadataCollection());
+        MakeMetadataAreas("Platform", addGame.PlatformStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadataCollection());
+        MakeMetadataAreas("Developer", addGame.DeveloperStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadataCollection());
+        MakeMetadataAreas("Publisher", addGame.PublisherStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadataCollection());
+        MakeMetadataAreas("Series", addGame.SeriesStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadataCollection());
+        MakeMetadataAreas("Composer", addGame.ComposerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Composer>().LoadMetadataCollection());
+        MakeMetadataAreas("Director", addGame.DirectorStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Director>().LoadMetadataCollection());
+        MakeMetadataAreas("Engine", addGame.EngineStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Engine>().LoadMetadataCollection());
+        MakeMetadataAreas("Writer", addGame.WriterStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Writer>().LoadMetadataCollection());
+        MakeMetadataAreas("AgeRating", addGame.AgeRatingStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<AgeRatings>().LoadMetadataCollection());
+        MakeMetadataAreas("Producer", addGame.ProducerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Producer>().LoadMetadataCollection());
+        MakeMetadataAreas("Designer", addGame.DesignerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Designer>().LoadMetadataCollection());
+        MakeMetadataAreas("Programmer", addGame.ProgrammerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Programmer>().LoadMetadataCollection());
+        MakeMetadataAreas("Artist", addGame.ArtistStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Artist>().LoadMetadataCollection());
     }
     /// <summary>
     ///     Creates metadata areas for a specific category.
@@ -184,11 +184,11 @@ public class AddGameMetadataManager(AddGame addGame, DataManagerFactory dataMana
         }
 
         object instance = createInstance();
-        MethodInfo? method = typeof(DataManagerFactory)
-            .GetMethod("CreateData")
+        MethodInfo? method = typeof(MetadataAccessorFactory)
+            .GetMethod("CreateMetadataAccessor")
             ?.MakeGenericMethod(dataType);
 
-        object? data = method?.Invoke(dataManagerFactory, null);
-        data?.GetType().GetMethod("AppendAndWriteJson")?.Invoke(data, [instance]);
+        object? data = method?.Invoke(iMetadataAccessorFactory, null);
+        data?.GetType().GetMethod("AddItemAndSave")?.Invoke(data, [instance]);
     }
 }

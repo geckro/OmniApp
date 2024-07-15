@@ -14,7 +14,8 @@ namespace GameManager.UI.Windows;
 /// </summary>
 public partial class MainWindow
 {
-    private readonly JsonData<Game> _jsonData = new DataManagerFactory().CreateData<Game>();
+    private readonly IMetadataPersistence _metadataPersistence = new JsonMetadataPersistence();
+    private readonly IMetadataAccessor<Game> _metadataAccessor;
     private readonly DataGridHelper _dataGridHelper = new();
     /// <summary>
     ///     Initializes a new instance of the MainWindow class.
@@ -23,9 +24,12 @@ public partial class MainWindow
     {
         Logger.Info(LogClass.GameMgrUi, "Starting MainWindow");
 
+        MetadataAccessorFactory metadataAccessorFactory = new(_metadataPersistence);
+        _metadataAccessor = metadataAccessorFactory.CreateMetadataAccessor<Game>();
+
         InitializeComponent();
-        _dataGridHelper.PopulateGameDataGrid(GameDataGrid, _jsonData);
-        new MainWindowContextMenuManager(this, _dataGridHelper, _jsonData).PopulateDataGridContextMenu();
+        _dataGridHelper.PopulateGameDataGrid(GameDataGrid, _metadataAccessor);
+        new MainWindowContextMenuManager(this, _dataGridHelper, _metadataAccessor).PopulateDataGridContextMenu();
         RegisterKeyboardShortcuts();
     }
 
