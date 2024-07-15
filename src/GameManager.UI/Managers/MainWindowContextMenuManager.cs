@@ -164,7 +164,7 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
     {
         if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
         {
-            WindowHelper.ShowWindow(new EditEntry(game));
+            WindowHelper.ShowWindow(new EditEntry(game, jsonData, dataGridHelper));
         }
     }
 

@@ -21,10 +21,51 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
           <Label Content="Genres" />
-          <ListBox x:Name="GenreListBox" />
+          <ListBox x:Name="GenreListBox" Height="100" />
 
           <Label Content="Platforms" />
-          <ListBox x:Name="PlatformListBox" />
+          <ListBox x:Name="PlatformListBox" Height="100" />
+
+          <Label Content="Developers" />
+          <ListBox x:Name="DeveloperListBox" Height="100" />
+
+          <Label Content="Publishers" />
+          <ListBox x:Name="PublisherListBox" Height="100" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+          <Label Content="Release Date (Worldwide)" />
+          <DatePicker x:Name="ReleaseDatePicker" />
+
+          <Label Content="Other Titles" />
+          <ListBox x:Name="OtherTitlesListBox" Height="100" />
+
+          <Label Content="Series" />
+          <ListBox x:Name="SeriesListBox" Height="100" />
+
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+              <CheckBox x:Name="IsRemakeCheckBox" Content="Is Remake" />
+              <CheckBox x:Name="IsRemasterCheckBox" Content="Is Remaster" />
+              <CheckBox x:Name="IsPortCheckBox" Content="Is Port" />
+              <CheckBox x:Name="IsSequelCheckBox" Content="Is Sequel" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+              <CheckBox x:Name="IsPrequelCheckBox" Content="Is Prequel" />
+              <CheckBox x:Name="IsDlcCheckBox" Content="Is DLC" />
+              <CheckBox x:Name="IsModCheckBox" Content="Is Mod" />
+              <CheckBox x:Name="IsHackCheckBox" Content="Is Hack" />
+            </StackPanel>
+          </Grid>
+
+          <Label Content="Website" />
+          <TextBox x:Name="WebsiteTextBox" />
         </StackPanel>
       </Grid>
     </StackPanel>
