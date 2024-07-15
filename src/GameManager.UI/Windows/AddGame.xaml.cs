@@ -14,8 +14,8 @@ namespace GameManager.UI.Windows;
 /// </summary>
 public partial class AddGame
 {
-    private readonly IMetadataPersistence _metadataPersistence = new JsonMetadataPersistence();
     private readonly IMetadataAccessorFactory _metadataAccessorFactory;
+    private readonly IMetadataPersistence _metadataPersistence = new MetadataPersistence();
 
     /// <summary>
     ///     Initializes a new instance of the AddGame class.

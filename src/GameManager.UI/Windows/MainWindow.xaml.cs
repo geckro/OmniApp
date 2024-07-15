@@ -4,7 +4,7 @@ using GameManager.UI.Helpers;
 using GameManager.UI.Managers;
 using OmniApp.Common.Logging;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
@@ -14,9 +14,10 @@ namespace GameManager.UI.Windows;
 /// </summary>
 public partial class MainWindow
 {
-    private readonly IMetadataPersistence _metadataPersistence = new JsonMetadataPersistence();
-    private readonly IMetadataAccessor<Game> _metadataAccessor;
     private readonly DataGridHelper _dataGridHelper = new();
+    private readonly IMetadataAccessor<Game> _metadataAccessor;
+    private readonly IMetadataPersistence _metadataPersistence = new MetadataPersistence();
+
     /// <summary>
     ///     Initializes a new instance of the MainWindow class.
     /// </summary>
@@ -57,7 +58,7 @@ public partial class MainWindow
     {
         RoutedCommand command = new();
         command.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
-        CommandBinding binding = new(command, (_, _) => AddButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent)));
+        CommandBinding binding = new(command, (_, _) => AddButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent)));
         CommandBindings.Add(binding);
         InputBindings.Add(new InputBinding(command, new KeyGesture(Key.N, ModifierKeys.Control)));
     }
