@@ -162,7 +162,10 @@ public class MainWindowContextMenuManager(MainWindow mainWindow, DataGridHelper 
 
     private void Edit()
     {
-        MessageBox.Show("Edit");
+        if (mainWindow.GameDataGrid.ContextMenu is { DataContext: Game game })
+        {
+            WindowHelper.ShowWindow(new EditEntry(game));
+        }
     }
 
     private void Delete()
