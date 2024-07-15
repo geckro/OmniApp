@@ -33,7 +33,7 @@ public partial class AddGame
     /// <typeparam name="T">The type of IMetadata</typeparam>
     /// <returns>Collection of an IMetadata instance</returns>
     /// <exception cref="Exception"></exception>
-    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, string, T> metadataFactory) where T : IMetadata
+    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory) where T : IMetadata
     {
         if (listBox == null)
         {
@@ -56,12 +56,12 @@ public partial class AddGame
                 continue;
             }
 
-            if (checkBox.Tag is not Guid guid || checkBox.Content is not string name)
+            if (checkBox.Tag is not Guid guid)
             {
                 continue;
             }
 
-            T metadata = metadataFactory(guid, name);
+            T metadata = metadataFactory(guid);
             result.Add(metadata);
         }
 
@@ -94,19 +94,19 @@ public partial class AddGame
         {
             Id = Guid.NewGuid(),
             Title = title,
-            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), (id, name) => new Genre { Id = id, Name = name }),
-            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), (id, name) => new Platform { Id = id, Name = name }),
-            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), (id, name) => new Developer { Id = id, Name = name }),
-            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), (id, name) => new Publisher { Id = id, Name = name }),
-            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), (id, name) => new Series { Id = id, Name = name }),
-            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), (id, name) => new Writer { Id = id, Name = name }),
-            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), (id, name) => new Director { Id = id, Name = name }),
-            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), (id, name) => new Artist { Id = id, Name = name }),
-            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), (id, name) => new Designer { Id = id, Name = name }),
-            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), (id, name) => new Programmer { Id = id, Name = name }),
-            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), (id, name) => new Composer { Id = id, Name = name }),
-            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), (id, name) => new AgeRatings { Id = id, Name = name }),
-            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), (id, name) => new Engine { Id = id, Name = name }),
+            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), id => new Genre { Id = id }),
+            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), id => new Platform { Id = id }),
+            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), id => new Developer { Id = id }),
+            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), id => new Publisher { Id = id }),
+            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
+            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), id => new Writer { Id = id }),
+            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), id => new Director { Id = id }),
+            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), id => new Artist { Id = id }),
+            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), id => new Designer { Id = id }),
+            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), id => new Programmer { Id = id }),
+            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), id => new Composer { Id = id }),
+            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), id => new AgeRatings { Id = id }),
+            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), id => new Engine { Id = id }),
             ReleaseDateWw = Date.SelectedDate,
             CreatedOn = currentTime,
             LastUpdated = currentTime

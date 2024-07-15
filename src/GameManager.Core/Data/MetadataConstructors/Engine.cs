@@ -8,7 +8,7 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Engine : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public ICollection<Company>? Developer { get; set; }
     public ICollection<Platform>? SupportedPlatforms { get; set; }
     public ICollection<string>? ProgrammingLanguages { get; set; }

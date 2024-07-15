@@ -8,7 +8,7 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Person : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public DateTime? BirthDate { get; set; }
     public Uri? Picture { get; set; }
     [JsonIgnore] public string JsonFile => "people.json";
@@ -20,7 +20,7 @@ public class Person : IMetadata
 public class Composer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "composers.json";
@@ -32,7 +32,7 @@ public class Composer : IMetadata
 public class Writer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "writers.json";
@@ -44,7 +44,7 @@ public class Writer : IMetadata
 public class Programmer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "programmers.json";
@@ -56,7 +56,7 @@ public class Programmer : IMetadata
 public class Artist : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "artists.json";
@@ -68,7 +68,7 @@ public class Artist : IMetadata
 public class Designer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "designers.json";
@@ -80,7 +80,7 @@ public class Designer : IMetadata
 public class Producer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "producers.json";
@@ -92,7 +92,7 @@ public class Producer : IMetadata
 public class Director : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? Picture { get; set; }
     public bool? IsMainPerson { get; set; }
     [JsonIgnore] public string JsonFile => "directors.json";

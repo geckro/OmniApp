@@ -9,7 +9,7 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Company : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public ICollection<string>? OtherNames { get; set; }
     public DateTime? DateFounded { get; set; }
     public Region? LocatedAt { get; set; }
@@ -24,7 +24,7 @@ public class Company : IMetadata
 public class Developer : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public ICollection<string>? OtherNames { get; set; }
     public DateTime? DateFounded { get; set; }
     public Region? LocatedAt { get; set; }
@@ -39,7 +39,7 @@ public class Developer : IMetadata
 public class Publisher : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public ICollection<string>? OtherNames { get; set; }
     public DateTime? DateFounded { get; set; }
     public Region? LocatedAt { get; set; }

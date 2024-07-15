@@ -8,6 +8,6 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Licenses : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     [JsonIgnore] public string JsonFile => "licenses.json";
 }

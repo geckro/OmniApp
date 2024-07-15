@@ -7,7 +7,7 @@ public class Platform : IMetadata
 {
     public required Guid Id { get; set; }
 
-    public required string Name { get; set; }
+    public string Name { get; set; }
 
     public string? Company { get; set; }
 

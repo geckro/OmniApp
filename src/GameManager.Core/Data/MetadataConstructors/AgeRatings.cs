@@ -8,7 +8,7 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class AgeRatings : IMetadata
 {
     public required Guid Id { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public Uri? RatingSymbol { get; set; }
     [JsonIgnore] public string JsonFile => "ageratings.json";
 }
