@@ -1,29 +1,38 @@
 ﻿[
   {
+    "id": "1e93f3a9-3e63-4cfb-86e3-dc39a7ee3bd8",
     "name": "All Rights Reserved"
   },
   {
+    "id": "1c68fb95-eee4-41c1-accc-d89f197be999",
     "name": "Apache License"
   },
   {
+    "id": "e98d88f3-fba7-4e91-9d2a-cd4ce7094b7a",
     "name": "BSD License"
   },
   {
+    "id": "fe42f14e-9ea5-4862-b612-979061238953",
     "name": "GNU GPLv2"
   },
   {
+    "id": "ff5e1e6f-a37f-40d7-8af3-207b86a7b273",
     "name": "GNU GPLv3"
   },
   {
+    "id": "7e43cf3d-25a0-4490-8241-3b6efbc9ab82",
     "name": "MIT"
   },
   {
+    "id": "0acc16e3-647d-465e-86df-76f1a321debf",
     "name": "Mozilla Public License"
   },
   {
+    "id": "bc69ffcd-e679-4bd5-8ed1-9ed96132d5f8",
     "name": "Proprietary"
   },
   {
+    "id": "a98c05d2-46b5-4654-b615-5e2b7d078ace",
     "name": "Public Domain"
   }
 ]

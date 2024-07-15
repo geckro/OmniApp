@@ -1,152 +1,202 @@
 ﻿[
   {
+    "id": "e5a84b73-d2b6-4a6b-8821-287e11d8bb1e",
     "name": "Action"
   },
   {
+    "id": "df85f933-ce33-4c7b-848d-d87dd780335e",
     "name": "Action-adventure"
   },
   {
+    "id": "03e7a199-f0db-47cc-9238-b04fc9ce50de",
     "name": "Adventure"
   },
   {
+    "id": "87271ae8-d427-4e73-b171-dcb843160458",
     "name": "Beat 'em up"
   },
   {
+    "id": "25caf678-dde0-4b81-924b-69e9c70cba7f",
     "name": "Board game"
   },
   {
+    "id": "e979045f-545a-4cbf-b65c-22cc942add1b",
     "name": "Card game"
   },
   {
+    "id": "cf98fbfb-7294-4f04-abc8-ec16f62410ad",
     "name": "City builder"
   },
   {
+    "id": "75d2505e-52e5-4e52-9214-0b6f41b31286",
     "name": "Edutainment"
   },
   {
+    "id": "a7220880-52d1-45fb-ac2e-e05da20d6b72",
     "name": "Exergame"
   },
   {
+    "id": "fd00db6e-c91c-4f11-a285-712bdfd954eb",
     "name": "Fighting (2D)"
   },
   {
+    "id": "55e5f95e-0c65-419f-8fc8-5a577c558594",
     "name": "Fighting (3D)"
   },
   {
+    "id": "8d0869d8-4f56-4004-beb1-7782c4ac7606",
     "name": "Hack and slash"
   },
   {
+    "id": "ff52915f-e324-4a4b-9d33-9ef04b866901",
     "name": "Horror"
   },
   {
+    "id": "faafe547-f7ac-4ee6-991a-2e33fa8de6c3",
     "name": "Incremental"
   },
   {
+    "id": "42304d52-13ad-4280-8847-13d4744b1137",
     "name": "Interactive movie"
   },
   {
+    "id": "efab0f4b-4b8a-48fb-a26b-53e7101acaf1",
     "name": "Metroidvania"
   },
   {
+    "id": "a14a4d9b-ba30-4cd5-b28c-a77871361562",
     "name": "Party"
   },
   {
+    "id": "b59ea528-44e4-4f80-9f48-27d1d55d4e7c",
     "name": "Platformer (2D)"
   },
   {
+    "id": "c4575532-599b-4e9f-af77-6ceaf976a095",
     "name": "Platformer (3D)"
   },
   {
+    "id": "09de289e-b634-4a48-9745-bca5c0e7666f",
     "name": "Puzzle"
   },
   {
+    "id": "54f672ab-e3c6-4b56-b77d-6156f7f7f9d0",
     "name": "Point and click"
   },
   {
+    "id": "6b5c6d1f-904a-4959-b2e2-714bdb140e8b",
     "name": "RPG (Action)"
   },
   {
+    "id": "7653e763-58ca-4b57-af6d-c94a2cd8f921",
     "name": "RPG (MMO)"
   },
   {
+    "id": "c3310928-46b1-4279-a948-c469775fe067",
     "name": "RPG (Tactical)"
   },
   {
+    "id": "6bdfec1d-5051-454d-9eae-f2fe109e02a6",
     "name": "RPG (Turn-Based)"
   },
   {
+    "id": "68bd5099-cb11-462f-b80f-cc236c8ac883",
     "name": "Racing (Arcade)"
   },
   {
+    "id": "327473ea-e0ce-490c-872f-2d5187f5b1f9",
     "name": "Racing (Simulation)"
   },
   {
+    "id": "003cd724-48ca-4aaa-9d04-1d458b78a1a1",
     "name": "Rhythm"
   },
   {
+    "id": "d8e60ce2-67e2-4dcd-94d7-a16e14adab69",
     "name": "Roguelike"
   },
   {
+    "id": "4b7d885b-65d8-4195-b829-3a0e61266aa8",
     "name": "Run and gun"
   },
   {
+    "id": "3abeee4d-724c-4550-9a5f-e0706b6c7141",
     "name": "Sandbox"
   },
   {
+    "id": "fa7597b3-2f1a-4328-9e8c-b1060978a852",
     "name": "Simulator"
   },
   {
+    "id": "cd5bacbc-38df-4767-8fdf-035438e7de87",
     "name": "Simulator (Life)"
   },
   {
+    "id": "7c610244-418d-4e1e-9746-a460c3558104",
     "name": "Shoot 'em up"
   },
   {
+    "id": "31848795-4e02-48d9-9f1a-1acf4a2d15c1",
     "name": "Shooter (First-Person)"
   },
   {
+    "id": "c57d55df-51b2-4c0f-a252-866d7cff4a8a",
     "name": "Shooter (Third-Person)"
   },
   {
+    "id": "fc37285a-998f-43f4-bcb9-ec910f9f64bf",
     "name": "Sports (Baseball)"
   },
   {
+    "id": "56d5d4f2-137e-44df-80b3-dd793b18b107",
     "name": "Sports (Basketball)"
   },
   {
+    "id": "042240f6-7f83-4a16-9c6e-273dadb2bb5a",
     "name": "Sports (Golf)"
   },
   {
+    "id": "71bf3cf5-dc5b-4e96-8cb8-2ac576063394",
     "name": "Sports (Soccer)"
   },
   {
+    "id": "5019283c-cacd-46a7-8717-7229b1fba15a",
     "name": "Sports (Tennis)"
   },
   {
+    "id": "7d08152c-7913-468b-ab4a-7557d0d912d4",
     "name": "Stealth"
   },
   {
+    "id": "01210ba3-8fe0-46ed-aa79-98f4b3fce216",
     "name": "Strategy (Grand)"
   },
   {
+    "id": "e15b2b14-b47e-4165-8743-f0af8fd1f8cd",
     "name": "Strategy (4X)"
   },
   {
+    "id": "5577047e-68bc-40f3-afbd-7f1da9cc87e7",
     "name": "Strategy (Turn-based)"
   },
   {
+    "id": "e532716c-bb8d-475e-bdd5-a80a13b85509",
     "name": "Strategy (Real-time)"
   },
   {
+    "id": "a957bc22-959b-4261-91bc-81545bebbdae",
     "name": "Survival"
   },
   {
+    "id": "6bcb7797-146e-4580-820f-9c82a693e8ef",
     "name": "Trivia"
   },
   {
+    "id": "57349f6a-d5bf-41fb-9ab4-c5d83294e362",
     "name": "Tower defense"
   },
   {
+    "id": "135cc09d-0506-4fb6-b941-68162df8d927",
     "name": "Visual novel"
   }
 ]

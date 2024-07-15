@@ -1,292 +1,365 @@
 ﻿[
   {
+    "id": "144eada1-bc5b-469e-af8a-a458553ad27d",
     "name": "3DO",
     "company": "Panasonic"
   },
   {
+    "id": "14fb98e1-98b3-4999-82e2-5a9d7ffbdd37",
     "name": "3DS",
     "company": "Nintendo"
   },
   {
+    "id": "9a80678f-3cc3-4330-aacc-157fffd42e77",
     "name": "Android",
     "company": "Google"
   },
   {
+    "id": "61290017-e9ff-4e11-a9b6-151131fbc32e",
     "name": "Apple II",
     "company": "Apple"
   },
   {
+    "id": "3d44cdb4-dc1d-42ac-834a-d380a1ccf339",
     "name": "Atari 2600",
     "company": "Atari"
   },
   {
+    "id": "b19bf00d-b463-4d09-bcc5-30cf12365ea5",
     "name": "Atari 5200",
     "company": "Atari"
   },
   {
+    "id": "4387f0f3-015e-4fe0-9d07-70a4e031a720",
     "name": "Atari 7800",
     "company": "Atari"
   },
   {
+    "id": "ccb33f2b-24db-474c-92b6-e170ee19f4d2",
     "name": "CD-i",
     "company": "Philips"
   },
   {
+    "id": "36ebed28-648d-4bfa-8889-3d274e4acb99",
     "name": "ColecoVision",
     "company": "Coleco"
   },
   {
+    "id": "0f596a61-29b6-4f70-932e-2c67c0d42e6b",
     "name": "Commodore 64",
     "company": "Commodore"
   },
   {
+    "id": "db65c352-68a0-460f-aa58-033fe18f7567",
     "name": "DS",
     "company": "Nintendo"
   },
   {
+    "id": "8d7575a4-73bb-4789-b0e8-a24e48a694e0",
     "name": "DSiWare",
     "company": "Nintendo"
   },
   {
+    "id": "77f705fb-5cea-4510-8f29-eb540be92e0f",
     "name": "Dreamcast",
     "company": "Sega"
   },
   {
+    "id": "483fc87c-e012-4fa4-8088-c32f98780851",
     "name": "Famicom Disk System",
     "company": "Nintendo"
   },
   {
+    "id": "d5f5cd7d-c1ce-426c-89a9-39ea696d0c68",
     "name": "Game & Watch",
     "company": "Nintendo"
   },
   {
+    "id": "1fafb319-d4e1-450c-bd99-2bfa1b8c8bdd",
     "name": "Game Boy",
     "company": "Nintendo"
   },
   {
+    "id": "55f90152-5ee5-4169-a378-168d69cf9a5a",
     "name": "Game Boy Advance",
     "company": "Nintendo"
   },
   {
+    "id": "12804622-6c85-4fdd-b438-cee2916425e6",
     "name": "Game Boy Color",
     "company": "Nintendo"
   },
   {
+    "id": "e57cbcd9-01fe-4bae-9006-c90ed9935584",
     "name": "Game Gear",
     "company": "Sega"
   },
   {
+    "id": "0a4d2c65-e2f3-438a-882c-c12eda24895f",
     "name": "Game.com",
     "company": "Tiger"
   },
   {
+    "id": "3791a170-25a5-4cc4-b76d-26b54cda998e",
     "name": "GameCube",
     "company": "Nintendo"
   },
   {
+    "id": "f72bf858-c086-4482-8dea-c665ffc84e57",
     "name": "Genesis / Mega Drive",
     "company": "Sega"
   },
   {
+    "id": "dccc7454-70e1-4665-b3b2-01a4586146cd",
     "name": "Intellivision",
     "company": "Mattel"
   },
   {
+    "id": "45ebb2fe-877d-4c29-a42e-0fad3c959c4c",
     "name": "iOS",
     "company": "Apple"
   },
   {
+    "id": "bfa92a2c-795c-4ed0-a9dc-7f409094561d",
     "name": "Jaguar",
     "company": "Atari"
   },
   {
+    "id": "94f7e895-4a2a-4f0f-8c85-0a7092e945a3",
     "name": "Jaguar CD",
     "company": "Atari"
   },
   {
+    "id": "2d039019-2425-4d49-938f-ceb1614f3afd",
     "name": "Linux"
   },
   {
+    "id": "2a502e46-86b5-4d16-9916-ce7c85edd5c6",
     "name": "Lynx",
     "company": "Atari"
   },
   {
+    "id": "837027bb-c5a8-48f3-a918-94b4aebeae5f",
     "name": "MS-DOS",
     "company": "Microsoft"
   },
   {
+    "id": "894d7189-2c6e-49f3-b2a7-65d606e24761",
     "name": "MSX",
     "company": "ASCII"
   },
   {
+    "id": "657847b5-20a6-48ae-9aec-db3e35f61378",
     "name": "MacOS",
     "company": "Apple"
   },
   {
+    "id": "e5cc83b5-56ec-48d7-83e9-421c138ae3ac",
     "name": "Master System",
     "company": "Sega"
   },
   {
+    "id": "0fd87be3-3245-4d0b-8d05-cb28788c2fce",
     "name": "N-Gage",
     "company": "Nokia"
   },
   {
+    "id": "38640688-b3da-4513-b5c2-831be4135882",
     "name": "NES",
     "company": "Nintendo"
   },
   {
+    "id": "0f2b5f26-42c3-4b61-8d0a-33dafc37ebc6",
     "name": "Neo Geo AES",
     "company": "SNK"
   },
   {
+    "id": "7705cbe3-e3de-470f-92f5-f50e9ac4ad10",
     "name": "Neo Geo Pocket",
     "company": "SNK"
   },
   {
+    "id": "d94fe1c7-de74-47b3-936f-d8d7c060e6f8",
     "name": "Neo Geo Pocket Color",
     "company": "SNK"
   },
   {
+    "id": "4aca26cc-825a-4068-aa23-00576ac76096",
     "name": "Nintendo 64",
     "company": "Nintendo"
   },
   {
+    "id": "6800db58-5e76-4226-84ce-d7ce2fbb5a88",
     "name": "Nintendo 64DD",
     "company": "Nintendo"
   },
   {
+    "id": "3e83d571-1eca-41b9-9da2-0a3fce9447e8",
     "name": "PC-98",
     "company": "NEC"
   },
   {
+    "id": "933fd2fe-bf98-4e8b-be38-4d9e8de298c6",
     "name": "PC-FX",
     "company": "NEC"
   },
   {
+    "id": "5933da67-533a-401e-a9cb-f90282507555",
     "name": "PlayStation",
     "company": "Sony"
   },
   {
+    "id": "de23c020-f204-4318-84db-8029f6a0351d",
     "name": "PlayStation 2",
     "company": "Sony"
   },
   {
+    "id": "6b4031b6-c054-4e74-b724-b282d1db17b1",
     "name": "PlayStation 3",
     "company": "Sony"
   },
   {
+    "id": "0a07e577-d867-4fcf-bec3-7e51d69d1f76",
     "name": "PlayStation 4",
     "company": "Sony"
   },
   {
+    "id": "43aac994-d1be-489a-8b93-a9bdc98d9f94",
     "name": "PlayStation 5",
     "company": "Sony"
   },
   {
+    "id": "d443dc09-71bd-410f-9d20-a01307b05244",
     "name": "PlayStation Network",
     "company": "Sony"
   },
   {
+    "id": "b6700789-d724-4372-b40a-cfcde7509565",
     "name": "PlayStation Portable",
     "company": "Sony"
   },
   {
+    "id": "079b44ad-a4da-4885-836b-007a77293f16",
     "name": "PlayStation Vita",
     "company": "Sony"
   },
   {
+    "id": "e1d07e78-24fd-48a7-a916-abe6006a9c27",
     "name": "Pokemon Mini",
     "company": "Nintendo"
   },
   {
+    "id": "0997955c-5aa3-40c5-b06d-e0f91a0a8d98",
     "name": "SG-1000",
     "company": "Sega"
   },
   {
+    "id": "7d81071c-f51e-4f90-8a1c-d880b45f6ebd",
     "name": "Satellaview",
     "company": "Nintendo"
   },
   {
+    "id": "384fa64d-bd2c-4c86-bf7d-8688c1486387",
     "name": "Saturn",
     "company": "Sega"
   },
   {
+    "id": "388ee151-0b8d-495b-8ba0-c74cdce7c411",
     "name": "Sega 32X",
     "company": "Sega"
   },
   {
+    "id": "cda3dd4d-8345-410a-9da2-a693cb62eae7",
     "name": "Sega CD",
     "company": "Sega"
   },
   {
+    "id": "4e9eeb85-da16-49ab-8814-c995609846b3",
     "name": "Super Nintendo",
     "company": "Nintendo"
   },
   {
+    "id": "622e898a-90ec-4acf-b289-e10472397a31",
     "name": "SuperGrafx",
     "company": "NEC"
   },
   {
+    "id": "5ad50ce5-9bc0-4d87-9625-e2010cb3ce21",
     "name": "Switch",
     "company": "Nintendo"
   },
   {
+    "id": "2d6d457d-cb04-435a-bdc4-036ae0e77cb5",
     "name": "TurboGrafx-16 / PC Engine",
     "company": "NEC"
   },
   {
+    "id": "12d33a01-1f4a-4e6b-ab64-ebbe9e3d32ba",
     "name": "TurboGrafx-CD",
     "company": "NEC"
   },
   {
+    "id": "4d114c68-bb6d-4e23-a55c-11c200e38754",
     "name": "Vectrex",
     "company": "Smith Engineering"
   },
   {
+    "id": "c1d75f6c-9455-4bc0-9876-beefd0e8b5bd",
     "name": "Virtual Boy",
     "company": "Nintendo"
   },
   {
+    "id": "ab4a684e-7b93-4144-99ab-e2b8b9e7024b",
     "name": "Wii",
     "company": "Nintendo"
   },
   {
+    "id": "a233e1de-da03-4229-8ced-82e38f1eb425",
     "name": "Wii U",
     "company": "Nintendo"
   },
   {
+    "id": "c187212f-9e58-48a0-a070-67706a769c80",
     "name": "WiiWare",
     "company": "Nintendo"
   },
   {
+    "id": "d59eebeb-0e82-479d-bcce-332e39da1073",
     "name": "Windows",
     "company": "Microsoft"
   },
   {
+    "id": "b1d29255-6cbf-4832-a20d-e1a4434086d8",
     "name": "WonderSwan",
     "company": "Bandai"
   },
   {
+    "id": "b2734499-8667-4429-84cd-282678dc9ff8",
     "name": "WonderSwan Color",
     "company": "Bandai"
   },
   {
+    "id": "ac0df9af-3d18-42d8-9f58-41ba528b940d",
     "name": "Xbox",
     "company": "Microsoft"
   },
   {
+    "id": "7b55f8b2-cac2-48cc-b1e3-b7d39cf562b6",
     "name": "Xbox 360",
     "company": "Microsoft"
   },
   {
+    "id": "1361bc4e-1225-4a8b-aeb7-7d658ca568b9",
     "name": "Xbox Live Arcade",
     "company": "Microsoft"
   },
   {
+    "id": "78acb2c2-d194-47f6-8b60-94cfde49a0ce",
     "name": "Xbox One",
     "company": "Microsoft"
   },
   {
+    "id": "4b3cfb8d-7253-466a-9193-a5daf06f7b5a",
     "name": "Xbox Series X/S",
     "company": "Microsoft"
   }

@@ -1,119 +1,158 @@
 ﻿[
   {
+    "id": "6d0ef3df-7dcf-4e08-b7a6-68e426683a7e",
     "name": "ACB CTC"
   },
   {
+    "id": "96ec931f-7bb1-4c5c-b13d-a5193303e920",
     "name": "ACB G"
   },
   {
+    "id": "5c33bdb4-eb33-40e2-aee8-977b150956a3",
     "name": "ACB M"
   },
   {
+    "id": "cf7fcbbb-1be9-4218-addf-ae93cd9f6354",
     "name": "ACB MA 15+"
   },
   {
+    "id": "513dc674-01ed-42f6-9d5e-dae7e5476fff",
     "name": "ACB PG"
   },
   {
+    "id": "910464fa-e177-4af4-956a-61077d6ee5cd",
     "name": "ACB R 18+"
   },
   {
+    "id": "461920b5-96d0-4fa4-a246-ee72ffb62d25",
     "name": "ACB RC"
   },
   {
+    "id": "5a6fa25e-7a59-47b7-b3b6-961c83e38388",
     "name": "ACB X 18+"
   },
   {
+    "id": "e0f567ef-3a77-4008-bbd7-4aa4766eaf83",
     "name": "CADPA 12+"
   },
   {
+    "id": "97cee405-2dc4-4279-ac3a-75edff1d746f",
     "name": "CADPA 16+"
   },
   {
+    "id": "05228751-f697-4b36-a78e-e2288d643dca",
     "name": "CADPA 8+"
   },
   {
+    "id": "9c0e5f5a-fc9b-4ca0-8b2b-ae9a2d5ae07d",
     "name": "CERO A All"
   },
   {
+    "id": "458c8ab9-4bd5-4c2e-aa7a-713bfa61c3de",
     "name": "CERO B 12+"
   },
   {
+    "id": "f65dcae0-ef2f-4fa8-a9ee-b5ba7cf4f525",
     "name": "CERO C 15+"
   },
   {
+    "id": "1025b3ee-ca08-4551-b61d-a805add2d79d",
     "name": "CERO D 17+"
   },
   {
+    "id": "d373303f-af45-40b1-8ac4-5bff65e9583b",
     "name": "CERO Z 18+"
   },
   {
+    "id": "30fd1b30-bf3c-4c62-b426-695ec707310d",
     "name": "ClassInd 10"
   },
   {
+    "id": "76579639-56b7-4792-a4b2-464c4b4510ca",
     "name": "ClassInd 12"
   },
   {
+    "id": "14b93392-4cda-4657-ba14-2dd8b23ce120",
     "name": "ClassInd 14"
   },
   {
+    "id": "36532e67-d604-4540-af23-a61a79d0b869",
     "name": "ClassInd 16"
   },
   {
+    "id": "aad8d7a1-e101-4fba-bd1b-74e9096e0808",
     "name": "ClassInd 18"
   },
   {
+    "id": "659ac17c-10e9-4da7-958d-69639b39a89a",
     "name": "ClassInd L"
   },
   {
+    "id": "d38d06bd-4013-4e78-b1e7-84e908bc6d98",
     "name": "ESRB AO 18+"
   },
   {
+    "id": "5b562644-7d5a-4630-a69d-653bbf4bf00b",
     "name": "ESRB E"
   },
   {
+    "id": "5643d1f7-8dab-4fa5-afa3-56372087ce1c",
     "name": "ESRB E 10+"
   },
   {
+    "id": "e7208bf9-6056-403e-a0d7-7d42bc8746e3",
     "name": "ESRB EC"
   },
   {
+    "id": "56561107-7b56-4779-b691-612437bb6579",
     "name": "ESRB M 17+"
   },
   {
+    "id": "81f824ea-1a4b-4035-bd4f-3f04a2f45604",
     "name": "ESRB RP"
   },
   {
+    "id": "edbe3c64-430c-4378-9cec-6e1f4cdf15d0",
     "name": "ESRB T"
   },
   {
+    "id": "f1a47a6a-ef67-444a-8052-d5208b83b743",
     "name": "PEGI 12"
   },
   {
+    "id": "91107915-71c5-4379-a23e-410aa7220909",
     "name": "PEGI 16"
   },
   {
+    "id": "57b988af-1223-4634-9a94-8fdf735f1055",
     "name": "PEGI 18"
   },
   {
+    "id": "a5d24afd-f644-4646-8bbb-5b999a118ad9",
     "name": "PEGI 3"
   },
   {
+    "id": "3dc9a229-309b-41c3-9c80-081416879793",
     "name": "PEGI 7"
   },
   {
+    "id": "c4d4cbe9-a90a-4568-8142-b66d46076eb2",
     "name": "USK 0"
   },
   {
+    "id": "2b499b15-9510-4c28-a7bf-39a46b4fd1eb",
     "name": "USK 12"
   },
   {
+    "id": "81839e30-a0d7-4427-a3c7-9adc99e0e3cd",
     "name": "USK 16"
   },
   {
+    "id": "8d7a2a18-750e-4bb4-a094-250f2d2f942b",
     "name": "USK 18"
   },
   {
+    "id": "c99a8fb5-f8e9-4ed6-b41d-89ae46ef2c9f",
     "name": "USK 6"
   }
 ]
