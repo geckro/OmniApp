@@ -12,14 +12,9 @@
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Windows\Import.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Images\"/>
     <Resource Include="Images\icon.ico"/>
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
 </Project>
