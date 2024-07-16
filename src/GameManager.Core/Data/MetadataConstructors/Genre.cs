@@ -8,6 +8,6 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Genre : IMetadata
 {
     public required Guid Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     [JsonIgnore] public string JsonFile => "genres.json";
 }
