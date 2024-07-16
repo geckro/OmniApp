@@ -1,4 +1,5 @@
-﻿using OmniApp.Common.Logging;
+﻿using GameManager.UI.Windows;
+using OmniApp.Common.Logging;
 using System.Windows;
 
 namespace OmniApp.UI.Windows;
@@ -13,7 +14,8 @@ public partial class MainWindow
 
     private void GameManager_OnClick(object sender, RoutedEventArgs e)
     {
-        new GameManager.UI.Windows.MainWindow().Show();
+        MainGameWindow mainGameWindow = new(App.ServiceProvider);
+        mainGameWindow.Show();
     }
 
     private void FinanceManager_OnClick(object sender, RoutedEventArgs e)

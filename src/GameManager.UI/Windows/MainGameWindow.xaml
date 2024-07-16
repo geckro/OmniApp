@@ -1,5 +1,5 @@
 ﻿<Window
-  x:Class="GameManager.UI.Windows.MainWindow"
+  x:Class="GameManager.UI.Windows.MainGameWindow"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,7 +23,7 @@
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
-        <Button x:Name="AddButton" Content="Add..." Click="AddButton_Click" />
+        <Button x:Name="AddButton" Content="Add..." Command="{Binding AddGameCommand}" />
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />
