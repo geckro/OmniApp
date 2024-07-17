@@ -9,8 +9,8 @@ namespace GameManager.UI.Helpers;
 
 public interface IDataGridHelper
 {
-    Task PopulateGameDataGridAsync(DataGrid dataGrid, IMetadataAccessor<Game> gameMetadataAccessor);
-    Task RefreshGameDataGridAsync(IMetadataAccessor<Game> gameMetadataAccessor);
+    Task PopulateGameDataGridAsync(DataGrid dataGrid);
+    Task RefreshGameDataGridAsync();
 }
 
 /// <summary>
@@ -18,19 +18,38 @@ public interface IDataGridHelper
 /// </summary>
 public class DataGridHelper : IDataGridHelper
 {
+    private readonly IMetadataAccessor<Game> _gameAccessor;
+    private readonly IMetadataAccessor<Genre> _genreAccessor;
+    private readonly IMetadataAccessor<Developer> _developerAccessor;
+    private readonly IMetadataAccessor<Publisher> _publisherAccessor;
+    private readonly IMetadataAccessor<Series> _seriesAccessor;
+
     private DataGrid _dataGrid = null!;
     private ICollection<GameViewModel> _games = [];
+
+    public DataGridHelper(
+        IMetadataAccessor<Game> gameAccessor,
+        IMetadataAccessor<Genre> genreAccessor,
+        IMetadataAccessor<Developer> developerAccessor,
+        IMetadataAccessor<Publisher> publisherAccessor,
+        IMetadataAccessor<Series> seriesAccessor)
+    {
+        _gameAccessor = gameAccessor;
+        _genreAccessor = genreAccessor;
+        _developerAccessor = developerAccessor;
+        _publisherAccessor = publisherAccessor;
+        _seriesAccessor = seriesAccessor;
+    }
 
     /// <summary>
     ///     Populates the main Game DataGrid on the MainGameWindow.
     /// </summary>
     /// <param name="dataGrid">The Game DataGrid.</param>
-    /// <param name="gameMetadataAccessor">Game data from an instance of DataFactoryManager.</param>
-    public async Task PopulateGameDataGridAsync(DataGrid dataGrid, IMetadataAccessor<Game> gameMetadataAccessor)
+    public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
     {
         _dataGrid = dataGrid;
-        ICollection<Game> games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
-        _games = await ConvertToGameViewModels(games, gameMetadataAccessor);
+        ICollection<Game> games = await Task.Run(_gameAccessor.LoadMetadataCollection);
+        _games = await ConvertToGameViewModels(games);
 
         _dataGrid.AutoGenerateColumns = false;
         _dataGrid.Columns.Clear();
@@ -39,7 +58,7 @@ public class DataGridHelper : IDataGridHelper
         _dataGrid.ItemsSource = _games;
     }
 
-    private async Task<ICollection<GameViewModel>> ConvertToGameViewModels(ICollection<Game> games, IMetadataAccessor<Game> gameMetadataAccessor)
+    private async Task<ICollection<GameViewModel>> ConvertToGameViewModels(ICollection<Game> games)
     {
         return await Task.WhenAll(games.Select(async game => new GameViewModel
         {
@@ -47,15 +66,15 @@ public class DataGridHelper : IDataGridHelper
             HasPlayed = game.HasPlayed,
             HasFinished = game.HasFinished,
             HasCompleted = game.HasCompleted,
-            Genres = await GetNamedCollectionAsync(game.Genres, gameMetadataAccessor),
-            Developers = await GetNamedCollectionAsync(game.Developers, gameMetadataAccessor),
-            Publishers = await GetNamedCollectionAsync(game.Publishers, gameMetadataAccessor),
-            Series = await GetNamedCollectionAsync(game.Series, gameMetadataAccessor),
+            Genres = await GetNamedCollectionAsync(game.Genres, _genreAccessor),
+            Developers = await GetNamedCollectionAsync(game.Developers, _developerAccessor),
+            Publishers = await GetNamedCollectionAsync(game.Publishers, _publisherAccessor),
+            Series = await GetNamedCollectionAsync(game.Series, _seriesAccessor),
             ReleaseDateWw = game.ReleaseDateWw?.ToString() ?? string.Empty
         }));
     }
 
-    private async Task<string> GetNamedCollectionAsync<T>(ICollection<T>? collection, IMetadataAccessor<Game> accessor) where T : IMetadata
+    private async Task<string> GetNamedCollectionAsync<T>(ICollection<T>? collection, IMetadataAccessor<T> accessor) where T : IMetadata
     {
         if (collection == null || collection.Count == 0)
         {
@@ -64,7 +83,7 @@ public class DataGridHelper : IDataGridHelper
 
         string[] names = await Task.WhenAll(collection.Select(async item =>
         {
-            Game? fullItem = await Task.Run(() => accessor.GetItemById(item.Id));
+            T? fullItem = await Task.Run(() => accessor.GetItemById(item.Id));
             return GetItemName(fullItem) ?? item.Id.ToString();
         }));
 
@@ -88,11 +107,10 @@ public class DataGridHelper : IDataGridHelper
     /// <summary>
     ///     Refreshes the main Game DataGrid on the MainGameWindow.
     /// </summary>
-    /// <param name="gameMetadataAccessor">Game data from an instance of DataFactoryManager.</param>
-    public async Task RefreshGameDataGridAsync(IMetadataAccessor<Game> gameMetadataAccessor)
+    public async Task RefreshGameDataGridAsync()
     {
-        ICollection<Game> games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
-        _games = await ConvertToGameViewModels(games, gameMetadataAccessor);
+        ICollection<Game> games = await Task.Run(_gameAccessor.LoadMetadataCollection);
+        _games = await ConvertToGameViewModels(games);
         _dataGrid.ItemsSource = null;
         _dataGrid.ItemsSource = _games;
     }

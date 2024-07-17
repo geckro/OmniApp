@@ -39,7 +39,7 @@ public class MainGameWindowViewModel
 
     public async Task InitializeAsync(DataGrid gameDataGrid)
     {
-        await _dataGridHelper.PopulateGameDataGridAsync(gameDataGrid, _metadataAccessor);
+        await _dataGridHelper.PopulateGameDataGridAsync(gameDataGrid);
     }
 
     private void AddGame()
@@ -51,21 +51,21 @@ public class MainGameWindowViewModel
     {
         game.HasPlayed = true;
         _metadataAccessor.UpdateItemAndSave(game.Id, "HasPlayed", true);
-        await _dataGridHelper.RefreshGameDataGridAsync(_metadataAccessor);
+        await _dataGridHelper.RefreshGameDataGridAsync();
     }
 
     private async Task MarkAsFinished(Game game)
     {
         game.HasFinished = true;
         _metadataAccessor.UpdateItemAndSave(game.Id, "HasFinished", true);
-        await _dataGridHelper.RefreshGameDataGridAsync(_metadataAccessor);
+        await _dataGridHelper.RefreshGameDataGridAsync();
     }
 
     private async Task MarkAsCompleted(Game game)
     {
         game.HasCompleted = true;
         _metadataAccessor.UpdateItemAndSave(game.Id, "HasCompleted", true);
-        await _dataGridHelper.RefreshGameDataGridAsync(_metadataAccessor);
+        await _dataGridHelper.RefreshGameDataGridAsync();
     }
 
     private void Edit(Game game)
