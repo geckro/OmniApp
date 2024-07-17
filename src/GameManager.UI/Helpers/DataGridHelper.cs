@@ -19,7 +19,7 @@ public interface IDataGridHelper
 public class DataGridHelper : IDataGridHelper
 {
     private DataGrid _dataGrid = null!;
-    private ICollection<Game> _games = [];
+    private ICollection<GameViewModel> _games = [];
 
     /// <summary>
     ///     Populates the main Game DataGrid on the MainGameWindow.
@@ -29,7 +29,8 @@ public class DataGridHelper : IDataGridHelper
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid, IMetadataAccessor<Game> gameMetadataAccessor)
     {
         _dataGrid = dataGrid;
-        _games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
+        ICollection<Game> games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
+        _games = await ConvertToGameViewModels(games, gameMetadataAccessor);
 
         _dataGrid.AutoGenerateColumns = false;
         _dataGrid.Columns.Clear();
@@ -38,13 +39,60 @@ public class DataGridHelper : IDataGridHelper
         _dataGrid.ItemsSource = _games;
     }
 
+    private async Task<ICollection<GameViewModel>> ConvertToGameViewModels(ICollection<Game> games, IMetadataAccessor<Game> gameMetadataAccessor)
+    {
+        return await Task.WhenAll(games.Select(async game => new GameViewModel
+        {
+            Title = game.Title,
+            HasPlayed = game.HasPlayed,
+            HasFinished = game.HasFinished,
+            HasCompleted = game.HasCompleted,
+            Genres = await GetNamedCollectionAsync(game.Genres, gameMetadataAccessor),
+            Developers = await GetNamedCollectionAsync(game.Developers, gameMetadataAccessor),
+            Publishers = await GetNamedCollectionAsync(game.Publishers, gameMetadataAccessor),
+            Series = await GetNamedCollectionAsync(game.Series, gameMetadataAccessor),
+            ReleaseDateWw = game.ReleaseDateWw?.ToString() ?? string.Empty
+        }));
+    }
+
+    private async Task<string> GetNamedCollectionAsync<T>(ICollection<T>? collection, IMetadataAccessor<Game> accessor) where T : IMetadata
+    {
+        if (collection == null || collection.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        string[] names = await Task.WhenAll(collection.Select(async item =>
+        {
+            Game? fullItem = await Task.Run(() => accessor.GetItemById(item.Id));
+            return GetItemName(fullItem) ?? item.Id.ToString();
+        }));
+
+        return string.Join(", ", names);
+    }
+
+    private string? GetItemName(IMetadata? item)
+    {
+        return item switch
+        {
+            Game game => game.Title,
+            Genre genre => genre.Name,
+            Developer dev => dev.Name,
+            Publisher pub => pub.Name,
+            Series series => series.Name,
+            _ => null
+        };
+    }
+
+
     /// <summary>
     ///     Refreshes the main Game DataGrid on the MainGameWindow.
     /// </summary>
     /// <param name="gameMetadataAccessor">Game data from an instance of DataFactoryManager.</param>
     public async Task RefreshGameDataGridAsync(IMetadataAccessor<Game> gameMetadataAccessor)
     {
-        _games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
+        ICollection<Game> games = await Task.Run(gameMetadataAccessor.LoadMetadataCollection);
+        _games = await ConvertToGameViewModels(games, gameMetadataAccessor);
         _dataGrid.ItemsSource = null;
         _dataGrid.ItemsSource = _games;
     }
@@ -76,15 +124,15 @@ public class DataGridHelper : IDataGridHelper
 
     private void ConfigureGameDataGridColumns()
     {
-        AddTextColumn("Title", nameof(Game.Title));
-        AddTrueFalseColumn("Played", nameof(Game.HasPlayed));
-        AddTrueFalseColumn("Finished", nameof(Game.HasFinished));
-        AddTrueFalseColumn("Complete", nameof(Game.HasCompleted));
-        AddTextColumn("Genres", nameof(Game.Genres));
-        AddTextColumn("Developers", nameof(Game.Developers));
-        AddTextColumn("Publishers", nameof(Game.Publishers));
-        AddTextColumn("Series", nameof(Game.Series));
-        AddTextColumn("Date", nameof(Game.ReleaseDateWw));
+        AddTextColumn("Title", nameof(GameViewModel.Title));
+        AddTrueFalseColumn("Played", nameof(GameViewModel.HasPlayed));
+        AddTrueFalseColumn("Finished", nameof(GameViewModel.HasFinished));
+        AddTrueFalseColumn("Complete", nameof(GameViewModel.HasCompleted));
+        AddTextColumn("Genres", nameof(GameViewModel.Genres));
+        AddTextColumn("Developers", nameof(GameViewModel.Developers));
+        AddTextColumn("Publishers", nameof(GameViewModel.Publishers));
+        AddTextColumn("Series", nameof(GameViewModel.Series));
+        AddTextColumn("Date", nameof(GameViewModel.ReleaseDateWw));
     }
 }
 
@@ -111,4 +159,17 @@ public static class FrameworkElementFactoryExtensions
         factory.SetBinding(property, binding);
         return factory;
     }
+}
+
+public class GameViewModel
+{
+    public string Title { get; set; } = string.Empty;
+    public bool? HasPlayed { get; set; }
+    public bool? HasFinished { get; set; }
+    public bool? HasCompleted { get; set; }
+    public string Genres { get; set; } = string.Empty;
+    public string Developers { get; set; } = string.Empty;
+    public string Publishers { get; set; } = string.Empty;
+    public string Series { get; set; } = string.Empty;
+    public string ReleaseDateWw { get; set; } = string.Empty;
 }

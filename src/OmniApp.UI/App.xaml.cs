@@ -29,12 +29,12 @@ public partial class App
         services.AddScoped<IDataGridHelper, DataGridHelper>();
         services.AddScoped<IWindowHelper, WindowHelper>();
 
-        services.AddScoped<IMetadataAccessor<Game>>(sp =>
-            new MetadataAccessor<Game>(
-                sp.GetRequiredService<IMetadataPersistence>(),
-                "games.json"
-            )
-        );
+        services.AddScoped<IMetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<IMetadataPersistence>(), "games.json"));
+        services.AddScoped<IMetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>( sp.GetRequiredService<IMetadataPersistence>(), "genres.json" ));
+        services.AddScoped<IMetadataAccessor<Platform>>(sp => new MetadataAccessor<Platform>( sp.GetRequiredService<IMetadataPersistence>(), "platforms.json" ));
+        services.AddScoped<IMetadataAccessor<Developer>>(sp => new MetadataAccessor<Developer>( sp.GetRequiredService<IMetadataPersistence>(), "developers.json" ));
+        services.AddScoped<IMetadataAccessor<Publisher>>(sp => new MetadataAccessor<Publisher>( sp.GetRequiredService<IMetadataPersistence>(), "publisher.json" ));
+        services.AddScoped<IMetadataAccessor<Series>>(sp => new MetadataAccessor<Series>( sp.GetRequiredService<IMetadataPersistence>(), "series.json" ));
     }
 
     public App()
