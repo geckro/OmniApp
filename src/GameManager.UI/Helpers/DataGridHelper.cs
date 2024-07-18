@@ -1,5 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using OmniApp.Common.Logging;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,11 +35,21 @@ public class DataGridHelper(
     /// <param name="dataGrid">The Game DataGrid.</param>
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
     {
-        _dataGrid = dataGrid;
-        _games = await Task.Run(gameAccessor.LoadMetadataCollection);
+        Logger.Info(LogClass.GameMgrUi, "Initializing PopulateGameDataGridAsync");
 
-        ConfigureGameDataGrid();
-        await RefreshGameDataGridAsync();
+
+        try
+        {
+            _dataGrid = dataGrid;
+            _games = await Task.Run(gameAccessor.LoadMetadataCollection);
+            ConfigureGameDataGrid();
+            await RefreshGameDataGridAsync();
+            Logger.Info(LogClass.GameMgrUi, "Game DataGrid populated.");
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(LogClass.GameMgrUi, $"Error populating Game DataGrid: {ex.Message}");
+        }
     }
 
     /// <summary>
@@ -46,13 +57,25 @@ public class DataGridHelper(
     /// </summary>
     public async Task RefreshGameDataGridAsync()
     {
-        _games = await Task.Run(gameAccessor.LoadMetadataCollection);
-        _dataGrid.ItemsSource = null;
-        _dataGrid.ItemsSource = _games;
+        Logger.Info(LogClass.GameMgrUi, "Running RefreshGameDataGridAsync");
+
+        try
+        {
+            _games = await Task.Run(gameAccessor.LoadMetadataCollection);
+            _dataGrid.ItemsSource = null;
+            _dataGrid.ItemsSource = _games;
+            Logger.Info(LogClass.GameMgrUi, "Game DataGrid refreshed.");
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(LogClass.GameMgrUi, $"Error refreshing Game DataGrid: {ex.Message}");
+        }
     }
 
     private void ConfigureGameDataGrid()
     {
+        Logger.Info(LogClass.GameMgrUi, "Running ConfigureGameDataGrid.");
+
         _dataGrid.AutoGenerateColumns = false;
         _dataGrid.Columns.Clear();
 
