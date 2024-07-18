@@ -26,7 +26,7 @@ public class DataGridHelper(
     : IDataGridHelper
 {
     private DataGrid _dataGrid = null!;
-    private ICollection<GameViewModel> _games = [];
+    private ICollection<Game> _games = [];
 
     /// <summary>
     ///     Populates the main Game DataGrid on the MainGameWindow.
@@ -35,86 +35,53 @@ public class DataGridHelper(
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
     {
         _dataGrid = dataGrid;
-        ICollection<Game> games = await Task.Run(gameAccessor.LoadMetadataCollection);
-        _games = await ConvertToGameViewModels(games);
+        _games = await Task.Run(gameAccessor.LoadMetadataCollection);
 
-        _dataGrid.AutoGenerateColumns = false;
-        _dataGrid.Columns.Clear();
-
-        ConfigureGameDataGridColumns();
-        _dataGrid.ItemsSource = _games;
+        ConfigureGameDataGrid();
+        await RefreshGameDataGridAsync();
     }
-
-    private async Task<ICollection<GameViewModel>> ConvertToGameViewModels(ICollection<Game> games)
-    {
-        return await Task.WhenAll(games.Select(async game => new GameViewModel
-        {
-            Title = game.Title,
-            HasPlayed = game.HasPlayed,
-            HasFinished = game.HasFinished,
-            HasCompleted = game.HasCompleted,
-            Platforms = await GetNamedCollectionAsync(game.Platforms, platformAccessor),
-            Genres = await GetNamedCollectionAsync(game.Genres, genreAccessor),
-            Developers = await GetNamedCollectionAsync(game.Developers, developerAccessor),
-            Publishers = await GetNamedCollectionAsync(game.Publishers, publisherAccessor),
-            Series = await GetNamedCollectionAsync(game.Series, seriesAccessor),
-            ReleaseDateWw = game.ReleaseDateWw?.ToString() ?? string.Empty
-        }));
-    }
-
-    private async Task<string> GetNamedCollectionAsync<T>(ICollection<T>? collection, IMetadataAccessor<T> accessor) where T : IMetadata
-    {
-        if (collection == null || collection.Count == 0)
-        {
-            return string.Empty;
-        }
-
-        string[] names = await Task.WhenAll(collection.Select(async item =>
-        {
-            T? fullItem = await Task.Run(() => accessor.GetItemById(item.Id));
-            return GetItemName(fullItem) ?? item.Id.ToString();
-        }));
-
-        return string.Join(", ", names);
-    }
-
-    private string? GetItemName(IMetadata? item)
-    {
-        return item switch
-        {
-            Game game => game.Title,
-            Genre genre => genre.Name,
-            Platform platform => platform.Name,
-            Developer dev => dev.Name,
-            Publisher pub => pub.Name,
-            Series series => series.Name,
-            _ => null
-        };
-    }
-
 
     /// <summary>
     ///     Refreshes the main Game DataGrid on the MainGameWindow.
     /// </summary>
     public async Task RefreshGameDataGridAsync()
     {
-        ICollection<Game> games = await Task.Run(gameAccessor.LoadMetadataCollection);
-        _games = await ConvertToGameViewModels(games);
+        _games = await Task.Run(gameAccessor.LoadMetadataCollection);
         _dataGrid.ItemsSource = null;
         _dataGrid.ItemsSource = _games;
     }
 
-    private void AddTextColumn(string header, string bindingPath)
+    private void ConfigureGameDataGrid()
     {
-        _dataGrid.Columns.Add(new DataGridTextColumn { Header = header, Binding = new Binding(bindingPath) });
+        _dataGrid.AutoGenerateColumns = false;
+        _dataGrid.Columns.Clear();
+
+        DataGridColumn[] columns =
+        [
+            new DataGridTextColumn { Header = "Title", Binding = new Binding(nameof(Game.Title)) },
+            CreateBooleanColumn("Played", nameof(Game.HasPlayed)),
+            CreateBooleanColumn("Finished", nameof(Game.HasFinished)),
+            CreateBooleanColumn("Complete", nameof(Game.HasCompleted)),
+            CreateAsyncColumn("Platforms", nameof(Game.Platforms), new AsyncCollectionToStringConverter<Platform>(platformAccessor)),
+            CreateAsyncColumn("Genres", nameof(Game.Genres), new AsyncCollectionToStringConverter<Genre>(genreAccessor)),
+            CreateAsyncColumn("Developers", nameof(Game.Developers), new AsyncCollectionToStringConverter<Developer>(developerAccessor)),
+            CreateAsyncColumn("Publishers", nameof(Game.Publishers), new AsyncCollectionToStringConverter<Publisher>(publisherAccessor)),
+            CreateAsyncColumn("Series", nameof(Game.Series), new AsyncCollectionToStringConverter<Series>(seriesAccessor)),
+            new DataGridTextColumn { Header = "Date", Binding = new Binding(nameof(Game.ReleaseDateWw)) { StringFormat = "d" } }
+        ];
+
+        foreach (DataGridColumn column in columns)
+        {
+            _dataGrid.Columns.Add(column);
+        }
     }
 
-    private void AddTrueFalseColumn(string header, string propertyName)
+    private static DataGridTextColumn CreateAsyncColumn(string header, string propertyName, IValueConverter converter)
     {
-        _dataGrid.Columns.Add(CreateTrueFalseColumn(header, propertyName));
+        return new DataGridTextColumn { Header = header, Binding = new Binding(propertyName) { Converter = converter } };
     }
 
-    private static DataGridTemplateColumn CreateTrueFalseColumn(string header, string propertyName)
+    private static DataGridTemplateColumn CreateBooleanColumn(string header, string propertyName)
     {
         return new DataGridTemplateColumn
         {
@@ -128,19 +95,43 @@ public class DataGridHelper(
             }
         };
     }
+}
 
-    private void ConfigureGameDataGridColumns()
+public class AsyncCollectionToStringConverter<T>(IMetadataAccessor<T> accessor) : IValueConverter
+    where T : IMetadata
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        AddTextColumn("Title", nameof(GameViewModel.Title));
-        AddTrueFalseColumn("Played", nameof(GameViewModel.HasPlayed));
-        AddTrueFalseColumn("Finished", nameof(GameViewModel.HasFinished));
-        AddTrueFalseColumn("Complete", nameof(GameViewModel.HasCompleted));
-        AddTextColumn("Platforms", nameof(GameViewModel.Platforms));
-        AddTextColumn("Genres", nameof(GameViewModel.Genres));
-        AddTextColumn("Developers", nameof(GameViewModel.Developers));
-        AddTextColumn("Publishers", nameof(GameViewModel.Publishers));
-        AddTextColumn("Series", nameof(GameViewModel.Series));
-        AddTextColumn("Date", nameof(GameViewModel.ReleaseDateWw));
+        return value is not IEnumerable<IMetadata> collection ? string.Empty : GetNamedCollectionAsync(collection).GetAwaiter().GetResult();
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+
+    private async Task<string> GetNamedCollectionAsync(IEnumerable<IMetadata> collection)
+    {
+        string[] names = await Task.WhenAll(collection.Select(async item =>
+        {
+            T? fullItem = await Task.FromResult(accessor.GetItemById(item.Id));
+            return GetItemName(fullItem) ?? item.Id.ToString();
+        }));
+        return string.Join(", ", names);
+    }
+
+    private static string? GetItemName(IMetadata? item)
+    {
+        return item switch
+        {
+            Game game => game.Title,
+            Genre genre => genre.Name,
+            Platform platform => platform.Name,
+            Developer dev => dev.Name,
+            Publisher pub => pub.Name,
+            Series series => series.Name,
+            _ => null
+        };
     }
 }
 
@@ -151,7 +142,7 @@ public class BooleanYesNoConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is bool boolValue ? (boolValue ? "✅" : "❌") : string.Empty;
+        return value is bool boolValue ? boolValue ? "✅" : "❌" : string.Empty;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -167,18 +158,4 @@ public static class FrameworkElementFactoryExtensions
         factory.SetBinding(property, binding);
         return factory;
     }
-}
-
-public class GameViewModel
-{
-    public string Title { get; set; } = string.Empty;
-    public bool? HasPlayed { get; set; }
-    public bool? HasFinished { get; set; }
-    public bool? HasCompleted { get; set; }
-    public string Platforms { get; set; } = string.Empty;
-    public string Genres { get; set; } = string.Empty;
-    public string Developers { get; set; } = string.Empty;
-    public string Publishers { get; set; } = string.Empty;
-    public string Series { get; set; } = string.Empty;
-    public string ReleaseDateWw { get; set; } = string.Empty;
 }
