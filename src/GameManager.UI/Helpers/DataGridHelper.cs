@@ -16,30 +16,17 @@ public interface IDataGridHelper
 /// <summary>
 ///     Helper for the DataGrid control.
 /// </summary>
-public class DataGridHelper : IDataGridHelper
+public class DataGridHelper(
+    IMetadataAccessor<Game> gameAccessor,
+    IMetadataAccessor<Genre> genreAccessor,
+    IMetadataAccessor<Developer> developerAccessor,
+    IMetadataAccessor<Publisher> publisherAccessor,
+    IMetadataAccessor<Platform> platformAccessor,
+    IMetadataAccessor<Series> seriesAccessor)
+    : IDataGridHelper
 {
-    private readonly IMetadataAccessor<Game> _gameAccessor;
-    private readonly IMetadataAccessor<Genre> _genreAccessor;
-    private readonly IMetadataAccessor<Developer> _developerAccessor;
-    private readonly IMetadataAccessor<Publisher> _publisherAccessor;
-    private readonly IMetadataAccessor<Series> _seriesAccessor;
-
     private DataGrid _dataGrid = null!;
     private ICollection<GameViewModel> _games = [];
-
-    public DataGridHelper(
-        IMetadataAccessor<Game> gameAccessor,
-        IMetadataAccessor<Genre> genreAccessor,
-        IMetadataAccessor<Developer> developerAccessor,
-        IMetadataAccessor<Publisher> publisherAccessor,
-        IMetadataAccessor<Series> seriesAccessor)
-    {
-        _gameAccessor = gameAccessor;
-        _genreAccessor = genreAccessor;
-        _developerAccessor = developerAccessor;
-        _publisherAccessor = publisherAccessor;
-        _seriesAccessor = seriesAccessor;
-    }
 
     /// <summary>
     ///     Populates the main Game DataGrid on the MainGameWindow.
@@ -48,7 +35,7 @@ public class DataGridHelper : IDataGridHelper
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
     {
         _dataGrid = dataGrid;
-        ICollection<Game> games = await Task.Run(_gameAccessor.LoadMetadataCollection);
+        ICollection<Game> games = await Task.Run(gameAccessor.LoadMetadataCollection);
         _games = await ConvertToGameViewModels(games);
 
         _dataGrid.AutoGenerateColumns = false;
@@ -66,10 +53,11 @@ public class DataGridHelper : IDataGridHelper
             HasPlayed = game.HasPlayed,
             HasFinished = game.HasFinished,
             HasCompleted = game.HasCompleted,
-            Genres = await GetNamedCollectionAsync(game.Genres, _genreAccessor),
-            Developers = await GetNamedCollectionAsync(game.Developers, _developerAccessor),
-            Publishers = await GetNamedCollectionAsync(game.Publishers, _publisherAccessor),
-            Series = await GetNamedCollectionAsync(game.Series, _seriesAccessor),
+            Platforms = await GetNamedCollectionAsync(game.Platforms, platformAccessor),
+            Genres = await GetNamedCollectionAsync(game.Genres, genreAccessor),
+            Developers = await GetNamedCollectionAsync(game.Developers, developerAccessor),
+            Publishers = await GetNamedCollectionAsync(game.Publishers, publisherAccessor),
+            Series = await GetNamedCollectionAsync(game.Series, seriesAccessor),
             ReleaseDateWw = game.ReleaseDateWw?.ToString() ?? string.Empty
         }));
     }
@@ -96,6 +84,7 @@ public class DataGridHelper : IDataGridHelper
         {
             Game game => game.Title,
             Genre genre => genre.Name,
+            Platform platform => platform.Name,
             Developer dev => dev.Name,
             Publisher pub => pub.Name,
             Series series => series.Name,
@@ -109,7 +98,7 @@ public class DataGridHelper : IDataGridHelper
     /// </summary>
     public async Task RefreshGameDataGridAsync()
     {
-        ICollection<Game> games = await Task.Run(_gameAccessor.LoadMetadataCollection);
+        ICollection<Game> games = await Task.Run(gameAccessor.LoadMetadataCollection);
         _games = await ConvertToGameViewModels(games);
         _dataGrid.ItemsSource = null;
         _dataGrid.ItemsSource = _games;
@@ -146,6 +135,7 @@ public class DataGridHelper : IDataGridHelper
         AddTrueFalseColumn("Played", nameof(GameViewModel.HasPlayed));
         AddTrueFalseColumn("Finished", nameof(GameViewModel.HasFinished));
         AddTrueFalseColumn("Complete", nameof(GameViewModel.HasCompleted));
+        AddTextColumn("Platforms", nameof(GameViewModel.Platforms));
         AddTextColumn("Genres", nameof(GameViewModel.Genres));
         AddTextColumn("Developers", nameof(GameViewModel.Developers));
         AddTextColumn("Publishers", nameof(GameViewModel.Publishers));
@@ -185,6 +175,7 @@ public class GameViewModel
     public bool? HasPlayed { get; set; }
     public bool? HasFinished { get; set; }
     public bool? HasCompleted { get; set; }
+    public string Platforms { get; set; } = string.Empty;
     public string Genres { get; set; } = string.Empty;
     public string Developers { get; set; } = string.Empty;
     public string Publishers { get; set; } = string.Empty;
