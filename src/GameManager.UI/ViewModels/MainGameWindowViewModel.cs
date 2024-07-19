@@ -2,6 +2,7 @@
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
 using GameManager.UI.Windows;
+using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -89,12 +90,27 @@ public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null
         remove => CommandManager.RequerySuggested -= value;
     }
 
-    public bool CanExecute(object? parameter) => parameter is T arg && (canExecute == null || canExecute(arg));
+    public bool CanExecute(object? parameter)
+    {
+        bool result = canExecute == null
+                      || (parameter == null && typeof(T) == typeof(object))
+                      || (parameter is T arg && canExecute(arg));
+        return result;
+    }
+
     public void Execute(object? parameter)
     {
-        if (parameter is T arg)
+        switch (parameter)
         {
-            _execute(arg);
+            case T arg:
+                _execute(arg);
+                break;
+            case null when typeof(T) == typeof(object):
+                _execute(default!);
+                break;
+            default:
+                Logger.Error(LogClass.GameMgrUi, $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
+                break;
         }
     }
 }

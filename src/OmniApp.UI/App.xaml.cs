@@ -2,6 +2,7 @@
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
 using GameManager.UI.ViewModels;
+using GameManager.UI.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
 using System.Windows;
@@ -24,6 +25,8 @@ public partial class App
     {
         services.AddSingleton<IMetadataPersistence, MetadataPersistence>();
         services.AddSingleton<IMetadataAccessorFactory, MetadataAccessorFactory>();
+
+        services.AddTransient<AddGame>();
 
         services.AddScoped<MainGameWindowViewModel>();
         services.AddScoped<IDataGridHelper, DataGridHelper>();

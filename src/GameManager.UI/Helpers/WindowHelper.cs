@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using OmniApp.Common.Logging;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace GameManager.UI.Helpers;
@@ -6,8 +8,7 @@ namespace GameManager.UI.Helpers;
 public interface IWindowHelper
 {
     void LoadContent(ContentControl contentControl, Window window);
-    void ShowWindow<T>() where T : Window, new();
-    void ShowWindow(Window? window);
+    void ShowWindow<T>() where T : Window;
 }
 
 public class WindowHelper(IServiceProvider serviceProvider) : IWindowHelper
@@ -30,23 +31,10 @@ public class WindowHelper(IServiceProvider serviceProvider) : IWindowHelper
     /// <summary>
     ///     Shows the window.
     /// </summary>
-    public void ShowWindow<T>() where T : Window, new()
+    public void ShowWindow<T>() where T : Window
     {
-        T? window = (T?)_serviceProvider.GetService(typeof(T));
-        if (window == null)
-        {
-            throw new InvalidOperationException($"Unable to create an instance of {typeof(T).Name}. Ensure it is registered with the dependency injection container.");
-        }
-        ShowWindow(window);
-    }
-
-    /// <summary>
-    ///     Shows the specified window.
-    /// </summary>
-    /// <param name="window">The window to show.</param>
-    public void ShowWindow(Window? window)
-    {
-        ArgumentNullException.ThrowIfNull(window);
+        Logger.Info(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
+        T window = _serviceProvider.GetRequiredService<T>();
         window.Show();
     }
 }
