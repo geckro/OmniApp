@@ -23,8 +23,12 @@
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
-        <Button x:Name="AddButton" Content="Add..." Command="{Binding AddGameCommand}" />
-        <Button Content="Refresh" Command="{Binding RefreshDataGridCommand}" />
+        <Button x:Name="AddButton" Command="{Binding AddGameCommand}">
+          <Image Source="../Images/add.png" MaxWidth="24" />
+        </Button>
+        <Button Command="{Binding RefreshDataGridCommand}">
+          <Image Source="../Images/refresh.png" MaxWidth="24" />
+        </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />

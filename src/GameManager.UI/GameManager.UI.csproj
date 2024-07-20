@@ -14,6 +14,8 @@
   <ItemGroup>
     <Folder Include="Images\"/>
     <Resource Include="Images\icon.ico"/>
+    <Resource Include="Images\refresh.png" />
+    <Resource Include="Images\add.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
