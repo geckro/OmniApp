@@ -24,6 +24,7 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
         <Button x:Name="AddButton" Content="Add..." Command="{Binding AddGameCommand}" />
+        <Button Content="Refresh" Command="{Binding RefreshDataGridCommand}" />
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />

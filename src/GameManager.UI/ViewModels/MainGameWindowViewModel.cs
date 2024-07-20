@@ -22,6 +22,7 @@ public class MainGameWindowViewModel
         _windowHelper = windowHelper;
 
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
+        RefreshDataGridCommand = new RelayCommand<object>(_ => dataGridHelper.RefreshGameDataGridAsync());
 
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsPlayed(game));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
@@ -31,6 +32,7 @@ public class MainGameWindowViewModel
     }
 
     public ICommand AddGameCommand { get; }
+    public ICommand RefreshDataGridCommand { get; }
 
     public ICommand MarkAsPlayedCommand { get; }
     public ICommand MarkAsFinishedCommand { get; }
