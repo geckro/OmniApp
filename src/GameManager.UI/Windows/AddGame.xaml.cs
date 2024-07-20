@@ -18,7 +18,12 @@ public partial class AddGame
     {
         InitializeComponent();
         _metadataAccessorFactory = new MetadataAccessorFactory(_metadataPersistence);
-        new AddGameMetadataManager(this, _metadataAccessorFactory).InitializeMetadataAreas();
+        InitializeMetadataAreas();
+    }
+
+    private async void InitializeMetadataAreas()
+    {
+        await new AddGameMetadataManager(this, _metadataAccessorFactory).InitializeMetadataAreasAsync();
     }
 
     /// <summary>

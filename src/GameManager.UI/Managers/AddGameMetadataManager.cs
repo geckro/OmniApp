@@ -15,22 +15,22 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
     /// <summary>
     ///     Initializes the metadata areas for various Game categories.
     /// </summary>
-    public void InitializeMetadataAreas()
+    public async Task InitializeMetadataAreasAsync()
     {
-        MakeMetadataAreas("Genre", addGame.GenreStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadataCollection());
-        MakeMetadataAreas("Platform", addGame.PlatformStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadataCollection());
-        MakeMetadataAreas("Developer", addGame.DeveloperStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadataCollection());
-        MakeMetadataAreas("Publisher", addGame.PublisherStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadataCollection());
-        MakeMetadataAreas("Series", addGame.SeriesStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadataCollection());
-        MakeMetadataAreas("Composer", addGame.ComposerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Composer>().LoadMetadataCollection());
-        MakeMetadataAreas("Director", addGame.DirectorStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Director>().LoadMetadataCollection());
-        MakeMetadataAreas("Engine", addGame.EngineStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Engine>().LoadMetadataCollection());
-        MakeMetadataAreas("Writer", addGame.WriterStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Writer>().LoadMetadataCollection());
-        MakeMetadataAreas("AgeRating", addGame.AgeRatingStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<AgeRatings>().LoadMetadataCollection());
-        MakeMetadataAreas("Producer", addGame.ProducerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Producer>().LoadMetadataCollection());
-        MakeMetadataAreas("Designer", addGame.DesignerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Designer>().LoadMetadataCollection());
-        MakeMetadataAreas("Programmer", addGame.ProgrammerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Programmer>().LoadMetadataCollection());
-        MakeMetadataAreas("Artist", addGame.ArtistStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Artist>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Genre", addGame.GenreStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Platform", addGame.PlatformStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Developer", addGame.DeveloperStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Publisher", addGame.PublisherStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Series", addGame.SeriesStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Composer", addGame.ComposerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Composer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Director", addGame.DirectorStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Director>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Engine", addGame.EngineStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Engine>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Writer", addGame.WriterStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Writer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("AgeRating", addGame.AgeRatingStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<AgeRatings>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Producer", addGame.ProducerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Producer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Designer", addGame.DesignerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Designer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Programmer", addGame.ProgrammerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Programmer>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Artist", addGame.ArtistStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Artist>().LoadMetadataCollection());
     }
     /// <summary>
     ///     Creates metadata areas for a specific category.
@@ -39,7 +39,7 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
     /// <param name="stackPanel">The stack panel to add the generated controls to.</param>
     /// <param name="dataSource">The actual data source of the metadata.</param>
     /// <typeparam name="T">The type of IMetadata.</typeparam>
-    private void MakeMetadataAreas<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
+    private Task MakeMetadataAreasAsync<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
     {
         Label label = new() { Content = name };
 
@@ -63,6 +63,8 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
         stackPanel.Children.Add(label);
         stackPanel.Children.Add(textBox);
         stackPanel.Children.Add(listBox);
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
