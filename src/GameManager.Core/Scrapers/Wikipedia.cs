@@ -152,7 +152,7 @@ public partial class Wikipedia
     [GeneratedRegex("""<a href="/wiki/([^"]+)" title="([^"]+)">""")]
     private static partial Regex WikipediaPageRegex();
 
-    [GeneratedRegex("""<h1 id="firstHeading" class="firstHeading mw-first-heading">(.+?)</h1>""")]
+    [GeneratedRegex("""<h1 id="firstHeading" class="firstHeading mw-first-heading"><i>(.+?)</i></h1>""")]
     private static partial Regex WikipediaArticleHeadingRegex();
 
     [GeneratedRegex("<.+?>")]
