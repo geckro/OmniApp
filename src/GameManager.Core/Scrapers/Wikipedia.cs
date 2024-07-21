@@ -13,6 +13,7 @@ public partial class Wikipedia
     {
         _baseUrl = baseUrl;
         _httpClient = new HttpClient();
+        _httpClient.Timeout = TimeSpan.FromSeconds(5);
         _httpClient.DefaultRequestHeaders.Add("User-Agent", DefaultUserAgent);
     }
 
@@ -65,16 +66,28 @@ public partial class Wikipedia
         Logger.Info(LogClass.GameMgrCore, $"Trying to scrape wikipedia page with link {pageLink.ToString()}");
         try
         {
-            string pageContent = await _httpClient.GetStringAsync(pageLink);
+            Logger.Info(LogClass.GameMgrCore, "Sending GET request to Wikipedia page...");
+            string pageContent = await _httpClient.GetStringAsync(pageLink).ConfigureAwait(false);
+            Logger.Info(LogClass.GameMgrCore, "Received response from Wikipedia page.");
 
+            Logger.Info(LogClass.GameMgrCore, "Extracting title...");
             string title = ExtractTitle(pageContent);
+            Logger.Info(LogClass.GameMgrCore, $"Extracted title: {title}");
+
+            Logger.Info(LogClass.GameMgrCore, "Extracting infobox...");
             Dictionary<string, string>? infobox = ExtractInfobox(pageContent);
+            Logger.Info(LogClass.GameMgrCore, $"Infobox extracted. Item count: {infobox?.Count ?? 0}");
 
             return new WikipediaPage { Title = title, Url = pageLink.ToString(), InfoboxData = infobox };
         }
         catch (HttpRequestException ex)
         {
             Logger.Error(LogClass.GameMgrCore, $"HTTP request error when scraping Wikipedia: {ex.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(LogClass.GameMgrCore, $"Unexpected error when scraping Wikipedia: {ex.Message}");
             return null;
         }
     }
@@ -115,9 +128,15 @@ public partial class Wikipedia
         return infobox;
     }
 
+    private static bool _hasPrintedCleanHtmlLog;
+
     private static string CleanHtml(string html)
     {
-        Logger.Info(LogClass.GameMgrCore, "Cleaning unwanted HTML elements...");
+        if (_hasPrintedCleanHtmlLog == false)
+        {
+            Logger.Info(LogClass.GameMgrCore, "Cleaning unwanted HTML elements...");
+            _hasPrintedCleanHtmlLog = true;
+        }
         html = HtmlTagRegex().Replace(html, string.Empty);
         html = CitationsRegex().Replace(html, string.Empty);
         html = NbspRegex().Replace(html, " ");
