@@ -146,7 +146,7 @@ public partial class AddGame
             if (result != null)
             {
                 Console.WriteLine($"Title: {result.Title}");
-                Console.WriteLine($"URL: {result.Url}");
+                Console.WriteLine($"URL: {result.WikipediaLink}");
                 if (result.InfoboxData != null)
                 {
                     foreach (KeyValuePair<string, string> item in result.InfoboxData)

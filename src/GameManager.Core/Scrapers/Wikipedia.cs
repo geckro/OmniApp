@@ -78,7 +78,7 @@ public partial class Wikipedia
             Dictionary<string, string>? infobox = ExtractInfobox(pageContent);
             Logger.Info(LogClass.GameMgrCore, $"Infobox extracted. Item count: {infobox?.Count ?? 0}");
 
-            return new WikipediaPage { Title = title, Url = pageLink.ToString(), InfoboxData = infobox };
+            return new WikipediaPage { Title = title, WikipediaLink = pageLink.ToString(), InfoboxData = infobox };
         }
         catch (HttpRequestException ex)
         {
@@ -167,7 +167,7 @@ public partial class Wikipedia
 
 public class WikipediaPage
 {
-    public required string Title { get; set; }
-    public required string Url { get; set; }
-    public Dictionary<string, string>? InfoboxData { get; set; } = new();
+    public required string Title { get; init; }
+    public required string WikipediaLink { get; init; }
+    public Dictionary<string, string>? InfoboxData { get; init; } = new();
 }
