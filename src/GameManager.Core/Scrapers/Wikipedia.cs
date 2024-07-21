@@ -170,7 +170,7 @@ public partial class Wikipedia
     [GeneratedRegex("&nbsp;")]
     private static partial Regex NbspRegex();
 
-    [GeneratedRegex(".mw-parser-output .plainlist ol,.mw-parser-output .plainlist ul{line-height:inherit;list-style:none;margin:0;padding:0}.mw-parser-output .plainlist ol li,.mw-parser-output .plainlist ul li{margin-bottom:0}")]
+    [GeneratedRegex(".mw-parser-output.*?li{margin-bottom:0}")]
     private static partial Regex ReleaseDateRegex();
 }
 
