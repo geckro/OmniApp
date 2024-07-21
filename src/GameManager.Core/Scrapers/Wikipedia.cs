@@ -116,8 +116,16 @@ public partial class Wikipedia
 
         foreach (Match rowMatch in rowMatches)
         {
-            string key = CleanHtml(rowMatch.Groups[1].Value).Trim();
+            string key = CleanHtml(rowMatch.Groups[1].Value)
+                .Trim()
+                .Replace("(s)", "s")
+                .ToLower();
             string value = CleanHtml(rowMatch.Groups[2].Value).Trim();
+
+            if (key == "release")
+            {
+                value = ReleaseDateRegex().Replace(value, string.Empty);
+            }
 
             if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
             {
@@ -163,6 +171,9 @@ public partial class Wikipedia
 
     [GeneratedRegex("&nbsp;")]
     private static partial Regex NbspRegex();
+
+    [GeneratedRegex(".mw-parser-output .plainlist ol,.mw-parser-output .plainlist ul{line-height:inherit;list-style:none;margin:0;padding:0}.mw-parser-output .plainlist ol li,.mw-parser-output .plainlist ul li{margin-bottom:0}")]
+    private static partial Regex ReleaseDateRegex();
 }
 
 public class WikipediaPage
