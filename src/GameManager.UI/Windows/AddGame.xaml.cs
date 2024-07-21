@@ -1,7 +1,9 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using GameManager.Core.Scrapers;
 using GameManager.UI.Helpers;
 using GameManager.UI.Managers;
+using OmniApp.Common.Data;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -134,6 +136,26 @@ public partial class AddGame
         }
 
         string text = textBox.Text;
+
+        Uri? link = UrlHelper.ConvertStringToUri(text);
+        if (link != null)
+        {
+            Wikipedia wikipedia = new();
+            WikipediaPage? result = wikipedia.ScrapePageAsync(link).Result;
+
+            if (result != null)
+            {
+                Console.WriteLine($"Title: {result.Title}");
+                Console.WriteLine($"URL: {result.Url}");
+                if (result.InfoboxData != null)
+                {
+                    foreach (KeyValuePair<string, string> item in result.InfoboxData)
+                    {
+                        Console.WriteLine($"{item.Key}: {item.Value}");
+                    }
+                }
+            }
+        }
 
         IEnumerable<string> words = text.Split(' ');
         ICollection<string> capitalizedWords = [];
