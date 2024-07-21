@@ -66,17 +66,15 @@ public partial class Wikipedia
         Logger.Info(LogClass.GameMgrCore, $"Trying to scrape wikipedia page with link {pageLink.ToString()}");
         try
         {
-            Logger.Info(LogClass.GameMgrCore, "Sending GET request to Wikipedia page...");
+            Logger.Info(LogClass.GameMgrCore, $"Sending GET request to Wikipedia URL {pageLink.ToString()}");
             string pageContent = await _httpClient.GetStringAsync(pageLink).ConfigureAwait(false);
             Logger.Info(LogClass.GameMgrCore, "Received response from Wikipedia page.");
 
-            Logger.Info(LogClass.GameMgrCore, "Extracting title...");
             string title = ExtractTitle(pageContent);
-            Logger.Info(LogClass.GameMgrCore, $"Extracted title: {title}");
+            Logger.Info(LogClass.GameMgrCore, $"Extracted article header: {title}");
 
-            Logger.Info(LogClass.GameMgrCore, "Extracting infobox...");
             Dictionary<string, string>? infobox = ExtractInfobox(pageContent);
-            Logger.Info(LogClass.GameMgrCore, $"Infobox extracted. Item count: {infobox?.Count ?? 0}");
+            Logger.Info(LogClass.GameMgrCore, "Infobox extracted.");
 
             return new WikipediaPage { Title = title, WikipediaLink = pageLink.ToString(), InfoboxData = infobox };
         }
@@ -94,14 +92,14 @@ public partial class Wikipedia
 
     private static string ExtractTitle(string pageContent)
     {
-        Logger.Info(LogClass.GameMgrCore, "Extracting title from wikipedia entry...");
+        Logger.Info(LogClass.GameMgrCore, "Extracting article header from wikipedia page...");
         Match titleMatch = WikipediaArticleHeadingRegex().Match(pageContent);
-        return titleMatch.Success ? titleMatch.Groups[1].Value : "Title not found";
+        return titleMatch.Success ? titleMatch.Groups[1].Value : "Article header not found";
     }
 
     private static Dictionary<string, string>? ExtractInfobox(string pageContent)
     {
-        Logger.Info(LogClass.GameMgrCore, "Extracting infobox from wikipedia entry...");
+        Logger.Info(LogClass.GameMgrCore, "Extracting infobox from wikipedia page...");
         Dictionary<string, string> infobox = new();
         Match infoboxMatch = InfoboxRegex().Match(pageContent);
 
@@ -142,7 +140,7 @@ public partial class Wikipedia
     {
         if (_hasPrintedCleanHtmlLog == false)
         {
-            Logger.Info(LogClass.GameMgrCore, "Cleaning unwanted HTML elements...");
+            Logger.Info(LogClass.GameMgrCore, "Cleaning unwanted HTML elements from string...");
             _hasPrintedCleanHtmlLog = true;
         }
         html = HtmlTagRegex().Replace(html, string.Empty);
