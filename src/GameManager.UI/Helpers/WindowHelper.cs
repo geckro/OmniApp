@@ -33,7 +33,7 @@ public class WindowHelper(IServiceProvider serviceProvider) : IWindowHelper
     /// </summary>
     public void ShowWindow<T>() where T : Window
     {
-        Logger.Info(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
+        Logger.Debug(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
         T window = _serviceProvider.GetRequiredService<T>();
         window.Show();
     }
