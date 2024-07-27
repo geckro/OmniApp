@@ -23,7 +23,7 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
- 
+
       <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -38,57 +38,16 @@
         <StackPanel x:Name="DeveloperStackPanel" Orientation="Vertical" Grid.Column="2" />
         <StackPanel x:Name="PublisherStackPanel" Orientation="Vertical" Grid.Column="3" />
         <StackPanel x:Name="SeriesStackPanel" Orientation="Vertical" Grid.Column="4" />
-        <StackPanel Orientation="Vertical" Grid.Column="5">
-          <CheckBox Content="Is remake" />
-          <CheckBox Content="Is remaster" />
-          <CheckBox Content="Is port" />
-          <CheckBox Content="Is sequel" />
-          <CheckBox Content="Is prequel" />
-          <CheckBox Content="Is DLC" />
-          <CheckBox Content="Is mod" />
-          <CheckBox Content="Is hack" />
-        </StackPanel>
       </Grid>
- 
+
       <Grid Grid.Row="1">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel x:Name="ComposerStackPanel" Orientation="Vertical" Grid.Column="0" />
-        <StackPanel Orientation="Vertical" Grid.Column="1">
-          <StackPanel x:Name="DirectorStackPanel" />
-          <StackPanel x:Name="EngineStackPanel" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="2">
-          <StackPanel x:Name="WriterStackPanel" />
-          <StackPanel x:Name="AgeRatingStackPanel" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="3">
-          <StackPanel x:Name="ProducerStackPanel" />
-          <StackPanel x:Name="DesignerStackPanel" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="4">
-          <StackPanel x:Name="ProgrammerStackPanel" />
-          <StackPanel x:Name="ArtistStackPanel" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="5">
+        <StackPanel Orientation="Vertical">
           <Label Content="Date (WW)" />
           <DatePicker x:Name="Date" />
-          <Label Content="Date (Japan)" />
-          <DatePicker x:Name="DateJp" />
-          <Label Content="Date (North America)" />
-          <DatePicker x:Name="DateNa" />
-          <Label Content="Date (Europe)" />
-          <DatePicker x:Name="DateEu" />
         </StackPanel>
       </Grid>
     </Grid>
- 
+
     <StackPanel Orientation="Horizontal" Grid.Row="2">
       <Button Content="Add new game" Click="AddNewGameFinish_Click" />
     </StackPanel>

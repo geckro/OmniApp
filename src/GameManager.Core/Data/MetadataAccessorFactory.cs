@@ -3,14 +3,18 @@
 /// <summary>
 ///     Factory class for creating metadata accessors.
 /// </summary>
-/// <param name="metadataPersistence">An instance of <see cref="IMetadataPersistence" /> for handling metadata.</param>
-public class MetadataAccessorFactory(IMetadataPersistence metadataPersistence) : IMetadataAccessorFactory
+/// <param name="metadataPersistence">An instance of <see cref="MetadataPersistence" /> for handling metadata.</param>
+public class MetadataAccessorFactory(MetadataPersistence metadataPersistence)
 {
-    private readonly IMetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
+    private readonly MetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Creates a metadata accessor for the specified type.
+    /// </summary>
+    /// <typeparam name="T">The type of metadata.</typeparam>
+    /// <returns>An instance of <see cref="MetadataAccessor{T}" />.</returns>
     /// <exception cref="ArgumentException">Thrown when the JsonFile property is not defined for the specified type.</exception>
-    public IMetadataAccessor<T> CreateMetadataAccessor<T>() where T : IMetadata
+    public MetadataAccessor<T> CreateMetadataAccessor<T>() where T : IMetadata
     {
         if (typeof(T).GetConstructor(Type.EmptyTypes) == null)
         {

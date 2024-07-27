@@ -6,6 +6,8 @@ namespace GameManager.Core.Scrapers;
 public partial class Wikipedia
 {
     private const string DefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
+
+    private static bool _hasPrintedCleanHtmlLog;
     private readonly string _baseUrl;
     private readonly HttpClient _httpClient;
 
@@ -134,8 +136,6 @@ public partial class Wikipedia
         return infobox;
     }
 
-    private static bool _hasPrintedCleanHtmlLog;
-
     private static string CleanHtml(string html)
     {
         if (_hasPrintedCleanHtmlLog == false)
@@ -143,6 +143,7 @@ public partial class Wikipedia
             Logger.Info(LogClass.GameMgrCore, "Cleaning unwanted HTML elements from string...");
             _hasPrintedCleanHtmlLog = true;
         }
+
         html = HtmlTagRegex().Replace(html, string.Empty);
         html = CitationsRegex().Replace(html, string.Empty);
         html = NbspRegex().Replace(html, " ");

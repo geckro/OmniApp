@@ -11,11 +11,11 @@ namespace GameManager.UI.ViewModels;
 
 public class MainGameWindowViewModel
 {
-    private readonly IDataGridHelper _dataGridHelper;
-    private readonly IMetadataAccessor<Game> _metadataAccessor;
-    private readonly IWindowHelper _windowHelper;
+    private readonly DataGridHelper _dataGridHelper;
+    private readonly MetadataAccessor<Game> _metadataAccessor;
+    private readonly WindowHelper _windowHelper;
 
-    public MainGameWindowViewModel(IDataGridHelper dataGridHelper, IMetadataAccessor<Game> metadataAccessor, IWindowHelper windowHelper)
+    public MainGameWindowViewModel(DataGridHelper dataGridHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
     {
         _dataGridHelper = dataGridHelper;
         _metadataAccessor = metadataAccessor;

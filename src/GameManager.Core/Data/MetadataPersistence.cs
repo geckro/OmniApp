@@ -7,19 +7,29 @@ namespace GameManager.Core.Data;
 /// <summary>
 ///     Manages reading and writing of JSON data.
 /// </summary>
-public class MetadataPersistence : IMetadataPersistence
+public class MetadataPersistence
 {
     private const string MetadataDirectory = "Data/GameMgr/";
     private readonly JsonHelper _jsonHelper = new();
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Saves a collection of metadata to a JSON file.
+    /// </summary>
+    /// <param name="value">The collection of metadata to save.</param>
+    /// <param name="metadataJsonFile">The json file.</param>
+    /// <typeparam name="T">The type of metadata.</typeparam>
     public void SaveMetadata<T>(ICollection<T> value, string metadataJsonFile)
     {
         string fullPath = Path.Combine(MetadataDirectory, metadataJsonFile);
         _jsonHelper.WriteToJsonFile(value, fullPath);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Loads a collection of metadata from a JSON file.
+    /// </summary>
+    /// <param name="metadataJsonFile">The json file.</param>
+    /// <typeparam name="T">The type of metadata.</typeparam>
+    /// <returns>The collection of loaded metadata.</returns>
     public ICollection<T> LoadMetadata<T>(string metadataJsonFile)
     {
         try
@@ -35,14 +45,21 @@ public class MetadataPersistence : IMetadataPersistence
         }
     }
 
-    /// <inheritdoc />
-    public bool MetadataFileExists(string pathToFile)
+    /// <summary>
+    ///     Check to see if the metadata file exists.
+    /// </summary>
+    /// <param name="pathToFile">The file path of the JSON file.</param>
+    /// <returns>True if metadata file exists, False otherwise.</returns>
+    public static bool MetadataFileExists(string pathToFile)
     {
         return File.Exists(Path.Combine(MetadataDirectory, pathToFile));
     }
 
-    /// <inheritdoc />
-    public void DeleteMetadataFile(string pathToFile)
+    /// <summary>
+    ///     Deletes the metadata file.
+    /// </summary>
+    /// <param name="pathToFile">The file path of the JSON file.</param>
+    public static void DeleteMetadataFile(string pathToFile)
     {
         string fullPath = Path.Combine(MetadataDirectory, pathToFile);
         if (File.Exists(fullPath))

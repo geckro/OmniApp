@@ -21,8 +21,8 @@ public static class UrlHelper
     {
         Logger.Debug(LogClass.OmniCommon, $"Testing to see if \"{url}\" is a valid URL.");
         bool result = Uri.TryCreate(url, UriKind.Absolute, out Uri? uriResult)
-               && (uriResult.Scheme == Uri.UriSchemeHttp
-                   || uriResult.Scheme == Uri.UriSchemeHttps);
+                      && (uriResult.Scheme == Uri.UriSchemeHttp
+                          || uriResult.Scheme == Uri.UriSchemeHttps);
 
         Logger.Debug(LogClass.OmniCommon, result ? $"Url \"{url}\" is valid." : $"Url \"{url}\" is not valid.");
 

@@ -11,7 +11,6 @@ namespace GameManager.UI.Windows;
 public partial class MainGameWindow
 {
     private readonly MainGameWindowViewModel _viewModel;
-    private readonly MainWindowContextMenuManager _contextMenuManager;
 
     public MainGameWindow(IServiceProvider serviceProvider)
     {
@@ -22,8 +21,8 @@ public partial class MainGameWindow
         InitializeComponent();
         DataContext = _viewModel;
 
-        _contextMenuManager = new MainWindowContextMenuManager(this, _viewModel);
-        _contextMenuManager.PopulateDataGridContextMenu();
+        MainWindowContextMenuManager contextMenuManager = new(this, _viewModel);
+        contextMenuManager.PopulateDataGridContextMenu();
 
         InitializeAsync();
     }

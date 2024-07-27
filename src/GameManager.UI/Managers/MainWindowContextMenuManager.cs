@@ -24,14 +24,9 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
         mainWindow.GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
     }
 
-    private void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
+    private static void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
     {
-        MenuItem menuItem = new()
-        {
-            Header = header,
-            Command = command,
-            IsCheckable = isCheckable
-        };
+        MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
         contextMenu.Items.Add(menuItem);
     }
 
@@ -83,8 +78,10 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
             {
                 return ancestor;
             }
+
             current = VisualTreeHelper.GetParent(current);
         }
+
         return null;
     }
 }

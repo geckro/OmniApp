@@ -13,8 +13,8 @@ namespace GameManager.UI.Windows;
 
 public partial class AddGame
 {
-    private readonly IMetadataAccessorFactory _metadataAccessorFactory;
-    private readonly IMetadataPersistence _metadataPersistence = new MetadataPersistence();
+    private readonly MetadataAccessorFactory _metadataAccessorFactory;
+    private readonly MetadataPersistence _metadataPersistence = new();
 
     public AddGame()
     {
@@ -97,20 +97,12 @@ public partial class AddGame
             Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), id => new Developer { Id = id }),
             Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), id => new Publisher { Id = id }),
             Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
-            Writers = ExtractCheckBoxes((ListBox)FindName("WriterListBox"), id => new Writer { Id = id }),
-            Directors = ExtractCheckBoxes((ListBox)FindName("DirectorListBox"), id => new Director { Id = id }),
-            Artists = ExtractCheckBoxes((ListBox)FindName("ArtistListBox"), id => new Artist { Id = id }),
-            Designers = ExtractCheckBoxes((ListBox)FindName("DesignerListBox"), id => new Designer { Id = id }),
-            Programmers = ExtractCheckBoxes((ListBox)FindName("ProgrammerListBox"), id => new Programmer { Id = id }),
-            Composers = ExtractCheckBoxes((ListBox)FindName("ComposerListBox"), id => new Composer { Id = id }),
-            AgeRatings = ExtractCheckBoxes((ListBox)FindName("AgeRatingListBox"), id => new AgeRatings { Id = id }),
-            Engine = ExtractCheckBoxes((ListBox)FindName("EngineListBox"), id => new Engine { Id = id }),
             ReleaseDateWw = Date.SelectedDate,
             CreatedOn = currentTime,
             LastUpdated = currentTime
         };
 
-        IMetadataAccessor<Game> gameMetadataAccessor = _metadataAccessorFactory.CreateMetadataAccessor<Game>();
+        MetadataAccessor<Game> gameMetadataAccessor = _metadataAccessorFactory.CreateMetadataAccessor<Game>();
 
         ICollection<Game> games = gameMetadataAccessor.LoadMetadataCollection();
         games.Add(newGame);
@@ -129,8 +121,7 @@ public partial class AddGame
             return;
         }
 
-        TextBox textBox = sender as TextBox;
-        if (textBox == null)
+        if (sender is not TextBox textBox)
         {
             return;
         }

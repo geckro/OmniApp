@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Managers;
 
-public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iMetadataAccessorFactory)
+public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMetadataAccessorFactory)
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
 
@@ -22,16 +22,8 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
         await MakeMetadataAreasAsync("Developer", addGame.DeveloperStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadataCollection());
         await MakeMetadataAreasAsync("Publisher", addGame.PublisherStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadataCollection());
         await MakeMetadataAreasAsync("Series", addGame.SeriesStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Composer", addGame.ComposerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Composer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Director", addGame.DirectorStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Director>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Engine", addGame.EngineStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Engine>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Writer", addGame.WriterStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Writer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("AgeRating", addGame.AgeRatingStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<AgeRatings>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Producer", addGame.ProducerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Producer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Designer", addGame.DesignerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Designer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Programmer", addGame.ProgrammerStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Programmer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Artist", addGame.ArtistStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Artist>().LoadMetadataCollection());
     }
+
     /// <summary>
     ///     Creates metadata areas for a specific category.
     /// </summary>
@@ -75,7 +67,7 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
     {
         Style style = new(typeof(ListBoxItem));
         style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(2)));
-        style.Setters.Add(new Setter(Control.MarginProperty, new Thickness(0)));
+        style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(0)));
 
         return style;
     }
@@ -109,7 +101,7 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
 
         foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
         {
-            _checkedStates[cb.Content.ToString()] = cb.IsChecked ?? false;
+            _checkedStates[cb.Content.ToString()!] = cb.IsChecked ?? false;
         }
 
         List<T> filteredSuggestionList = suggestions
@@ -137,8 +129,7 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
             return;
         }
 
-        TextBox textBox = sender as TextBox;
-        if (textBox == null)
+        if (sender is not TextBox textBox)
         {
             return;
         }
@@ -168,16 +159,7 @@ public class AddGameMetadataManager(AddGame addGame, IMetadataAccessorFactory iM
             { typeof(Platform), () => new Platform { Id = Guid.NewGuid(), Name = text } },
             { typeof(Developer), () => new Developer { Id = Guid.NewGuid(), Name = text } },
             { typeof(Publisher), () => new Publisher { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Composer), () => new Composer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Director), () => new Director { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Writer), () => new Writer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Producer), () => new Producer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Programmer), () => new Programmer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Engine), () => new Engine { Id = Guid.NewGuid(), Name = text } },
-            { typeof(AgeRatings), () => new AgeRatings { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Designer), () => new Designer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Artist), () => new Artist { Id = Guid.NewGuid(), Name = text } }
+            { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } }
         };
 
         if (!typeMap.TryGetValue(dataType, out Func<object>? createInstance))

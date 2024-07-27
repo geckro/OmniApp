@@ -1,35 +1,15 @@
-﻿using GameManager.Core.Data.Enums;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace GameManager.Core.Data.MetadataConstructors;
-
-/// <summary>
-///     Generic company.
-/// </summary>
-public class Company : IMetadata
-{
-    public required Guid Id { get; set; }
-    public string Name { get; set; } = null!;
-    public ICollection<string>? OtherNames { get; set; }
-    public DateTime? DateFounded { get; set; }
-    public Region? LocatedAt { get; set; }
-    public Uri? Logo { get; set; }
-    public Uri? Website { get; set; }
-    [JsonIgnore] public string JsonFile => "companies.json";
-}
 
 /// <summary>
 ///     A developer of the game.
 /// </summary>
 public class Developer : IMetadata
 {
-    public required Guid Id { get; set; }
-    public string Name { get; set; } = null!;
-    public ICollection<string>? OtherNames { get; set; }
-    public DateTime? DateFounded { get; set; }
-    public Region? LocatedAt { get; set; }
-    public Uri? Logo { get; set; }
-    public Uri? Website { get; set; }
+    public Dictionary<string, object>? Tags { get; init; }
+    public required Guid Id { get; init; }
+    public string Name { get; init; } = null!;
     [JsonIgnore] public string JsonFile => "developers.json";
 }
 
@@ -38,12 +18,8 @@ public class Developer : IMetadata
 /// </summary>
 public class Publisher : IMetadata
 {
-    public required Guid Id { get; set; }
-    public string Name { get; set; } = null!;
-    public ICollection<string>? OtherNames { get; set; }
-    public DateTime? DateFounded { get; set; }
-    public Region? LocatedAt { get; set; }
-    public Uri? Logo { get; set; }
-    public Uri? Website { get; set; }
+    public Dictionary<string, object>? Tags { get; init; }
+    public required Guid Id { get; init; }
+    public string Name { get; init; } = null!;
     [JsonIgnore] public string JsonFile => "publishers.json";
 }

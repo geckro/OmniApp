@@ -8,23 +8,16 @@ using System.Windows.Data;
 
 namespace GameManager.UI.Helpers;
 
-public interface IDataGridHelper
-{
-    Task PopulateGameDataGridAsync(DataGrid dataGrid);
-    Task RefreshGameDataGridAsync();
-}
-
 /// <summary>
 ///     Helper for the DataGrid control.
 /// </summary>
 public class DataGridHelper(
-    IMetadataAccessor<Game> gameAccessor,
-    IMetadataAccessor<Genre> genreAccessor,
-    IMetadataAccessor<Developer> developerAccessor,
-    IMetadataAccessor<Publisher> publisherAccessor,
-    IMetadataAccessor<Platform> platformAccessor,
-    IMetadataAccessor<Series> seriesAccessor)
-    : IDataGridHelper
+    MetadataAccessor<Game> gameAccessor,
+    MetadataAccessor<Genre> genreAccessor,
+    MetadataAccessor<Developer> developerAccessor,
+    MetadataAccessor<Publisher> publisherAccessor,
+    MetadataAccessor<Platform> platformAccessor,
+    MetadataAccessor<Series> seriesAccessor)
 {
     private DataGrid _dataGrid = null!;
     private ICollection<Game> _games = [];
@@ -120,7 +113,7 @@ public class DataGridHelper(
     }
 }
 
-public class AsyncCollectionToStringConverter<T>(IMetadataAccessor<T> accessor) : IValueConverter
+public class AsyncCollectionToStringConverter<T>(MetadataAccessor<T> accessor) : IValueConverter
     where T : IMetadata
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

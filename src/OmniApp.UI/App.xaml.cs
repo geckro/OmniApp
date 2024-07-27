@@ -11,6 +11,11 @@ namespace OmniApp.UI;
 
 public partial class App
 {
+    public App()
+    {
+        Logger.Debug(LogClass.OmniUi, "Starting Application");
+    }
+
     public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
     protected override void OnStartup(StartupEventArgs e)
@@ -23,34 +28,20 @@ public partial class App
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<IMetadataPersistence, MetadataPersistence>();
-        services.AddSingleton<IMetadataAccessorFactory, MetadataAccessorFactory>();
+        services.AddSingleton<MetadataPersistence, MetadataPersistence>();
+        services.AddSingleton<MetadataAccessorFactory, MetadataAccessorFactory>();
 
         services.AddTransient<AddGame>();
 
         services.AddScoped<MainGameWindowViewModel>();
-        services.AddScoped<IDataGridHelper, DataGridHelper>();
-        services.AddScoped<IWindowHelper, WindowHelper>();
+        services.AddScoped<DataGridHelper, DataGridHelper>();
+        services.AddScoped<WindowHelper, WindowHelper>();
 
-        services.AddScoped<IMetadataAccessor<AgeRatings>>(sp => new MetadataAccessor<AgeRatings>(sp.GetRequiredService<IMetadataPersistence>(), "ageratings.json"));
-        services.AddScoped<IMetadataAccessor<Artist>>(sp => new MetadataAccessor<Artist>(sp.GetRequiredService<IMetadataPersistence>(), "artists.json"));
-        services.AddScoped<IMetadataAccessor<Composer>>(sp => new MetadataAccessor<Composer>(sp.GetRequiredService<IMetadataPersistence>(), "composers.json"));
-        services.AddScoped<IMetadataAccessor<Designer>>(sp => new MetadataAccessor<Designer>(sp.GetRequiredService<IMetadataPersistence>(), "designers.json"));
-        services.AddScoped<IMetadataAccessor<Developer>>(sp => new MetadataAccessor<Developer>( sp.GetRequiredService<IMetadataPersistence>(), "developers.json" ));
-        services.AddScoped<IMetadataAccessor<Director>>(sp => new MetadataAccessor<Director>(sp.GetRequiredService<IMetadataPersistence>(), "directors.json"));
-        services.AddScoped<IMetadataAccessor<Engine>>(sp => new MetadataAccessor<Engine>(sp.GetRequiredService<IMetadataPersistence>(), "engines.json"));
-        services.AddScoped<IMetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<IMetadataPersistence>(), "games.json"));
-        services.AddScoped<IMetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>(sp.GetRequiredService<IMetadataPersistence>(), "genres.json"));
-        services.AddScoped<IMetadataAccessor<Platform>>(sp => new MetadataAccessor<Platform>( sp.GetRequiredService<IMetadataPersistence>(), "platforms.json" ));
-        services.AddScoped<IMetadataAccessor<Producer>>(sp => new MetadataAccessor<Producer>(sp.GetRequiredService<IMetadataPersistence>(), "producers.json"));
-        services.AddScoped<IMetadataAccessor<Programmer>>(sp => new MetadataAccessor<Programmer>( sp.GetRequiredService<IMetadataPersistence>(), "programmers.json" ));
-        services.AddScoped<IMetadataAccessor<Publisher>>(sp => new MetadataAccessor<Publisher>( sp.GetRequiredService<IMetadataPersistence>(), "publishers.json" ));
-        services.AddScoped<IMetadataAccessor<Series>>(sp => new MetadataAccessor<Series>( sp.GetRequiredService<IMetadataPersistence>(), "series.json" ));
-        services.AddScoped<IMetadataAccessor<Writer>>(sp => new MetadataAccessor<Writer>( sp.GetRequiredService<IMetadataPersistence>(), "writers.json" ));
-    }
-
-    public App()
-    {
-        Logger.Debug(LogClass.OmniUi, "Starting Application");
+        services.AddScoped<MetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<MetadataPersistence>(), "games.json"));
+        services.AddScoped<MetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>(sp.GetRequiredService<MetadataPersistence>(), "genres.json"));
+        services.AddScoped<MetadataAccessor<Developer>>(sp => new MetadataAccessor<Developer>(sp.GetRequiredService<MetadataPersistence>(), "developers.json"));
+        services.AddScoped<MetadataAccessor<Publisher>>(sp => new MetadataAccessor<Publisher>(sp.GetRequiredService<MetadataPersistence>(), "publishers.json"));
+        services.AddScoped<MetadataAccessor<Platform>>(sp => new MetadataAccessor<Platform>(sp.GetRequiredService<MetadataPersistence>(), "platforms.json"));
+        services.AddScoped<MetadataAccessor<Series>>(sp => new MetadataAccessor<Series>(sp.GetRequiredService<MetadataPersistence>(), "series.json"));
     }
 }
