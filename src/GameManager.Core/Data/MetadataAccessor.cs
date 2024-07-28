@@ -95,6 +95,34 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         return LoadMetadataCollection().FirstOrDefault(item => item.Id == id);
     }
 
+    public string? GetTagValueOrKey(Guid id, string? key, object? value)
+    {
+        T? item = GetItemById(id);
+        if (item == null || item.Tags == null)
+        {
+            Logger.Warning(LogClass.GameMgrCore, $"Id {id} not found, or tag not found in Id.");
+            return null;
+        }
+
+        if (value != null && key != null)
+        {
+            Logger.Warning(LogClass.GameMgrCore, "You can not specify both key and value in GetTagValueOrKey.");
+            return null;
+        }
+
+        if (value != null)
+        {
+            return item.Tags.FirstOrDefault(tag => tag.Value.ToString() == value.ToString()).Key;
+        }
+        if (key != null && item.Tags.TryGetValue(key, out object? result))
+        {
+            return result.ToString();
+        }
+
+        Logger.Error(LogClass.GameMgrCore, "Unknown error, returning null in GetTagValueOrKey.");
+        return null;
+    }
+
     /// <summary>
     ///    Removes the metadata item with the specified identifier.
     /// </summary>

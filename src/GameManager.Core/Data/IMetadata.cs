@@ -7,5 +7,6 @@ public interface IMetadata
 {
     Guid Id { get; }
     string Name { get; }
+    Dictionary<string, object>? Tags { get; }
     string? JsonFile { get; }
 }
