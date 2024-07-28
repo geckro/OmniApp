@@ -11,16 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\JsonData\ageratings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\JsonData\engines.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Data\JsonData\genres.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Data\JsonData\licenses.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\JsonData\platforms.json">
