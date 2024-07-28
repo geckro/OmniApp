@@ -123,11 +123,6 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         return null;
     }
 
-    public Guid? ConvertStringToGuid(string stringToConvert)
-    {
-        return Guid.TryParse(stringToConvert, out Guid guidOutput) ? guidOutput : null;
-    }
-
     /// <summary>
     ///    Removes the metadata item with the specified identifier.
     /// </summary>
