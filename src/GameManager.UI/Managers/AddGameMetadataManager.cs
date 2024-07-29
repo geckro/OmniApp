@@ -11,6 +11,7 @@ namespace GameManager.UI.Managers;
 public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMetadataAccessorFactory)
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
+    private readonly Dictionary<string, object> _metadata = new();
 
     /// <summary>
     ///     Initializes the metadata areas for various Game categories.
@@ -37,7 +38,9 @@ public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMe
 
         TextBox textBox = new() { Name = $"{name}TextBox" };
         addGame.RegisterName(textBox.Name, textBox);
-        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender, dataSource);
+
+        UpdateMetadata(name, dataSource);
+        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender);
         textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
 
         ListBox listBox = new()
@@ -59,6 +62,11 @@ public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMe
         return Task.CompletedTask;
     }
 
+    private void UpdateMetadata<T>(string metadataCategory, ICollection<T> dataSource) where T : IMetadata
+    {
+        _metadata.Add(metadataCategory, dataSource);
+    }
+
     /// <summary>
     ///     Creates a style for the list box item for the metadata areas.
     /// </summary>
@@ -76,16 +84,15 @@ public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMe
     ///     Handles the TextChanged event of the current text box.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="suggestions">The collection of suggestions to show.</param>
-    /// <typeparam name="T">The type of IMetadata.</typeparam>
-    private void TextBox_TextChanged<T>(object sender, ICollection<T> suggestions) where T : IMetadata
+    private void TextBox_TextChanged(object sender)
     {
         if (sender is not TextBox textBox)
         {
             return;
         }
 
-        string listBoxName = textBox.Name.Replace("TextBox", "ListBox");
+        string metadataCategory = textBox.Name.Replace("TextBox", "");
+        string listBoxName = $"{metadataCategory}ListBox";
         if (addGame.FindName(listBoxName) is not ListBox listBox)
         {
             return;
@@ -99,12 +106,17 @@ public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMe
             return;
         }
 
+        if (!_metadata.TryGetValue(metadataCategory, out object? metadataCollection) || metadataCollection is not IEnumerable<IMetadata> collection)
+        {
+            return;
+        }
+
         foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
         {
             _checkedStates[cb.Content.ToString()!] = cb.IsChecked ?? false;
         }
 
-        List<T> filteredSuggestionList = suggestions
+        List<IMetadata> filteredSuggestionList = collection
             .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
             .ToList();
 
@@ -174,5 +186,23 @@ public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMe
 
         object? data = method?.Invoke(iMetadataAccessorFactory, null);
         data?.GetType().GetMethod("AddItemAndSave")?.Invoke(data, [instance]);
+
+        RefreshMetadata(dataType);
+    }
+
+    private void RefreshMetadata(Type dataType)
+    {
+        string metadataCategory = dataType.Name;
+        MethodInfo? method = typeof(MetadataAccessorFactory)
+            .GetMethod("CreateMetadataAccessor")
+            ?.MakeGenericMethod(dataType);
+
+        object? accessor = method?.Invoke(iMetadataAccessorFactory, null);
+        MethodInfo? loadMethod = accessor?.GetType().GetMethod("LoadMetadataCollection");
+
+        if (loadMethod?.Invoke(accessor, null) is IEnumerable<IMetadata> refreshedCollection)
+        {
+            _metadata[metadataCategory] = refreshedCollection;
+        }
     }
 }
