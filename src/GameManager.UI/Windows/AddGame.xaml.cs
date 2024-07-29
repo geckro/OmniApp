@@ -16,6 +16,8 @@ public partial class AddGame
     private readonly MetadataAccessorFactory _metadataAccessorFactory;
     private readonly MetadataPersistence _metadataPersistence = new();
 
+    public event EventHandler<Game>? GameAdded;
+
     public AddGame()
     {
         InitializeComponent();
@@ -107,6 +109,8 @@ public partial class AddGame
         ICollection<Game> games = gameMetadataAccessor.LoadMetadataCollection();
         games.Add(newGame);
         gameMetadataAccessor.SaveMetadataCollection(games);
+
+        GameAdded?.Invoke(this, newGame);
     }
 
     /// <summary>

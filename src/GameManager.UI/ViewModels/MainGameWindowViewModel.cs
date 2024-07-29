@@ -47,7 +47,12 @@ public class MainGameWindowViewModel
 
     private void AddGame()
     {
-        _windowHelper.ShowWindow<AddGame>();
+        AddGame addGameWindow = _windowHelper.ShowWindow<AddGame>();
+
+        addGameWindow.GameAdded += async (_, _) =>
+        {
+            await _dataGridHelper.RefreshGameDataGridAsync();
+        };
     }
 
     private async Task MarkAsPlayed(Game game)
