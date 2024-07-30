@@ -29,6 +29,9 @@
         <Button Command="{Binding RefreshDataGridCommand}">
           <Image Source="../Images/refresh.png" MaxWidth="24" />
         </Button>
+        <Button Command="{Binding OpenGamesJsonCommand}">
+          <Image Source="../Images/json.png" MaxWidth="24" />
+        </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />

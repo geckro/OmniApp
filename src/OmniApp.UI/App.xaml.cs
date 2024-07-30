@@ -37,6 +37,7 @@ public partial class App
         services.AddScoped<MainGameWindowViewModel>();
         services.AddScoped<DataGridHelper, DataGridHelper>();
         services.AddScoped<WindowHelper, WindowHelper>();
+        services.AddScoped<FileHelper, FileHelper>();
 
         services.AddScoped<MetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<MetadataPersistence>(), "games.json"));
         services.AddScoped<MetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>(sp.GetRequiredService<MetadataPersistence>(), "genres.json"));

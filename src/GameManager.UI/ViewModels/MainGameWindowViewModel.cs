@@ -15,7 +15,7 @@ public class MainGameWindowViewModel
     private readonly MetadataAccessor<Game> _metadataAccessor;
     private readonly WindowHelper _windowHelper;
 
-    public MainGameWindowViewModel(DataGridHelper dataGridHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
+    public MainGameWindowViewModel(DataGridHelper dataGridHelper, MetadataAccessor<Game> metadataAccessor, FileHelper fileHelper, WindowHelper windowHelper)
     {
         _dataGridHelper = dataGridHelper;
         _metadataAccessor = metadataAccessor;
@@ -23,6 +23,7 @@ public class MainGameWindowViewModel
 
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
         RefreshDataGridCommand = new RelayCommand<object>(_ => dataGridHelper.RefreshGameDataGridAsync());
+        OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram("Data\\GameMgr\\games.json"));
 
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsPlayed(game));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
@@ -33,6 +34,7 @@ public class MainGameWindowViewModel
 
     public ICommand AddGameCommand { get; }
     public ICommand RefreshDataGridCommand { get; }
+    public ICommand OpenGamesJsonCommand { get; }
 
     public ICommand MarkAsPlayedCommand { get; }
     public ICommand MarkAsFinishedCommand { get; }
