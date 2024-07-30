@@ -23,13 +23,20 @@
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
-        <Button x:Name="AddButton" Command="{Binding AddGameCommand}">
+        <Button
+          x:Name="AddButton"
+          ToolTip="Add a new title"
+          Command="{Binding AddGameCommand}">
           <Image Source="../Images/add.png" MaxWidth="24" />
         </Button>
-        <Button Command="{Binding RefreshDataGridCommand}">
+        <Button
+          ToolTip="Refresh the table"
+          Command="{Binding RefreshDataGridCommand}">
           <Image Source="../Images/refresh.png" MaxWidth="24" />
         </Button>
-        <Button Command="{Binding OpenGamesJsonCommand}">
+        <Button
+          ToolTip="Open raw JSON games file"
+          Command="{Binding OpenGamesJsonCommand}">
           <Image Source="../Images/json.png" MaxWidth="24" />
         </Button>
       </StackPanel>
