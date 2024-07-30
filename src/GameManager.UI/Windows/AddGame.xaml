@@ -11,22 +11,32 @@
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" Grid.Row="0">
-      <Label Content="Title" VerticalAlignment="Center" />
-      <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Left" KeyDown="TitleBox_Rename" />
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal">
+          <Label Content="Title" VerticalAlignment="Center" />
+          <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" KeyDown="TitleBox_Rename" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+          <Button Content="Add new game" Click="AddNewGameFinish_Click" />
+        </StackPanel>
+      </Grid>
     </StackPanel>
     <Grid Grid.Row="1">
       <Grid.RowDefinitions>
-        <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
 
       <Grid Grid.Row="0">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
@@ -41,15 +51,11 @@
       </Grid>
 
       <Grid Grid.Row="1">
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
           <Label Content="Date (WW)" />
-          <DatePicker x:Name="Date" />
+          <DatePicker x:Name="Date"/>
         </StackPanel>
       </Grid>
     </Grid>
-
-    <StackPanel Orientation="Horizontal" Grid.Row="2">
-      <Button Content="Add new game" Click="AddNewGameFinish_Click" />
-    </StackPanel>
   </Grid>
 </Window>
