@@ -11,10 +11,11 @@ public class WindowHelper(IServiceProvider serviceProvider)
     /// <summary>
     ///     Shows the window.
     /// </summary>
-    public T ShowWindow<T>() where T : Window
+    public T ShowWindow<T>(Action<T>? initAction = null) where T : Window
     {
         Logger.Debug(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
         T window = _serviceProvider.GetRequiredService<T>();
+        initAction?.Invoke(window);
         window.Show();
         return window;
     }

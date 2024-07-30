@@ -3,6 +3,7 @@ using GameManager.UI.Windows;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -26,7 +27,13 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
 
     private static void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
     {
-        MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
+        MenuItem menuItem = new()
+        {
+            Header = header,
+            Command = command,
+            IsCheckable = isCheckable
+        };
+        menuItem.SetBinding(MenuItem.CommandParameterProperty, new Binding());
         contextMenu.Items.Add(menuItem);
     }
 
@@ -52,7 +59,10 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
             {
                 if (mainWindow.GameDataGrid.ContextMenu != null)
                 {
-                    mainWindow.GameDataGrid.ContextMenu.DataContext = dataGridRow.DataContext;
+                    foreach (MenuItem item in mainWindow.GameDataGrid.ContextMenu.Items)
+                    {
+                        item.DataContext = dataGridRow.DataContext;
+                    }
                 }
                 else
                 {
@@ -61,12 +71,12 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
             }
             else
             {
-                throw new Exception("DataGridRow not found");
+                e.Handled = true;
             }
         }
         else
         {
-            throw new Exception("OriginalSource is not a DependencyObject");
+            e.Handled = true;
         }
     }
 

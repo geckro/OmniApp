@@ -32,6 +32,7 @@ public partial class App
         services.AddSingleton<MetadataAccessorFactory, MetadataAccessorFactory>();
 
         services.AddTransient<AddGame>();
+        services.AddTransient<EditEntry>();
 
         services.AddScoped<MainGameWindowViewModel>();
         services.AddScoped<DataGridHelper, DataGridHelper>();

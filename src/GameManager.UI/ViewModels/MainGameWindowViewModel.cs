@@ -76,9 +76,25 @@ public class MainGameWindowViewModel
         await _dataGridHelper.RefreshGameDataGridAsync();
     }
 
-    private void Edit(Game game)
+    private void Edit(Game? game)
     {
-        // _windowHelper.ShowWindow<EditEntry>(game);
+        if (game == null)
+        {
+            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game");
+            return;
+        }
+
+        _windowHelper.ShowWindow<EditEntry>(window =>
+        {
+            if (window is EditEntry editEntry)
+            {
+                editEntry.SetGame(game);
+            }
+            else
+            {
+                Logger.Error(LogClass.GameMgrUi, $"Expected EditEntry window, got {window.GetType().Name}");
+            }
+        });
     }
 
     private void Delete(Game game)
