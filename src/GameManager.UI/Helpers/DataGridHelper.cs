@@ -28,8 +28,7 @@ public class DataGridHelper(
     /// <param name="dataGrid">The Game DataGrid.</param>
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
     {
-        Logger.Info(LogClass.GameMgrUi, "Initializing PopulateGameDataGridAsync");
-
+        Logger.Debug(LogClass.GameMgrUi, "Initializing PopulateGameDataGridAsync");
 
         try
         {
@@ -37,7 +36,8 @@ public class DataGridHelper(
             _games = await Task.Run(gameAccessor.LoadMetadataCollection);
             ConfigureGameDataGrid();
             await RefreshGameDataGridAsync();
-            Logger.Info(LogClass.GameMgrUi, "Game DataGrid populated.");
+
+            Logger.Info(LogClass.GameMgrUi, "Game DataGrid successfully populated.");
         }
         catch (Exception ex)
         {
@@ -50,14 +50,22 @@ public class DataGridHelper(
     /// </summary>
     public async Task RefreshGameDataGridAsync()
     {
-        Logger.Info(LogClass.GameMgrUi, "Running RefreshGameDataGridAsync");
+        Logger.Debug(LogClass.GameMgrUi, "Running RefreshGameDataGridAsync");
 
         try
         {
             _games = await Task.Run(gameAccessor.LoadMetadataCollection);
             _dataGrid.ItemsSource = null;
             _dataGrid.ItemsSource = _games;
-            Logger.Info(LogClass.GameMgrUi, "Game DataGrid refreshed.");
+
+            if (_dataGrid.ItemsSource != null)
+            {
+                Logger.Info(LogClass.GameMgrUi, "Game DataGrid successfully refreshed.");
+            }
+            else
+            {
+                Logger.Warning(LogClass.GameMgrUi, "Game DataGrid did not refresh properly as ItemsSource is null.");
+            }
         }
         catch (Exception ex)
         {
@@ -67,7 +75,7 @@ public class DataGridHelper(
 
     private void ConfigureGameDataGrid()
     {
-        Logger.Info(LogClass.GameMgrUi, "Running ConfigureGameDataGrid.");
+        Logger.Debug(LogClass.GameMgrUi, "Running ConfigureGameDataGrid.");
 
         _dataGrid.AutoGenerateColumns = false;
         _dataGrid.Columns.Clear();
