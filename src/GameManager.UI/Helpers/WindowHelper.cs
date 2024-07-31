@@ -19,4 +19,16 @@ public class WindowHelper(IServiceProvider serviceProvider)
         window.Show();
         return window;
     }
+
+    /// <summary>
+    ///     Shows the dialog window.
+    /// </summary>
+    public T ShowDialogWindow<T>(Action<T>? initAction = null) where T : Window
+    {
+        Logger.Debug(LogClass.GameMgrUi, $"ShowDialogWindow<{typeof(T).Name}> called");
+        T dialogWindow = _serviceProvider.GetRequiredService<T>();
+        initAction?.Invoke(dialogWindow);
+        dialogWindow.ShowDialog();
+        return dialogWindow;
+    }
 }

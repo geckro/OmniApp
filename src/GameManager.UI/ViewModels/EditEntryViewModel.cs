@@ -32,7 +32,7 @@ public class EditEntryViewModel
             return;
         }
 
-        _windowHelper.ShowWindow<RenameDialog>(window =>
+        _windowHelper.ShowDialogWindow<RenameDialog>(window =>
         {
             if (window is RenameDialog renameDialog)
             {
