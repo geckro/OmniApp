@@ -34,8 +34,10 @@ public partial class App
         services.AddTransient<AddGame>();
         services.AddTransient<EditEntry>();
         services.AddTransient<Preferences>();
+        services.AddTransient<RenameDialog>();
 
         services.AddScoped<MainGameWindowViewModel>();
+        services.AddScoped<EditEntryViewModel>();
         services.AddScoped<DataGridHelper, DataGridHelper>();
         services.AddScoped<WindowHelper, WindowHelper>();
         services.AddScoped<FileHelper, FileHelper>();

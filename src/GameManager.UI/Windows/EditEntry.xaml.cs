@@ -1,9 +1,12 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
+using GameManager.UI.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
@@ -18,6 +21,7 @@ public partial class EditEntry
     private readonly MetadataAccessor<Publisher> _publisherMetadataAccessor;
     private readonly MetadataAccessor<Series> _seriesMetadataAccessor;
     private readonly DataGridHelper _dataGridHelper;
+    private readonly EditEntryViewModel _viewModel;
 
     public EditEntry( MetadataAccessor<Game> gameMetadataAccessor,
         MetadataAccessor<Genre> genreMetadataAccessor,
@@ -25,7 +29,8 @@ public partial class EditEntry
         MetadataAccessor<Developer> developerMetadataAccessor,
         MetadataAccessor<Publisher> publisherMetadataAccessor,
         MetadataAccessor<Series> seriesMetadataAccessor,
-        DataGridHelper dataGridHelper)
+        DataGridHelper dataGridHelper,
+        IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
@@ -37,6 +42,9 @@ public partial class EditEntry
         _seriesMetadataAccessor = seriesMetadataAccessor;
         _dataGridHelper = dataGridHelper;
 
+        _viewModel = serviceProvider.GetRequiredService<EditEntryViewModel>();
+        _viewModel.SetCloseAction(Close);
+        DataContext = _viewModel;
         Loaded += (_, _) => SetListBoxPaddingAndMargin();
     }
 
@@ -105,7 +113,7 @@ public partial class EditEntry
     {
         for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
         {
-            DependencyObject? child = VisualTreeHelper.GetChild(depObj, i);
+            DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
             if (child is T t)
             {
                 yield return t;
@@ -115,6 +123,11 @@ public partial class EditEntry
                 yield return childOfChild;
             }
         }
+    }
+
+    private void GameTitle_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        _viewModel.RenameTitleCommand.Execute(_gameData);
     }
 }
 

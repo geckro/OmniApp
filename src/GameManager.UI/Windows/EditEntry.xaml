@@ -11,7 +11,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Label Grid.Row="0" x:Name="GameTitle" />
+    <Label Grid.Row="0" x:Name="GameTitle" MouseDoubleClick="GameTitle_OnMouseDoubleClick" />
 
     <StackPanel Grid.Row="1">
       <Grid>

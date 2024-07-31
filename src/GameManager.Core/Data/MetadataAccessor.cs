@@ -69,6 +69,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         if (propertyInfo == null)
         {
             Logger.Warning(LogClass.GameMgrCore, $"Property '{key}' not found in type {typeof(T).Name}");
+            Logger.Warning(LogClass.GameMgrCore, $"^ Valid properties: {string.Join(", ", typeof(T).GetProperties().Select(p => p.Name))}");
             return;
         }
 
