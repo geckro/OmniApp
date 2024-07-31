@@ -7,16 +7,16 @@ namespace GameManager.UI.Windows;
 
 public partial class RenameDialog
 {
-    private Game? _game;
     private readonly MetadataAccessor<Game> _metadataAccessor;
-
-    public bool WasRenamed { get; private set; }
+    private Game? _game;
 
     public RenameDialog(MetadataAccessor<Game> metadataAccessor)
     {
         InitializeComponent();
         _metadataAccessor = metadataAccessor;
     }
+
+    public bool WasRenamed { get; private set; }
 
     public void SetCurrentGame(Game game)
     {
@@ -38,4 +38,3 @@ public partial class RenameDialog
         }
     }
 }
-

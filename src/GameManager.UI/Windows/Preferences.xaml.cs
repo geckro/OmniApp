@@ -7,4 +7,3 @@ public partial class Preferences
         InitializeComponent();
     }
 }
-

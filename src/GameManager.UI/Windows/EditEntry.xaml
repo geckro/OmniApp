@@ -16,8 +16,8 @@
     <StackPanel Grid.Row="1">
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
           <Label Content="Platforms" />
@@ -41,8 +41,8 @@
           <ListBox x:Name="SeriesListBox" Height="100" />
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
           </Grid>
         </StackPanel>

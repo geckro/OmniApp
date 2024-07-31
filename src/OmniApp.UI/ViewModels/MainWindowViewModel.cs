@@ -1,4 +1,6 @@
-﻿using OmniApp.UiCommon;
+﻿using FinancialManager.UI.Windows;
+using GameManager.UI.Windows;
+using OmniApp.UiCommon;
 using OmniApp.UiCommon.Helpers;
 using System.Windows.Input;
 
@@ -20,11 +22,11 @@ public class MainWindowViewModel
 
     private void OpenGameManager()
     {
-        _windowHelper.ShowDialogWindow<GameManager.UI.Windows.MainGameWindow>();
+        _windowHelper.ShowDialogWindow<MainGameWindow>();
     }
 
     private void OpenFinanceManager()
     {
-        _windowHelper.ShowDialogWindow<FinancialManager.UI.Windows.MainWindow>();
+        _windowHelper.ShowDialogWindow<MainWindow>();
     }
 }

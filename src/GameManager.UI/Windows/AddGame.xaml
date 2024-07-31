@@ -53,7 +53,7 @@
       <Grid Grid.Row="1">
         <StackPanel Orientation="Horizontal">
           <Label Content="Date (WW)" />
-          <DatePicker x:Name="Date"/>
+          <DatePicker x:Name="Date" />
         </StackPanel>
       </Grid>
     </Grid>

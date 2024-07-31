@@ -27,12 +27,7 @@ public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWin
 
     private static void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
     {
-        MenuItem menuItem = new()
-        {
-            Header = header,
-            Command = command,
-            IsCheckable = isCheckable
-        };
+        MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
         menuItem.SetBinding(MenuItem.CommandParameterProperty, new Binding());
         contextMenu.Items.Add(menuItem);
     }

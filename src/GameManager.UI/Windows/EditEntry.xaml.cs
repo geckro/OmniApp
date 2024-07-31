@@ -13,17 +13,17 @@ namespace GameManager.UI.Windows;
 
 public partial class EditEntry
 {
-    private Game? _gameData;
+    private readonly DataGridHelper _dataGridHelper;
+    private readonly MetadataAccessor<Developer> _developerMetadataAccessor;
     private readonly MetadataAccessor<Game> _gameMetadataAccessor;
     private readonly MetadataAccessor<Genre> _genreMetadataAccessor;
     private readonly MetadataAccessor<Platform> _platformMetadataAccessor;
-    private readonly MetadataAccessor<Developer> _developerMetadataAccessor;
     private readonly MetadataAccessor<Publisher> _publisherMetadataAccessor;
     private readonly MetadataAccessor<Series> _seriesMetadataAccessor;
-    private readonly DataGridHelper _dataGridHelper;
     private readonly EditEntryViewModel _viewModel;
+    private Game? _gameData;
 
-    public EditEntry( MetadataAccessor<Game> gameMetadataAccessor,
+    public EditEntry(MetadataAccessor<Game> gameMetadataAccessor,
         MetadataAccessor<Genre> genreMetadataAccessor,
         MetadataAccessor<Platform> platformMetadataAccessor,
         MetadataAccessor<Developer> developerMetadataAccessor,
@@ -64,6 +64,7 @@ public partial class EditEntry
             Logger.Error(LogClass.GameMgrUi, "GameData is null in EditEntry. Returning early...");
             return;
         }
+
         Title = $"Edit Entry: {_gameData.Title}";
 
         SetHeader();
@@ -118,6 +119,7 @@ public partial class EditEntry
             {
                 yield return t;
             }
+
             foreach (T childOfChild in FindVisualChildren<T>(child))
             {
                 yield return childOfChild;
@@ -130,6 +132,3 @@ public partial class EditEntry
         _viewModel.RenameTitleCommand.Execute(_gameData);
     }
 }
-
-
-

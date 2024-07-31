@@ -16,14 +16,14 @@ public partial class AddGame
     private readonly MetadataAccessorFactory _metadataAccessorFactory;
     private readonly MetadataPersistence _metadataPersistence = new();
 
-    public event EventHandler<Game>? GameAdded;
-
     public AddGame()
     {
         InitializeComponent();
         _metadataAccessorFactory = new MetadataAccessorFactory(_metadataPersistence);
         InitializeMetadataAreas();
     }
+
+    public event EventHandler<Game>? GameAdded;
 
     private async void InitializeMetadataAreas()
     {

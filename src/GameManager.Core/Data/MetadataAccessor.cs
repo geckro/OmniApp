@@ -115,6 +115,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         {
             return item.Tags.FirstOrDefault(tag => tag.Value.ToString() == value.ToString()).Key;
         }
+
         if (key != null && item.Tags.TryGetValue(key, out object? result))
         {
             return result.ToString();
@@ -125,7 +126,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     }
 
     /// <summary>
-    ///    Removes the metadata item with the specified identifier.
+    ///     Removes the metadata item with the specified identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the metadata item to remove.</param>
     public void RemoveItemById(Guid id)

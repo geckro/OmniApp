@@ -15,13 +15,8 @@ public class FileHelper
             return;
         }
 
-        using Process? process = Process.Start(new ProcessStartInfo()
-        {
-            FileName = "explorer",
-            Arguments = $"{fileToOpen}"
-        });
+        using Process? process = Process.Start(new ProcessStartInfo { FileName = "explorer", Arguments = $"{fileToOpen}" });
 
         process?.WaitForExit();
-
     }
 }
