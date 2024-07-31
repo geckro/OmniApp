@@ -5,7 +5,11 @@ using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
+using OmniApp.UI.ViewModels;
+using OmniApp.UI.Windows;
+using OmniApp.UiCommon.Helpers;
 using System.Windows;
+using Preferences = GameManager.UI.Windows.Preferences;
 
 namespace OmniApp.UI;
 
@@ -24,6 +28,9 @@ public partial class App
         ServiceCollection serviceCollection = [];
         ConfigureServices(serviceCollection);
         ServiceProvider = serviceCollection.BuildServiceProvider();
+
+        MainWindow mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
     }
 
     private static void ConfigureServices(IServiceCollection services)
@@ -31,11 +38,15 @@ public partial class App
         services.AddSingleton<MetadataPersistence, MetadataPersistence>();
         services.AddSingleton<MetadataAccessorFactory, MetadataAccessorFactory>();
 
+        services.AddTransient<MainGameWindow>();
         services.AddTransient<AddGame>();
         services.AddTransient<EditEntry>();
         services.AddTransient<Preferences>();
         services.AddTransient<RenameDialog>();
+        services.AddTransient<MainWindow>();
+        services.AddTransient<FinancialManager.UI.Windows.MainWindow>();
 
+        services.AddScoped<MainWindowViewModel>();
         services.AddScoped<MainGameWindowViewModel>();
         services.AddScoped<EditEntryViewModel>();
         services.AddScoped<DataGridHelper, DataGridHelper>();

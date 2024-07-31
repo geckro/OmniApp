@@ -1,5 +1,6 @@
-﻿using GameManager.UI.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
+using OmniApp.UI.ViewModels;
 using System.Windows;
 
 namespace OmniApp.UI.Windows;
@@ -12,15 +13,10 @@ public partial class MainWindow
         InitializeComponent();
     }
 
-    private void GameManager_OnClick(object sender, RoutedEventArgs e)
+    public MainWindow(IServiceProvider serviceProvider) : this()
     {
-        MainGameWindow mainGameWindow = new(App.ServiceProvider);
-        mainGameWindow.Show();
-    }
-
-    private void FinanceManager_OnClick(object sender, RoutedEventArgs e)
-    {
-        new FinancialManager.UI.Windows.MainWindow().Show();
+        MainWindowViewModel viewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
+        DataContext = viewModel;
     }
 
     private void OtherButton_Click(object sender, RoutedEventArgs e)

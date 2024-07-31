@@ -57,6 +57,7 @@ public enum LogClass
 {
     OmniCommon,
     OmniUi,
+    OmniUiCommon,
     GameMgrCore,
     GameMgrUi
 }

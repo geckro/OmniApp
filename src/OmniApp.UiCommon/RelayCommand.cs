@@ -1,7 +1,7 @@
 ﻿using OmniApp.Common.Logging;
 using System.Windows.Input;
 
-namespace GameManager.UI.Helpers;
+namespace OmniApp.UiCommon;
 
 public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null) : ICommand
 {
@@ -32,7 +32,7 @@ public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null
                 _execute(default!);
                 break;
             default:
-                Logger.Error(LogClass.GameMgrUi, $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
+                Logger.Error(LogClass.OmniUiCommon, $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
                 break;
         }
     }

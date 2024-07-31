@@ -3,6 +3,8 @@ using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
+using OmniApp.UiCommon;
+using OmniApp.UiCommon.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

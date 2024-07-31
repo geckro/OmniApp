@@ -2,7 +2,7 @@
 using OmniApp.Common.Logging;
 using System.Windows;
 
-namespace GameManager.UI.Helpers;
+namespace OmniApp.UiCommon.Helpers;
 
 public class WindowHelper(IServiceProvider serviceProvider)
 {
