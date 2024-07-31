@@ -27,17 +27,22 @@
           x:Name="AddButton"
           ToolTip="Add a new title"
           Command="{Binding AddGameCommand}">
-          <Image Source="../Images/add.png" MaxWidth="24" />
+          <Image Source="../Images/add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
-          <Image Source="../Images/refresh.png" MaxWidth="24" />
+          <Image Source="../Images/refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
           ToolTip="Open raw JSON games file"
           Command="{Binding OpenGamesJsonCommand}">
-          <Image Source="../Images/json.png" MaxWidth="24" />
+          <Image Source="../Images/json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+        </Button>
+        <Button
+          ToolTip="Open Game Manager preferences"
+          Command="{Binding OpenPreferencesCommand}">
+          <Image Source="../Images/options.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">

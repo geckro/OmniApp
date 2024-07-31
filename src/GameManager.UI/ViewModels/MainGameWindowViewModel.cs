@@ -23,7 +23,8 @@ public class MainGameWindowViewModel
 
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
         RefreshDataGridCommand = new RelayCommand<object>(_ => dataGridHelper.RefreshGameDataGridAsync());
-        OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram("Data\\GameMgr\\games.json"));
+        OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
+        OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
 
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsPlayed(game));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
@@ -35,6 +36,7 @@ public class MainGameWindowViewModel
     public ICommand AddGameCommand { get; }
     public ICommand RefreshDataGridCommand { get; }
     public ICommand OpenGamesJsonCommand { get; }
+    public ICommand OpenPreferencesCommand { get; }
 
     public ICommand MarkAsPlayedCommand { get; }
     public ICommand MarkAsFinishedCommand { get; }
@@ -55,6 +57,11 @@ public class MainGameWindowViewModel
         {
             await _dataGridHelper.RefreshGameDataGridAsync();
         };
+    }
+
+    private void Preferences()
+    {
+        _windowHelper.ShowWindow<Preferences>();
     }
 
     private async Task MarkAsPlayed(Game game)

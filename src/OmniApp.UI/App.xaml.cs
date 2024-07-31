@@ -33,6 +33,7 @@ public partial class App
 
         services.AddTransient<AddGame>();
         services.AddTransient<EditEntry>();
+        services.AddTransient<Preferences>();
 
         services.AddScoped<MainGameWindowViewModel>();
         services.AddScoped<DataGridHelper, DataGridHelper>();
