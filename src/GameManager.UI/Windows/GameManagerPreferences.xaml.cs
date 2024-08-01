@@ -1,8 +1,8 @@
 ﻿namespace GameManager.UI.Windows;
 
-public partial class Preferences
+public partial class GameManagerPreferences
 {
-    public Preferences()
+    public GameManagerPreferences()
     {
         InitializeComponent();
     }

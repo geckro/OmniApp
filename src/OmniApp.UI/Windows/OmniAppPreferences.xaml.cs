@@ -1,8 +1,8 @@
 ﻿namespace OmniApp.UI.Windows;
 
-public partial class Preferences
+public partial class OmniAppPreferences
 {
-    public Preferences()
+    public OmniAppPreferences()
     {
         InitializeComponent();
     }

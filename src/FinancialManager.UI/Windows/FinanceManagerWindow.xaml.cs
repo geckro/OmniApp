@@ -1,8 +1,8 @@
 ﻿namespace FinancialManager.UI.Windows;
 
-public partial class MainWindow
+public partial class FinanceManagerWindow
 {
-    public MainWindow()
+    public FinanceManagerWindow()
     {
         InitializeComponent();
     }

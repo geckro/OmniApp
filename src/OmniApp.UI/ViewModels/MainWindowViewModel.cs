@@ -22,11 +22,11 @@ public class MainWindowViewModel
 
     private void OpenGameManager()
     {
-        _windowHelper.ShowDialogWindow<MainGameWindow>();
+        _windowHelper.ShowDialogWindow<GameManagerWindow>();
     }
 
     private void OpenFinanceManager()
     {
-        _windowHelper.ShowDialogWindow<MainWindow>();
+        _windowHelper.ShowDialogWindow<FinanceManagerWindow>();
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Managers;
 
-public class MainWindowContextMenuManager(MainGameWindow mainWindow, MainGameWindowViewModel viewModel)
+public class MainWindowContextMenuManager(GameManagerWindow mainWindow, MainGameWindowViewModel viewModel)
 {
     public void PopulateDataGridContextMenu()
     {

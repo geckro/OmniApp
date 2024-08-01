@@ -8,13 +8,13 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
 
-public partial class MainGameWindow
+public partial class GameManagerWindow
 {
     private readonly MainGameWindowViewModel _viewModel;
 
-    public MainGameWindow(IServiceProvider serviceProvider)
+    public GameManagerWindow(IServiceProvider serviceProvider)
     {
-        Logger.Info(LogClass.GameMgrUi, "Starting MainGameWindow");
+        Logger.Info(LogClass.GameMgrUi, "Starting GameManagerWindow");
 
         _viewModel = serviceProvider.GetRequiredService<MainGameWindowViewModel>();
 
@@ -31,13 +31,13 @@ public partial class MainGameWindow
     {
         try
         {
-            Logger.Info(LogClass.GameMgrUi, "Initializing MainGameWindow");
+            Logger.Info(LogClass.GameMgrUi, "Initializing GameManagerWindow");
             await _viewModel.InitializeAsync(GameDataGrid);
             RegisterKeyboardShortcuts();
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error initializing MainGameWindow: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUi, $"Error initializing GameManagerWindow: {ex.Message}");
         }
     }
 

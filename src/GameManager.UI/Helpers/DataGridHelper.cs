@@ -23,7 +23,7 @@ public class DataGridHelper(
     private ICollection<Game> _games = [];
 
     /// <summary>
-    ///     Populates the main Game DataGrid on the MainGameWindow.
+    ///     Populates the main Game DataGrid on the GameManagerWindow.
     /// </summary>
     /// <param name="dataGrid">The Game DataGrid.</param>
     public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
@@ -46,7 +46,7 @@ public class DataGridHelper(
     }
 
     /// <summary>
-    ///     Refreshes the main Game DataGrid on the MainGameWindow.
+    ///     Refreshes the main Game DataGrid on the GameManagerWindow.
     /// </summary>
     public async Task RefreshGameDataGridAsync()
     {

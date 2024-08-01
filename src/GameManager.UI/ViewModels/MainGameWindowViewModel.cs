@@ -63,7 +63,7 @@ public class MainGameWindowViewModel
 
     private void Preferences()
     {
-        _windowHelper.ShowWindow<Preferences>();
+        _windowHelper.ShowWindow<GameManagerPreferences>();
     }
 
     private async Task MarkAsPlayed(Game game)

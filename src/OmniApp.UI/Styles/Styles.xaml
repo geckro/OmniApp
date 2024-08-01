@@ -61,7 +61,7 @@
       <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource BaseControlStyle}" />
     </Style.Resources>
   </Style>
-  <Style TargetType="{x:Type gameWindows:MainGameWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:GameManagerWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
   <Style TargetType="{x:Type gameWindows:AddGame}" BasedOn="{StaticResource BaseGameWindowStyle}">
@@ -70,7 +70,7 @@
   <Style TargetType="{x:Type gameWindows:EditEntry}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:Preferences}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:GameManagerPreferences}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
 </ResourceDictionary>
