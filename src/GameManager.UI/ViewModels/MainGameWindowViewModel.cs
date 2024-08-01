@@ -6,6 +6,7 @@ using OmniApp.Common.Logging;
 using OmniApp.UiCommon;
 using OmniApp.UiCommon.Helpers;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -27,6 +28,7 @@ public class MainGameWindowViewModel
         RefreshDataGridCommand = new RelayCommand<object>(_ => dataGridHelper.RefreshGameDataGridAsync());
         OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
+        PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
 
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsPlayed(game));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
@@ -39,6 +41,7 @@ public class MainGameWindowViewModel
     public ICommand RefreshDataGridCommand { get; }
     public ICommand OpenGamesJsonCommand { get; }
     public ICommand OpenPreferencesCommand { get; }
+    public ICommand PickRandomGameCommand { get; }
 
     public ICommand MarkAsPlayedCommand { get; }
     public ICommand MarkAsFinishedCommand { get; }
@@ -59,6 +62,23 @@ public class MainGameWindowViewModel
         {
             await _dataGridHelper.RefreshGameDataGridAsync();
         };
+    }
+
+    private void PickRandomGame()
+    {
+        ICollection<string> visibleGames = _dataGridHelper.GetAllVisibleDataGridRowTitle();
+
+        if (visibleGames.Count == 0)
+        {
+            Logger.Error(LogClass.GameMgrUi, "There are no games in the games table.");
+            return;
+        }
+        List<string> visibleGamesList = visibleGames.ToList();
+
+        Random random = new();
+        string randomGame = visibleGamesList[random.Next(visibleGames.Count)];
+
+        MessageBox.Show(randomGame);
     }
 
     private void Preferences()

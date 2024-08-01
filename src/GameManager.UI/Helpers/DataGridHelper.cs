@@ -1,6 +1,7 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using OmniApp.Common.Logging;
+using System.Data;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,6 +99,27 @@ public class DataGridHelper(
         {
             _dataGrid.Columns.Add(column);
         }
+    }
+
+    public ICollection<string> GetAllVisibleDataGridRowTitle()
+    {
+        List<string> visibleRowTitles = [];
+
+        foreach (object? item in _dataGrid.Items)
+        {
+            if (_dataGrid.ItemContainerGenerator.ContainerFromItem(item) is not DataGridRow { Visibility: Visibility.Visible } row)
+            {
+                continue;
+            }
+
+            string? title = (row.DataContext as Game)?.Title;
+            if (!string.IsNullOrEmpty(title))
+            {
+                visibleRowTitles.Add(title);
+            }
+        }
+
+        return visibleRowTitles;
     }
 
     private void HideColumnByPropertyName(string propertyName)

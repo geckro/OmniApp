@@ -19,6 +19,8 @@
     <Resource Include="Images\add.png"/>
     <Resource Include="Images\json.png"/>
     <Resource Include="Images\options.png"/>
+    <None Remove="Images\random.png" />
+    <Resource Include="Images\random.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>

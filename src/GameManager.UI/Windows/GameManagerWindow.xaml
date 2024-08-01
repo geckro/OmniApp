@@ -44,6 +44,11 @@
           Command="{Binding OpenPreferencesCommand}">
           <Image Source="../Images/options.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
+        <Button
+          ToolTip="Pick a random game"
+          Command="{Binding PickRandomGameCommand}">
+          <Image Source="../Images/random.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+        </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />
