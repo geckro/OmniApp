@@ -100,6 +100,29 @@ public class DataGridHelper(
         }
     }
 
+    private void HideColumnByPropertyName(string propertyName)
+    {
+        DataGridColumn? column = FindColumnByPropertyName(propertyName);
+        if (column != null)
+        {
+            column.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void ShowColumnByPropertyName(string propertyName)
+    {
+        DataGridColumn? column = FindColumnByPropertyName(propertyName);
+        if (column != null)
+        {
+            column.Visibility = Visibility.Visible;
+        }
+    }
+
+    private DataGridColumn? FindColumnByPropertyName(string propertyName)
+    {
+        return _dataGrid.Columns.FirstOrDefault(c => (c.Header as string)?.Equals(propertyName, StringComparison.OrdinalIgnoreCase) == true);
+    }
+
     private static DataGridTextColumn CreateAsyncColumn(string header, string propertyName, IValueConverter converter)
     {
         return new DataGridTextColumn { Header = header, Binding = new Binding(propertyName) { Converter = converter } };
