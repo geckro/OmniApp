@@ -5,7 +5,7 @@ using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using OmniApp.UiCommon;
 using OmniApp.UiCommon.Helpers;
-using System.Windows;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -68,22 +68,30 @@ public class MainGameWindowViewModel
 
     private async Task MarkAsPlayed(Game game)
     {
-        game.HasPlayed = true;
-        _metadataAccessor.UpdateItemAndSave(game.Id, "HasPlayed", true);
-        await _dataGridHelper.RefreshGameDataGridAsync();
+        await MarkAsTrueFalse(game, "HasPlayed");
     }
 
     private async Task MarkAsFinished(Game game)
     {
-        game.HasFinished = true;
-        _metadataAccessor.UpdateItemAndSave(game.Id, "HasFinished", true);
-        await _dataGridHelper.RefreshGameDataGridAsync();
+        await MarkAsTrueFalse(game, "HasFinished");
     }
 
     private async Task MarkAsCompleted(Game game)
     {
-        game.HasCompleted = true;
-        _metadataAccessor.UpdateItemAndSave(game.Id, "HasCompleted", true);
+        await MarkAsTrueFalse(game, "HasCompleted");
+    }
+
+    private async Task MarkAsTrueFalse(Game game, string key)
+    {
+        PropertyInfo property = game.GetType().GetProperty(key) ?? throw new InvalidOperationException();
+        bool trueOrFalse = (bool?)property.GetValue(game) switch
+        {
+            true => false,
+            false or null => true
+        };
+        property.SetValue(game, trueOrFalse);
+
+        _metadataAccessor.UpdateItemAndSave(game.Id, key, trueOrFalse);
         await _dataGridHelper.RefreshGameDataGridAsync();
     }
 
