@@ -1,4 +1,5 @@
-﻿using OmniApp.Common.Logging;
+﻿using GameManager.Core.Data.MetadataConstructors;
+using OmniApp.Common.Logging;
 using System.Reflection;
 
 namespace GameManager.Core.Data;
@@ -141,5 +142,17 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
 
         existingData.Remove(itemToRemove);
         SaveMetadataCollection(existingData);
+    }
+
+    public ICollection<string?> GetAllProperties(Game game)
+    {
+        ICollection<string?> properties = [];
+
+        foreach (PropertyInfo property in game.GetType().GetProperties())
+        {
+            properties.Add(property.Name);
+        }
+
+        return properties;
     }
 }
