@@ -32,7 +32,7 @@ public class MainGameWindowViewModel
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
         MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsCompleted(game));
         EditCommand = new RelayCommand<Game>(Edit);
-        DeleteCommand = new RelayCommand<Game>(Delete);
+        DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
     }
 
     public ICommand AddGameCommand { get; }
@@ -108,8 +108,9 @@ public class MainGameWindowViewModel
         });
     }
 
-    private void Delete(Game game)
+    private async Task Delete(Game game)
     {
-        MessageBox.Show("Delete");
+        _metadataAccessor.RemoveItemById(game.Id);
+        await _dataGridHelper.RefreshGameDataGridAsync();
     }
 }
