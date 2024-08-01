@@ -11,8 +11,15 @@ using OmniApp.UiCommon.Helpers;
 
 namespace OmniApp.UI;
 
+/// <summary>
+///     Class for configuring and using dependency injection services.
+/// </summary>
 public static class Services
 {
+    /// <summary>
+    ///     Configures dependency injection services for the entire application.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection" /> to which the services will be added.</param>
     public static void ConfigureDepInjServices(IServiceCollection services)
     {
         AddSingletonServices(services);
@@ -20,6 +27,11 @@ public static class Services
         AddScopedServices(services);
     }
 
+    /// <summary>
+    ///     Adds scoped services to the <see cref="IServiceCollection" />.
+    ///     Scoped services are created once per scope.
+    /// </summary>
+    /// <param name="sv">The <see cref="IServiceCollection" /> to which the services will be added.</param>
     private static void AddScopedServices(IServiceCollection sv)
     {
         // OmniApp
@@ -39,6 +51,11 @@ public static class Services
         sv.AddScoped<MetadataAccessor<Series>>(sp => new MetadataAccessor<Series>(sp.GetRequiredService<MetadataPersistence>(), "series.json"));
     }
 
+    /// <summary>
+    ///     Adds transient services to the <see cref="IServiceCollection" />.
+    ///     Transient services are created each time they are requested.
+    /// </summary>
+    /// <param name="sv">The <see cref="IServiceCollection" /> to which the services will be added.</param>
     private static void AddTransientServices(IServiceCollection sv)
     {
         // OmniApp
@@ -55,6 +72,11 @@ public static class Services
         sv.AddTransient<FinanceManagerWindow>();
     }
 
+    /// <summary>
+    ///     Adds singleton services to the <see cref="IServiceCollection" />.
+    ///     Singleton services are created once and shared through the entire application.
+    /// </summary>
+    /// <param name="sv">The <see cref="IServiceCollection" /> to which the services will be added.</param>
     private static void AddSingletonServices(IServiceCollection sv)
     {
         // GameManager
