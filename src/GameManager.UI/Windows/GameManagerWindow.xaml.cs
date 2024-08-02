@@ -1,6 +1,4 @@
-﻿using GameManager.Core.Data;
-using GameManager.Core.Data.MetadataConstructors;
-using GameManager.UI.Managers;
+﻿using GameManager.UI.Managers;
 using GameManager.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
@@ -14,20 +12,17 @@ public partial class GameManagerWindow
 {
     private readonly MainGameWindowViewModel _viewModel;
 
-    public GameManagerWindow(IServiceProvider serviceProvider)
+    public GameManagerWindow(IServiceProvider sp)
     {
         Logger.Info(LogClass.GameMgrUi, "Starting GameManagerWindow");
 
-        _viewModel = serviceProvider.GetRequiredService<MainGameWindowViewModel>();
+        _viewModel = sp.GetRequiredService<MainGameWindowViewModel>();
 
         InitializeComponent();
         DataContext = _viewModel;
 
         MainWindowContextMenuManager contextMenuManager = new(this, _viewModel);
         contextMenuManager.PopulateDataGridContextMenu();
-
-        MainGameWindowFilterManager filterManager = new(this, serviceProvider.GetRequiredService<MetadataAccessor<Game>>());
-        filterManager.PopulateFilterMenu();
 
         InitializeAsync();
     }

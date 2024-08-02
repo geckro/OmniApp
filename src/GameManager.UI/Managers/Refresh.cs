@@ -1,5 +1,4 @@
 ﻿using GameManager.UI.Helpers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GameManager.UI.Managers;
 
@@ -13,6 +12,7 @@ public enum RefreshOptions
 public class Refresh
 {
     private readonly GameTableHelper _gameTableHelper;
+    private readonly GameFilterHelper _gameFilterHelper;
 
     public Refresh(GameTableHelper gameTableHelper)
     {
@@ -28,7 +28,7 @@ public class Refresh
 
         if (options.HasFlag(RefreshOptions.FilterMenu))
         {
-            // _filterMenuHelper.RefreshFilterMenu();
+            _gameFilterHelper.RefreshAllFilterMenus();
         }
     }
 }

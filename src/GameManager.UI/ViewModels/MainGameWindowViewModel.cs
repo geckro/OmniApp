@@ -18,12 +18,10 @@ public class MainGameWindowViewModel
     private readonly GameTableHelper _gameTableHelper;
     private readonly MetadataAccessor<Game> _metadataAccessor;
     private readonly WindowHelper _windowHelper;
-    private readonly IServiceProvider _serviceProvider;
     private readonly Refresh _refresh;
 
-    public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper, IServiceProvider serviceProvider)
+    public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
     {
-        _serviceProvider = serviceProvider;
         _gameTableHelper = gameTableHelper;
         _metadataAccessor = metadataAccessor;
         _windowHelper = windowHelper;
