@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
 
-public class MainGameWindowViewModel
+public class MainGameWindowViewModel : ViewModelBase
 {
     private readonly GameTableHelper _gameTableHelper;
     private readonly MetadataAccessor<Game> _metadataAccessor;

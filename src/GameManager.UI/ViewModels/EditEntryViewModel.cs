@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
 
-public class EditEntryViewModel
+public class EditEntryViewModel : ViewModelBase
 {
     private readonly WindowHelper _windowHelper;
     private Action? _closeEditEntryWindow;
