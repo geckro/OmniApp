@@ -1,7 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using OmniApp.Common.Logging;
-using System.Data;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,9 +9,9 @@ using System.Windows.Data;
 namespace GameManager.UI.Helpers;
 
 /// <summary>
-///     Helper for the DataGrid control.
+///     Helper for the GameDataGrid control on the MainGameWindow.
 /// </summary>
-public class DataGridHelper(
+public class GameTableHelper(
     MetadataAccessor<Game> gameAccessor,
     MetadataAccessor<Genre> genreAccessor,
     MetadataAccessor<Developer> developerAccessor,
@@ -27,16 +26,16 @@ public class DataGridHelper(
     ///     Populates the main Game DataGrid on the GameManagerWindow.
     /// </summary>
     /// <param name="dataGrid">The Game DataGrid.</param>
-    public async Task PopulateGameDataGridAsync(DataGrid dataGrid)
+    public async Task PopulateGameTableAsync(DataGrid dataGrid)
     {
-        Logger.Debug(LogClass.GameMgrUi, "Initializing PopulateGameDataGridAsync");
+        Logger.Debug(LogClass.GameMgrUi, "Initializing PopulateGameTableAsync");
 
         try
         {
             _dataGrid = dataGrid;
             _games = await Task.Run(gameAccessor.LoadMetadataCollection);
             ConfigureGameDataGrid();
-            await RefreshGameDataGridAsync();
+            await RefreshGameTableAsync();
 
             Logger.Info(LogClass.GameMgrUi, "Game DataGrid successfully populated.");
         }
@@ -49,9 +48,9 @@ public class DataGridHelper(
     /// <summary>
     ///     Refreshes the main Game DataGrid on the GameManagerWindow.
     /// </summary>
-    public async Task RefreshGameDataGridAsync()
+    public async Task RefreshGameTableAsync()
     {
-        Logger.Debug(LogClass.GameMgrUi, "Running RefreshGameDataGridAsync");
+        Logger.Debug(LogClass.GameMgrUi, "Running RefreshGameTableAsync");
 
         try
         {

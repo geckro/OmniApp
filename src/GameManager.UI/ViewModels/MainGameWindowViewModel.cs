@@ -1,6 +1,7 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
+using GameManager.UI.Managers;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using OmniApp.UiCommon;
@@ -14,18 +15,23 @@ namespace GameManager.UI.ViewModels;
 
 public class MainGameWindowViewModel
 {
-    private readonly DataGridHelper _dataGridHelper;
+    private readonly GameTableHelper _gameTableHelper;
     private readonly MetadataAccessor<Game> _metadataAccessor;
     private readonly WindowHelper _windowHelper;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Refresh _refresh;
 
-    public MainGameWindowViewModel(DataGridHelper dataGridHelper, MetadataAccessor<Game> metadataAccessor, FileHelper fileHelper, WindowHelper windowHelper)
+    public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper, IServiceProvider serviceProvider)
     {
-        _dataGridHelper = dataGridHelper;
+        _serviceProvider = serviceProvider;
+        _gameTableHelper = gameTableHelper;
         _metadataAccessor = metadataAccessor;
         _windowHelper = windowHelper;
 
+        _refresh = new Refresh(_gameTableHelper);
+
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
-        RefreshDataGridCommand = new RelayCommand<object>(_ => dataGridHelper.RefreshGameDataGridAsync());
+        RefreshDataGridCommand = new RelayCommand<object>(async _ => await _refresh.RefreshControls(RefreshOptions.DataGrid));
         OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
         PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
@@ -51,7 +57,7 @@ public class MainGameWindowViewModel
 
     public async Task InitializeAsync(DataGrid gameDataGrid)
     {
-        await _dataGridHelper.PopulateGameDataGridAsync(gameDataGrid);
+        await _gameTableHelper.PopulateGameTableAsync(gameDataGrid);
     }
 
     private void AddGame()
@@ -60,13 +66,13 @@ public class MainGameWindowViewModel
 
         addGameWindow.GameAdded += async (_, _) =>
         {
-            await _dataGridHelper.RefreshGameDataGridAsync();
+            await _refresh.RefreshControls(RefreshOptions.DataGrid);
         };
     }
 
     private void PickRandomGame()
     {
-        ICollection<string> visibleGames = _dataGridHelper.GetAllVisibleDataGridRowTitle();
+        ICollection<string> visibleGames = _gameTableHelper.GetAllVisibleDataGridRowTitle();
 
         if (visibleGames.Count == 0)
         {
@@ -112,7 +118,7 @@ public class MainGameWindowViewModel
         property.SetValue(game, trueOrFalse);
 
         _metadataAccessor.UpdateItemAndSave(game.Id, key, trueOrFalse);
-        await _dataGridHelper.RefreshGameDataGridAsync();
+        await _refresh.RefreshControls(RefreshOptions.DataGrid);
     }
 
     private void Edit(Game? game)
@@ -139,6 +145,6 @@ public class MainGameWindowViewModel
     private async Task Delete(Game game)
     {
         _metadataAccessor.RemoveItemById(game.Id);
-        await _dataGridHelper.RefreshGameDataGridAsync();
+        await _refresh.RefreshControls(RefreshOptions.DataGrid);
     }
 }

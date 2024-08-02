@@ -1,6 +1,5 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
-using GameManager.UI.Helpers;
 using GameManager.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
@@ -13,9 +12,7 @@ namespace GameManager.UI.Windows;
 
 public partial class EditEntry
 {
-    private readonly DataGridHelper _dataGridHelper;
     private readonly MetadataAccessor<Developer> _developerMetadataAccessor;
-    private readonly MetadataAccessor<Game> _gameMetadataAccessor;
     private readonly MetadataAccessor<Genre> _genreMetadataAccessor;
     private readonly MetadataAccessor<Platform> _platformMetadataAccessor;
     private readonly MetadataAccessor<Publisher> _publisherMetadataAccessor;
@@ -23,24 +20,20 @@ public partial class EditEntry
     private readonly EditEntryViewModel _viewModel;
     private Game? _gameData;
 
-    public EditEntry(MetadataAccessor<Game> gameMetadataAccessor,
-        MetadataAccessor<Genre> genreMetadataAccessor,
+    public EditEntry(MetadataAccessor<Genre> genreMetadataAccessor,
         MetadataAccessor<Platform> platformMetadataAccessor,
         MetadataAccessor<Developer> developerMetadataAccessor,
         MetadataAccessor<Publisher> publisherMetadataAccessor,
         MetadataAccessor<Series> seriesMetadataAccessor,
-        DataGridHelper dataGridHelper,
         IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
-        _gameMetadataAccessor = gameMetadataAccessor;
         _genreMetadataAccessor = genreMetadataAccessor;
         _platformMetadataAccessor = platformMetadataAccessor;
         _developerMetadataAccessor = developerMetadataAccessor;
         _publisherMetadataAccessor = publisherMetadataAccessor;
         _seriesMetadataAccessor = seriesMetadataAccessor;
-        _dataGridHelper = dataGridHelper;
 
         _viewModel = serviceProvider.GetRequiredService<EditEntryViewModel>();
         _viewModel.SetCloseAction(Close);

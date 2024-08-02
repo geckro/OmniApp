@@ -41,7 +41,7 @@ public static class Services
         // GameManager
         sv.AddScoped<MainGameWindowViewModel>();
         sv.AddScoped<EditEntryViewModel>();
-        sv.AddScoped<DataGridHelper, DataGridHelper>();
+        sv.AddScoped<GameTableHelper, GameTableHelper>();
         sv.AddScoped<FileHelper, FileHelper>();
         sv.AddScoped<MetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<MetadataPersistence>(), "games.json"));
         sv.AddScoped<MetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>(sp.GetRequiredService<MetadataPersistence>(), "genres.json"));

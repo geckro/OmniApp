@@ -111,14 +111,8 @@
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
 
-          <!-- View -->
-          <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label Content="Views" />
-            <StackPanel x:Name="ViewStackPanel" />
-          </StackPanel>
-
           <!-- Filters -->
-          <StackPanel Grid.Row="6" Grid.Column="0">
+          <StackPanel Grid.Row="0" Grid.Column="0">
             <Label Content="Filters" />
             <StackPanel x:Name="FilterStackPanel" />
           </StackPanel>
