@@ -1,4 +1,7 @@
-﻿using GameManager.UI.Managers;
+﻿using GameManager.Core.Data;
+using GameManager.Core.Data.MetadataConstructors;
+using GameManager.UI.Helpers;
+using GameManager.UI.Managers;
 using GameManager.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
@@ -23,6 +26,14 @@ public partial class GameManagerWindow
 
         MainWindowContextMenuManager contextMenuManager = new(this, _viewModel);
         contextMenuManager.PopulateDataGridContextMenu();
+
+        GameFilterHelper filterHelper = new(
+            this,
+            sp.GetRequiredService<MetadataAccessor<Game>>(),
+            sp.GetRequiredService<MetadataAccessor<Developer>>(),
+            sp.GetRequiredService<MetadataAccessor<Publisher>>()
+            );
+        filterHelper.PopulateFilterMenus();
 
         InitializeAsync();
     }
