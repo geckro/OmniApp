@@ -10,7 +10,7 @@ namespace GameManager.UI.Helpers;
 
 public class GameFilterHelper
 {
-    private readonly Dictionary<string, StackPanel> _categoryPanels;
+    private readonly Dictionary<string, ListBox> _categoryListBoxes;
     private readonly ICollection<Game> _data;
     private readonly StackPanel _filterStackPanel;
     private readonly MetadataAccessor<Developer> _developerAccessor;
@@ -33,7 +33,7 @@ public class GameFilterHelper
         _platformAccessor = platformData;
         _seriesAccessor = seriesData;
 
-        _categoryPanels = new Dictionary<string, StackPanel>
+        _categoryListBoxes = new Dictionary<string, ListBox>
         {
             ["ReleaseDateWw"] = CreateCategoryPanel("Release Date"),
             ["Developers"] = CreateCategoryPanel("Developers"),
@@ -49,7 +49,7 @@ public class GameFilterHelper
         _viewModel = viewModel;
     }
 
-    private static StackPanel CreateCategoryPanel(string headerText)
+    private ListBox CreateCategoryPanel(string headerText)
     {
         StackPanel panel = new();
         Label header = new()
@@ -57,8 +57,28 @@ public class GameFilterHelper
             Content = headerText,
             FontWeight = FontWeights.DemiBold
         };
+        headerText = headerText.Replace(" ", "");
+        ListBox listBox = new()
+        {
+            Name = $"{headerText}ListBox",
+            MaxHeight = 120,
+            Padding = new Thickness(0),
+            Margin = new Thickness(0),
+            ItemContainerStyle = CreateListBoxItemStyle()
+        };
         panel.Children.Add(header);
-        return panel;
+        panel.Children.Add(listBox);
+        _filterStackPanel.Children.Add(panel);
+        return listBox;
+    }
+
+    private static Style CreateListBoxItemStyle()
+    {
+        Style style = new(typeof(ListBoxItem));
+        style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(2)));
+        style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(0)));
+
+        return style;
     }
 
     public void RefreshAllFilterMenus()
@@ -67,9 +87,9 @@ public class GameFilterHelper
 
         try
         {
-            foreach (KeyValuePair<string, StackPanel> panel in _categoryPanels)
+            foreach (KeyValuePair<string, ListBox> listBox in _categoryListBoxes)
             {
-                RefreshFilterMenu(panel.Value, () => PopulatePanel(panel.Key));
+                RefreshFilterMenu(listBox.Value, () => PopulatePanel(listBox.Key));
             }
 
             Logger.Info(LogClass.GameMgrUi, "All filter menus successfully refreshed.");
@@ -80,9 +100,9 @@ public class GameFilterHelper
         }
     }
 
-    private static void RefreshFilterMenu(StackPanel stackPanel, Action populatePanel)
+    private static void RefreshFilterMenu(ListBox listBox, Action populatePanel)
     {
-        stackPanel.Children.Clear();
+        listBox.Items.Clear();
         populatePanel();
     }
 
@@ -92,10 +112,9 @@ public class GameFilterHelper
 
         try
         {
-            foreach (KeyValuePair<string, StackPanel> panel in _categoryPanels)
+            foreach (KeyValuePair<string, ListBox> listBox in _categoryListBoxes)
             {
-                PopulatePanel(panel.Key);
-                _filterStackPanel.Children.Add(panel.Value);
+                PopulatePanel(listBox.Key);
             }
 
             Logger.Info(LogClass.GameMgrUi, "Filter menus successfully populated.");
@@ -121,7 +140,7 @@ public class GameFilterHelper
 
         foreach (string item in items)
         {
-            _categoryPanels[category].Children.Add(new CheckBox { Content = item, Command = _viewModel.FilterGameTableCommand });
+            _categoryListBoxes[category].Items.Add(new CheckBox { Content = item, Command = _viewModel.FilterGameTableCommand });
         }
     }
 
@@ -153,12 +172,12 @@ public class GameFilterHelper
             ["Series"] = []
         };
 
-        foreach (KeyValuePair<string, StackPanel> categoryPanel in _categoryPanels)
+        foreach (KeyValuePair<string, ListBox> categoryListBox in _categoryListBoxes)
         {
-            string category = categoryPanel.Key;
-            StackPanel panel = categoryPanel.Value;
+            string category = categoryListBox.Key;
+            ListBox listBox = categoryListBox.Value;
 
-            foreach (object? child in panel.Children)
+            foreach (object? child in listBox.Items)
             {
                 if (child is CheckBox { IsChecked: true } checkBox)
                 {
