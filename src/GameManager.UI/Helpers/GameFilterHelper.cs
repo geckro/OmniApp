@@ -15,9 +15,13 @@ public class GameFilterHelper
     private readonly StackPanel _filterStackPanel;
     private readonly MetadataAccessor<Developer> _developerAccessor;
     private readonly MetadataAccessor<Publisher> _publisherAccessor;
+    private readonly MetadataAccessor<Genre> _genreAccessor;
+    private readonly MetadataAccessor<Platform> _platformAccessor;
+    private readonly MetadataAccessor<Series> _seriesAccessor;
     private MainGameWindowViewModel _viewModel;
 
-    public GameFilterHelper(GameManagerWindow mainWindow, MetadataAccessor<Game> data, MetadataAccessor<Developer> developerData, MetadataAccessor<Publisher> publisherData)
+    public GameFilterHelper(GameManagerWindow mainWindow, MetadataAccessor<Game> data, MetadataAccessor<Developer> developerData, MetadataAccessor<Publisher> publisherData, MetadataAccessor<Genre> genreData,
+        MetadataAccessor<Platform> platformData, MetadataAccessor<Series> seriesData)
     {
         mainWindow.SetFilter(this);
         _filterStackPanel = mainWindow.FilterStackPanel;
@@ -25,12 +29,18 @@ public class GameFilterHelper
 
         _developerAccessor = developerData;
         _publisherAccessor = publisherData;
+        _genreAccessor = genreData;
+        _platformAccessor = platformData;
+        _seriesAccessor = seriesData;
 
         _categoryPanels = new Dictionary<string, StackPanel>
         {
             ["ReleaseDateWw"] = CreateCategoryPanel("Release Date"),
             ["Developers"] = CreateCategoryPanel("Developers"),
-            ["Publishers"] = CreateCategoryPanel("Publishers")
+            ["Publishers"] = CreateCategoryPanel("Publishers"),
+            ["Genres"] = CreateCategoryPanel("Genres"),
+            ["Platforms"] = CreateCategoryPanel("Platforms"),
+            ["Series"] = CreateCategoryPanel("Series")
         };
     }
 
@@ -103,6 +113,9 @@ public class GameFilterHelper
             "ReleaseDateWw" => GetYearItems(),
             "Developers" => GetNamedItems(_data.Where(g => g.Developers != null).SelectMany(g => g.Developers!).Select(d => d.Id).Distinct(), _developerAccessor),
             "Publishers" => GetNamedItems(_data.Where(g => g.Publishers != null).SelectMany(g => g.Publishers!).Select(p => p.Id).Distinct(), _publisherAccessor),
+            "Genres" => GetNamedItems(_data.Where(g => g.Genres != null).SelectMany(g => g.Genres!).Select(g => g.Id).Distinct(), _genreAccessor),
+            "Platforms" => GetNamedItems(_data.Where(g => g.Platforms != null).SelectMany(g => g.Platforms!).Select(g => g.Id).Distinct(), _platformAccessor),
+            "Series" => GetNamedItems(_data.Where(g => g.Series != null).SelectMany(g => g.Series!).Select(g => g.Id).Distinct(), _seriesAccessor),
             _ => throw new ArgumentException($"Invalid category: {category}")
         };
 
@@ -134,7 +147,10 @@ public class GameFilterHelper
         {
             ["ReleaseDateWw"] = [],
             ["Developers"] = [],
-            ["Publishers"] = []
+            ["Publishers"] = [],
+            ["Genres"] = [],
+            ["Platforms"] = [],
+            ["Series"] = []
         };
 
         foreach (KeyValuePair<string, StackPanel> categoryPanel in _categoryPanels)

@@ -179,6 +179,9 @@ public class GameTableHelper(
                         "ReleaseDateWw" => game.ReleaseDateWw.HasValue && values.Contains(game.ReleaseDateWw.Value.Year.ToString()),
                         "Developers" => game.Developers != null && game.Developers.Any(dev => values.Contains(developerAccessor.GetItemById(dev.Id)?.Name ?? string.Empty)),
                         "Publishers" => game.Publishers != null && game.Publishers.Any(pub => values.Contains(publisherAccessor.GetItemById(pub.Id)?.Name ?? string.Empty)),
+                        "Genres" => game.Genres != null && game.Genres.Any(pub => values.Contains(genreAccessor.GetItemById(pub.Id)?.Name ?? string.Empty)),
+                        "Platforms" => game.Platforms != null && game.Platforms.Any(pub => values.Contains(platformAccessor.GetItemById(pub.Id)?.Name ?? string.Empty)),
+                        "Series" => game.Series != null && game.Series.Any(pub => values.Contains(seriesAccessor.GetItemById(pub.Id)?.Name ?? string.Empty)),
                         _ => true
                     };
 

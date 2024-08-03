@@ -29,8 +29,11 @@ public partial class GameManagerWindow
             this,
             sp.GetRequiredService<MetadataAccessor<Game>>(),
             sp.GetRequiredService<MetadataAccessor<Developer>>(),
-            sp.GetRequiredService<MetadataAccessor<Publisher>>()
-        );
+            sp.GetRequiredService<MetadataAccessor<Publisher>>(),
+            sp.GetRequiredService<MetadataAccessor<Genre>>(),
+            sp.GetRequiredService<MetadataAccessor<Platform>>(),
+            sp.GetRequiredService<MetadataAccessor<Series>>()
+            );
 
         Loaded += OnWindowLoaded;
     }
