@@ -9,7 +9,7 @@
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontFamily" Value="Inter" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable Text" />
         <Setter Property="Background" Value="{DynamicResource BlueSolid}" />
         <Style.Resources>
           <Style TargetType="Border">
@@ -43,7 +43,7 @@
       </Style>
       <Style TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="16" />
-        <Setter Property="FontFamily" Value="Inter" />
+        <Setter Property="FontFamily" Value="Segoe UI Variable Text" />
         <Setter Property="FontWeight" Value="Medium" />
       </Style>
       <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
