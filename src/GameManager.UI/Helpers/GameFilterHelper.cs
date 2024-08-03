@@ -1,5 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using System.Windows;
@@ -14,9 +15,11 @@ public class GameFilterHelper
     private readonly StackPanel _filterStackPanel;
     private readonly MetadataAccessor<Developer> _developerAccessor;
     private readonly MetadataAccessor<Publisher> _publisherAccessor;
+    private MainGameWindowViewModel _viewModel;
 
     public GameFilterHelper(GameManagerWindow mainWindow, MetadataAccessor<Game> data, MetadataAccessor<Developer> developerData, MetadataAccessor<Publisher> publisherData)
     {
+        mainWindow.SetFilter(this);
         _filterStackPanel = mainWindow.FilterStackPanel;
         _data = data.LoadMetadataCollection();
 
@@ -29,6 +32,11 @@ public class GameFilterHelper
             ["Developer"] = CreateCategoryPanel("Developers"),
             ["Publisher"] = CreateCategoryPanel("Publishers")
         };
+    }
+
+    public void SetViewModel(MainGameWindowViewModel viewModel)
+    {
+        _viewModel = viewModel;
     }
 
     private static StackPanel CreateCategoryPanel(string headerText)
@@ -100,7 +108,7 @@ public class GameFilterHelper
 
         foreach (string item in items)
         {
-            _categoryPanels[category].Children.Add(new CheckBox { Content = item });
+            _categoryPanels[category].Children.Add(new CheckBox { Content = item, Command = _viewModel.FilterGameTableCommand });
         }
     }
 
@@ -118,5 +126,32 @@ public class GameFilterHelper
             .Where(i => i != null && !string.IsNullOrWhiteSpace(i.Name))
             .Select(i => i!.Name)
             .OrderBy(n => n);
+    }
+
+    public Dictionary<string, List<string>> GetCheckedFilters()
+    {
+        Dictionary<string, List<string>> checkedFilters = new()
+        {
+            ["Date"] = [],
+            ["Developer"] = [],
+            ["Publisher"] = []
+        };
+
+        foreach (KeyValuePair<string, StackPanel> categoryPanel in _categoryPanels)
+        {
+            string category = categoryPanel.Key;
+            StackPanel panel = categoryPanel.Value;
+
+            foreach (object? child in panel.Children)
+            {
+                if (child is CheckBox { IsChecked: true } checkBox)
+                {
+                    checkedFilters[category].Add(checkBox.Content.ToString());
+                }
+            }
+        }
+
+        return checkedFilters.Where(kvp => kvp.Value.Count > 0)
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }

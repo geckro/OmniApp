@@ -18,11 +18,10 @@ public partial class GameManagerWindow
 
     public GameManagerWindow(IServiceProvider sp)
     {
-        Logger.Info(LogClass.GameMgrUi, "Starting GameManager Window");
-
         InitializeComponent();
 
         _viewModel = sp.GetRequiredService<MainGameWindowViewModel>();
+
         DataContext = _viewModel;
 
         _contextMenuManager = new MainWindowContextMenuManager(this, _viewModel);
@@ -60,5 +59,10 @@ public partial class GameManagerWindow
     private void RegisterKeyboardShortcuts()
     {
         InputBindings.Add(new KeyBinding(_viewModel.AddGameCommand, new KeyGesture(Key.N, ModifierKeys.Control)));
+    }
+
+    public void SetFilter(GameFilterHelper gameFilterHelper)
+    {
+        _viewModel.SetFilter(gameFilterHelper);
     }
 }

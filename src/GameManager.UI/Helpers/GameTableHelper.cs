@@ -163,6 +163,11 @@ public class GameTableHelper(
             }
         };
     }
+
+    public async Task FilterGameTableAsync(GameFilterHelper filterHelper)
+    {
+        filterHelper.GetCheckedFilters();
+    }
 }
 
 public class AsyncCollectionToStringConverter<T>(MetadataAccessor<T> accessor) : IValueConverter

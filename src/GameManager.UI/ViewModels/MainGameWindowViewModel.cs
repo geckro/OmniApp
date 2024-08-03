@@ -19,6 +19,7 @@ public class MainGameWindowViewModel : ViewModelBase
     private readonly MetadataAccessor<Game> _metadataAccessor;
     private readonly WindowHelper _windowHelper;
     private readonly Refresh _refresh;
+    private GameFilterHelper _filterHelper;
 
     public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
     {
@@ -41,6 +42,13 @@ public class MainGameWindowViewModel : ViewModelBase
     public ICommand MarkAsCompletedCommand { get; private set; }
     public ICommand EditCommand { get; private set; }
     public ICommand DeleteCommand { get; private set; }
+    public ICommand FilterGameTableCommand { get; private set; }
+
+    public void SetFilter(GameFilterHelper filterHelper)
+    {
+        _filterHelper = filterHelper;
+        _filterHelper.SetViewModel(this);
+    }
 
     private void InitializeCommands()
     {
@@ -55,6 +63,8 @@ public class MainGameWindowViewModel : ViewModelBase
         MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasCompleted"));
         EditCommand = new RelayCommand<Game>(Edit);
         DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
+
+        FilterGameTableCommand = new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
     }
 
     public async Task InitializeAsync(DataGrid gameDataGrid)
