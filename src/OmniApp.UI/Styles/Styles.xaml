@@ -52,11 +52,6 @@
       <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="Padding" Value="2" />
       </Style>
-      <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="Margin" Value="2" />
-        <Setter Property="Padding" Value="5" />
-        <Setter Property="FontSize" Value="14" />
-      </Style>
       <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseControlStyle}" />
       <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource BaseControlStyle}" />
     </Style.Resources>
