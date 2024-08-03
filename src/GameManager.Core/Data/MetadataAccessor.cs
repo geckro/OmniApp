@@ -97,6 +97,11 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         return LoadMetadataCollection().FirstOrDefault(item => item.Id == id);
     }
 
+    public Guid? GetIdByName(string name)
+    {
+        return LoadMetadataCollection().FirstOrDefault(item => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.Id;
+    }
+
     public string? GetTagValueOrKey(Guid id, string? key, object? value)
     {
         T? item = GetItemById(id);
