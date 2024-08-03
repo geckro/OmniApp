@@ -36,13 +36,13 @@ public static class Services
     {
         // OmniApp
         sv.AddScoped<MainWindowViewModel>();
-        sv.AddScoped<WindowHelper, WindowHelper>();
+        sv.AddScoped<WindowHelper>();
 
         // GameManager
         sv.AddScoped<MainGameWindowViewModel>();
         sv.AddScoped<EditEntryViewModel>();
-        sv.AddScoped<GameTableHelper, GameTableHelper>();
-        sv.AddScoped<FileHelper, FileHelper>();
+        sv.AddScoped<GameTableHelper>();
+        sv.AddScoped<FileHelper>();
         sv.AddScoped<MetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<MetadataPersistence>(), "games.json"));
         sv.AddScoped<MetadataAccessor<Genre>>(sp => new MetadataAccessor<Genre>(sp.GetRequiredService<MetadataPersistence>(), "genres.json"));
         sv.AddScoped<MetadataAccessor<Developer>>(sp => new MetadataAccessor<Developer>(sp.GetRequiredService<MetadataPersistence>(), "developers.json"));
@@ -80,7 +80,7 @@ public static class Services
     private static void AddSingletonServices(IServiceCollection sv)
     {
         // GameManager
-        sv.AddSingleton<MetadataPersistence, MetadataPersistence>();
-        sv.AddSingleton<MetadataAccessorFactory, MetadataAccessorFactory>();
+        sv.AddSingleton<MetadataPersistence>();
+        sv.AddSingleton<MetadataAccessorFactory>();
     }
 }
