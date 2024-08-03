@@ -28,9 +28,9 @@ public class GameFilterHelper
 
         _categoryPanels = new Dictionary<string, StackPanel>
         {
-            ["Date"] = CreateCategoryPanel("Release Date"),
-            ["Developer"] = CreateCategoryPanel("Developers"),
-            ["Publisher"] = CreateCategoryPanel("Publishers")
+            ["ReleaseDateWw"] = CreateCategoryPanel("Release Date"),
+            ["Developers"] = CreateCategoryPanel("Developers"),
+            ["Publishers"] = CreateCategoryPanel("Publishers")
         };
     }
 
@@ -100,9 +100,9 @@ public class GameFilterHelper
     {
         IEnumerable<string> items = category switch
         {
-            "Date" => GetYearItems(),
-            "Developer" => GetNamedItems(_data.Where(g => g.Developers != null).SelectMany(g => g.Developers!).Select(d => d.Id).Distinct(), _developerAccessor),
-            "Publisher" => GetNamedItems(_data.Where(g => g.Publishers != null).SelectMany(g => g.Publishers!).Select(p => p.Id).Distinct(), _publisherAccessor),
+            "ReleaseDateWw" => GetYearItems(),
+            "Developers" => GetNamedItems(_data.Where(g => g.Developers != null).SelectMany(g => g.Developers!).Select(d => d.Id).Distinct(), _developerAccessor),
+            "Publishers" => GetNamedItems(_data.Where(g => g.Publishers != null).SelectMany(g => g.Publishers!).Select(p => p.Id).Distinct(), _publisherAccessor),
             _ => throw new ArgumentException($"Invalid category: {category}")
         };
 
@@ -132,9 +132,9 @@ public class GameFilterHelper
     {
         Dictionary<string, List<string>> checkedFilters = new()
         {
-            ["Date"] = [],
-            ["Developer"] = [],
-            ["Publisher"] = []
+            ["ReleaseDateWw"] = [],
+            ["Developers"] = [],
+            ["Publishers"] = []
         };
 
         foreach (KeyValuePair<string, StackPanel> categoryPanel in _categoryPanels)

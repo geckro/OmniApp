@@ -166,7 +166,42 @@ public class GameTableHelper(
 
     public async Task FilterGameTableAsync(GameFilterHelper filterHelper)
     {
-        filterHelper.GetCheckedFilters();
+        Dictionary<string, List<string>> checkedFilters = filterHelper.GetCheckedFilters();
+
+        IEnumerable<Game> filteredRows = await Task.Run(() =>
+        {
+            return _games.Where(game =>
+            {
+                foreach ((string key, List<string> values) in checkedFilters)
+                {
+                    bool isMatch = key switch
+                    {
+                        "ReleaseDateWw" => game.ReleaseDateWw.HasValue && values.Contains(game.ReleaseDateWw.Value.Year.ToString()),
+                        "Developers" => game.Developers != null && game.Developers.Any(dev => values.Contains(developerAccessor.GetItemById(dev.Id)?.Name ?? string.Empty)),
+                        "Publishers" => game.Publishers != null && game.Publishers.Any(pub => values.Contains(publisherAccessor.GetItemById(pub.Id)?.Name ?? string.Empty)),
+                        _ => true
+                    };
+
+                    if (!isMatch)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        });
+
+        _dataGrid.ItemsSource = filteredRows.ToList();
+    }
+
+    private IEnumerable<Game> GetAllGameTableRows()
+    {
+        if (_dataGrid.ItemsSource is IEnumerable<Game> games)
+        {
+            return games;
+        }
+
+        return [];
     }
 }
 
