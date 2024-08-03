@@ -28,30 +28,34 @@ public class MainGameWindowViewModel : ViewModelBase
 
         _refresh = new Refresh(_gameTableHelper);
 
+        InitializeCommands();
+    }
+
+    public ICommand AddGameCommand { get; private set; }
+    public ICommand RefreshDataGridCommand { get; private set; }
+    public ICommand OpenGamesJsonCommand { get; private set; }
+    public ICommand OpenPreferencesCommand { get; private set; }
+    public ICommand PickRandomGameCommand { get; private set; }
+    public ICommand MarkAsPlayedCommand { get; private set; }
+    public ICommand MarkAsFinishedCommand { get; private set; }
+    public ICommand MarkAsCompletedCommand { get; private set; }
+    public ICommand EditCommand { get; private set; }
+    public ICommand DeleteCommand { get; private set; }
+
+    private void InitializeCommands()
+    {
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
         RefreshDataGridCommand = new RelayCommand<object>(async _ => await _refresh.RefreshControls(RefreshOptions.DataGrid));
         OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
         PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
 
-        MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsPlayed(game));
-        MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsFinished(game));
-        MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsCompleted(game));
+        MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasPlayed"));
+        MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasFinished"));
+        MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasCompleted"));
         EditCommand = new RelayCommand<Game>(Edit);
         DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
     }
-
-    public ICommand AddGameCommand { get; }
-    public ICommand RefreshDataGridCommand { get; }
-    public ICommand OpenGamesJsonCommand { get; }
-    public ICommand OpenPreferencesCommand { get; }
-    public ICommand PickRandomGameCommand { get; }
-
-    public ICommand MarkAsPlayedCommand { get; }
-    public ICommand MarkAsFinishedCommand { get; }
-    public ICommand MarkAsCompletedCommand { get; }
-    public ICommand EditCommand { get; }
-    public ICommand DeleteCommand { get; }
 
     public async Task InitializeAsync(DataGrid gameDataGrid)
     {
@@ -61,28 +65,24 @@ public class MainGameWindowViewModel : ViewModelBase
     private void AddGame()
     {
         AddGame addGameWindow = _windowHelper.ShowWindow<AddGame>();
-
-        addGameWindow.GameAdded += async (_, _) =>
-        {
-            await _refresh.RefreshControls(RefreshOptions.DataGrid);
-        };
+        addGameWindow.GameAdded += async (_, _) => await _refresh.RefreshControls(RefreshOptions.DataGrid);
     }
 
     private void PickRandomGame()
     {
-        ICollection<string> visibleGames = _gameTableHelper.GetAllVisibleDataGridRowTitle();
+        List<string> visibleGames = _gameTableHelper.GetAllVisibleDataGridRowTitle().ToList();
 
         if (visibleGames.Count == 0)
         {
             Logger.Error(LogClass.GameMgrUi, "There are no games in the games table.");
+            MessageBox.Show("There are no visible games in the table to choose from.", "Game Picker", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-        List<string> visibleGamesList = visibleGames.ToList();
 
         Random random = new();
-        string randomGame = visibleGamesList[random.Next(visibleGames.Count)];
+        string randomGame = visibleGames[random.Next(visibleGames.Count)];
 
-        MessageBox.Show(randomGame);
+        MessageBox.Show($"Random game picked: {randomGame}", "Random Game", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void Preferences()
@@ -90,32 +90,14 @@ public class MainGameWindowViewModel : ViewModelBase
         _windowHelper.ShowWindow<GameManagerPreferences>();
     }
 
-    private async Task MarkAsPlayed(Game game)
-    {
-        await MarkAsTrueFalse(game, "HasPlayed");
-    }
-
-    private async Task MarkAsFinished(Game game)
-    {
-        await MarkAsTrueFalse(game, "HasFinished");
-    }
-
-    private async Task MarkAsCompleted(Game game)
-    {
-        await MarkAsTrueFalse(game, "HasCompleted");
-    }
-
     private async Task MarkAsTrueFalse(Game game, string key)
     {
         PropertyInfo property = game.GetType().GetProperty(key) ?? throw new InvalidOperationException();
-        bool trueOrFalse = (bool?)property.GetValue(game) switch
-        {
-            true => false,
-            false or null => true
-        };
-        property.SetValue(game, trueOrFalse);
+        bool? currentValue = (bool?)property.GetValue(game);
+        bool newValue = !currentValue ?? true;
+        property.SetValue(game, newValue);
 
-        _metadataAccessor.UpdateItemAndSave(game.Id, key, trueOrFalse);
+        _metadataAccessor.UpdateItemAndSave(game.Id, key, newValue);
         await _refresh.RefreshControls(RefreshOptions.DataGrid);
     }
 
@@ -129,9 +111,9 @@ public class MainGameWindowViewModel : ViewModelBase
 
         _windowHelper.ShowWindow<EditEntry>(window =>
         {
-            if (window is EditEntry editEntry)
+            if (window is EditEntry)
             {
-                editEntry.SetGame(game);
+                window.SetGame(game);
             }
             else
             {
@@ -142,7 +124,11 @@ public class MainGameWindowViewModel : ViewModelBase
 
     private async Task Delete(Game game)
     {
-        _metadataAccessor.RemoveItemById(game.Id);
-        await _refresh.RefreshControls(RefreshOptions.DataGrid);
+        MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete '{game.Title}'?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (result == MessageBoxResult.Yes)
+        {
+            _metadataAccessor.RemoveItemById(game.Id);
+            await _refresh.RefreshControls(RefreshOptions.DataGrid);
+        }
     }
 }

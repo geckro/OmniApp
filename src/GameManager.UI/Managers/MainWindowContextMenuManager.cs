@@ -1,5 +1,6 @@
 ﻿using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
+using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,20 +10,30 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Managers;
 
-public class MainWindowContextMenuManager(GameManagerWindow mainWindow, MainGameWindowViewModel viewModel)
+public class MainWindowContextMenuManager
 {
+    private readonly GameManagerWindow _mainWindow;
+    private readonly MainGameWindowViewModel _viewModel;
+
+    public MainWindowContextMenuManager(GameManagerWindow mainWindow, MainGameWindowViewModel viewModel)
+    {
+        _mainWindow = mainWindow;
+        _viewModel = viewModel;
+    }
+
     public void PopulateDataGridContextMenu()
     {
         ContextMenu contextMenu = new();
 
-        AddMenuItem(contextMenu, "Mark as played", viewModel.MarkAsPlayedCommand, true);
-        AddMenuItem(contextMenu, "Mark as finished", viewModel.MarkAsFinishedCommand, true);
-        AddMenuItem(contextMenu, "Mark as completed", viewModel.MarkAsCompletedCommand, true);
-        AddMenuItem(contextMenu, "Edit", viewModel.EditCommand, false);
-        AddMenuItem(contextMenu, "Delete", viewModel.DeleteCommand, false);
+        AddMenuItem(contextMenu, "Mark as played", _viewModel.MarkAsPlayedCommand, true);
+        AddMenuItem(contextMenu, "Mark as finished", _viewModel.MarkAsFinishedCommand, true);
+        AddMenuItem(contextMenu, "Mark as completed", _viewModel.MarkAsCompletedCommand, true);
+        contextMenu.Items.Add(new Separator());
+        AddMenuItem(contextMenu, "Edit", _viewModel.EditCommand, false);
+        AddMenuItem(contextMenu, "Delete", _viewModel.DeleteCommand, false);
 
-        mainWindow.GameDataGrid.ContextMenu = contextMenu;
-        mainWindow.GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
+        _mainWindow.GameDataGrid.ContextMenu = contextMenu;
+        _mainWindow.GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
     }
 
     private static void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
@@ -34,38 +45,31 @@ public class MainWindowContextMenuManager(GameManagerWindow mainWindow, MainGame
 
     private void GameDataGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
-        if (e.OriginalSource is DependencyObject source)
+        if (e.OriginalSource is not DependencyObject source)
         {
-            if (source is ScrollViewer)
-            {
-                e.Handled = true;
-                return;
-            }
+            e.Handled = true;
+            return;
+        }
 
-            DataGridColumnHeader? dataGridColumn = FindAncestor<DataGridColumnHeader>(source);
-            if (dataGridColumn != null)
-            {
-                e.Handled = true;
-                return;
-            }
+        if (source is ScrollViewer || FindAncestor<DataGridColumnHeader>(source) != null)
+        {
+            e.Handled = true;
+            return;
+        }
 
-            DataGridRow? dataGridRow = FindAncestor<DataGridRow>(source);
-            if (dataGridRow != null)
+        DataGridRow? dataGridRow = FindAncestor<DataGridRow>(source);
+        if (dataGridRow != null)
+        {
+            if (_mainWindow.GameDataGrid.ContextMenu != null)
             {
-                if (mainWindow.GameDataGrid.ContextMenu != null)
+                foreach (MenuItem item in _mainWindow.GameDataGrid.ContextMenu.Items.OfType<MenuItem>())
                 {
-                    foreach (MenuItem item in mainWindow.GameDataGrid.ContextMenu.Items)
-                    {
-                        item.DataContext = dataGridRow.DataContext;
-                    }
-                }
-                else
-                {
-                    throw new Exception("ContextMenu is null");
+                    item.DataContext = dataGridRow.DataContext;
                 }
             }
             else
             {
+                Logger.Error(LogClass.GameMgrUi, "ContextMenu is null");
                 e.Handled = true;
             }
         }

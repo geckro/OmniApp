@@ -6,7 +6,6 @@ using GameManager.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
@@ -14,50 +13,52 @@ namespace GameManager.UI.Windows;
 public partial class GameManagerWindow
 {
     private readonly MainGameWindowViewModel _viewModel;
+    private readonly MainWindowContextMenuManager _contextMenuManager;
+    private readonly GameFilterHelper _filterHelper;
 
     public GameManagerWindow(IServiceProvider sp)
     {
-        Logger.Info(LogClass.GameMgrUi, "Starting GameManagerWindow");
-
-        _viewModel = sp.GetRequiredService<MainGameWindowViewModel>();
+        Logger.Info(LogClass.GameMgrUi, "Starting GameManager Window");
 
         InitializeComponent();
+
+        _viewModel = sp.GetRequiredService<MainGameWindowViewModel>();
         DataContext = _viewModel;
 
-        MainWindowContextMenuManager contextMenuManager = new(this, _viewModel);
-        contextMenuManager.PopulateDataGridContextMenu();
-
-        GameFilterHelper filterHelper = new(
+        _contextMenuManager = new MainWindowContextMenuManager(this, _viewModel);
+        _filterHelper = new GameFilterHelper(
             this,
             sp.GetRequiredService<MetadataAccessor<Game>>(),
             sp.GetRequiredService<MetadataAccessor<Developer>>(),
             sp.GetRequiredService<MetadataAccessor<Publisher>>()
-            );
-        filterHelper.PopulateFilterMenus();
+        );
 
-        InitializeAsync();
+        Loaded += OnWindowLoaded;
     }
 
-    private async void InitializeAsync()
+    private async void OnWindowLoaded(object sender, RoutedEventArgs e)
     {
         try
         {
-            Logger.Info(LogClass.GameMgrUi, "Initializing GameManagerWindow");
-            await _viewModel.InitializeAsync(GameDataGrid);
-            RegisterKeyboardShortcuts();
+            Logger.Info(LogClass.GameMgrUi, "Initializing GameManager Window");
+            await InitializeAsync();
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error initializing GameManagerWindow: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUi, $"Error initializing GameManager Window: {ex.Message}");
         }
+    }
+
+    private async Task InitializeAsync()
+    {
+        await _viewModel.InitializeAsync(GameDataGrid);
+        _contextMenuManager.PopulateDataGridContextMenu();
+        _filterHelper.PopulateFilterMenus();
+        RegisterKeyboardShortcuts();
     }
 
     private void RegisterKeyboardShortcuts()
     {
-        RoutedCommand command = new();
-        command.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
-        CommandBinding binding = new(command, (_, _) => AddButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent)));
-        CommandBindings.Add(binding);
-        InputBindings.Add(new InputBinding(command, new KeyGesture(Key.N, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.AddGameCommand, new KeyGesture(Key.N, ModifierKeys.Control)));
     }
 }
