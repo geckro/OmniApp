@@ -19,7 +19,7 @@ public class MainGameWindowViewModel : ViewModelBase
     private readonly MetadataAccessor<Game> _metadataAccessor;
     private readonly WindowHelper _windowHelper;
     private readonly Refresh _refresh;
-    private GameFilterHelper _filterHelper;
+    private GameFilterHelper _filterHelper = null!;
 
     public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
     {
@@ -32,17 +32,17 @@ public class MainGameWindowViewModel : ViewModelBase
         InitializeCommands();
     }
 
-    public ICommand AddGameCommand { get; private set; }
-    public ICommand RefreshDataGridCommand { get; private set; }
-    public ICommand OpenGamesJsonCommand { get; private set; }
-    public ICommand OpenPreferencesCommand { get; private set; }
-    public ICommand PickRandomGameCommand { get; private set; }
-    public ICommand MarkAsPlayedCommand { get; private set; }
-    public ICommand MarkAsFinishedCommand { get; private set; }
-    public ICommand MarkAsCompletedCommand { get; private set; }
-    public ICommand EditCommand { get; private set; }
-    public ICommand DeleteCommand { get; private set; }
-    public ICommand FilterGameTableCommand { get; private set; }
+    public ICommand AddGameCommand { get; private set; } = null!;
+    public ICommand RefreshDataGridCommand { get; private set; } = null!;
+    public ICommand OpenGamesJsonCommand { get; private set; } = null!;
+    public ICommand OpenPreferencesCommand { get; private set; } = null!;
+    public ICommand PickRandomGameCommand { get; private set; } = null!;
+    public ICommand MarkAsPlayedCommand { get; private set; } = null!;
+    public ICommand MarkAsFinishedCommand { get; private set; } = null!;
+    public ICommand MarkAsCompletedCommand { get; private set; } = null!;
+    public ICommand EditCommand { get; private set; } = null!;
+    public ICommand DeleteCommand { get; private set; } = null!;
+    public ICommand FilterGameTableCommand { get; private set; } = null!;
 
     public void SetFilter(GameFilterHelper filterHelper)
     {

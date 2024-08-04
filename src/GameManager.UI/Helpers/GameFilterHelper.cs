@@ -18,7 +18,7 @@ public class GameFilterHelper
     private readonly MetadataAccessor<Genre> _genreAccessor;
     private readonly MetadataAccessor<Platform> _platformAccessor;
     private readonly MetadataAccessor<Series> _seriesAccessor;
-    private MainGameWindowViewModel _viewModel;
+    private MainGameWindowViewModel _viewModel = null!;
 
     public GameFilterHelper(GameManagerWindow mainWindow, MetadataAccessor<Game> data, MetadataAccessor<Developer> developerData, MetadataAccessor<Publisher> publisherData, MetadataAccessor<Genre> genreData,
         MetadataAccessor<Platform> platformData, MetadataAccessor<Series> seriesData)
@@ -181,7 +181,7 @@ public class GameFilterHelper
             {
                 if (child is CheckBox { IsChecked: true } checkBox)
                 {
-                    checkedFilters[category].Add(checkBox.Content.ToString());
+                    checkedFilters[category].Add(checkBox.Content.ToString()!);
                 }
             }
         }
