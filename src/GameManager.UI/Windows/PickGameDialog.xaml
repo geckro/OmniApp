@@ -1,0 +1,24 @@
+﻿<Window
+  x:Class="GameManager.UI.Windows.PickGameDialog"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  mc:Ignorable="d"
+  Title="Pick game..."
+  SizeToContent="Height"
+  Height="200" Width="300">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0">
+      <ListBox x:Name="GameListBox" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Button Content="Cancel" Command="{Binding CancelCommand}"/>
+      <Button Content="Ok" Command="{Binding OkCommand}" />
+    </StackPanel>
+  </Grid>
+</Window>

@@ -72,4 +72,10 @@
   <Style TargetType="{x:Type gameWindows:GameManagerPreferences}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
+  <Style TargetType="{x:Type gameWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseGameWindowStyle}">
+    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
+  </Style>
+  <Style TargetType="{x:Type gameWindows:PickGameDialog}" BasedOn="{StaticResource BaseGameWindowStyle}">
+    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
+  </Style>
 </ResourceDictionary>

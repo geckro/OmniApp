@@ -5,24 +5,37 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
-  Title="Rename title..."
+  Title="Add new tag..."
   SizeToContent="Height"
-  Height="230" Width="240">
+  Height="200" Width="500">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
-      <RowDefinition />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="0">
-        <Label Content="Tag Key: " />
-        <TextBox x:Name="TagKeyTextBox" MinWidth="150"/>
+      <Label Content="Tag Key: " />
+      <TextBox x:Name="TagKeyTextBox" MinWidth="150" />
 
-        <Label Content="Tag Values: " />
-        <TextBox x:Name="TagValuesTextBox" MinWidth="150"/>
-
-        <Label Content="Separate the values with ;"/>
+      <StackPanel Orientation="Horizontal">
+        <StackPanel>
+          <Label Content="Yes or No" />
+          <CheckBox x:Name="YesCheckBox" Content="Yes" Checked="CheckBox_IsEitherChecked" Unchecked="CheckBox_IsEitherChecked" />
+          <CheckBox x:Name="NoCheckBox" Content="No" Checked="CheckBox_IsEitherChecked" Unchecked="CheckBox_IsEitherChecked" />
+        </StackPanel>
+        <StackPanel>
+          <Label Content="Tag Text Values: " />
+          <TextBox x:Name="TagValuesTextBox" MinWidth="150" TextChanged="TagValuesTextBox_OnTextChanged" />
+          <Label Content="Separate the values with ;" />
+        </StackPanel>
+        <StackPanel>
+          <Label Content="Linked Game: " />
+          <Button Content="Pick game..." Command="{Binding PickGameCommand}" />
+          <TextBlock Text="No game selected"/>
+        </StackPanel>
+      </StackPanel>
     </StackPanel>
-    <StackPanel Grid.Row="1">
+    <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
       <Button Click="AddNewTag_OnClick" Content="Add" />
     </StackPanel>
   </Grid>
