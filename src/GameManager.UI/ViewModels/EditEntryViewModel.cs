@@ -1,8 +1,8 @@
 ﻿using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
-using OmniApp.UiCommon;
-using OmniApp.UiCommon.Helpers;
+using OmniApp.UI.Common;
+using OmniApp.UI.Common.Helpers;
 using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;

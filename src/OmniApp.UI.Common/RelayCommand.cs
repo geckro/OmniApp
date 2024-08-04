@@ -1,7 +1,7 @@
 ﻿using OmniApp.Common.Logging;
 using System.Windows.Input;
 
-namespace OmniApp.UiCommon;
+namespace OmniApp.UI.Common;
 
 public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null) : ICommand
 {

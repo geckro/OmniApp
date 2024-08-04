@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.UI", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpReferences.Core", "src\CSharpReferences.Core\CSharpReferences.Core.csproj", "{46813335-30AB-4B86-9D47-F36FA897554F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniApp.UiCommon", "src\OmniApp.UiCommon\OmniApp.UiCommon.csproj", "{DE6FB094-4CEF-40B6-B1B1-2ECE083FD6EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniApp.UI.Common", "src\OmniApp.UI.Common\OmniApp.UI.Common.csproj", "{DE6FB094-4CEF-40B6-B1B1-2ECE083FD6EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

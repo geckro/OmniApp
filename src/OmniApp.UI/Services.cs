@@ -7,7 +7,7 @@ using GameManager.UI.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.UI.ViewModels;
 using OmniApp.UI.Windows;
-using OmniApp.UiCommon.Helpers;
+using OmniApp.UI.Common.Helpers;
 
 namespace OmniApp.UI;
 

@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GameManager.Core\GameManager.Core.csproj"/>
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
-    <ProjectReference Include="..\OmniApp.UiCommon\OmniApp.UiCommon.csproj"/>
+    <ProjectReference Include="..\OmniApp.UI.Common\OmniApp.UI.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\"/>
