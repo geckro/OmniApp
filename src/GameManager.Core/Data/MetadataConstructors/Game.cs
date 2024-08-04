@@ -71,7 +71,7 @@ public class Game() : IMetadata
     /// <summary>
     ///     Miscellaneous user-made tags
     /// </summary>
-    public Dictionary<string, object>? Tags { get; set; }
+    public Dictionary<string, ICollection<string>>? Tags { get; set; }
 
     public required Guid Id { get; init; }
 

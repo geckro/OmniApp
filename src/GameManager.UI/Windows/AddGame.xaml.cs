@@ -101,7 +101,8 @@ public partial class AddGame
             Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
             ReleaseDateWw = Date.SelectedDate,
             CreatedOn = currentTime,
-            LastUpdated = currentTime
+            LastUpdated = currentTime,
+            Tags = new Dictionary<string, ICollection<string>>() // not actually used
         };
 
         MetadataAccessor<Game> gameMetadataAccessor = _metadataAccessorFactory.CreateMetadataAccessor<Game>();

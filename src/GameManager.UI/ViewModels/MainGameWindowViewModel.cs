@@ -41,6 +41,7 @@ public class MainGameWindowViewModel : ViewModelBase
     public ICommand MarkAsFinishedCommand { get; private set; } = null!;
     public ICommand MarkAsCompletedCommand { get; private set; } = null!;
     public ICommand EditCommand { get; private set; } = null!;
+    public ICommand EditTagsCommand { get; private set; } = null!;
     public ICommand DeleteCommand { get; private set; } = null!;
     public ICommand FilterGameTableCommand { get; private set; } = null!;
 
@@ -62,6 +63,7 @@ public class MainGameWindowViewModel : ViewModelBase
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasFinished"));
         MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasCompleted"));
         EditCommand = new RelayCommand<Game>(Edit);
+        EditTagsCommand = new RelayCommand<Game>(EditTags);
         DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
 
         FilterGameTableCommand = new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
@@ -115,7 +117,7 @@ public class MainGameWindowViewModel : ViewModelBase
     {
         if (game == null)
         {
-            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game");
+            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game in Edit");
             return;
         }
 
@@ -132,12 +134,33 @@ public class MainGameWindowViewModel : ViewModelBase
         });
     }
 
+    private void EditTags(Game? game)
+    {
+        if (game == null)
+        {
+            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game in EditTags");
+            return;
+        }
+
+        _windowHelper.ShowWindow<EditEntryTags>(window =>
+        {
+            if (window is EditEntryTags)
+            {
+                window.SetGame(game);
+            }
+            else
+            {
+                Logger.Error(LogClass.GameMgrUi, $"Expected EditEntryTags window, got {window.GetType().Name}");
+            }
+        });
+    }
+
     private async Task Delete(Game game)
     {
         MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete '{game.Title}'?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (result == MessageBoxResult.Yes)
         {
-            _metadataAccessor.RemoveItemById(game.Id);
+            _metadataAccessor.RemoveItem(game);
             await _refresh.RefreshControls(RefreshOptions.DataGrid);
         }
     }

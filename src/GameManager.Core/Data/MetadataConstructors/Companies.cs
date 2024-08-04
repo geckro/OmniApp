@@ -7,7 +7,7 @@ namespace GameManager.Core.Data.MetadataConstructors;
 /// </summary>
 public class Developer : IMetadata
 {
-    public Dictionary<string, object>? Tags { get; init; }
+    public Dictionary<string, ICollection<string>>? Tags { get; set; }
     public required Guid Id { get; init; }
     public string Name { get; init; } = null!;
     [JsonIgnore] public string JsonFile => "developers.json";
@@ -18,7 +18,7 @@ public class Developer : IMetadata
 /// </summary>
 public class Publisher : IMetadata
 {
-    public Dictionary<string, object>? Tags { get; init; }
+    public Dictionary<string, ICollection<string>>? Tags { get; set; }
     public required Guid Id { get; init; }
     public string Name { get; init; } = null!;
     [JsonIgnore] public string JsonFile => "publishers.json";

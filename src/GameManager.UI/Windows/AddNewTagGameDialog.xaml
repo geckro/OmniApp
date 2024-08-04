@@ -1,0 +1,29 @@
+﻿<Window
+  x:Class="GameManager.UI.Windows.AddNewTagGameDialog"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  mc:Ignorable="d"
+  Title="Rename title..."
+  SizeToContent="Height"
+  Height="230" Width="240">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0">
+        <Label Content="Tag Key: " />
+        <TextBox x:Name="TagKeyTextBox" MinWidth="150"/>
+
+        <Label Content="Tag Values: " />
+        <TextBox x:Name="TagValuesTextBox" MinWidth="150"/>
+
+        <Label Content="Separate the values with ;"/>
+    </StackPanel>
+    <StackPanel Grid.Row="1">
+      <Button Click="AddNewTag_OnClick" Content="Add" />
+    </StackPanel>
+  </Grid>
+</Window>

@@ -59,7 +59,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     public void UpdateItemAndSave(Guid id, string key, object? value)
     {
         ICollection<T> existingData = LoadMetadataCollection();
-        T? itemToUpdate = existingData.FirstOrDefault(item => item.Id == id);
+        T? itemToUpdate = GetItemById(id);
         if (itemToUpdate == null)
         {
             Logger.Warning(LogClass.GameMgrCore, $"Item with id '{id}' not found.");
@@ -122,7 +122,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
             return item.Tags.FirstOrDefault(tag => tag.Value.ToString() == value.ToString()).Key;
         }
 
-        if (key != null && item.Tags.TryGetValue(key, out object? result))
+        if (key != null && item.Tags.TryGetValue(key, out ICollection<string>? result))
         {
             return result.ToString();
         }
@@ -135,17 +135,23 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     ///     Removes the metadata item with the specified identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the metadata item to remove.</param>
-    public void RemoveItemById(Guid id)
+    public void RemoveItem(Guid id)
     {
-        ICollection<T> existingData = LoadMetadataCollection();
-        T? itemToRemove = existingData.FirstOrDefault(item => item.Id == id);
+        T? itemToRemove = GetItemById(id);
 
         if (itemToRemove == null)
         {
             return;
         }
 
-        existingData.Remove(itemToRemove);
+        RemoveItem(itemToRemove);
+    }
+
+    public void RemoveItem(T item)
+    {
+        ICollection<T> existingData = LoadMetadataCollection();
+
+        existingData.Remove(item);
         SaveMetadataCollection(existingData);
     }
 
@@ -159,5 +165,44 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         }
 
         return properties;
+    }
+
+    public void AddTagToMetadata(Guid id, Dictionary<string, ICollection<string>> tagToAdd)
+    {
+        T? item = GetItemById(id);
+
+        if (item == null)
+        {
+            Logger.Error(LogClass.GameMgrCore, $"Item with id '{id}' not found.");
+            return;
+        }
+
+        AddTagToMetadata(item, tagToAdd);
+    }
+
+    public void AddTagToMetadata(T item, Dictionary<string, ICollection<string>> tagToAdd)
+    {
+        item.Tags ??= new Dictionary<string, ICollection<string>>();
+
+        foreach ((string key, ICollection<string> values) in tagToAdd)
+        {
+            Logger.Debug(LogClass.GameMgrCore, $"Metadata tag key: {key}, Metadata tag values: {string.Join(";", values)}");
+            if (!item.Tags.TryGetValue(key, out ICollection<string>? existingValues))
+            {
+                item.Tags[key] = new List<string>(values);
+            }
+            else
+            {
+                foreach (string value in values)
+                {
+                    if (!existingValues.Contains(value))
+                    {
+                        existingValues.Add(value);
+                    }
+                }
+            }
+        }
+
+        UpdateItemAndSave(item.Id, "Tags", item.Tags);
     }
 }

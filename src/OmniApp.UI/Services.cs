@@ -41,6 +41,7 @@ public static class Services
         // GameManager
         sv.AddScoped<MainGameWindowViewModel>();
         sv.AddScoped<EditEntryViewModel>();
+        sv.AddScoped<EditEntryTagsViewModel>();
         sv.AddScoped<GameTableHelper>();
         sv.AddScoped<FileHelper>();
         sv.AddScoped<MetadataAccessor<Game>>(sp => new MetadataAccessor<Game>(sp.GetRequiredService<MetadataPersistence>(), "games.json"));
@@ -66,7 +67,9 @@ public static class Services
         sv.AddTransient<GameManagerPreferences>();
         sv.AddTransient<AddGame>();
         sv.AddTransient<EditEntry>();
+        sv.AddTransient<EditEntryTags>();
         sv.AddTransient<RenameDialog>();
+        sv.AddTransient<AddNewTagGameDialog>();
 
         // FinanceManager
         sv.AddTransient<FinanceManagerWindow>();

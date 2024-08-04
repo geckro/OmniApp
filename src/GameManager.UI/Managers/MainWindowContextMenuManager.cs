@@ -30,6 +30,7 @@ public class MainWindowContextMenuManager
         AddMenuItem(contextMenu, "Mark as completed", _viewModel.MarkAsCompletedCommand, true);
         contextMenu.Items.Add(new Separator());
         AddMenuItem(contextMenu, "Edit", _viewModel.EditCommand, false);
+        AddMenuItem(contextMenu, "Edit Tags", _viewModel.EditTagsCommand, false);
         AddMenuItem(contextMenu, "Delete", _viewModel.DeleteCommand, false);
 
         _mainWindow.GameDataGrid.ContextMenu = contextMenu;

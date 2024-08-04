@@ -66,6 +66,9 @@
   <Style TargetType="{x:Type gameWindows:EditEntry}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
+  <Style TargetType="{x:Type gameWindows:EditEntryTags}" BasedOn="{StaticResource BaseGameWindowStyle}">
+    <Setter Property="Background" Value="{DynamicResource BlueBase}" />
+  </Style>
   <Style TargetType="{x:Type gameWindows:GameManagerPreferences}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
