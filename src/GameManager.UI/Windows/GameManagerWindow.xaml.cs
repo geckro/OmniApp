@@ -62,6 +62,10 @@ public partial class GameManagerWindow
     private void RegisterKeyboardShortcuts()
     {
         InputBindings.Add(new KeyBinding(_viewModel.AddGameCommand, new KeyGesture(Key.N, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.RefreshDataGridCommand, new KeyGesture(Key.R, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.RefreshDataGridCommand, new KeyGesture(Key.F5)));
+        InputBindings.Add(new KeyBinding(_viewModel.PickRandomGameCommand, new KeyGesture(Key.T, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.OpenPreferencesCommand, new KeyGesture(Key.OemPeriod, ModifierKeys.Control)));
     }
 
     public void SetFilter(GameFilterHelper gameFilterHelper)
