@@ -54,6 +54,8 @@ public class GameTableHelper(
         try
         {
             _games = await Task.Run(() => gameAccessor.LoadMetadataCollection(forceRefresh: true));
+            await AnimateOpacityAsync(1.0, 0.5, 50);
+
             _dataGrid.ItemsSource = null;
             _dataGrid.ItemsSource = _games;
 
@@ -65,11 +67,29 @@ public class GameTableHelper(
             {
                 Logger.Warning(LogClass.GameMgrUi, "Game DataGrid did not refresh properly as ItemsSource is null.");
             }
+
+            await Task.Delay(250);
+            await AnimateOpacityAsync(0.5, 1.0, 50);
         }
         catch (Exception ex)
         {
             Logger.Error(LogClass.GameMgrUi, $"Error refreshing Game DataGrid: {ex.Message}");
         }
+    }
+
+    private async Task AnimateOpacityAsync(double minOpacity, double maxOpacity, int stepDuration)
+    {
+        double step = 0.1 * Math.Sign(maxOpacity - minOpacity);
+        double currentOpacity = minOpacity;
+
+        while (Math.Abs(currentOpacity - maxOpacity) > 0.1)
+        {
+            _dataGrid.Opacity = currentOpacity;
+            await Task.Delay(stepDuration);
+            currentOpacity += step;
+        }
+
+        _dataGrid.Opacity = maxOpacity;
     }
 
     private void ConfigureGameDataGrid()
