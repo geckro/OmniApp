@@ -15,6 +15,10 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     private readonly string _metadataJsonFile = jsonFile ?? throw new ArgumentNullException(nameof(jsonFile));
     private readonly MetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
 
+    private ICollection<T>? _cachedMetadata;
+    private DateTime _lastLoadTimeOfMetadata;
+    private readonly TimeSpan _defaultMetadataCacheExpiry = TimeSpan.FromMinutes(60);
+
     /// <summary>
     ///     Saves a collection of metadata to a file.
     /// </summary>
@@ -22,6 +26,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     public void SaveMetadataCollection(ICollection<T> value)
     {
         _metadataPersistence.SaveMetadata(value, _metadataJsonFile);
+        _cachedMetadata = null;
     }
 
     /// <summary>
@@ -45,9 +50,18 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     ///     Loads a metadata collection.
     /// </summary>
     /// <returns>The loaded metadata collection.</returns>
-    public ICollection<T> LoadMetadataCollection()
+    public ICollection<T> LoadMetadataCollection(bool forceRefresh = false)
     {
-        return _metadataPersistence.LoadMetadata<T>(_metadataJsonFile);
+        bool notLongerThanCacheExpiry = DateTime.Now - _lastLoadTimeOfMetadata <= _defaultMetadataCacheExpiry;
+
+        if (!forceRefresh && _cachedMetadata != null && notLongerThanCacheExpiry)
+        {
+            return _cachedMetadata;
+        }
+
+        _cachedMetadata = _metadataPersistence.LoadMetadata<T>(_metadataJsonFile);
+        _lastLoadTimeOfMetadata = DateTime.Now;
+        return _cachedMetadata;
     }
 
     /// <summary>

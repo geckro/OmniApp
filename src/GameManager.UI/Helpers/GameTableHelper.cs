@@ -33,7 +33,6 @@ public class GameTableHelper(
         try
         {
             _dataGrid = dataGrid;
-            _games = await Task.Run(gameAccessor.LoadMetadataCollection);
             ConfigureGameDataGrid();
             await RefreshGameTableAsync();
 
@@ -54,7 +53,7 @@ public class GameTableHelper(
 
         try
         {
-            _games = await Task.Run(gameAccessor.LoadMetadataCollection);
+            _games = await Task.Run(() => gameAccessor.LoadMetadataCollection(forceRefresh: true));
             _dataGrid.ItemsSource = null;
             _dataGrid.ItemsSource = _games;
 
