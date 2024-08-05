@@ -60,16 +60,16 @@
   <Style TargetType="{x:Type gameWindows:GameManagerWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:AddGame}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:AddGameWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:EditEntry}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:EditGameDialog}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:EditEntryTags}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:EditTagsDialog}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
-  <Style TargetType="{x:Type gameWindows:GameManagerPreferences}" BasedOn="{StaticResource BaseGameWindowStyle}">
+  <Style TargetType="{x:Type gameWindows:GameManagerPreferencesWindow}" BasedOn="{StaticResource BaseGameWindowStyle}">
     <Setter Property="Background" Value="{DynamicResource BlueBase}" />
   </Style>
   <Style TargetType="{x:Type gameWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseGameWindowStyle}">

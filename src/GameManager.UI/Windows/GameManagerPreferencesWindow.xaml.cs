@@ -4,11 +4,11 @@ using System.Windows.Controls;
 
 namespace GameManager.UI.Windows;
 
-public partial class GameManagerPreferences
+public partial class GameManagerPreferencesWindow
 {
     private readonly MetadataAccessor<Game> _gameMetadataAccessor;
 
-    public GameManagerPreferences(MetadataAccessor<Game> gameMetadataAccessor)
+    public GameManagerPreferencesWindow(MetadataAccessor<Game> gameMetadataAccessor)
     {
         _gameMetadataAccessor = gameMetadataAccessor;
 

@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Managers;
 
-public class AddGameMetadataManager(AddGame addGame, MetadataAccessorFactory iMetadataAccessorFactory)
+public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory iMetadataAccessorFactory)
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
     private readonly Dictionary<string, object> _metadata = new();

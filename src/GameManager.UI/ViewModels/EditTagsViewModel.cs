@@ -9,12 +9,12 @@ using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
 
-public class EditEntryTagsViewModel : ViewModelBase
+public class EditTagsViewModel : ViewModelBase
 {
     private readonly WindowHelper _windowHelper;
     private Action? _closeEditEntryTagsWindow;
 
-    public EditEntryTagsViewModel(WindowHelper windowHelper)
+    public EditTagsViewModel(WindowHelper windowHelper)
     {
         _windowHelper = windowHelper;
         InitializeCommands();

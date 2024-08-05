@@ -11,12 +11,12 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Windows;
 
-public partial class AddGame
+public partial class AddGameWindow
 {
     private readonly MetadataAccessorFactory _metadataAccessorFactory;
     private readonly MetadataPersistence _metadataPersistence = new();
 
-    public AddGame()
+    public AddGameWindow()
     {
         InitializeComponent();
         _metadataAccessorFactory = new MetadataAccessorFactory(_metadataPersistence);

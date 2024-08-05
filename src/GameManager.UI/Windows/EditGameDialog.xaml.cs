@@ -10,17 +10,17 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
 
-public partial class EditEntry
+public partial class EditGameDialog
 {
     private readonly MetadataAccessor<Developer> _developerMetadataAccessor;
     private readonly MetadataAccessor<Genre> _genreMetadataAccessor;
     private readonly MetadataAccessor<Platform> _platformMetadataAccessor;
     private readonly MetadataAccessor<Publisher> _publisherMetadataAccessor;
     private readonly MetadataAccessor<Series> _seriesMetadataAccessor;
-    private readonly EditEntryViewModel _viewModel;
+    private readonly EditGameViewModel _viewModel;
     private Game? _gameData;
 
-    public EditEntry(MetadataAccessor<Genre> genreMetadataAccessor,
+    public EditGameDialog(MetadataAccessor<Genre> genreMetadataAccessor,
         MetadataAccessor<Platform> platformMetadataAccessor,
         MetadataAccessor<Developer> developerMetadataAccessor,
         MetadataAccessor<Publisher> publisherMetadataAccessor,
@@ -35,7 +35,7 @@ public partial class EditEntry
         _publisherMetadataAccessor = publisherMetadataAccessor;
         _seriesMetadataAccessor = seriesMetadataAccessor;
 
-        _viewModel = serviceProvider.GetRequiredService<EditEntryViewModel>();
+        _viewModel = serviceProvider.GetRequiredService<EditGameViewModel>();
         _viewModel.SetCloseAction(Close);
         DataContext = _viewModel;
         Loaded += (_, _) => SetListBoxPaddingAndMargin();
@@ -54,7 +54,7 @@ public partial class EditEntry
     {
         if (_gameData == null)
         {
-            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditEntry. Returning early...");
+            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditGameDialog. Returning early...");
             return;
         }
 

@@ -76,7 +76,7 @@ public class MainGameWindowViewModel : ViewModelBase
 
     private void AddGame()
     {
-        AddGame addGameWindow = _windowHelper.ShowWindow<AddGame>();
+        AddGameWindow addGameWindow = _windowHelper.ShowWindow<AddGameWindow>();
         addGameWindow.GameAdded += async (_, _) => await _refresh.RefreshControls(RefreshOptions.DataGrid);
     }
 
@@ -99,7 +99,7 @@ public class MainGameWindowViewModel : ViewModelBase
 
     private void Preferences()
     {
-        _windowHelper.ShowWindow<GameManagerPreferences>();
+        _windowHelper.ShowWindow<GameManagerPreferencesWindow>();
     }
 
     private async Task MarkAsTrueFalse(Game game, string key)
@@ -121,15 +121,15 @@ public class MainGameWindowViewModel : ViewModelBase
             return;
         }
 
-        _windowHelper.ShowWindow<EditEntry>(window =>
+        _windowHelper.ShowDialogWindow<EditGameDialog>(window =>
         {
-            if (window is EditEntry)
+            if (window is EditGameDialog)
             {
                 window.SetGame(game);
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected EditEntry window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUi, $"Expected EditGameDialog window, got {window.GetType().Name}");
             }
         });
     }
@@ -142,15 +142,15 @@ public class MainGameWindowViewModel : ViewModelBase
             return;
         }
 
-        _windowHelper.ShowWindow<EditEntryTags>(window =>
+        _windowHelper.ShowDialogWindow<EditTagsDialog>(window =>
         {
-            if (window is EditEntryTags)
+            if (window is EditTagsDialog)
             {
                 window.SetGame(game);
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected EditEntryTags window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUi, $"Expected EditTagsDialog window, got {window.GetType().Name}");
             }
         });
     }

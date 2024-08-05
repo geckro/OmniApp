@@ -10,16 +10,16 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Windows;
 
-public partial class EditEntryTags
+public partial class EditTagsDialog
 {
-    private readonly EditEntryTagsViewModel _viewModel;
+    private readonly EditTagsViewModel _viewModel;
     private Game? _gameData;
 
-    public EditEntryTags(IServiceProvider serviceProvider)
+    public EditTagsDialog(IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
-        _viewModel = serviceProvider.GetRequiredService<EditEntryTagsViewModel>();
+        _viewModel = serviceProvider.GetRequiredService<EditTagsViewModel>();
         _viewModel.SetCloseAction(Close);
         DataContext = _viewModel;
         Loaded += (_, _) => SetListBoxPaddingAndMargin();
@@ -39,7 +39,7 @@ public partial class EditEntryTags
     {
         if (_gameData == null)
         {
-            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditEntryTags. Returning early...");
+            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditTagsDialog. Returning early...");
             return;
         }
 
@@ -47,7 +47,7 @@ public partial class EditEntryTags
 
         SetHeader();
 
-        Dictionary<Label, TextBlock>? tags = EditEntryTagsViewModel.LoadTags(_gameData);
+        Dictionary<Label, TextBlock>? tags = EditTagsViewModel.LoadTags(_gameData);
 
         if (tags != null)
         {

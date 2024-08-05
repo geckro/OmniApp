@@ -7,12 +7,12 @@ using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
 
-public class EditEntryViewModel : ViewModelBase
+public class EditGameViewModel : ViewModelBase
 {
     private readonly WindowHelper _windowHelper;
     private Action? _closeEditEntryWindow;
 
-    public EditEntryViewModel(WindowHelper windowHelper)
+    public EditGameViewModel(WindowHelper windowHelper)
     {
         _windowHelper = windowHelper;
         RenameTitleCommand = new RelayCommand<Game>(RenameTitle);
