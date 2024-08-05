@@ -4,6 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Game Manager"
   WindowStartupLocation="CenterScreen"
@@ -12,6 +13,12 @@
   d:DesignHeight="720"
   MinWidth="800"
   MinHeight="600">
+  <Window.Resources>
+    <helpers:GameManagerStyleHelper x:Key="StyleHelper" />
+  </Window.Resources>
+  <Window.Background>
+    <SolidColorBrush Color="{Binding Source={StaticResource StyleHelper}, Path=WindowBackgroundColor.Color}" />
+  </Window.Background>
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -24,27 +31,31 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
         <Button
-          x:Name="AddButton"
+          Background="{Binding Source={StaticResource StyleHelper}, Path=ButtonColor}"
           ToolTip="Add a new title"
           Command="{Binding AddGameCommand}">
           <Image Source="../Images/add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
+          Background="{Binding Source={StaticResource StyleHelper}, Path=ButtonColor}"
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
           <Image Source="../Images/refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
+          Background="{Binding Source={StaticResource StyleHelper}, Path=ButtonColor}"
           ToolTip="Open raw JSON games file"
           Command="{Binding OpenGamesJsonCommand}">
           <Image Source="../Images/json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
+          Background="{Binding Source={StaticResource StyleHelper}, Path=ButtonColor}"
           ToolTip="Open Game Manager preferences"
           Command="{Binding OpenPreferencesCommand}">
           <Image Source="../Images/options.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Button>
         <Button
+          Background="{Binding Source={StaticResource StyleHelper}, Path=ButtonColor}"
           ToolTip="Pick a random game"
           Command="{Binding PickRandomGameCommand}">
           <Image Source="../Images/random.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
@@ -52,7 +63,7 @@
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />
-        <TextBox MinWidth="150" />
+        <TextBox MinWidth="150" Background="{Binding Source={StaticResource StyleHelper}, Path=TextBoxBackgroundColor}"/>
       </StackPanel>
     </Grid>
 
@@ -68,21 +79,24 @@
           BorderThickness="0"
           CanUserDeleteRows="False"
           IsReadOnly="True"
-          AlternatingRowBackground="#FF8BBAE8"
+          AlternatingRowBackground="{Binding Source={StaticResource StyleHelper}, Path=DataGridAlternatingRowBackgroundColor}"
           GridLinesVisibility="None"
           FontFamily="Inter"
           FontSize="16"
           RowHeaderWidth="0">
           <DataGrid.ColumnHeaderStyle>
             <Style TargetType="DataGridColumnHeader">
-              <Setter Property="Background" Value="#ff568ec4" />
-              <Setter Property="FontWeight" Value="Medium" />
+              <Setter Property="Background" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderBackgroundColor}" />
+              <Setter Property="FontFamily" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderFontFamily}" />
+              <Setter Property="FontWeight" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderFontWeight}" />
               <Setter Property="Padding" Value="5, 2, 5, 2" />
             </Style>
           </DataGrid.ColumnHeaderStyle>
           <DataGrid.RowStyle>
             <Style TargetType="DataGridRow">
-              <Setter Property="Background" Value="#FF7AAFE3" />
+              <Setter Property="Background" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowBackgroundColor}" />
+              <Setter Property="FontFamily" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowFontFamily}" />
+              <Setter Property="FontWeight" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowFontWeight}" />
             </Style>
           </DataGrid.RowStyle>
         </DataGrid>

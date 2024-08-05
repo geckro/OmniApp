@@ -64,6 +64,7 @@ public class GameFilterHelper
             MaxHeight = 120,
             Padding = new Thickness(0),
             Margin = new Thickness(0),
+            Background = Styles.ListBoxBackgroundColor,
             ItemContainerStyle = CreateListBoxItemStyle()
         };
         panel.Children.Add(header);
@@ -74,7 +75,7 @@ public class GameFilterHelper
 
     private static Style CreateListBoxItemStyle()
     {
-        Style style = new(typeof(ListBoxItem));
+        Style style = new(typeof(ListBox));
         style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(2)));
         style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(0)));
 
