@@ -1,4 +1,5 @@
-﻿using GameManager.UI.ViewModels;
+﻿using GameManager.UI.Helpers;
+using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using System.Windows;
@@ -23,7 +24,7 @@ public class MainWindowContextMenuManager
 
     public void PopulateDataGridContextMenu()
     {
-        ContextMenu contextMenu = new();
+        ContextMenu contextMenu = new() { Background = Styles.ContextMenuBackgroundColor };
 
         AddMenuItem(contextMenu, "Mark as played", _viewModel.MarkAsPlayedCommand, true);
         AddMenuItem(contextMenu, "Mark as finished", _viewModel.MarkAsFinishedCommand, true);

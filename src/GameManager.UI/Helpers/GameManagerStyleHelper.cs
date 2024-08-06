@@ -19,6 +19,7 @@ public static class Styles
     public static SolidColorBrush ButtonColor { get; set; } = null!;
     public static SolidColorBrush TextBoxBackgroundColor { get; set; } = null!;
     public static SolidColorBrush ListBoxBackgroundColor { get; set; } = null!;
+    public static SolidColorBrush ContextMenuBackgroundColor { get; set; } = null!;
 }
 
 /// <summary>
@@ -37,6 +38,7 @@ public class GameManagerStyleHelper
     public static SolidColorBrush ButtonColor => Styles.ButtonColor;
     public static SolidColorBrush TextBoxBackgroundColor => Styles.TextBoxBackgroundColor;
     public static SolidColorBrush ListBoxBackgroundColor => Styles.ListBoxBackgroundColor;
+    public static SolidColorBrush ContextMenuBackgroundColor => Styles.ContextMenuBackgroundColor;
 
     public GameManagerStyleHelper()
     {
@@ -55,6 +57,7 @@ public class GameManagerStyleHelper
 
         Styles.TextBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));;
         Styles.ListBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));;
+        Styles.ContextMenuBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));;
     }
 
 }

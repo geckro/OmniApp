@@ -13,9 +13,6 @@
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Styles\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Update="Styles\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
