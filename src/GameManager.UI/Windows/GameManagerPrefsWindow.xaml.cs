@@ -4,13 +4,13 @@ using System.Windows.Controls;
 
 namespace GameManager.UI.Windows;
 
-public partial class GameManagerPreferencesWindow
+public partial class GameManagerPrefsWindow
 {
-    private readonly MetadataAccessor<Game> _gameMetadataAccessor;
+    private readonly MetadataAccessor<Game> _gameAcc;
 
-    public GameManagerPreferencesWindow(MetadataAccessor<Game> gameMetadataAccessor)
+    public GameManagerPrefsWindow(MetadataAccessor<Game> gameAcc)
     {
-        _gameMetadataAccessor = gameMetadataAccessor;
+        _gameAcc = gameAcc;
 
         InitializeComponent();
         InitializeAsync();
@@ -25,9 +25,9 @@ public partial class GameManagerPreferencesWindow
     {
         HashSet<string?> properties = [];
 
-        foreach (Game game in _gameMetadataAccessor.LoadMetadataCollection())
+        foreach (Game game in _gameAcc.LoadMetadata())
         {
-            ICollection<string?> gameProperties = await Task.Run(() => _gameMetadataAccessor.GetAllProperties(game));
+            ICollection<string?> gameProperties = await Task.Run(() => _gameAcc.GetAllProperties(game));
 
             foreach (string? property in gameProperties)
             {

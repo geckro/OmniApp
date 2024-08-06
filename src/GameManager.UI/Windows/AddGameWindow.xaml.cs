@@ -13,13 +13,13 @@ namespace GameManager.UI.Windows;
 
 public partial class AddGameWindow
 {
-    private readonly MetadataAccessorFactory _metadataAccessorFactory;
-    private readonly MetadataPersistence _metadataPersistence = new();
+    private readonly MetadataAccessorFactory _mtdAccessorFactory;
+    private readonly MetadataPersistence _mtdPersistence = new();
 
     public AddGameWindow()
     {
         InitializeComponent();
-        _metadataAccessorFactory = new MetadataAccessorFactory(_metadataPersistence);
+        _mtdAccessorFactory = new MetadataAccessorFactory(_mtdPersistence);
         InitializeMetadataAreas();
     }
 
@@ -27,18 +27,19 @@ public partial class AddGameWindow
 
     private async void InitializeMetadataAreas()
     {
-        await new AddGameMetadataManager(this, _metadataAccessorFactory).InitializeMetadataAreasAsync();
+        await new AddGameMetadataManager(this, _mtdAccessorFactory).InitializeMetadataAreasAsync();
     }
 
     /// <summary>
-    ///     Extracts checked boxes from a ListBox
+    ///     Extracts checked boxes from a ListBox.
     /// </summary>
-    /// <param name="listBox">The ListBox to extract CheckBoxes from</param>
-    /// <param name="metadataFactory">Method to create metadata instances</param>
-    /// <typeparam name="T">The type of IMetadata</typeparam>
-    /// <returns>Collection of an IMetadata instance</returns>
+    /// <param name="listBox">The ListBox to extract CheckBoxes from.</param>
+    /// <param name="metadataFactory">Method to create metadata instances.</param>
+    /// <typeparam name="T">The type of IMetadata.</typeparam>
+    /// <returns>Collection of an IMetadata instance.</returns>
     /// <exception cref="Exception"></exception>
-    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory) where T : IMetadata
+    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory)
+            where T : IMetadata
     {
         if (listBox == null)
         {
@@ -51,9 +52,9 @@ public partial class AddGameWindow
         {
             CheckBox? checkBox = item switch
             {
-                CheckBox cb => cb,
-                ListBoxItem lbi => lbi.Content as CheckBox,
-                _ => null
+                    CheckBox cb => cb,
+                    ListBoxItem lbi => lbi.Content as CheckBox,
+                    _ => null
             };
 
             if (checkBox?.IsChecked != true)
@@ -79,39 +80,35 @@ public partial class AddGameWindow
 
         if (string.IsNullOrWhiteSpace(title))
         {
-            MessageBox.Show(
-                "Please enter a valid title for the game.",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show("Please enter a valid title for the game.", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             return;
         }
 
         DateTime currentTime = DateTime.Now;
 
-        Game newGame = new()
+        Game gameToAdd = new()
         {
-            Id = Guid.NewGuid(),
-            Title = title,
-            Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), id => new Genre { Id = id }),
-            Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), id => new Platform { Id = id }),
-            Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), id => new Developer { Id = id }),
-            Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), id => new Publisher { Id = id }),
-            Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
-            ReleaseDateWw = Date.SelectedDate,
-            CreatedOn = currentTime,
-            LastUpdated = currentTime,
-            Tags = new Dictionary<string, ICollection<string>>() // not actually used
+                Id = Guid.NewGuid(),
+                Title = title,
+                Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox"), id => new Genre { Id = id }),
+                Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox"), id => new Platform { Id = id }),
+                Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), id => new Developer { Id = id }),
+                Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), id => new Publisher { Id = id }),
+                Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
+                ReleaseDateWw = Date.SelectedDate,
+                CreatedOn = currentTime,
+                LastUpdated = currentTime,
+                Tags = new Dictionary<string, ICollection<string>>() // not actually used
         };
 
-        MetadataAccessor<Game> gameMetadataAccessor = _metadataAccessorFactory.CreateMetadataAccessor<Game>();
+        MetadataAccessor<Game> gameAcc = _mtdAccessorFactory.CreateMetadataAccessor<Game>();
 
-        ICollection<Game> games = gameMetadataAccessor.LoadMetadataCollection();
-        games.Add(newGame);
-        gameMetadataAccessor.SaveMetadataCollection(games);
+        ICollection<Game> gameCollection = gameAcc.LoadMetadata();
+        gameCollection.Add(gameToAdd);
+        gameAcc.SaveMetadata(gameCollection);
 
-        GameAdded?.Invoke(this, newGame);
+        GameAdded?.Invoke(this, gameToAdd);
     }
 
     /// <summary>

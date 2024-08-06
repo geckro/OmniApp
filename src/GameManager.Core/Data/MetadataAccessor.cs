@@ -5,28 +5,38 @@ using System.Reflection;
 namespace GameManager.Core.Data;
 
 /// <summary>
-///     Represents a metadata accessor for a specific type..
+///     Represents a metadata accessor for an <see cref="IMetadata" /> inheritor.
 /// </summary>
-/// <param name="metadataPersistence">The <see cref="MetadataPersistence" /> instance.</param>
-/// <param name="jsonFile">The path to the JSON file</param>
 /// <typeparam name="T">The type of <see cref="IMetadata" />.</typeparam>
-public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string jsonFile) where T : IMetadata
+public class MetadataAccessor<T> where T : IMetadata
 {
-    private readonly string _metadataJsonFile = jsonFile ?? throw new ArgumentNullException(nameof(jsonFile));
-    private readonly MetadataPersistence _metadataPersistence = metadataPersistence ?? throw new ArgumentNullException(nameof(metadataPersistence));
+    private readonly MetadataPersistence _mtdPersistence;
+    private readonly string _jsonFile;
+    private readonly TimeSpan _defaultMtdCacheExpiry = TimeSpan.FromMinutes(60);
+    private ICollection<T>? _cachedMtd;
+    private DateTime _lastLoadTimeOfMtd;
 
-    private ICollection<T>? _cachedMetadata;
-    private DateTime _lastLoadTimeOfMetadata;
-    private readonly TimeSpan _defaultMetadataCacheExpiry = TimeSpan.FromMinutes(60);
+    /// <summary>
+    ///     Represents a metadata accessor for an <see cref="IMetadata" /> inheritor.
+    /// </summary>
+    /// <param name="mtdPersistence">The <see cref="MetadataPersistence" /> instance.</param>
+    /// <param name="jsonFile">The path to the JSON file.</param>
+    /// <typeparam name="T">The type of <see cref="IMetadata" />.</typeparam>
+    public MetadataAccessor(MetadataPersistence mtdPersistence, string jsonFile)
+    {
+        _jsonFile = jsonFile;
+        _mtdPersistence = mtdPersistence;
+    }
 
     /// <summary>
     ///     Saves a collection of metadata to a file.
     /// </summary>
     /// <param name="value">The collection of metadata to save.</param>
-    public void SaveMetadataCollection(ICollection<T> value)
+    public void SaveMetadata(ICollection<T> value)
     {
-        _metadataPersistence.SaveMetadata(value, _metadataJsonFile);
-        _cachedMetadata = null;
+        Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Saving metadata: {string.Join(",", value)}");
+        _mtdPersistence.SaveMetadata(value, _jsonFile);
+        _cachedMtd = null;
     }
 
     /// <summary>
@@ -35,33 +45,35 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     /// <param name="newItem">The metadata item to add.</param>
     public void AddItemAndSave(T newItem)
     {
-        ICollection<T> existingData = LoadMetadataCollection();
-        if (existingData.Any(item => item.Name == newItem.Name))
+        Logger.Debug(LogClass.GameMgrCore, "MetadataAccessor: Adding item to metadata.");
+        ICollection<T> existingMtd = LoadMetadata();
+        if (existingMtd.Any(item => item.Name == newItem.Name))
         {
             Logger.Warning(LogClass.GameMgrCore, "Item with the same key already exists.");
             return;
         }
 
-        existingData.Add(newItem);
-        SaveMetadataCollection(existingData);
+        existingMtd.Add(newItem);
+        SaveMetadata(existingMtd);
     }
 
     /// <summary>
     ///     Loads a metadata collection.
     /// </summary>
     /// <returns>The loaded metadata collection.</returns>
-    public ICollection<T> LoadMetadataCollection(bool forceRefresh = false)
+    public ICollection<T> LoadMetadata(bool forceRefresh = false)
     {
-        bool notLongerThanCacheExpiry = DateTime.Now - _lastLoadTimeOfMetadata <= _defaultMetadataCacheExpiry;
+        // Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Loading Metadata, parameter forceRefresh is \"{forceRefresh}\"");
+        bool notLongerThanCacheExpiry = DateTime.Now - _lastLoadTimeOfMtd <= _defaultMtdCacheExpiry;
 
-        if (!forceRefresh && _cachedMetadata != null && notLongerThanCacheExpiry)
+        if (!forceRefresh && _cachedMtd != null && notLongerThanCacheExpiry)
         {
-            return _cachedMetadata;
+            return _cachedMtd;
         }
 
-        _cachedMetadata = _metadataPersistence.LoadMetadata<T>(_metadataJsonFile);
-        _lastLoadTimeOfMetadata = DateTime.Now;
-        return _cachedMetadata;
+        _cachedMtd = _mtdPersistence.LoadMetadata<T>(_jsonFile);
+        _lastLoadTimeOfMtd = DateTime.Now;
+        return _cachedMtd;
     }
 
     /// <summary>
@@ -70,9 +82,10 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     /// <param name="id">The unique identifier of the metadata item to update</param>
     /// <param name="key">The property name of the item to update.</param>
     /// <param name="value">The new value to update for the specified property.</param>
-    public void UpdateItemAndSave(Guid id, string key, object? value)
+    public void UpdatePropertyAndSave(Guid id, string key, object? value)
     {
-        ICollection<T> existingData = LoadMetadataCollection();
+        Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Updating property {key} with {value} on {id}.");
+        ICollection<T> existingData = LoadMetadata();
         T? itemToUpdate = GetItemById(id);
         if (itemToUpdate == null)
         {
@@ -84,7 +97,8 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
         if (propertyInfo == null)
         {
             Logger.Warning(LogClass.GameMgrCore, $"Property '{key}' not found in type {typeof(T).Name}");
-            Logger.Warning(LogClass.GameMgrCore, $"^ Valid properties: {string.Join(", ", typeof(T).GetProperties().Select(p => p.Name))}");
+            Logger.Warning(LogClass.GameMgrCore,
+                    $"^ Valid properties: {string.Join(", ", typeof(T).GetProperties().Select(p => p.Name))}");
             return;
         }
 
@@ -93,7 +107,7 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
             Type propertyType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
             object? convertedValue = value == null ? null : Convert.ChangeType(value, propertyType);
             propertyInfo.SetValue(itemToUpdate, convertedValue);
-            SaveMetadataCollection(existingData);
+            SaveMetadata(existingData);
         }
         catch (Exception ex)
         {
@@ -108,12 +122,14 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
     /// <returns>The metadata item with the specified ID, or null if not found.</returns>
     public T? GetItemById(Guid id)
     {
-        return LoadMetadataCollection().FirstOrDefault(item => item.Id == id);
+        // Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Getting item by Id \"{id}\"");
+        return LoadMetadata().FirstOrDefault(item => item.Id == id);
     }
 
     public Guid? GetIdByName(string name)
     {
-        return LoadMetadataCollection().FirstOrDefault(item => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.Id;
+        return LoadMetadata()
+                .FirstOrDefault(item => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.Id;
     }
 
     public string? GetTagValueOrKey(Guid id, string? key, object? value)
@@ -163,10 +179,10 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
 
     public void RemoveItem(T item)
     {
-        ICollection<T> existingData = LoadMetadataCollection();
+        ICollection<T> existingMtd = LoadMetadata();
 
-        existingData.Remove(item);
-        SaveMetadataCollection(existingData);
+        existingMtd.Remove(item);
+        SaveMetadata(existingMtd);
     }
 
     public ICollection<string?> GetAllProperties(Game game)
@@ -200,7 +216,8 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
 
         foreach ((string key, ICollection<string> values) in tagToAdd)
         {
-            Logger.Debug(LogClass.GameMgrCore, $"Metadata tag key: {key}, Metadata tag values: {string.Join(";", values)}");
+            Logger.Debug(LogClass.GameMgrCore,
+                    $"Metadata tag key: {key}, Metadata tag values: {string.Join(";", values)}");
             if (!item.Tags.TryGetValue(key, out ICollection<string>? existingValues))
             {
                 item.Tags[key] = new List<string>(values);
@@ -217,6 +234,6 @@ public class MetadataAccessor<T>(MetadataPersistence metadataPersistence, string
             }
         }
 
-        UpdateItemAndSave(item.Id, "Tags", item.Tags);
+        UpdatePropertyAndSave(item.Id, "Tags", item.Tags);
     }
 }

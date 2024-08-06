@@ -11,13 +11,13 @@ public class JsonHelper
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
-        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-        IncludeFields = true,
-        MaxDepth = 16,
-        PropertyNameCaseInsensitive = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        ReadCommentHandling = JsonCommentHandling.Skip
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+            IncludeFields = true,
+            MaxDepth = 16,
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            ReadCommentHandling = JsonCommentHandling.Skip
     };
 
     private string SerializeToJson<T>(ICollection<T> value)

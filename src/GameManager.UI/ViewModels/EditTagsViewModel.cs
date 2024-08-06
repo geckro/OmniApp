@@ -74,16 +74,11 @@ public class EditTagsViewModel : ViewModelBase
 
         foreach (KeyValuePair<string, ICollection<string>> tagPair in game.Tags)
         {
-            Label keyLabel = new()
-            {
-                Content = tagPair.Key,
-                FontWeight = FontWeights.Bold
-            };
+            Label keyLabel = new() { Content = tagPair.Key, FontWeight = FontWeights.Bold };
 
             TextBlock valueTextBlock = new()
             {
-                Text = string.Join(", ", tagPair.Value),
-                VerticalAlignment = VerticalAlignment.Center
+                    Text = string.Join(", ", tagPair.Value), VerticalAlignment = VerticalAlignment.Center
             };
 
             tagsDictionary.Add(keyLabel, valueTextBlock);

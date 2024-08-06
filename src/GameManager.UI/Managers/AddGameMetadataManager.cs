@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace GameManager.UI.Managers;
 
-public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory iMetadataAccessorFactory)
+public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory mtdAccessorFactory)
 {
     private readonly Dictionary<string, bool> _checkedStates = new();
     private readonly Dictionary<string, object> _metadata = new();
@@ -19,11 +19,16 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
     /// </summary>
     public async Task InitializeMetadataAreasAsync()
     {
-        await MakeMetadataAreasAsync("Genre", addGame.GenreStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Platform", addGame.PlatformStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Developer", addGame.DeveloperStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Publisher", addGame.PublisherStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadataCollection());
-        await MakeMetadataAreasAsync("Series", addGame.SeriesStackPanel, iMetadataAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadataCollection());
+        await MakeMetadataAreasAsync("Genre", addGame.GenrePanel,
+                mtdAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadata());
+        await MakeMetadataAreasAsync("Platform", addGame.PlatformPanel,
+                mtdAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadata());
+        await MakeMetadataAreasAsync("Developer", addGame.DeveloperPanel,
+                mtdAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadata());
+        await MakeMetadataAreasAsync("Publisher", addGame.PublisherPanel,
+                mtdAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadata());
+        await MakeMetadataAreasAsync("Series", addGame.SeriesPanel,
+                mtdAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadata());
     }
 
     /// <summary>
@@ -33,14 +38,15 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
     /// <param name="stackPanel">The stack panel to add the generated controls to.</param>
     /// <param name="dataSource">The actual data source of the metadata.</param>
     /// <typeparam name="T">The type of IMetadata.</typeparam>
-    private Task MakeMetadataAreasAsync<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
+    private Task MakeMetadataAreasAsync<T>(string name, StackPanel stackPanel, ICollection<T> dataSource)
+            where T : IMetadata
     {
         Label label = new()
         {
-            Content = name,
-            FontFamily = StyleHelper.Instance.HeaderFontFamily,
-            FontWeight = StyleHelper.Instance.HeaderFontWeight,
-            FontSize = StyleHelper.Instance.HeaderFontSize
+                Content = name,
+                FontFamily = StyleHelper.Instance.HeaderFontFamily,
+                FontWeight = StyleHelper.Instance.HeaderFontWeight,
+                FontSize = StyleHelper.Instance.HeaderFontSize
         };
 
         TextBox textBox = new() { Name = $"{name}TextBox", Background = StyleHelper.Instance.TextBoxBackgroundColor };
@@ -52,14 +58,14 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
 
         ListBox listBox = new()
         {
-            Name = $"{name}ListBox",
-            MaxHeight = 250,
-            Visibility = Visibility.Collapsed,
-            Padding = new Thickness(0),
-            Margin = new Thickness(0),
-            FontSize = 14,
-            Background = StyleHelper.Instance.ListBoxBackgroundColor,
-            ItemContainerStyle = CreateListBoxItemStyle()
+                Name = $"{name}ListBox",
+                MaxHeight = 250,
+                Visibility = Visibility.Collapsed,
+                Padding = new Thickness(0),
+                Margin = new Thickness(0),
+                FontSize = 14,
+                Background = StyleHelper.Instance.ListBoxBackgroundColor,
+                ItemContainerStyle = CreateListBoxItemStyle()
         };
         addGame.RegisterName(listBox.Name, listBox);
 
@@ -114,7 +120,8 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
             return;
         }
 
-        if (!_metadata.TryGetValue(metadataCategory, out object? metadataCollection) || metadataCollection is not IEnumerable<IMetadata> collection)
+        if (!_metadata.TryGetValue(metadataCategory, out object? metadataCollection) ||
+            metadataCollection is not IEnumerable<IMetadata> collection)
         {
             return;
         }
@@ -125,12 +132,14 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
         }
 
         List<IMetadata> filteredSuggestionList = collection
-            .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
-            .ToList();
+                .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
-        List<CheckBox> checkBoxList = filteredSuggestionList
-            .Select(item => new CheckBox { Content = item.Name, Tag = item.Id, IsChecked = _checkedStates.GetValueOrDefault(item.Name, false) })
-            .ToList();
+        List<CheckBox> checkBoxList = filteredSuggestionList.Select(item => new CheckBox
+        {
+                Content = item.Name,
+                Tag = item.Id,
+                IsChecked = _checkedStates.GetValueOrDefault(item.Name, false)
+        }).ToList();
 
         listBox.ItemsSource = checkBoxList;
         listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -175,11 +184,11 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
     {
         Dictionary<Type, Func<object>> typeMap = new()
         {
-            { typeof(Genre), () => new Genre { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Platform), () => new Platform { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Developer), () => new Developer { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Publisher), () => new Publisher { Id = Guid.NewGuid(), Name = text } },
-            { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } }
+                { typeof(Genre), () => new Genre { Id = Guid.NewGuid(), Name = text } },
+                { typeof(Platform), () => new Platform { Id = Guid.NewGuid(), Name = text } },
+                { typeof(Developer), () => new Developer { Id = Guid.NewGuid(), Name = text } },
+                { typeof(Publisher), () => new Publisher { Id = Guid.NewGuid(), Name = text } },
+                { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } }
         };
 
         if (!typeMap.TryGetValue(dataType, out Func<object>? createInstance))
@@ -188,11 +197,10 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
         }
 
         object instance = createInstance();
-        MethodInfo? method = typeof(MetadataAccessorFactory)
-            .GetMethod("CreateMetadataAccessor")
-            ?.MakeGenericMethod(dataType);
+        MethodInfo? method = typeof(MetadataAccessorFactory).GetMethod("CreateMetadataAccessor")
+                ?.MakeGenericMethod(dataType);
 
-        object? data = method?.Invoke(iMetadataAccessorFactory, null);
+        object? data = method?.Invoke(mtdAccessorFactory, null);
         data?.GetType().GetMethod("AddItemAndSave")?.Invoke(data, [instance]);
 
         RefreshMetadata(dataType);
@@ -201,12 +209,11 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
     private void RefreshMetadata(Type dataType)
     {
         string metadataCategory = dataType.Name;
-        MethodInfo? method = typeof(MetadataAccessorFactory)
-            .GetMethod("CreateMetadataAccessor")
-            ?.MakeGenericMethod(dataType);
+        MethodInfo? method = typeof(MetadataAccessorFactory).GetMethod("CreateMetadataAccessor")
+                ?.MakeGenericMethod(dataType);
 
-        object? accessor = method?.Invoke(iMetadataAccessorFactory, null);
-        MethodInfo? loadMethod = accessor?.GetType().GetMethod("LoadMetadataCollection");
+        object? accessor = method?.Invoke(mtdAccessorFactory, null);
+        MethodInfo? loadMethod = accessor?.GetType().GetMethod("LoadMetadata");
 
         if (loadMethod?.Invoke(accessor, null) is IEnumerable<IMetadata> refreshedCollection)
         {

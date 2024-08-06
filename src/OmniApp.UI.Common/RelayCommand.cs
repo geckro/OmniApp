@@ -15,9 +15,8 @@ public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null
 
     public bool CanExecute(object? parameter)
     {
-        bool result = canExecute == null
-                      || (parameter == null && typeof(T) == typeof(object))
-                      || (parameter is T arg && canExecute(arg));
+        bool result = canExecute == null || (parameter == null && typeof(T) == typeof(object)) ||
+                      (parameter is T arg && canExecute(arg));
         return result;
     }
 
@@ -32,7 +31,8 @@ public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null
                 _execute(default!);
                 break;
             default:
-                Logger.Error(LogClass.OmniUiCommon, $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
+                Logger.Error(LogClass.OmniUiCommon,
+                        $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
                 break;
         }
     }

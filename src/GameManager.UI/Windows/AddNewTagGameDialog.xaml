@@ -31,7 +31,7 @@
         <StackPanel>
           <Label Content="Linked Game: " />
           <Button Content="Pick game..." Command="{Binding PickGameCommand}" />
-          <TextBlock Text="No game selected"/>
+          <TextBlock Text="No game selected" />
         </StackPanel>
       </StackPanel>
     </StackPanel>

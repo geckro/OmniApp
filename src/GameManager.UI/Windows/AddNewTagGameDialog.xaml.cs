@@ -11,15 +11,15 @@ namespace GameManager.UI.Windows;
 
 public partial class AddNewTagGameDialog
 {
-    private readonly MetadataAccessor<Game> _metadataAccessor;
-    private Game? _game;
+    private readonly MetadataAccessor<Game> _gameAcc;
     private readonly AddNewTagGameViewModel _viewModel;
+    private Game? _game;
 
-    public AddNewTagGameDialog(IServiceProvider serviceProvider, MetadataAccessor<Game> metadataAccessor)
+    public AddNewTagGameDialog(IServiceProvider sp, MetadataAccessor<Game> gameAcc)
     {
-        _metadataAccessor = metadataAccessor;
-        
-        _viewModel = serviceProvider.GetRequiredService<AddNewTagGameViewModel>();
+        _gameAcc = gameAcc;
+
+        _viewModel = sp.GetRequiredService<AddNewTagGameViewModel>();
         DataContext = _viewModel;
         InitializeComponent();
     }
@@ -96,6 +96,7 @@ public partial class AddNewTagGameDialog
                 values.Add(trimmedValue);
             }
         }
+
         tagToAdd.Add(key, values);
 
         AddTagToMetadata(tagToAdd);
@@ -116,7 +117,7 @@ public partial class AddNewTagGameDialog
 
     private void AddTagToMetadata(Dictionary<string, ICollection<string>> tagToAdd)
     {
-        _metadataAccessor.AddTagToMetadata(_game!, tagToAdd);
+        _gameAcc.AddTagToMetadata(_game!, tagToAdd);
         TagAddedToGame = true;
         Close();
     }
@@ -127,11 +128,13 @@ public partial class AddNewTagGameDialog
         {
             return TagTypes.Boolean;
         }
-        else if (TagValuesTextBox.Text.Trim() != "")
+
+        if (TagValuesTextBox.Text.Trim() != "")
         {
             return TagTypes.String;
         }
-        else if (_viewModel.GameId != null)
+
+        if (_viewModel.GameId != null)
         {
             return TagTypes.Game;
         }

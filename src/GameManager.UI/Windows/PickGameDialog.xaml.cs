@@ -9,15 +9,15 @@ namespace GameManager.UI.Windows;
 
 public partial class PickGameDialog
 {
-    private readonly MetadataAccessor<Game> _metadataAccessor;
+    private readonly MetadataAccessor<Game> _gameAcc;
     private readonly PickGameViewModel _viewModel;
 
-    public PickGameDialog(IServiceProvider serviceProvider, MetadataAccessor<Game> metadataAccessor)
+    public PickGameDialog(IServiceProvider sp, MetadataAccessor<Game> gameAcc)
     {
-        _metadataAccessor = metadataAccessor;
+        _gameAcc = gameAcc;
         InitializeComponent();
 
-        _viewModel = serviceProvider.GetRequiredService<PickGameViewModel>();
+        _viewModel = sp.GetRequiredService<PickGameViewModel>();
         DataContext = _viewModel;
         _viewModel.SetCloseAction(Close);
         PopulateGameListBox();
@@ -27,7 +27,7 @@ public partial class PickGameDialog
 
     private void PopulateGameListBox()
     {
-        ICollection<Game> metadata = _metadataAccessor.LoadMetadataCollection();
+        ICollection<Game> metadata = _gameAcc.LoadMetadata();
 
         foreach (Game game in metadata)
         {
@@ -37,7 +37,10 @@ public partial class PickGameDialog
                 title = $"{title} ({game.ReleaseDateWw.Value.Year})";
             }
 
-            ListBoxItem listBoxItem = new() { Tag = game.Id, Content = title, Margin = new Thickness(0), Padding = new Thickness(0) };
+            ListBoxItem listBoxItem = new()
+            {
+                    Tag = game.Id, Content = title, Margin = new Thickness(0), Padding = new Thickness(0)
+            };
 
             GameListBox.Items.Add(listBoxItem);
         }

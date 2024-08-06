@@ -6,11 +6,11 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
-  Title="Add Game"
+  Title="Add new game..."
   Height="600"
   Width="900">
   <Window.Resources>
-    <helpers:StyleHelper x:Key="StyleHelper" />
+    <helpers:StyleHelper x:Key="Styles" />
   </Window.Resources>
   <Grid Margin="10">
     <Grid.RowDefinitions>
@@ -27,14 +27,14 @@
         <StackPanel Grid.Column="0" Orientation="Horizontal">
           <Label
             Content="Title"
-            FontWeight="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontWeight}"
-            FontFamily="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontFamily}"
-            FontSize="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontSize}"
+            FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+            FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+            FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}"
             VerticalAlignment="Center" />
           <TextBox
             x:Name="TitleBox"
             MinWidth="250"
-            Background="{Binding Source={StaticResource StyleHelper}, Path=Instance.TextBoxBackgroundColor}"
+            Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             KeyDown="TitleBox_Rename" />
@@ -58,11 +58,11 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="GenreStackPanel" Orientation="Vertical" Grid.Column="0" />
-        <StackPanel x:Name="PlatformStackPanel" Orientation="Vertical" Grid.Column="1" />
-        <StackPanel x:Name="DeveloperStackPanel" Orientation="Vertical" Grid.Column="2" />
-        <StackPanel x:Name="PublisherStackPanel" Orientation="Vertical" Grid.Column="3" />
-        <StackPanel x:Name="SeriesStackPanel" Orientation="Vertical" Grid.Column="4" />
+        <StackPanel x:Name="GenrePanel" Orientation="Vertical" Grid.Column="0" />
+        <StackPanel x:Name="PlatformPanel" Orientation="Vertical" Grid.Column="1" />
+        <StackPanel x:Name="DeveloperPanel" Orientation="Vertical" Grid.Column="2" />
+        <StackPanel x:Name="PublisherPanel" Orientation="Vertical" Grid.Column="3" />
+        <StackPanel x:Name="SeriesPanel" Orientation="Vertical" Grid.Column="4" />
       </Grid>
 
       <Grid Grid.Row="1">

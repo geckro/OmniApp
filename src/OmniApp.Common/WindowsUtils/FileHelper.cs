@@ -1,8 +1,7 @@
 ﻿using OmniApp.Common.Logging;
 using System.Diagnostics;
-using System.IO;
 
-namespace GameManager.UI.Helpers;
+namespace OmniApp.Common.WindowsUtils;
 
 public class FileHelper
 {
@@ -15,7 +14,8 @@ public class FileHelper
             return;
         }
 
-        using Process? process = Process.Start(new ProcessStartInfo { FileName = "explorer", Arguments = $"{fileToOpen}" });
+        using Process? process =
+                Process.Start(new ProcessStartInfo { FileName = "explorer", Arguments = $"{fileToOpen}" });
 
         process?.WaitForExit();
     }

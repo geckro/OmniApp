@@ -1,5 +1,4 @@
-﻿using GameManager.Core.Data;
-using GameManager.Core.Data.MetadataConstructors;
+﻿using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
@@ -15,11 +14,11 @@ public partial class EditTagsDialog
     private readonly EditTagsViewModel _viewModel;
     private Game? _gameData;
 
-    public EditTagsDialog(IServiceProvider serviceProvider)
+    public EditTagsDialog(IServiceProvider sp)
     {
         InitializeComponent();
 
-        _viewModel = serviceProvider.GetRequiredService<EditTagsViewModel>();
+        _viewModel = sp.GetRequiredService<EditTagsViewModel>();
         _viewModel.SetCloseAction(Close);
         DataContext = _viewModel;
         Loaded += (_, _) => SetListBoxPaddingAndMargin();
@@ -53,10 +52,7 @@ public partial class EditTagsDialog
         {
             foreach (KeyValuePair<Label, TextBlock> tagPair in tags)
             {
-                StackPanel tagStackPanel = new()
-                {
-                    Orientation = Orientation.Horizontal
-                };
+                StackPanel tagStackPanel = new() { Orientation = Orientation.Horizontal };
 
                 tagStackPanel.Children.Add(tagPair.Key);
                 tagStackPanel.Children.Add(tagPair.Value);
@@ -66,10 +62,7 @@ public partial class EditTagsDialog
         }
         else
         {
-            TagStackPanel.Children.Add(new TextBlock
-            {
-                Text = "No tags available for this game."
-            });
+            TagStackPanel.Children.Add(new TextBlock { Text = "No tags available for this game." });
         }
     }
 

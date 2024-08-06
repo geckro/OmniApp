@@ -13,19 +13,9 @@ public partial class MainWindow
         InitializeComponent();
     }
 
-    public MainWindow(IServiceProvider serviceProvider) : this()
+    public MainWindow(IServiceProvider sp) : this()
     {
-        MainWindowViewModel viewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
+        MainWindowViewModel viewModel = sp.GetRequiredService<MainWindowViewModel>();
         DataContext = viewModel;
-    }
-
-    private void OtherButton_Click(object sender, RoutedEventArgs e)
-    {
-        throw new NotSupportedException();
-    }
-
-    private void CSharpTesting_OnClick(object sender, RoutedEventArgs e)
-    {
-        new CSharpReferences.UI.MainWindow().Show();
     }
 }

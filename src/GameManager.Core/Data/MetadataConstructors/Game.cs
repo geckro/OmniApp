@@ -9,6 +9,11 @@ namespace GameManager.Core.Data.MetadataConstructors;
 public class Game() : IMetadata
 {
     /// <summary>
+    ///     The unique Guid of the specific Game.
+    /// </summary>
+    public required Guid Id { get; init; }
+
+    /// <summary>
     ///     The title or name of the game if no region is specified. Defaults to Worldwide.
     /// </summary>
     public required string Title { get; init; }
@@ -72,8 +77,6 @@ public class Game() : IMetadata
     ///     Miscellaneous user-made tags
     /// </summary>
     public Dictionary<string, ICollection<string>>? Tags { get; set; }
-
-    public required Guid Id { get; init; }
 
     [JsonIgnore] public string JsonFile => "games.json";
 

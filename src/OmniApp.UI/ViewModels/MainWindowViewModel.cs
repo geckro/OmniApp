@@ -1,7 +1,7 @@
 ﻿using FinancialManager.UI.Windows;
 using GameManager.UI.Windows;
-using OmniApp.UI.Common.Helpers;
 using OmniApp.UI.Common;
+using OmniApp.UI.Common.Helpers;
 using System.Windows.Input;
 
 namespace OmniApp.UI.ViewModels;

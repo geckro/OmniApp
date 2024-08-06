@@ -9,11 +9,11 @@ public enum RefreshOptions
     FilterMenu = 1
 }
 
-public class Refresh
+public class RefreshManager
 {
     private readonly GameTableHelper _gameTableHelper;
 
-    public Refresh(GameTableHelper gameTableHelper)
+    public RefreshManager(GameTableHelper gameTableHelper)
     {
         _gameTableHelper = gameTableHelper;
     }

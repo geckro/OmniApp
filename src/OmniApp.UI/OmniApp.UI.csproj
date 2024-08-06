@@ -7,7 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSharpReferences.UI\CSharpReferences.UI.csproj"/>
     <ProjectReference Include="..\FinancialManager.UI\FinancialManager.UI.csproj"/>
     <ProjectReference Include="..\GameManager.UI\GameManager.UI.csproj"/>
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>

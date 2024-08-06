@@ -4,6 +4,7 @@ using GameManager.UI.Helpers;
 using GameManager.UI.Managers;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
+using OmniApp.Common.WindowsUtils;
 using OmniApp.UI.Common;
 using OmniApp.UI.Common.Helpers;
 using System.Reflection;
@@ -13,21 +14,24 @@ using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
 
-public class MainGameWindowViewModel : ViewModelBase
+public class GameMgrWindowViewModel : ViewModelBase
 {
     private readonly GameTableHelper _gameTableHelper;
-    private readonly MetadataAccessor<Game> _metadataAccessor;
+    private readonly MetadataAccessor<Game> _gameAcc;
+    private readonly RefreshManager _refreshManager;
     private readonly WindowHelper _windowHelper;
-    private readonly Refresh _refresh;
-    private GameFilterHelper _filterHelper = null!;
+    private FilterHelper _filterHelper = null!;
 
-    public MainGameWindowViewModel(GameTableHelper gameTableHelper, MetadataAccessor<Game> metadataAccessor, WindowHelper windowHelper)
+    public GameMgrWindowViewModel(
+            GameTableHelper gameTableHelper,
+            MetadataAccessor<Game> gameAcc,
+            WindowHelper windowHelper)
     {
         _gameTableHelper = gameTableHelper;
-        _metadataAccessor = metadataAccessor;
+        _gameAcc = gameAcc;
         _windowHelper = windowHelper;
 
-        _refresh = new Refresh(_gameTableHelper);
+        _refreshManager = new RefreshManager(_gameTableHelper);
 
         InitializeCommands();
     }
@@ -45,7 +49,7 @@ public class MainGameWindowViewModel : ViewModelBase
     public ICommand DeleteCommand { get; private set; } = null!;
     public ICommand FilterGameTableCommand { get; private set; } = null!;
 
-    public void SetFilter(GameFilterHelper filterHelper)
+    public void SetFilter(FilterHelper filterHelper)
     {
         _filterHelper = filterHelper;
         _filterHelper.SetViewModel(this);
@@ -54,8 +58,10 @@ public class MainGameWindowViewModel : ViewModelBase
     private void InitializeCommands()
     {
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
-        RefreshDataGridCommand = new RelayCommand<object>(async _ => await _refresh.RefreshControls(RefreshOptions.DataGrid));
-        OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
+        RefreshDataGridCommand =
+                new RelayCommand<object>(async _ => await _refreshManager.RefreshControls(RefreshOptions.DataGrid));
+        OpenGamesJsonCommand =
+                new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
         PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
 
@@ -66,7 +72,8 @@ public class MainGameWindowViewModel : ViewModelBase
         EditTagsCommand = new RelayCommand<Game>(EditTags);
         DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
 
-        FilterGameTableCommand = new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
+        FilterGameTableCommand =
+                new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
     }
 
     public async Task InitializeAsync(DataGrid gameDataGrid)
@@ -77,7 +84,7 @@ public class MainGameWindowViewModel : ViewModelBase
     private void AddGame()
     {
         AddGameWindow addGameWindow = _windowHelper.ShowWindow<AddGameWindow>();
-        addGameWindow.GameAdded += async (_, _) => await _refresh.RefreshControls(RefreshOptions.DataGrid);
+        addGameWindow.GameAdded += async (_, _) => await _refreshManager.RefreshControls(RefreshOptions.DataGrid);
     }
 
     private void PickRandomGame()
@@ -87,19 +94,21 @@ public class MainGameWindowViewModel : ViewModelBase
         if (visibleGames.Count == 0)
         {
             Logger.Error(LogClass.GameMgrUi, "There are no games in the games table.");
-            MessageBox.Show("There are no visible games in the table to choose from.", "Game Picker", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("There are no visible games in the table to choose from.", "Game Picker",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         Random random = new();
         string randomGame = visibleGames[random.Next(visibleGames.Count)];
 
-        MessageBox.Show($"Random game picked: {randomGame}", "Random Game", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBox.Show($"Random game picked: {randomGame}", "Random Game", MessageBoxButton.OK,
+                MessageBoxImage.Information);
     }
 
     private void Preferences()
     {
-        _windowHelper.ShowWindow<GameManagerPreferencesWindow>();
+        _windowHelper.ShowWindow<GameManagerPrefsWindow>();
     }
 
     private async Task MarkAsTrueFalse(Game game, string key)
@@ -109,8 +118,8 @@ public class MainGameWindowViewModel : ViewModelBase
         bool newValue = !currentValue ?? true;
         property.SetValue(game, newValue);
 
-        _metadataAccessor.UpdateItemAndSave(game.Id, key, newValue);
-        await _refresh.RefreshControls(RefreshOptions.DataGrid);
+        _gameAcc.UpdatePropertyAndSave(game.Id, key, newValue);
+        await _refreshManager.RefreshControls(RefreshOptions.DataGrid);
     }
 
     private void Edit(Game? game)
@@ -157,11 +166,12 @@ public class MainGameWindowViewModel : ViewModelBase
 
     private async Task Delete(Game game)
     {
-        MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete '{game.Title}'?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete '{game.Title}'?", "Confirm Delete",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (result == MessageBoxResult.Yes)
         {
-            _metadataAccessor.RemoveItem(game);
-            await _refresh.RefreshControls(RefreshOptions.DataGrid);
+            _gameAcc.RemoveItem(game);
+            await _refreshManager.RefreshControls(RefreshOptions.DataGrid);
         }
     }
 }

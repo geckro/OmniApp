@@ -6,7 +6,6 @@ namespace GameManager.UI.Helpers;
 public class StyleHelper
 {
     private static StyleHelper? _instance;
-    public static StyleHelper Instance => _instance ??= new StyleHelper();
 
     public StyleHelper()
     {
@@ -18,6 +17,8 @@ public class StyleHelper
         _instance = this;
         InitializeDefaultStyles();
     }
+
+    public static StyleHelper Instance => _instance ??= new StyleHelper();
 
     public FontFamily DataGridColumnHeaderFontFamily { get; private set; } = null!;
     public FontFamily DataGridRowFontFamily { get; private set; } = null!;

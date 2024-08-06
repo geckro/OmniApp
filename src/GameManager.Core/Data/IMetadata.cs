@@ -1,7 +1,7 @@
 ﻿namespace GameManager.Core.Data;
 
 /// <summary>
-///     An interface for common required metadata.
+///     An interface for required metadata.
 /// </summary>
 public interface IMetadata
 {

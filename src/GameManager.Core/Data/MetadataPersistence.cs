@@ -16,32 +16,32 @@ public class MetadataPersistence
     ///     Saves a collection of metadata to a JSON file.
     /// </summary>
     /// <param name="value">The collection of metadata to save.</param>
-    /// <param name="metadataJsonFile">The json file.</param>
+    /// <param name="jsonFile">The metadata json file.</param>
     /// <typeparam name="T">The type of metadata.</typeparam>
-    public void SaveMetadata<T>(ICollection<T> value, string metadataJsonFile)
+    public void SaveMetadata<T>(ICollection<T> value, string jsonFile)
     {
-        string fullPath = Path.Combine(MetadataDirectory, metadataJsonFile);
+        string fullPath = Path.Combine(MetadataDirectory, jsonFile);
         _jsonHelper.WriteToJsonFile(value, fullPath);
     }
 
     /// <summary>
     ///     Loads a collection of metadata from a JSON file.
     /// </summary>
-    /// <param name="metadataJsonFile">The json file.</param>
+    /// <param name="jsonFile">The metadata json file.</param>
     /// <typeparam name="T">The type of metadata.</typeparam>
     /// <returns>The collection of loaded metadata.</returns>
-    public ICollection<T> LoadMetadata<T>(string metadataJsonFile)
+    public ICollection<T> LoadMetadata<T>(string jsonFile)
     {
         try
         {
-            InitializeMetadataWithDefaultData<T>(metadataJsonFile);
-            string fullPath = Path.Combine(MetadataDirectory, metadataJsonFile);
+            InitializeMetadataWithDefaultData<T>(jsonFile);
+            string fullPath = Path.Combine(MetadataDirectory, jsonFile);
             return _jsonHelper.LoadFromJsonFile<T>(fullPath);
         }
         catch (DirectoryNotFoundException)
         {
             Directory.CreateDirectory(MetadataDirectory);
-            return LoadMetadata<T>(metadataJsonFile);
+            return LoadMetadata<T>(jsonFile);
         }
     }
 

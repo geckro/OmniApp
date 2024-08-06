@@ -4,9 +4,14 @@ using System.Windows;
 
 namespace OmniApp.UI.Common.Helpers;
 
-public class WindowHelper(IServiceProvider serviceProvider)
+public class WindowHelper
 {
-    private readonly IServiceProvider _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+    private readonly IServiceProvider _sp;
+
+    public WindowHelper(IServiceProvider sp)
+    {
+        _sp = sp;
+    }
 
     /// <summary>
     ///     Shows the window.
@@ -14,7 +19,7 @@ public class WindowHelper(IServiceProvider serviceProvider)
     public T ShowWindow<T>(Action<T>? initAction = null) where T : Window
     {
         Logger.Debug(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
-        T window = _serviceProvider.GetRequiredService<T>();
+        T window = _sp.GetRequiredService<T>();
         initAction?.Invoke(window);
         window.Show();
         return window;
@@ -26,7 +31,7 @@ public class WindowHelper(IServiceProvider serviceProvider)
     public T ShowDialogWindow<T>(Action<T>? initAction = null) where T : Window
     {
         Logger.Debug(LogClass.GameMgrUi, $"ShowDialogWindow<{typeof(T).Name}> called");
-        T dialogWindow = _serviceProvider.GetRequiredService<T>();
+        T dialogWindow = _sp.GetRequiredService<T>();
         initAction?.Invoke(dialogWindow);
         dialogWindow.ShowDialog();
         return dialogWindow;

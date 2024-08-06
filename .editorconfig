@@ -15,7 +15,6 @@ indent_size = 2
 [*.cs]
 
 # .NET formatting options
-max_line_length = 240
 dotnet_sort_system_directives_first = false
 dotnet_separate_import_directive_groups = false
 

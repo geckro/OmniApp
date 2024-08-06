@@ -12,28 +12,23 @@ namespace GameManager.UI.Windows;
 
 public partial class GameManagerWindow
 {
-    private readonly MainGameWindowViewModel _viewModel;
-    private readonly MainWindowContextMenuManager _contextMenuManager;
-    private readonly GameFilterHelper _filterHelper;
+    private readonly GameManagerContextMenuManager _contextMenuManager;
+    private readonly FilterHelper _filterHelper;
+    private readonly GameMgrWindowViewModel _viewModel;
 
     public GameManagerWindow(IServiceProvider sp)
     {
         InitializeComponent();
 
-        _viewModel = sp.GetRequiredService<MainGameWindowViewModel>();
+        _viewModel = sp.GetRequiredService<GameMgrWindowViewModel>();
 
         DataContext = _viewModel;
 
-        _contextMenuManager = new MainWindowContextMenuManager(this, _viewModel);
-        _filterHelper = new GameFilterHelper(
-            this,
-            sp.GetRequiredService<MetadataAccessor<Game>>(),
-            sp.GetRequiredService<MetadataAccessor<Developer>>(),
-            sp.GetRequiredService<MetadataAccessor<Publisher>>(),
-            sp.GetRequiredService<MetadataAccessor<Genre>>(),
-            sp.GetRequiredService<MetadataAccessor<Platform>>(),
-            sp.GetRequiredService<MetadataAccessor<Series>>()
-            );
+        _contextMenuManager = new GameManagerContextMenuManager(this, _viewModel);
+        _filterHelper = new FilterHelper(this, sp.GetRequiredService<MetadataAccessor<Game>>(),
+                sp.GetRequiredService<MetadataAccessor<Developer>>(),
+                sp.GetRequiredService<MetadataAccessor<Publisher>>(), sp.GetRequiredService<MetadataAccessor<Genre>>(),
+                sp.GetRequiredService<MetadataAccessor<Platform>>(), sp.GetRequiredService<MetadataAccessor<Series>>());
 
         Loaded += OnWindowLoaded;
     }
@@ -62,14 +57,17 @@ public partial class GameManagerWindow
     private void RegisterKeyboardShortcuts()
     {
         InputBindings.Add(new KeyBinding(_viewModel.AddGameCommand, new KeyGesture(Key.N, ModifierKeys.Control)));
-        InputBindings.Add(new KeyBinding(_viewModel.RefreshDataGridCommand, new KeyGesture(Key.R, ModifierKeys.Control)));
+        InputBindings.Add(
+                new KeyBinding(_viewModel.RefreshDataGridCommand, new KeyGesture(Key.R, ModifierKeys.Control)));
         InputBindings.Add(new KeyBinding(_viewModel.RefreshDataGridCommand, new KeyGesture(Key.F5)));
-        InputBindings.Add(new KeyBinding(_viewModel.PickRandomGameCommand, new KeyGesture(Key.T, ModifierKeys.Control)));
-        InputBindings.Add(new KeyBinding(_viewModel.OpenPreferencesCommand, new KeyGesture(Key.OemPeriod, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.PickRandomGameCommand,
+                new KeyGesture(Key.T, ModifierKeys.Control)));
+        InputBindings.Add(new KeyBinding(_viewModel.OpenPreferencesCommand,
+                new KeyGesture(Key.OemPeriod, ModifierKeys.Control)));
     }
 
-    public void SetFilter(GameFilterHelper gameFilterHelper)
+    public void SetFilter(FilterHelper filterHelper)
     {
-        _viewModel.SetFilter(gameFilterHelper);
+        _viewModel.SetFilter(filterHelper);
     }
 }

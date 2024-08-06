@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OmniApp.Common;
 using OmniApp.Common.Logging;
 using OmniApp.UI.Windows;
 using System.Windows;
@@ -17,6 +18,14 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        for (int i = 0; i != e.Args.Length; ++i)
+        {
+            if (e.Args[i] == "/Verbose" || e.Args[i] == "/V" || e.Args[i] == "/Debug")
+            {
+                Arguments.VerboseLogging = true;
+            }
+        }
 
         ServiceCollection serviceCollection = [];
         Services.ConfigureDepInjServices(serviceCollection);

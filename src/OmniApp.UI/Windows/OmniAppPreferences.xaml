@@ -5,7 +5,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
-  Title="OmniAppPreferences" Height="450" Width="800">
+  Title="Preferences (Entire Application)"
+  Height="450"
+  Width="800">
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -14,9 +16,6 @@
     <Label
       Grid.Row="0"
       HorizontalAlignment="Center"
-      FontWeight="Bold"
-      FontSize="28"
-      FontFamily="Cascadia Mono"
       Content="OmniAppPreferences" />
     <StackPanel Grid.Row="1">
       <Grid>

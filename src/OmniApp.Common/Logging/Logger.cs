@@ -31,24 +31,17 @@ public static class Logger
         {
             lock (LockObject)
             {
-                Console.WriteLine(
-                    LogFormat,
-                    logLevel.ToString().ToUpper(),
-                    logClass.ToString(),
-                    message
-                );
+                Console.WriteLine(LogFormat, logLevel.ToString().ToUpper(), logClass.ToString(), message);
                 return;
             }
         }
 
-        lock (LockObject)
+        if (Arguments.VerboseLogging)
         {
-            System.Diagnostics.Debug.WriteLine(
-                LogFormat,
-                logLevel.ToString().ToUpper(),
-                logClass.ToString(),
-                message
-            );
+            lock (LockObject)
+            {
+                Console.WriteLine(LogFormat, logLevel.ToString().ToUpper(), logClass.ToString(), message);
+            }
         }
     }
 }

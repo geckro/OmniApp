@@ -12,30 +12,30 @@ namespace GameManager.UI.Windows;
 
 public partial class EditGameDialog
 {
-    private readonly MetadataAccessor<Developer> _developerMetadataAccessor;
-    private readonly MetadataAccessor<Genre> _genreMetadataAccessor;
-    private readonly MetadataAccessor<Platform> _platformMetadataAccessor;
-    private readonly MetadataAccessor<Publisher> _publisherMetadataAccessor;
-    private readonly MetadataAccessor<Series> _seriesMetadataAccessor;
+    private readonly MetadataAccessor<Developer> _developerAcc;
+    private readonly MetadataAccessor<Genre> _genreAcc;
+    private readonly MetadataAccessor<Platform> _platformAcc;
+    private readonly MetadataAccessor<Publisher> _publisherAcc;
+    private readonly MetadataAccessor<Series> _seriesAcc;
     private readonly EditGameViewModel _viewModel;
     private Game? _gameData;
 
-    public EditGameDialog(MetadataAccessor<Genre> genreMetadataAccessor,
-        MetadataAccessor<Platform> platformMetadataAccessor,
-        MetadataAccessor<Developer> developerMetadataAccessor,
-        MetadataAccessor<Publisher> publisherMetadataAccessor,
-        MetadataAccessor<Series> seriesMetadataAccessor,
-        IServiceProvider serviceProvider)
+    public EditGameDialog(MetadataAccessor<Genre> genreAcc,
+            MetadataAccessor<Platform> platformAcc,
+            MetadataAccessor<Developer> developerAcc,
+            MetadataAccessor<Publisher> publisherAcc,
+            MetadataAccessor<Series> seriesAcc,
+            IServiceProvider sp)
     {
         InitializeComponent();
 
-        _genreMetadataAccessor = genreMetadataAccessor;
-        _platformMetadataAccessor = platformMetadataAccessor;
-        _developerMetadataAccessor = developerMetadataAccessor;
-        _publisherMetadataAccessor = publisherMetadataAccessor;
-        _seriesMetadataAccessor = seriesMetadataAccessor;
+        _genreAcc = genreAcc;
+        _platformAcc = platformAcc;
+        _developerAcc = developerAcc;
+        _publisherAcc = publisherAcc;
+        _seriesAcc = seriesAcc;
 
-        _viewModel = serviceProvider.GetRequiredService<EditGameViewModel>();
+        _viewModel = sp.GetRequiredService<EditGameViewModel>();
         _viewModel.SetCloseAction(Close);
         DataContext = _viewModel;
         Loaded += (_, _) => SetListBoxPaddingAndMargin();
@@ -62,12 +62,12 @@ public partial class EditGameDialog
 
         SetHeader();
 
-        GenreListBox.ItemsSource = GetMetadata(_gameData.Genres, _genreMetadataAccessor);
-        PlatformListBox.ItemsSource = GetMetadata(_gameData.Platforms, _platformMetadataAccessor);
-        DeveloperListBox.ItemsSource = GetMetadata(_gameData.Developers, _developerMetadataAccessor);
-        PublisherListBox.ItemsSource = GetMetadata(_gameData.Publishers, _publisherMetadataAccessor);
+        GenreListBox.ItemsSource = GetMetadata(_gameData.Genres, _genreAcc);
+        PlatformListBox.ItemsSource = GetMetadata(_gameData.Platforms, _platformAcc);
+        DeveloperListBox.ItemsSource = GetMetadata(_gameData.Developers, _developerAcc);
+        PublisherListBox.ItemsSource = GetMetadata(_gameData.Publishers, _publisherAcc);
         ReleaseDatePicker.SelectedDate = _gameData.ReleaseDateWw;
-        SeriesListBox.ItemsSource = GetMetadata(_gameData.Series, _seriesMetadataAccessor);
+        SeriesListBox.ItemsSource = GetMetadata(_gameData.Series, _seriesAcc);
     }
 
     private void SetHeader()
@@ -81,11 +81,10 @@ public partial class EditGameDialog
         GameTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 25, 50, 100));
     }
 
-    private static List<string> GetMetadata<T>(IEnumerable<T>? entities, MetadataAccessor<T> accessor) where T : IMetadata
+    private static List<string> GetMetadata<T>(IEnumerable<T>? entities, MetadataAccessor<T> accessor)
+            where T : IMetadata
     {
-        return entities?
-            .Select(e => accessor.GetItemById(e.Id)?.Name ?? "Unknown")
-            .ToList() ?? [];
+        return entities?.Select(e => accessor.GetItemById(e.Id)?.Name ?? "Unknown").ToList() ?? [];
     }
 
     private void SetListBoxPaddingAndMargin()

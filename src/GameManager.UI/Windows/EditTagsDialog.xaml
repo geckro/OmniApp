@@ -5,7 +5,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
-  Title="Edit Entry" Height="450" Width="800">
+  Title="Edit tags..."
+  Height="450"
+  Width="800">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -14,11 +16,9 @@
     <Label Grid.Row="0" x:Name="GameTitle" MouseDoubleClick="GameTitle_OnMouseDoubleClick" />
     <StackPanel Grid.Row="1">
       <StackPanel HorizontalAlignment="Left">
-        <Button Content="Add New Tag" Command="{Binding AddNewTagCommand}" MaxWidth="200"/>
+        <Button Content="Add New Tag" Command="{Binding AddNewTagCommand}" MaxWidth="200" />
       </StackPanel>
-      <StackPanel x:Name="TagStackPanel">
-
-      </StackPanel>
+      <StackPanel x:Name="TagStackPanel" />
     </StackPanel>
   </Grid>
 </Window>

@@ -5,7 +5,8 @@ namespace GameManager.Core.Scrapers;
 
 public partial class Wikipedia
 {
-    private const string DefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
+    private const string DefaultUserAgent =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
     private static bool _hasPrintedCleanHtmlLog;
     private readonly string _baseUrl;
@@ -116,10 +117,7 @@ public partial class Wikipedia
 
         foreach (Match rowMatch in rowMatches)
         {
-            string key = CleanHtml(rowMatch.Groups[1].Value)
-                .Trim()
-                .Replace("(s)", "s")
-                .ToLower();
+            string key = CleanHtml(rowMatch.Groups[1].Value).Trim().Replace("(s)", "s").ToLower();
             string value = CleanHtml(rowMatch.Groups[2].Value).Trim();
 
             if (key == "release")

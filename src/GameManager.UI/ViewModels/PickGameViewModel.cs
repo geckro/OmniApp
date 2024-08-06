@@ -22,7 +22,7 @@ public class PickGameViewModel : ViewModelBase
     public string? GameId { get; private set; }
 
     public ObservableCollection<ListBoxItem> ListBoxSelectedItems { get; }
-    
+
     private void InitializeCommands()
     {
         OkCommand = new RelayCommand<object>(_ => OnButtonOk());

@@ -11,38 +11,48 @@ using System.Windows.Media;
 
 namespace GameManager.UI.Managers;
 
-public class MainWindowContextMenuManager
+public class GameManagerContextMenuManager
 {
     private readonly GameManagerWindow _mainWindow;
-    private readonly MainGameWindowViewModel _viewModel;
+    private readonly GameMgrWindowViewModel _viewModel;
+    private ContextMenu _contextMenu = null!;
 
-    public MainWindowContextMenuManager(GameManagerWindow mainWindow, MainGameWindowViewModel viewModel)
+    public GameManagerContextMenuManager(GameManagerWindow mainWindow, GameMgrWindowViewModel viewModel)
     {
         _mainWindow = mainWindow;
         _viewModel = viewModel;
     }
 
+    /// <summary>
+    ///     Populates the game table context menu with MenuItems.
+    /// </summary>
     public void PopulateDataGridContextMenu()
     {
-        ContextMenu contextMenu = new() { Background = StyleHelper.Instance.ContextMenuBackgroundColor };
+        _contextMenu = new ContextMenu { Background = StyleHelper.Instance.ContextMenuBackgroundColor };
 
-        AddMenuItem(contextMenu, "Mark as played", _viewModel.MarkAsPlayedCommand, true);
-        AddMenuItem(contextMenu, "Mark as finished", _viewModel.MarkAsFinishedCommand, true);
-        AddMenuItem(contextMenu, "Mark as completed", _viewModel.MarkAsCompletedCommand, true);
-        contextMenu.Items.Add(new Separator());
-        AddMenuItem(contextMenu, "Edit", _viewModel.EditCommand, false);
-        AddMenuItem(contextMenu, "Edit Tags", _viewModel.EditTagsCommand, false);
-        AddMenuItem(contextMenu, "Delete", _viewModel.DeleteCommand, false);
+        AddMenuItem("Mark as played", _viewModel.MarkAsPlayedCommand, true);
+        AddMenuItem("Mark as finished", _viewModel.MarkAsFinishedCommand, true);
+        AddMenuItem("Mark as completed", _viewModel.MarkAsCompletedCommand, true);
+        _contextMenu.Items.Add(new Separator());
+        AddMenuItem("Edit", _viewModel.EditCommand, false);
+        AddMenuItem("Edit Tags", _viewModel.EditTagsCommand, false);
+        AddMenuItem("Delete", _viewModel.DeleteCommand, false);
 
-        _mainWindow.GameDataGrid.ContextMenu = contextMenu;
+        _mainWindow.GameDataGrid.ContextMenu = _contextMenu;
         _mainWindow.GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
     }
 
-    private static void AddMenuItem(ContextMenu contextMenu, string header, ICommand command, bool isCheckable)
+    /// <summary>
+    ///     Adds a menu item to the Game Table context menu.
+    /// </summary>
+    /// <param name="header">The menu item text to use.</param>
+    /// <param name="command"> The command when the menu item gets clicked.</param>
+    /// <param name="isCheckable">Whether the menu item can be checked or not.</param>
+    private void AddMenuItem(string header, ICommand command, bool isCheckable)
     {
         MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
         menuItem.SetBinding(MenuItem.CommandParameterProperty, new Binding());
-        contextMenu.Items.Add(menuItem);
+        _contextMenu.Items.Add(menuItem);
     }
 
     private void GameDataGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
