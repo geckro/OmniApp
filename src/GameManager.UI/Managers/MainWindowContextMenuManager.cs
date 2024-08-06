@@ -24,7 +24,7 @@ public class MainWindowContextMenuManager
 
     public void PopulateDataGridContextMenu()
     {
-        ContextMenu contextMenu = new() { Background = Styles.ContextMenuBackgroundColor };
+        ContextMenu contextMenu = new() { Background = StyleHelper.Instance.ContextMenuBackgroundColor };
 
         AddMenuItem(contextMenu, "Mark as played", _viewModel.MarkAsPlayedCommand, true);
         AddMenuItem(contextMenu, "Mark as finished", _viewModel.MarkAsFinishedCommand, true);

@@ -14,7 +14,7 @@
   MinWidth="800"
   MinHeight="600">
   <Window.Resources>
-    <helpers:GameManagerStyleHelper x:Key="StyleHelper" />
+    <helpers:StyleHelper x:Key="StyleHelper" />
   </Window.Resources>
   <Window.Background>
     <SolidColorBrush Color="{Binding Source={StaticResource StyleHelper}, Path=WindowBackgroundColor.Color}" />
@@ -81,14 +81,13 @@
           IsReadOnly="True"
           AlternatingRowBackground="{Binding Source={StaticResource StyleHelper}, Path=DataGridAlternatingRowBackgroundColor}"
           GridLinesVisibility="None"
-          FontFamily="Inter"
-          FontSize="16"
           RowHeaderWidth="0">
           <DataGrid.ColumnHeaderStyle>
             <Style TargetType="DataGridColumnHeader">
               <Setter Property="Background" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderBackgroundColor}" />
               <Setter Property="FontFamily" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderFontFamily}" />
               <Setter Property="FontWeight" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderFontWeight}" />
+              <Setter Property="FontSize" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridColumnHeaderFontSize}" />
               <Setter Property="Padding" Value="5, 2, 5, 2" />
             </Style>
           </DataGrid.ColumnHeaderStyle>
@@ -97,6 +96,7 @@
               <Setter Property="Background" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowBackgroundColor}" />
               <Setter Property="FontFamily" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowFontFamily}" />
               <Setter Property="FontWeight" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowFontWeight}" />
+              <Setter Property="FontSize" Value="{Binding Source={StaticResource StyleHelper}, Path=DataGridRowFontSize}" />
             </Style>
           </DataGrid.RowStyle>
         </DataGrid>

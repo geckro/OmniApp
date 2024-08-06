@@ -17,6 +17,7 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
         ServiceCollection serviceCollection = [];
         Services.ConfigureDepInjServices(serviceCollection);
         ServiceProvider = serviceCollection.BuildServiceProvider();
