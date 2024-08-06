@@ -4,8 +4,12 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Edit entry..." Height="450" Width="800">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -20,25 +24,54 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-          <Label Content="Platforms" />
-          <ListBox x:Name="PlatformListBox" Height="100" />
+          <Label Content="Platforms"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <ListBox x:Name="PlatformListBox"
+                   Height="100"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
 
-          <Label Content="Developers" />
-          <ListBox x:Name="DeveloperListBox" Height="100" />
+          <Label Content="Developers"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <ListBox x:Name="DeveloperListBox"
+                   Height="100"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
 
-          <Label Content="Publishers" />
-          <ListBox x:Name="PublisherListBox" Height="100" />
+          <Label Content="Publishers"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <ListBox x:Name="PublisherListBox"
+                   Height="100"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-          <Label Content="Release Date (Worldwide)" />
-          <DatePicker x:Name="ReleaseDatePicker" />
+          <Label Content="Release Date (Worldwide)"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <DatePicker x:Name="ReleaseDatePicker"
+                      Background="{Binding Source={StaticResource Styles}, Path=Instance.DatePickerBackgroundColor}"/>
 
-          <Label Content="Genres" />
-          <ListBox x:Name="GenreListBox" Height="100" />
+          <Label Content="Genres"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <ListBox x:Name="GenreListBox"
+                   Height="100"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
 
-          <Label Content="Series" />
-          <ListBox x:Name="SeriesListBox" Height="100" />
+          <Label Content="Series"
+                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <ListBox x:Name="SeriesListBox"
+                   Height="100"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />

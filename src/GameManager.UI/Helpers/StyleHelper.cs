@@ -40,6 +40,7 @@ public class StyleHelper
     public int DataGridColumnHeaderFontSize { get; private set; }
     public int DataGridRowFontSize { get; private set; }
     public int HeaderFontSize { get; private set; }
+    public SolidColorBrush DatePickerBackgroundColor { get; private set; } = null!;
 
     private void InitializeDefaultStyles()
     {
@@ -57,6 +58,7 @@ public class StyleHelper
         DataGridRowSelectedBackgroundColor = new SolidColorBrush(Color.FromRgb(200, 200, 200));
         DataGridRowSelectedFontWeight = FontWeights.Medium;
         DataGridRowSelectedTextColor = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        DatePickerBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
         HeaderFontFamily = new FontFamily("Segoe UI");
         HeaderFontSize = 18;
         HeaderFontWeight = FontWeights.Medium;

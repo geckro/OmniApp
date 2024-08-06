@@ -21,7 +21,7 @@ public partial class RenameDialog
     public void SetCurrentGame(Game game)
     {
         _game = game;
-        OldTitleLabel.Content = _game.Title;
+        OldTitleTextBlock.Text = _game.Title;
     }
 
     private void RenameButton_OnClick(object sender, RoutedEventArgs e)

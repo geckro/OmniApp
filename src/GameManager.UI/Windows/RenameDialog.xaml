@@ -4,10 +4,14 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Rename title..."
   SizeToContent="Height"
   Height="200" Width="200">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
@@ -16,15 +20,20 @@
     <StackPanel Grid.Row="0">
       <StackPanel Orientation="Horizontal">
         <Label Content="Old title: " />
-        <Label x:Name="OldTitleLabel" />
+        <TextBlock x:Name="OldTitleTextBlock"
+                   Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <Label Content="New title: " />
-        <TextBox x:Name="NewTitleTextBox" MinWidth="100" />
+        <TextBox x:Name="NewTitleTextBox"
+                 MinWidth="100"
+                 Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
       </StackPanel>
     </StackPanel>
     <StackPanel Grid.Row="1">
-      <Button Click="RenameButton_OnClick" Content="Rename" />
+      <Button Content="Rename"
+              Click="RenameButton_OnClick"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
     </StackPanel>
   </Grid>
 </Window>

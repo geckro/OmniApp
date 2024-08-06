@@ -4,10 +4,14 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Edit tags..."
   Height="450"
   Width="800">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -16,9 +20,13 @@
     <Label Grid.Row="0" x:Name="GameTitle" MouseDoubleClick="GameTitle_OnMouseDoubleClick" />
     <StackPanel Grid.Row="1">
       <StackPanel HorizontalAlignment="Left">
-        <Button Content="Add New Tag" Command="{Binding AddNewTagCommand}" MaxWidth="200" />
+        <Button Content="Add New Tag"
+                Command="{Binding AddNewTagCommand}"
+                MaxWidth="200"
+                Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
       </StackPanel>
-      <StackPanel x:Name="TagStackPanel" />
+      <StackPanel x:Name="TagStackPanel"
+                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
     </StackPanel>
   </Grid>
 </Window>
