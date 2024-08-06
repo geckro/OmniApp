@@ -1,5 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using GameManager.UI.Helpers;
 using GameManager.UI.Windows;
 using System.Reflection;
 using System.Windows;
@@ -34,9 +35,15 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
     /// <typeparam name="T">The type of IMetadata.</typeparam>
     private Task MakeMetadataAreasAsync<T>(string name, StackPanel stackPanel, ICollection<T> dataSource) where T : IMetadata
     {
-        Label label = new() { Content = name };
+        Label label = new()
+        {
+            Content = name,
+            FontFamily = StyleHelper.Instance.HeaderFontFamily,
+            FontWeight = StyleHelper.Instance.HeaderFontWeight,
+            FontSize = StyleHelper.Instance.HeaderFontSize
+        };
 
-        TextBox textBox = new() { Name = $"{name}TextBox" };
+        TextBox textBox = new() { Name = $"{name}TextBox", Background = StyleHelper.Instance.TextBoxBackgroundColor };
         addGame.RegisterName(textBox.Name, textBox);
 
         UpdateMetadata(name, dataSource);
@@ -51,6 +58,7 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
             Padding = new Thickness(0),
             Margin = new Thickness(0),
             FontSize = 14,
+            Background = StyleHelper.Instance.ListBoxBackgroundColor,
             ItemContainerStyle = CreateListBoxItemStyle()
         };
         addGame.RegisterName(listBox.Name, listBox);

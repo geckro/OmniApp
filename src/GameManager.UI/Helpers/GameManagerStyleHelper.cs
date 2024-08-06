@@ -19,23 +19,26 @@ public class StyleHelper
         InitializeDefaultStyles();
     }
 
-    public FontFamily DataGridColumnHeaderFontFamily { get; set; } = null!;
-    public FontFamily DataGridRowFontFamily { get; set; } = null!;
-    public FontWeight DataGridColumnHeaderFontWeight { get; set; }
-    public FontWeight DataGridRowFontWeight { get; set; }
-    public FontWeight DataGridRowSelectedFontWeight { get; set; }
+    public FontFamily DataGridColumnHeaderFontFamily { get; private set; } = null!;
+    public FontFamily DataGridRowFontFamily { get; private set; } = null!;
+    public FontFamily HeaderFontFamily { get; private set; } = null!;
+    public FontWeight DataGridColumnHeaderFontWeight { get; private set; }
+    public FontWeight DataGridRowFontWeight { get; private set; }
+    public FontWeight DataGridRowSelectedFontWeight { get; private set; }
+    public FontWeight HeaderFontWeight { get; private set; }
     public SolidColorBrush ButtonColor { get; private set; } = null!;
     public SolidColorBrush ContextMenuBackgroundColor { get; private set; } = null!;
     public SolidColorBrush DataGridAlternatingRowBackgroundColor { get; private set; } = null!;
-    public SolidColorBrush DataGridColumnHeaderBackgroundColor { get; set; } = null!;
-    public SolidColorBrush DataGridRowBackgroundColor { get; set; } = null!;
-    public SolidColorBrush DataGridRowSelectedBackgroundColor { get; set; } = null!;
-    public SolidColorBrush DataGridRowSelectedTextColor { get; set; } = null!;
+    public SolidColorBrush DataGridColumnHeaderBackgroundColor { get; private set; } = null!;
+    public SolidColorBrush DataGridRowBackgroundColor { get; private set; } = null!;
+    public SolidColorBrush DataGridRowSelectedBackgroundColor { get; private set; } = null!;
+    public SolidColorBrush DataGridRowSelectedTextColor { get; private set; } = null!;
     public SolidColorBrush ListBoxBackgroundColor { get; private set; } = null!;
     public SolidColorBrush TextBoxBackgroundColor { get; private set; } = null!;
     public SolidColorBrush WindowBackgroundColor { get; private set; } = null!;
-    public int DataGridColumnHeaderFontSize { get; set; }
-    public int DataGridRowFontSize { get; set; }
+    public int DataGridColumnHeaderFontSize { get; private set; }
+    public int DataGridRowFontSize { get; private set; }
+    public int HeaderFontSize { get; private set; }
 
     private void InitializeDefaultStyles()
     {
@@ -53,6 +56,9 @@ public class StyleHelper
         DataGridRowSelectedBackgroundColor = new SolidColorBrush(Color.FromRgb(200, 200, 200));
         DataGridRowSelectedFontWeight = FontWeights.Medium;
         DataGridRowSelectedTextColor = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        HeaderFontFamily = new FontFamily("Segoe UI");
+        HeaderFontSize = 18;
+        HeaderFontWeight = FontWeights.Medium;
         ListBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
         TextBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
         WindowBackgroundColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));

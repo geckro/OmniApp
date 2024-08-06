@@ -4,10 +4,14 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Add Game"
   Height="600"
   Width="900">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="StyleHelper" />
+  </Window.Resources>
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -21,8 +25,19 @@
           <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Horizontal">
-          <Label Content="Title" VerticalAlignment="Center" />
-          <TextBox x:Name="TitleBox" MinWidth="250" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" KeyDown="TitleBox_Rename" />
+          <Label
+            Content="Title"
+            FontWeight="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontWeight}"
+            FontFamily="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontFamily}"
+            FontSize="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontSize}"
+            VerticalAlignment="Center" />
+          <TextBox
+            x:Name="TitleBox"
+            MinWidth="250"
+            Background="{Binding Source={StaticResource StyleHelper}, Path=Instance.TextBoxBackgroundColor}"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            KeyDown="TitleBox_Rename" />
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal">
           <Button Content="Add new game" Click="AddNewGameFinish_Click" />

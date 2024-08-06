@@ -55,7 +55,9 @@ public class GameFilterHelper
         Label header = new()
         {
             Content = headerText,
-            FontWeight = FontWeights.DemiBold
+            FontFamily = StyleHelper.Instance.HeaderFontFamily,
+            FontWeight = StyleHelper.Instance.HeaderFontWeight,
+            FontSize = StyleHelper.Instance.HeaderFontSize
         };
         headerText = headerText.Replace(" ", "");
         ListBox listBox = new()

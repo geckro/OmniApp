@@ -62,7 +62,11 @@
         </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
-        <Label Content="Search" />
+        <Label
+          Content="Search"
+          FontWeight="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontWeight}"
+          FontFamily="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontFamily}"
+          FontSize="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontSize}" />
         <TextBox MinWidth="150" Background="{Binding Source={StaticResource StyleHelper}, Path=TextBoxBackgroundColor}"/>
       </StackPanel>
     </Grid>
@@ -139,7 +143,11 @@
 
           <!-- Filters -->
           <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label Content="Filters" />
+            <Label
+              Content="Filters"
+              FontWeight="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontWeight}"
+              FontFamily="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontFamily}"
+              FontSize="{Binding Source={StaticResource StyleHelper}, Path=Instance.HeaderFontSize}" />
             <StackPanel x:Name="FilterStackPanel" />
           </StackPanel>
         </Grid>
