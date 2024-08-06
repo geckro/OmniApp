@@ -75,7 +75,7 @@ public class GameFilterHelper
 
     private static Style CreateListBoxItemStyle()
     {
-        Style style = new(typeof(ListBox));
+        Style style = new(typeof(ListBoxItem));
         style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(2)));
         style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(0)));
 
