@@ -44,6 +44,7 @@ public static class Services
         sv.AddScoped<EditGameViewModel>();
         sv.AddScoped<EditTagsViewModel>();
         sv.AddScoped<AddNewTagGameViewModel>();
+        sv.AddScoped<PreferencesViewModel>();
         sv.AddScoped<PickGameViewModel>();
         sv.AddScoped<GameTableHelper>();
         sv.AddScoped<FileHelper>();
@@ -73,7 +74,7 @@ public static class Services
 
         // GameManager
         sv.AddTransient<GameManagerWindow>();
-        sv.AddTransient<GameManagerPrefsWindow>();
+        sv.AddTransient<PreferencesWindow>();
         sv.AddTransient<AddGameWindow>();
         sv.AddTransient<EditGameDialog>();
         sv.AddTransient<EditTagsDialog>();

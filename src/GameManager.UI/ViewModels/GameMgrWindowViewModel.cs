@@ -108,7 +108,7 @@ public class GameMgrWindowViewModel : ViewModelBase
 
     private void Preferences()
     {
-        _windowHelper.ShowWindow<GameManagerPrefsWindow>();
+        _windowHelper.ShowWindow<PreferencesWindow>();
     }
 
     private async Task MarkAsTrueFalse(Game game, string key)
