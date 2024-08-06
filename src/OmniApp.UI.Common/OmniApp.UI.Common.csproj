@@ -11,4 +11,26 @@
   <ItemGroup>
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Resource Include="Images\Add.png" />
+    <Resource Include="Images\AlignBottom.png" />
+    <Resource Include="Images\AlignLeft.png" />
+    <Resource Include="Images\AlignMiddleHorizontal.png" />
+    <Resource Include="Images\AlignMiddleVertical.png" />
+    <Resource Include="Images\AlignRight.png" />
+    <Resource Include="Images\AlignTop.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\Cut.png" />
+    <Resource Include="Images\Delete.png" />
+    <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\Font.png" />
+    <Resource Include="Images\Hyperlink.png" />
+    <Resource Include="Images\Json.png" />
+    <Resource Include="Images\Paste.png" />
+    <Resource Include="Images\Preferences.png" />
+    <Resource Include="Images\Refresh.png" />
+    <Resource Include="Images\Shuffle.png" />
+    <Resource Include="Images\Tags.png" />
+  </ItemGroup>
 </Project>

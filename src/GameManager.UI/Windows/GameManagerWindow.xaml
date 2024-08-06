@@ -8,7 +8,6 @@
   mc:Ignorable="d"
   Title="Game Manager"
   WindowStartupLocation="CenterScreen"
-  Icon="../Images/icon.ico"
   d:DesignWidth="1280"
   d:DesignHeight="720"
   MinWidth="800"
@@ -34,31 +33,31 @@
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Add a new title"
           Command="{Binding AddGameCommand}">
-          <Image Source="../Images/add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" MaxWidth="24" />
         </Button>
         <Button
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
-          <Image Source="../Images/refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Refresh.png" MaxWidth="24" />
         </Button>
         <Button
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Open raw JSON games file"
           Command="{Binding OpenGamesJsonCommand}">
-          <Image Source="../Images/json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Json.png" MaxWidth="24" />
         </Button>
         <Button
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Open Game Manager preferences"
           Command="{Binding OpenPreferencesCommand}">
-          <Image Source="../Images/options.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Preferences.png" MaxWidth="24" />
         </Button>
         <Button
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Pick a random game"
           Command="{Binding PickRandomGameCommand}">
-          <Image Source="../Images/random.png" MaxWidth="24" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Shuffle.png" MaxWidth="24" />
         </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">

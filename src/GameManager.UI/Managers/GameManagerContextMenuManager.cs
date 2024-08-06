@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GameManager.UI.Managers;
 
@@ -34,9 +35,9 @@ public class GameManagerContextMenuManager
         AddMenuItem("Mark as finished", _viewModel.MarkAsFinishedCommand, true);
         AddMenuItem("Mark as completed", _viewModel.MarkAsCompletedCommand, true);
         _contextMenu.Items.Add(new Separator());
-        AddMenuItem("Edit", _viewModel.EditCommand, false);
-        AddMenuItem("Edit Tags", _viewModel.EditTagsCommand, false);
-        AddMenuItem("Delete", _viewModel.DeleteCommand, false);
+        AddMenuItem("Edit", _viewModel.EditCommand, false, "Edit");
+        AddMenuItem("Edit Tags", _viewModel.EditTagsCommand, false, "Tags");
+        AddMenuItem("Delete", _viewModel.DeleteCommand, false, "Delete");
 
         _mainWindow.GameDataGrid.ContextMenu = _contextMenu;
         _mainWindow.GameDataGrid.ContextMenuOpening += GameDataGrid_ContextMenuOpening;
@@ -48,9 +49,20 @@ public class GameManagerContextMenuManager
     /// <param name="header">The menu item text to use.</param>
     /// <param name="command"> The command when the menu item gets clicked.</param>
     /// <param name="isCheckable">Whether the menu item can be checked or not.</param>
-    private void AddMenuItem(string header, ICommand command, bool isCheckable)
+    /// <param name="image">The image name to use.</param>
+    private void AddMenuItem(string header, ICommand command, bool isCheckable, string? image = null)
     {
         MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
+        if (image != null)
+        {
+            Image iconImage = new()
+            {
+                    Source = new BitmapImage(
+                            new Uri($"pack://application:,,,/OmniApp.UI.Common;component/Images/{image}.png")),
+            };
+            RenderOptions.SetBitmapScalingMode(iconImage, BitmapScalingMode.HighQuality);
+            menuItem.Icon = iconImage;
+        }
         menuItem.SetBinding(MenuItem.CommandParameterProperty, new Binding());
         _contextMenu.Items.Add(menuItem);
     }
