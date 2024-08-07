@@ -93,6 +93,8 @@ public class MetadataAccessor<T> where T : IMetadata
             return;
         }
 
+        SetLastUpdatedValue(itemToUpdate);
+
         PropertyInfo? propertyInfo = typeof(T).GetProperty(key);
         if (propertyInfo == null)
         {
@@ -112,6 +114,14 @@ public class MetadataAccessor<T> where T : IMetadata
         catch (Exception ex)
         {
             Logger.Error(LogClass.GameMgrCore, $"Error updating property '{key}': {ex.Message}");
+        }
+    }
+
+    private static void SetLastUpdatedValue(T itemToUpdate)
+    {
+        if (typeof(T) == typeof(Game))
+        {
+            itemToUpdate.GetType().GetProperty("LastUpdated")?.SetValue(itemToUpdate, DateTime.Now);
         }
     }
 
