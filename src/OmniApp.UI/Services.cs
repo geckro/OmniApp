@@ -1,4 +1,5 @@
-﻿using FinancialManager.UI.Windows;
+﻿using FinancialManager.UI.ViewModels;
+using FinancialManager.UI.Windows;
 using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Helpers;
@@ -61,6 +62,9 @@ public static class Services
                 new MetadataAccessor<Platform>(sp.GetRequiredService<MetadataPersistence>(), "platforms.json"));
         sv.AddScoped<MetadataAccessor<Series>>(sp =>
                 new MetadataAccessor<Series>(sp.GetRequiredService<MetadataPersistence>(), "series.json"));
+
+        // Finance Manager
+        sv.AddScoped<FinanceManagerViewModel>();
     }
 
     /// <summary>

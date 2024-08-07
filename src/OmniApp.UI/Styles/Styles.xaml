@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:gameMgrWindows="clr-namespace:GameManager.UI.Windows;assembly=GameManager.UI">
+  xmlns:gameMgrWindows="clr-namespace:GameManager.UI.Windows;assembly=GameManager.UI"
+  xmlns:omniAppWindows="clr-namespace:OmniApp.UI.Windows"
+  xmlns:financeWindows="clr-namespace:FinancialManager.UI.Windows;assembly=FinancialManager.UI">
   <Style x:Key="BaseWindowStyle">
     <Style.Resources>
       <Style TargetType="Control" x:Key="BaseControlStyle">
@@ -33,6 +35,8 @@
       </Style>
     </Style.Resources>
   </Style>
+  <Style TargetType="{x:Type omniAppWindows:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
+  <Style TargetType="{x:Type financeWindows:FinanceManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:GameManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:AddGameWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:ModifyMetadataWindow}" BasedOn="{StaticResource BaseWindowStyle}" />

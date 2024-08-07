@@ -4,9 +4,69 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:helpers="clr-namespace:FinancialManager.UI.Helpers"
   mc:Ignorable="d"
-  Title="Financial Manager"
-  Height="450"
-  Width="800">
-  <Grid />
+  Title="Finance Manager"
+  d:DesignWidth="1280"
+  d:DesignHeight="720"
+  MinWidth="800"
+  MinHeight="600">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
+  <Window.Background>
+    <SolidColorBrush Color="{Binding Source={StaticResource Styles}, Path=WindowBackgroundColor.Color}" />
+  </Window.Background>
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="0" Orientation="Horizontal">
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Add a new finance"
+          Command="{Binding AddFinanceCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Modify finance categories"
+          Command="{Binding ModifyFinanceCategoriesCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Refresh the table"
+          Command="{Binding RefreshDataGridCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Open raw JSON finances file"
+          Command="{Binding OpenFinancesJsonCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Open Finance Manager preferences"
+          Command="{Binding OpenPreferencesCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Preferences.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Orientation="Horizontal">
+        <Label
+          Content="Search"
+          FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
+          FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
+          FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+        <TextBox MinWidth="150" Background="{Binding Source={StaticResource Styles}, Path=TextBoxBackgroundColor}" />
+      </StackPanel>
+    </Grid>
+  </Grid>
 </Window>
