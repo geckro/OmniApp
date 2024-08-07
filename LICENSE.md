@@ -1,9 +1,15 @@
-MIT License
+All Rights Reserved. (c)
 
-Copyright (c) 2024 geckro
+Omni App
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Copyright © 2024, geckronome
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Permission is hereby granted to any person obtaining a copy of this software and associated documentation files (the "Software"), to build and use the Software for personal, non-commercial purposes, and to locally share the built Software on their own computers, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+1. The Software, in its original or modified form, must not be distributed, published, or made available online in any form.
+2. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+   a. Redistributions must be for personal, non-commercial purposes only.
+   b. Redistributions in any form must not be made available online or on any public network.
+3. Commercial use of this Software is permitted only if a copy of the Software is purchased for each individual user of the Software within the organization/business/companies.
+
+THIS SOFTWARE IS PROVIDED "AS IS" BY THE AUTHORS, COPYRIGHT HOLDERS AND CONTRIBUTORS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
