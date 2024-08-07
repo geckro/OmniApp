@@ -1,0 +1,51 @@
+﻿<Window
+  x:Class="GameManager.UI.Windows.ModifyMetadataWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  mc:Ignorable="d"
+  Title="Modify Metadata"
+  Height="450"
+  Width="800">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <StackPanel Grid.Column="0">
+      <Button Content="Developers"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
+              Command="{Binding DeveloperCommand}" />
+      <Button Content="Publishers"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
+              Command="{Binding PublisherCommand}" />
+      <Button Content="Genres"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
+              Command="{Binding GenreCommand}" />
+      <Button Content="Platforms"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
+              Command="{Binding PlatformCommand}" />
+      <Button Content="Series"
+              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
+              Command="{Binding SeriesCommand}" />
+    </StackPanel>
+    <StackPanel Grid.Column="1">
+      <ItemsControl ItemsSource="{Binding MetadataItems}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ListBoxItem Content="{Binding Path=.}"
+                       Padding="6"
+                       Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+  </Grid>
+</Window>
+

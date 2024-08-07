@@ -37,6 +37,12 @@
         </Button>
         <Button
           Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          ToolTip="Modify metadata categories"
+          Command="{Binding ModifyMetadataCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
+        <Button
+          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />

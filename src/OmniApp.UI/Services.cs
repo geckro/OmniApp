@@ -41,6 +41,7 @@ public static class Services
 
         // GameManager
         sv.AddScoped<GameMgrWindowViewModel>();
+        sv.AddScoped<ModifyMetadataViewModel>();
         sv.AddScoped<EditGameViewModel>();
         sv.AddScoped<EditTagsViewModel>();
         sv.AddScoped<AddNewTagGameViewModel>();
@@ -74,6 +75,7 @@ public static class Services
 
         // GameManager
         sv.AddTransient<GameManagerWindow>();
+        sv.AddTransient<ModifyMetadataWindow>();
         sv.AddTransient<PreferencesWindow>();
         sv.AddTransient<AddGameWindow>();
         sv.AddTransient<EditGameDialog>();

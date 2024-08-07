@@ -37,6 +37,7 @@ public class GameMgrWindowViewModel : ViewModelBase
     }
 
     public ICommand AddGameCommand { get; private set; } = null!;
+    public ICommand ModifyMetadataCommand { get; private set; } = null!;
     public ICommand RefreshDataGridCommand { get; private set; } = null!;
     public ICommand OpenGamesJsonCommand { get; private set; } = null!;
     public ICommand OpenPreferencesCommand { get; private set; } = null!;
@@ -58,6 +59,7 @@ public class GameMgrWindowViewModel : ViewModelBase
     private void InitializeCommands()
     {
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
+        ModifyMetadataCommand = new RelayCommand<object>(_ => ModifyMetadata());
         RefreshDataGridCommand =
                 new RelayCommand<object>(async _ => await _refreshManager.RefreshControls(RefreshOptions.DataGrid));
         OpenGamesJsonCommand =
@@ -85,6 +87,11 @@ public class GameMgrWindowViewModel : ViewModelBase
     {
         AddGameWindow addGameWindow = _windowHelper.ShowWindow<AddGameWindow>();
         addGameWindow.GameAdded += async (_, _) => await _refreshManager.RefreshControls(RefreshOptions.DataGrid);
+    }
+
+    private void ModifyMetadata()
+    {
+        _windowHelper.ShowWindow<ModifyMetadataWindow>();
     }
 
     private void PickRandomGame()

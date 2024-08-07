@@ -35,6 +35,7 @@
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:GameManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:AddGameWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
+  <Style TargetType="{x:Type gameMgrWindows:ModifyMetadataWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:EditGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:PreferencesWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
