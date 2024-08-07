@@ -39,7 +39,7 @@ public class EditTagsViewModel : ViewModelBase
     {
         if (GameEntry == null)
         {
-            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit the title of a null game");
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to edit the title of a null game");
             return;
         }
 
@@ -49,7 +49,7 @@ public class EditTagsViewModel : ViewModelBase
             {
                 renameDialog.SetCurrentGame(GameEntry);
 
-                Logger.Info(LogClass.GameMgrUi, $"{renameDialog.WasRenamed}");
+                Logger.Info(LogClass.GameMgrUiViewModels, $"{renameDialog.WasRenamed}");
 
                 renameDialog.Closed += (_, _) =>
                 {
@@ -58,7 +58,7 @@ public class EditTagsViewModel : ViewModelBase
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected RenameDialog window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUiViewModels, $"Expected RenameDialog window, got {window.GetType().Name}");
             }
         });
     }
@@ -102,7 +102,7 @@ public class EditTagsViewModel : ViewModelBase
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected AddNewTagGameDialog window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUiViewModels, $"Expected AddNewTagGameDialog window, got {window.GetType().Name}");
             }
         });
     }

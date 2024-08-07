@@ -10,7 +10,7 @@ public partial class App
 {
     public App()
     {
-        Logger.Debug(LogClass.OmniUi, "Starting Application");
+        Logger.Debug(LogClass.OmniUiWindows, "Starting Application");
     }
 
     private static IServiceProvider ServiceProvider { get; set; } = null!;

@@ -133,8 +133,8 @@ public partial class AddGameWindow
         Uri? link = UrlHelper.ConvertStringToUri(text);
         if (link != null)
         {
-            Wikipedia wikipedia = new();
-            WikipediaPage? result = wikipedia.ScrapePageAsync(link).Result;
+            Wikimedia wikimedia = new();
+            WikipediaPage? result = wikimedia.ScrapePageAsync(link).Result;
 
             if (result != null)
             {

@@ -46,7 +46,7 @@ public class GameTableHelper
     /// <param name="dataGrid">The Game DataGrid.</param>
     public async Task PopulateGameTableAsync(DataGrid dataGrid)
     {
-        Logger.Debug(LogClass.GameMgrUi, "Populating the game table...");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Populating the game table...");
 
         try
         {
@@ -54,11 +54,11 @@ public class GameTableHelper
             ConfigureGameDataGrid();
             await RefreshGameTableAsync();
 
-            Logger.Info(LogClass.GameMgrUi, "Game DataGrid successfully populated.");
+            Logger.Info(LogClass.GameMgrUiHelpers, "Game DataGrid successfully populated.");
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error populating Game DataGrid: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUiHelpers, $"Error populating Game DataGrid: {ex.Message}");
         }
     }
 
@@ -67,7 +67,7 @@ public class GameTableHelper
     /// </summary>
     public async Task RefreshGameTableAsync()
     {
-        Logger.Debug(LogClass.GameMgrUi, "Refreshing the game table...");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Refreshing the game table...");
 
         try
         {
@@ -79,11 +79,11 @@ public class GameTableHelper
 
             if (_dataGrid.ItemsSource != null)
             {
-                Logger.Info(LogClass.GameMgrUi, "Game DataGrid successfully refreshed.");
+                Logger.Info(LogClass.GameMgrUiHelpers, "Game DataGrid successfully refreshed.");
             }
             else
             {
-                Logger.Warning(LogClass.GameMgrUi, "Game DataGrid did not refresh properly as ItemsSource is null.");
+                Logger.Warning(LogClass.GameMgrUiHelpers, "Game DataGrid did not refresh properly as ItemsSource is null.");
             }
 
             await Task.Delay(250);
@@ -91,7 +91,7 @@ public class GameTableHelper
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error refreshing Game DataGrid: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUiHelpers, $"Error refreshing Game DataGrid: {ex.Message}");
         }
     }
 
@@ -112,7 +112,7 @@ public class GameTableHelper
 
     private void ConfigureGameDataGrid()
     {
-        Logger.Debug(LogClass.GameMgrUi, "Running ConfigureGameDataGrid.");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Running ConfigureGameDataGrid.");
 
         _dataGrid.AutoGenerateColumns = false;
         _dataGrid.Columns.Clear();

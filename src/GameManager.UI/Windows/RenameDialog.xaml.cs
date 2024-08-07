@@ -34,7 +34,7 @@ public partial class RenameDialog
         }
         else
         {
-            Logger.Error(LogClass.GameMgrUi, "Cannot rename current game as game is null.");
+            Logger.Error(LogClass.GameMgrUiWindows, "Cannot rename current game as game is null.");
         }
     }
 }

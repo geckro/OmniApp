@@ -39,7 +39,7 @@ public class PickGameViewModel : ViewModelBase
     {
         if (ListBoxSelectedItems.Count > 1)
         {
-            Logger.Error(LogClass.GameMgrUi, "Multiple games have been picked, somehow. Closing the window.");
+            Logger.Error(LogClass.GameMgrUiViewModels, "Multiple games have been picked, somehow. Closing the window.");
             GameId = null;
             _closePickGameWindow?.Invoke();
         }

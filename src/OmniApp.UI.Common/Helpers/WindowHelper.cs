@@ -18,7 +18,7 @@ public class WindowHelper
     /// </summary>
     public T ShowWindow<T>(Action<T>? initAction = null) where T : Window
     {
-        Logger.Debug(LogClass.GameMgrUi, $"ShowWindow<{typeof(T).Name}> called");
+        Logger.Debug(LogClass.OmniUiCommonHelpers, $"ShowWindow<{typeof(T).Name}> called");
         T window = _sp.GetRequiredService<T>();
         initAction?.Invoke(window);
         window.Show();
@@ -30,7 +30,7 @@ public class WindowHelper
     /// </summary>
     public T ShowDialogWindow<T>(Action<T>? initAction = null) where T : Window
     {
-        Logger.Debug(LogClass.GameMgrUi, $"ShowDialogWindow<{typeof(T).Name}> called");
+        Logger.Debug(LogClass.OmniUiCommonHelpers, $"ShowDialogWindow<{typeof(T).Name}> called");
         T dialogWindow = _sp.GetRequiredService<T>();
         initAction?.Invoke(dialogWindow);
         dialogWindow.ShowDialog();

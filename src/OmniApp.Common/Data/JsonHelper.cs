@@ -43,11 +43,11 @@ public class JsonHelper
         try
         {
             File.WriteAllText(jsonFileName, SerializeToJson(value));
-            Logger.Info(LogClass.OmniCommon, $"Serialized {value} in {jsonFileName}");
+            Logger.Info(LogClass.OmniCommonData, $"Serialized {value} in {jsonFileName}");
         }
         catch (JsonException ex)
         {
-            Logger.Error(LogClass.OmniCommon, $"Exception when writing to JSON: {ex}");
+            Logger.Error(LogClass.OmniCommonData, $"Exception when writing to JSON: {ex}");
         }
     }
 
@@ -72,7 +72,7 @@ public class JsonHelper
         }
         catch (JsonException ex)
         {
-            Logger.Error(LogClass.OmniCommon, $"JSON Exception when reading from {jsonFileName}: {ex}");
+            Logger.Error(LogClass.OmniCommonData, $"JSON Exception when reading from {jsonFileName}: {ex}");
             return [];
         }
     }

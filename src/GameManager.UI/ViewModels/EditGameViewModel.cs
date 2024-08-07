@@ -29,7 +29,7 @@ public class EditGameViewModel : ViewModelBase
     {
         if (game == null)
         {
-            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit the title of a null game");
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to edit the title of a null game");
             return;
         }
 
@@ -39,7 +39,7 @@ public class EditGameViewModel : ViewModelBase
             {
                 renameDialog.SetCurrentGame(game);
 
-                Logger.Info(LogClass.GameMgrUi, $"{renameDialog.WasRenamed}");
+                Logger.Info(LogClass.GameMgrUiViewModels, $"{renameDialog.WasRenamed}");
 
                 renameDialog.Closed += (_, _) =>
                 {
@@ -48,7 +48,7 @@ public class EditGameViewModel : ViewModelBase
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected RenameDialog window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUiViewModels, $"Expected RenameDialog window, got {window.GetType().Name}");
             }
         });
     }

@@ -31,7 +31,7 @@ public class RelayCommand<T>(Action<T> execute, Func<T, bool>? canExecute = null
                 _execute(default!);
                 break;
             default:
-                Logger.Error(LogClass.OmniUiCommon,
+                Logger.Error(LogClass.OmniUiCommonRelayCommand,
                         $"Parameter type mismatch. Expected {typeof(T).Name}, got {parameter?.GetType().Name ?? "null"}");
                 break;
         }

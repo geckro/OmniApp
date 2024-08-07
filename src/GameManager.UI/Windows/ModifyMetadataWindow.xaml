@@ -40,8 +40,8 @@
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <ListBoxItem Content="{Binding Path=.}"
-                       Padding="6"
-                       Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
+                         Padding="6"
+                         Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}" />
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>

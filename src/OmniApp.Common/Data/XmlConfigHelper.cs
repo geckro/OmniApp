@@ -46,7 +46,7 @@ public class XmlConfigHelper(string configFilePath)
         }
         catch (IOException ex)
         {
-            Logger.Error(LogClass.OmniCommon, $"Unable to save config file {ex}");
+            Logger.Error(LogClass.OmniCommonData, $"Unable to save config file {ex}");
         }
     }
 

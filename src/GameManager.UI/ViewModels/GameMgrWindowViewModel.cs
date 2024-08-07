@@ -100,7 +100,7 @@ public class GameMgrWindowViewModel : ViewModelBase
 
         if (visibleGames.Count == 0)
         {
-            Logger.Error(LogClass.GameMgrUi, "There are no games in the games table.");
+            Logger.Error(LogClass.GameMgrUiViewModels, "There are no games in the games table.");
             MessageBox.Show("There are no visible games in the table to choose from.", "Game Picker",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
@@ -133,7 +133,7 @@ public class GameMgrWindowViewModel : ViewModelBase
     {
         if (game == null)
         {
-            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game in Edit");
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to edit a null game in Edit");
             return;
         }
 
@@ -145,7 +145,7 @@ public class GameMgrWindowViewModel : ViewModelBase
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected EditGameDialog window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUiViewModels, $"Expected EditGameDialog window, got {window.GetType().Name}");
             }
         });
     }
@@ -154,7 +154,7 @@ public class GameMgrWindowViewModel : ViewModelBase
     {
         if (game == null)
         {
-            Logger.Warning(LogClass.GameMgrUi, "Attempted to edit a null game in EditTags");
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to edit a null game in EditTags");
             return;
         }
 
@@ -166,7 +166,7 @@ public class GameMgrWindowViewModel : ViewModelBase
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, $"Expected EditTagsDialog window, got {window.GetType().Name}");
+                Logger.Error(LogClass.GameMgrUiViewModels, $"Expected EditTagsDialog window, got {window.GetType().Name}");
             }
         });
     }

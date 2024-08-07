@@ -9,7 +9,7 @@ public partial class MainWindow
 {
     public MainWindow()
     {
-        Logger.Info(LogClass.OmniUi, "Starting MainWindow");
+        Logger.Info(LogClass.OmniUiWindows, "Starting MainWindow");
         InitializeComponent();
     }
 

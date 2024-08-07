@@ -38,7 +38,7 @@ public partial class EditTagsDialog
     {
         if (_gameData == null)
         {
-            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditTagsDialog. Returning early...");
+            Logger.Error(LogClass.GameMgrUiWindows, "GameData is null in EditTagsDialog. Returning early...");
             return;
         }
 

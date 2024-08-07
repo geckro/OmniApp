@@ -7,10 +7,10 @@ public class FileHelper
 {
     public static void OpenFileWithDefaultProgram(string fileToOpen)
     {
-        Logger.Info(LogClass.GameMgrUi, $"Current working directory: {Directory.GetCurrentDirectory()}");
+        Logger.Info(LogClass.OmniCommonWindowsUtils, $"Current working directory: {Directory.GetCurrentDirectory()}");
         if (!File.Exists(fileToOpen))
         {
-            Logger.Error(LogClass.GameMgrUi, $"File path {fileToOpen} does not exist.");
+            Logger.Error(LogClass.OmniCommonWindowsUtils, $"File path {fileToOpen} does not exist.");
             return;
         }
 

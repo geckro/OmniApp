@@ -40,7 +40,7 @@ public partial class AddNewTagGameDialog
             switch (getTagType)
             {
                 case null:
-                    Logger.Error(LogClass.GameMgrUi, "No tag type.");
+                    Logger.Error(LogClass.GameMgrUiWindows, "No tag type.");
                     Close();
                     break;
                 case TagTypes.Boolean:
@@ -58,7 +58,7 @@ public partial class AddNewTagGameDialog
         }
         else
         {
-            Logger.Error(LogClass.GameMgrUi, "Cannot add tag to current game as game is null.");
+            Logger.Error(LogClass.GameMgrUiWindows, "Cannot add tag to current game as game is null.");
         }
     }
 

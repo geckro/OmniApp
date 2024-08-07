@@ -91,7 +91,7 @@ public class FilterHelper
 
     public void RefreshAllFilterMenus()
     {
-        Logger.Debug(LogClass.GameMgrUi, "Running RefreshAllFilterMenus");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Running RefreshAllFilterMenus");
 
         try
         {
@@ -100,11 +100,11 @@ public class FilterHelper
                 RefreshFilterMenu(listBox.Value, () => PopulatePanel(listBox.Key));
             }
 
-            Logger.Info(LogClass.GameMgrUi, "All filter menus successfully refreshed.");
+            Logger.Info(LogClass.GameMgrUiHelpers, "All filter menus successfully refreshed.");
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error refreshing filter menus: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUiHelpers, $"Error refreshing filter menus: {ex.Message}");
         }
     }
 
@@ -116,7 +116,7 @@ public class FilterHelper
 
     public void PopulateFilterMenus()
     {
-        Logger.Debug(LogClass.GameMgrUi, "Populating Filters...");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Populating Filters...");
 
         try
         {
@@ -125,17 +125,17 @@ public class FilterHelper
                 PopulatePanel(listBox.Key);
             }
 
-            Logger.Info(LogClass.GameMgrUi, "Filter menus successfully populated.");
+            Logger.Info(LogClass.GameMgrUiHelpers, "Filter menus successfully populated.");
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error populating filter menus: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUiHelpers, $"Error populating filter menus: {ex.Message}");
         }
     }
 
     private void PopulatePanel(string category)
     {
-        Logger.Debug(LogClass.GameMgrUi, "Populating Panels...");
+        Logger.Debug(LogClass.GameMgrUiHelpers, "Populating Panels...");
 
         IEnumerable<string> items = category switch
         {

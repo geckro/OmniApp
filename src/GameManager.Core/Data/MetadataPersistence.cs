@@ -96,7 +96,7 @@ public class MetadataPersistence
         string defaultDataPath = Path.Combine("Data/JsonData/", defaultJsonFileName);
         if (!File.Exists(defaultDataPath))
         {
-            Logger.Warning(LogClass.GameMgrCore, $"Default JSON file '{defaultDataPath}' not found. Skipping.");
+            Logger.Warning(LogClass.GameMgrCoreMtdPersistence, $"Default JSON file '{defaultDataPath}' not found. Skipping.");
             return;
         }
 

@@ -37,12 +37,12 @@ public partial class GameManagerWindow
     {
         try
         {
-            Logger.Info(LogClass.GameMgrUi, "Initializing GameManager Window");
+            Logger.Info(LogClass.GameMgrUiWindows, "Initializing GameManager Window");
             await InitializeAsync();
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrUi, $"Error initializing GameManager Window: {ex.Message}");
+            Logger.Error(LogClass.GameMgrUiWindows, $"Error initializing GameManager Window: {ex.Message}");
         }
     }
 

@@ -93,7 +93,7 @@ public class GameManagerContextMenuManager
             }
             else
             {
-                Logger.Error(LogClass.GameMgrUi, "ContextMenu is null");
+                Logger.Error(LogClass.GameMgrUiManagers, "ContextMenu is null");
                 e.Handled = true;
             }
         }

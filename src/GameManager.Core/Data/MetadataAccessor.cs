@@ -34,7 +34,7 @@ public class MetadataAccessor<T> where T : IMetadata
     /// <param name="value">The collection of metadata to save.</param>
     public void SaveMetadata(ICollection<T> value)
     {
-        Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Saving metadata: {string.Join(",", value)}");
+        Logger.Debug(LogClass.GameMgrCoreMtdAccessor, $"MetadataAccessor: Saving metadata: {string.Join(",", value)}");
         _mtdPersistence.SaveMetadata(value, _jsonFile);
         _cachedMtd = null;
     }
@@ -45,11 +45,11 @@ public class MetadataAccessor<T> where T : IMetadata
     /// <param name="newItem">The metadata item to add.</param>
     public void AddItemAndSave(T newItem)
     {
-        Logger.Debug(LogClass.GameMgrCore, "MetadataAccessor: Adding item to metadata.");
+        Logger.Debug(LogClass.GameMgrCoreMtdAccessor, "MetadataAccessor: Adding item to metadata.");
         ICollection<T> existingMtd = LoadMetadata();
         if (existingMtd.Any(item => item.Name == newItem.Name))
         {
-            Logger.Warning(LogClass.GameMgrCore, "Item with the same key already exists.");
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor, "Item with the same key already exists.");
             return;
         }
 
@@ -63,7 +63,7 @@ public class MetadataAccessor<T> where T : IMetadata
     /// <returns>The loaded metadata collection.</returns>
     public ICollection<T> LoadMetadata(bool forceRefresh = false)
     {
-        // Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Loading Metadata, parameter forceRefresh is \"{forceRefresh}\"");
+        // Logger.Debug(LogClass.GameMgrCoreMtdAccessor, $"MetadataAccessor: Loading Metadata, parameter forceRefresh is \"{forceRefresh}\"");
         bool notLongerThanCacheExpiry = DateTime.Now - _lastLoadTimeOfMtd <= _defaultMtdCacheExpiry;
 
         if (!forceRefresh && _cachedMtd != null && notLongerThanCacheExpiry)
@@ -84,12 +84,12 @@ public class MetadataAccessor<T> where T : IMetadata
     /// <param name="value">The new value to update for the specified property.</param>
     public void UpdatePropertyAndSave(Guid id, string key, object? value)
     {
-        Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Updating property {key} with {value} on {id}.");
+        Logger.Debug(LogClass.GameMgrCoreMtdAccessor, $"MetadataAccessor: Updating property {key} with {value} on {id}.");
         ICollection<T> existingData = LoadMetadata();
         T? itemToUpdate = GetItemById(id);
         if (itemToUpdate == null)
         {
-            Logger.Warning(LogClass.GameMgrCore, $"Item with id '{id}' not found.");
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor, $"Item with id '{id}' not found.");
             return;
         }
 
@@ -98,8 +98,8 @@ public class MetadataAccessor<T> where T : IMetadata
         PropertyInfo? propertyInfo = typeof(T).GetProperty(key);
         if (propertyInfo == null)
         {
-            Logger.Warning(LogClass.GameMgrCore, $"Property '{key}' not found in type {typeof(T).Name}");
-            Logger.Warning(LogClass.GameMgrCore,
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor, $"Property '{key}' not found in type {typeof(T).Name}");
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor,
                     $"^ Valid properties: {string.Join(", ", typeof(T).GetProperties().Select(p => p.Name))}");
             return;
         }
@@ -113,7 +113,7 @@ public class MetadataAccessor<T> where T : IMetadata
         }
         catch (Exception ex)
         {
-            Logger.Error(LogClass.GameMgrCore, $"Error updating property '{key}': {ex.Message}");
+            Logger.Error(LogClass.GameMgrCoreMtdAccessor, $"Error updating property '{key}': {ex.Message}");
         }
     }
 
@@ -132,7 +132,7 @@ public class MetadataAccessor<T> where T : IMetadata
     /// <returns>The metadata item with the specified ID, or null if not found.</returns>
     public T? GetItemById(Guid id)
     {
-        // Logger.Debug(LogClass.GameMgrCore, $"MetadataAccessor: Getting item by Id \"{id}\"");
+        // Logger.Debug(LogClass.GameMgrCoreMtdAccessor, $"MetadataAccessor: Getting item by Id \"{id}\"");
         return LoadMetadata().FirstOrDefault(item => item.Id == id);
     }
 
@@ -147,13 +147,13 @@ public class MetadataAccessor<T> where T : IMetadata
         T? item = GetItemById(id);
         if (item == null || item.Tags == null)
         {
-            Logger.Warning(LogClass.GameMgrCore, $"Id {id} not found, or tag not found in Id.");
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor, $"Id {id} not found, or tag not found in Id.");
             return null;
         }
 
         if (value != null && key != null)
         {
-            Logger.Warning(LogClass.GameMgrCore, "You can not specify both key and value in GetTagValueOrKey.");
+            Logger.Warning(LogClass.GameMgrCoreMtdAccessor, "You can not specify both key and value in GetTagValueOrKey.");
             return null;
         }
 
@@ -167,7 +167,7 @@ public class MetadataAccessor<T> where T : IMetadata
             return result.ToString();
         }
 
-        Logger.Error(LogClass.GameMgrCore, "Unknown error, returning null in GetTagValueOrKey.");
+        Logger.Error(LogClass.GameMgrCoreMtdAccessor, "Unknown error, returning null in GetTagValueOrKey.");
         return null;
     }
 
@@ -213,7 +213,7 @@ public class MetadataAccessor<T> where T : IMetadata
 
         if (item == null)
         {
-            Logger.Error(LogClass.GameMgrCore, $"Item with id '{id}' not found.");
+            Logger.Error(LogClass.GameMgrCoreMtdAccessor, $"Item with id '{id}' not found.");
             return;
         }
 
@@ -226,7 +226,7 @@ public class MetadataAccessor<T> where T : IMetadata
 
         foreach ((string key, ICollection<string> values) in tagToAdd)
         {
-            Logger.Debug(LogClass.GameMgrCore,
+            Logger.Debug(LogClass.GameMgrCoreMtdAccessor,
                     $"Metadata tag key: {key}, Metadata tag values: {string.Join(";", values)}");
             if (!item.Tags.TryGetValue(key, out ICollection<string>? existingValues))
             {

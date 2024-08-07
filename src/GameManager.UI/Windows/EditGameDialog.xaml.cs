@@ -54,7 +54,7 @@ public partial class EditGameDialog
     {
         if (_gameData == null)
         {
-            Logger.Error(LogClass.GameMgrUi, "GameData is null in EditGameDialog. Returning early...");
+            Logger.Error(LogClass.GameMgrUiWindows, "GameData is null in EditGameDialog. Returning early...");
             return;
         }
 
