@@ -1,20 +1,43 @@
 ﻿namespace OmniApp.Common.Data;
 
+/// <summary>
+///     A registry for methods to use for all countries registered with <see cref="CountryTypeRegistry" />.
+/// </summary>
 public class CountryRegistry
 {
     private readonly Dictionary<string, ICountry> _countries;
 
+    /// <summary>
+    ///     Initializes an instance of the <see cref="CountryRegistry"/> class.
+    /// </summary>
+    /// <param name="countries">An IEnumerable of <see cref="ICountry"/>. </param>
     public CountryRegistry(IEnumerable<ICountry> countries)
     {
         _countries = countries.ToDictionary(c => c.Name);
     }
 
+    /// <summary>
+    ///     Gets all the country types currently registered with <see cref="CountryTypeRegistry"/>.
+    /// </summary>
+    /// <returns>An IEnumerable of <see cref="ICountry"/> with all the types registered.</returns>
     public IEnumerable<ICountry> GetAllCountries() => _countries.Values;
-    public ICountry? GetCountry(string name) => _countries.GetValueOrDefault(name);
+
+    /// <summary>
+    ///     Gets a specific country.
+    /// </summary>
+    /// <param name="countryName">The <see cref="ICountry.Name"/> of the country.</param>
+    /// <returns>An <see cref="ICountry"/> if the countryName was found, otherwise <c>null</c>.</returns>
+    public ICountry? GetCountry(string countryName) => _countries.GetValueOrDefault(countryName);
 }
 
-public static class CountryTypeRegistry
+/// <summary>
+///    A registry of all types in <c>Countries.cs</c>. Country classes must be defined here for the program to use them.
+/// </summary>
+public record CountryTypeRegistry
 {
+    /// <summary>
+    ///     All the registered country types.
+    /// </summary>
     // an array here is much faster (nearly 4x) than an IEnumerable
     public static readonly Type[] CountryTypes =
     [

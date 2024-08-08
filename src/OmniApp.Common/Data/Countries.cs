@@ -1,7 +1,13 @@
 ﻿namespace OmniApp.Common.Data;
 
+/// <summary>
+///     An interface for a current or past country.
+/// </summary>
 public interface ICountry
 {
+    /// <summary>
+    ///    The name of the country, in English.
+    /// </summary>
     string Name { get; }
 }
 

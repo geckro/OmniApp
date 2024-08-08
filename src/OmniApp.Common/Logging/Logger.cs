@@ -1,5 +1,8 @@
 ﻿namespace OmniApp.Common.Logging;
 
+/// <summary>
+///     Provides static methods for logging messages to the console.
+/// </summary>
 public static class Logger
 {
     private const string LogFormat = "{0}-{1}-{2}: {3}";
@@ -7,21 +10,53 @@ public static class Logger
 
     private static string CurrentTime;
 
+    /// <summary>
+    ///     Logs an information message.
+    /// </summary>
+    /// <remarks>
+    ///     Use this method when the information would be useful for the average user.
+    /// </remarks>
+    /// <param name="logClass">The category of the log message</param>
+    /// <param name="message">The message to be logged.</param>
     public static void Info(LogClass logClass, string message)
     {
         Log(CurrentTime = DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss"), LogLevel.Info, logClass, message);
     }
 
+    /// <summary>
+    ///     Logs a warning message.
+    /// </summary>
+    /// <remarks>
+    ///     Use this method when there is information that may hinder a specific function of the application.
+    /// </remarks>
+    /// <param name="logClass">The category of the log message</param>
+    /// <param name="message">The message to be logged.</param>
     public static void Warning(LogClass logClass, string message)
     {
         Log(CurrentTime = DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss"), LogLevel.Warning, logClass, message);
     }
 
+    /// <summary>
+    ///     Logs an error message.
+    /// </summary>
+    /// <remarks>
+    ///     Use this method when there is information would greatly hinder the function of the application.
+    /// </remarks>
+    /// <param name="logClass">The category of the log message</param>
+    /// <param name="message">The message to be logged.</param>
     public static void Error(LogClass logClass, string message)
     {
         Log(CurrentTime = DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss"), LogLevel.Error, logClass, message);
     }
 
+    /// <summary>
+    ///     Logs a debugging or verbose message.
+    /// </summary>
+    /// <remarks>
+    ///     Use this method if it will help with debugging or finding issues with the code of the program.
+    /// </remarks>
+    /// <param name="logClass">The category of the log message</param>
+    /// <param name="message">The message to be logged.</param>
     public static void Debug(LogClass logClass, string message)
     {
         Log(CurrentTime = DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss"), LogLevel.Debug, logClass, message);
@@ -48,6 +83,9 @@ public static class Logger
     }
 }
 
+/// <summary>
+///     Defines the various categories for log messages.
+/// </summary>
 public enum LogClass
 {
     FinanceMgrCoreTransactions,
@@ -70,7 +108,7 @@ public enum LogClass
     OmniUiCommonRelayCommand,
     OmniUiDependencyInj,
     OmniUiViewModels,
-    OmniUiWindows,
+    OmniUiWindows
 }
 
 internal enum LogLevel
