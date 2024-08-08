@@ -1,0 +1,45 @@
+﻿<Window
+  x:Class="GameManager.UI.Windows.GameDateSetterWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  mc:Ignorable="d"
+  Title="Date Setter..."
+  Height="600"
+  Loaded="GameDateSetterWindow_OnLoaded"
+  Width="300">
+  <Window.Resources>
+    <helpers:StyleHelper x:Key="Styles" />
+  </Window.Resources>
+  <Grid>
+    <ScrollViewer>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+          <ItemsControl ItemsSource="{Binding DateTexts}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" Height="25" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+          <ItemsControl ItemsSource="{Binding DatePickers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <DatePicker Height="25" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Grid>
+    </ScrollViewer>
+  </Grid>
+</Window>
+

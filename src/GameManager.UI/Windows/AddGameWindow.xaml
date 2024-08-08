@@ -67,8 +67,10 @@
 
       <Grid Grid.Row="1">
         <StackPanel Orientation="Horizontal">
-          <Label Content="Date (WW)" />
-          <DatePicker x:Name="Date" />
+          <Label Content="Dates" />
+          <Button Content="Pick dates..."
+                  Command="{Binding PickDateCommand}"
+                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
         </StackPanel>
       </Grid>
     </Grid>

@@ -3,6 +3,8 @@ using GameManager.Core.Data.MetadataConstructors;
 using GameManager.Core.Scrapers;
 using GameManager.UI.Helpers;
 using GameManager.UI.Managers;
+using GameManager.UI.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Data;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -15,10 +17,14 @@ public partial class AddGameWindow
 {
     private readonly MetadataAccessorFactory _mtdAccessorFactory;
     private readonly MetadataPersistence _mtdPersistence = new();
+    private readonly AddGameViewModel _viewModel;
 
-    public AddGameWindow()
+    public AddGameWindow(IServiceProvider sp)
     {
         InitializeComponent();
+
+        _viewModel = sp.GetRequiredService<AddGameViewModel>();
+        DataContext = _viewModel;
         _mtdAccessorFactory = new MetadataAccessorFactory(_mtdPersistence);
         InitializeMetadataAreas();
     }
@@ -96,7 +102,7 @@ public partial class AddGameWindow
                 Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox"), id => new Developer { Id = id }),
                 Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox"), id => new Publisher { Id = id }),
                 Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox"), id => new Series { Id = id }),
-                ReleaseDateWw = Date.SelectedDate,
+                // ReleaseDateWw = Date.SelectedDate,
                 CreatedOn = currentTime,
                 LastUpdated = currentTime,
                 Tags = new Dictionary<string, ICollection<string>>() // not actually used

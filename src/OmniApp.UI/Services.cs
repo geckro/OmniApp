@@ -6,10 +6,12 @@ using GameManager.UI.Helpers;
 using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using OmniApp.Common.Data;
 using OmniApp.Common.WindowsUtils;
 using OmniApp.UI.Common.Helpers;
 using OmniApp.UI.ViewModels;
 using OmniApp.UI.Windows;
+using System.Diagnostics;
 
 namespace OmniApp.UI;
 
@@ -44,10 +46,12 @@ public static class Services
         sv.AddScoped<GameMgrWindowViewModel>();
         sv.AddScoped<ModifyMetadataViewModel>();
         sv.AddScoped<EditGameViewModel>();
+        sv.AddScoped<AddGameViewModel>();
         sv.AddScoped<EditTagsViewModel>();
         sv.AddScoped<AddNewTagGameViewModel>();
         sv.AddScoped<PreferencesViewModel>();
         sv.AddScoped<PickGameViewModel>();
+        sv.AddScoped<GameDateSetterViewModel>();
         sv.AddScoped<GameTableHelper>();
         sv.AddScoped<FileHelper>();
         sv.AddScoped<MetadataAccessor<Game>>(sp =>
@@ -82,6 +86,7 @@ public static class Services
         sv.AddTransient<ModifyMetadataWindow>();
         sv.AddTransient<PreferencesWindow>();
         sv.AddTransient<AddGameWindow>();
+        sv.AddTransient<GameDateSetterWindow>();
         sv.AddTransient<EditGameDialog>();
         sv.AddTransient<EditTagsDialog>();
         sv.AddTransient<RenameDialog>();
@@ -102,5 +107,12 @@ public static class Services
         // GameManager
         sv.AddSingleton<MetadataPersistence>();
         sv.AddSingleton<MetadataAccessorFactory>();
+
+        foreach (Type countryType in CountryTypeRegistry.CountryTypes)
+        {
+            sv.AddSingleton(typeof(ICountry), countryType);
+        }
+
+        sv.AddSingleton<CountryRegistry>();
     }
 }
