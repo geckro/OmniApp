@@ -8,6 +8,27 @@ namespace GameManager.UI.ViewModels;
 public class GameDateSetterViewModel : ViewModelBase
 {
     private readonly IEnumerable<ICountry> _countryRegistry;
+    private static readonly ICollection<Type> CommonCountries =
+    [
+            typeof(Australia),
+            typeof(Brazil),
+            typeof(Canada),
+            typeof(China),
+            typeof(EuropeanUnion),
+            typeof(France),
+            typeof(Germany),
+            typeof(India),
+            typeof(Italy),
+            typeof(Japan),
+            typeof(Netherlands),
+            typeof(NorthAmerica),
+            typeof(Portugal),
+            typeof(Russia),
+            typeof(SouthKorea),
+            typeof(Spain),
+            typeof(UnitedKingdom),
+            typeof(UnitedStates)
+    ];
     public ObservableCollection<string?> DateTexts { get; } = [];
     public ObservableCollection<string?> DatePickers { get; } = [];
 
@@ -30,7 +51,10 @@ public class GameDateSetterViewModel : ViewModelBase
 
         foreach (ICountry? country in _countryRegistry)
         {
-            DateTexts.Add(country.Name);
+            if (CommonCountries.Contains(country.GetType()))
+            {
+                DateTexts.Add(country.Name);
+            }
         }
     }
 
@@ -41,7 +65,10 @@ public class GameDateSetterViewModel : ViewModelBase
 
         foreach (ICountry? country in _countryRegistry)
         {
-            DatePickers.Add(country.Name);
+            if (CommonCountries.Contains(country.GetType()))
+            {
+                DatePickers.Add(country.Name);
+            }
         }
     }
 

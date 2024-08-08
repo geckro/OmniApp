@@ -92,7 +92,7 @@ public record Canada : ICountry
     public string Demonym => "Canadian";
     public IEnumerable<string> Languages => ["English"];
     public IEnumerable<string> Regions => ["America"];
-    public string Iso3166Code => "CN";
+    public string Iso3166Code => "CA";
     public string Currency => "CAD";
     public string Name => "Canada";
 }
@@ -174,6 +174,12 @@ public record Estonia : ICountry
 {
     public string NativeName => "Eesti";
     public string Name => "Estonia";
+}
+
+public record EuropeanUnion : ICountry
+{
+    public string Iso3166Code => "EU";
+    public string Name => "European Union";
 }
 
 public record Finland : ICountry
@@ -352,6 +358,12 @@ public record Nigeria : ICountry
 {
     public string NativeName => "Najeriya";
     public string Name => "Nigeria";
+}
+
+public record NorthAmerica : ICountry
+{
+    public string Iso3166Code => "NA";
+    public string Name => "North America";
 }
 
 public record NorthKorea : ICountry

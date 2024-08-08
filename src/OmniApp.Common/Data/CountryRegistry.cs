@@ -43,6 +43,7 @@ public static class CountryTypeRegistry
             typeof(Egypt),
             typeof(ElSalvador),
             typeof(Estonia),
+            typeof(EuropeanUnion),
             typeof(Finland),
             typeof(France),
             typeof(Germany),

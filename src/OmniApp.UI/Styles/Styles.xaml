@@ -44,5 +44,6 @@
   <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:PreferencesWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
+  <Style TargetType="{x:Type gameMgrWindows:GameDateSetterWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
   <Style TargetType="{x:Type gameMgrWindows:PickGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
 </ResourceDictionary>
