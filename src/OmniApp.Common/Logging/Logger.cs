@@ -73,7 +73,7 @@ public enum LogClass
     OmniUiWindows,
 }
 
-public enum LogLevel
+internal enum LogLevel
 {
     Info,
     Warning,
