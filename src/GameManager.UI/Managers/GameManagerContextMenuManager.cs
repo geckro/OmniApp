@@ -29,7 +29,7 @@ public class GameManagerContextMenuManager
     /// </summary>
     public void PopulateDataGridContextMenu()
     {
-        _contextMenu = new ContextMenu { Background = StyleHelper.Instance.ContextMenuBackgroundColor };
+        _contextMenu = new ContextMenu();
 
         AddMenuItem("Mark as played", _viewModel.MarkAsPlayedCommand, true);
         AddMenuItem("Mark as finished", _viewModel.MarkAsFinishedCommand, true);

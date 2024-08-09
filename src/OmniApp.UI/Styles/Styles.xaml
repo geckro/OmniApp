@@ -6,6 +6,7 @@
   xmlns:financeWindows="clr-namespace:FinancialManager.UI.Windows;assembly=FinancialManager.UI"
   xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common">
   <helpers:StyleHelper x:Key="Styles" />
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   <Style x:Key="BaseWindowStyle">
     <Style.Resources>
       <Style TargetType="Control" x:Key="BaseControlStyle">
@@ -37,6 +38,78 @@
       <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
+      </Style>
+      <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="10, 5, 10, 5" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="ContextMenu">
+              <Border CornerRadius="5" BorderBrush="{Binding Source={StaticResource Styles}, Path=Instance.ContextMenuBorderColor}" Background="{Binding Source={StaticResource Styles}, Path=Instance.ContextMenuBackgroundColor}"
+                      BorderThickness="1" SnapsToDevicePixels="True">
+                <ItemsPresenter />
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{Binding Source={StaticResource Styles}, Path=Instance.ContextMenuForegroundColor}" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type MenuItem}">
+              <Border x:Name="Border"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Icon" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <CheckBox x:Name="CheckBoxElement"
+                            Grid.Column="0"
+                            Margin="4,4,4,4"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                            Visibility="{Binding IsCheckable, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                  <ContentPresenter x:Name="Icon"
+                                    Grid.Column="0"
+                                    Margin="4,4,4,4"
+                                    MaxWidth="18"
+                                    MinWidth="12"
+                                    ContentSource="Icon" />
+                  <ContentPresenter x:Name="HeaderHost"
+                                    Grid.Column="1"
+                                    ContentSource="Header"
+                                    RecognizesAccessKey="True"
+                                    VerticalAlignment="Center" />
+                </Grid>
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                  <Setter Property="Background"
+                          TargetName="Border"
+                          Value="{Binding Source={StaticResource Styles}, Path=Instance.ContextMenuSelectedColor}" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                  <Setter Property="Foreground"
+                          Value="{Binding Source={StaticResource Styles}, Path=Instance.ContextMenuDisabledColor}" />
+                </Trigger>
+                <Trigger Property="Icon" Value="{x:Null}">
+                  <Setter Property="Visibility" TargetName="Icon" Value="Collapsed" />
+                </Trigger>
+                <Trigger Property="IsCheckable" Value="False">
+                  <Setter Property="Visibility" TargetName="CheckBoxElement" Value="Collapsed" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
       </Style>
       <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />

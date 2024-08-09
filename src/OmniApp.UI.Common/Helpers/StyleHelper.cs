@@ -92,6 +92,10 @@ public class StyleHelper
 
     #endregion
     public SolidColorBrush ContextMenuBackgroundColor { get; private set; } = null!;
+    public SolidColorBrush ContextMenuBorderColor { get; private set; } = null!;
+    public SolidColorBrush ContextMenuSelectedColor { get; private set; } = null!;
+    public SolidColorBrush ContextMenuDisabledColor { get; private set; } = null!;
+    public SolidColorBrush ContextMenuForegroundColor { get; private set; } = null!;
     public SolidColorBrush TextBoxBackgroundColor { get; private set; } = null!;
     public SolidColorBrush DatePickerBackgroundColor { get; private set; } = null!;
 
@@ -150,6 +154,10 @@ public class StyleHelper
         #endregion
 
         ContextMenuBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+        ContextMenuBorderColor = new SolidColorBrush(Color.FromRgb(220, 220, 220));
+        ContextMenuSelectedColor = new SolidColorBrush(Color.FromRgb(205, 205, 205));
+        ContextMenuDisabledColor = new SolidColorBrush(Color.FromRgb(180, 180, 180));
+        ContextMenuForegroundColor = BaseFontColor;
         DatePickerBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
 
         TextBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
