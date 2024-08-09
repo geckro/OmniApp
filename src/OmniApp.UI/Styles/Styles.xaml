@@ -42,9 +42,6 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
       </Style>
-      <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource BaseControlStyle}">
-        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.DatePickerBackgroundColor}" />
-      </Style>
       <Style TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
