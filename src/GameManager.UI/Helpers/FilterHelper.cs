@@ -3,6 +3,7 @@ using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
+using OmniApp.UI.Common.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -71,7 +72,7 @@ public class FilterHelper
                 MaxHeight = 120,
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
-                Background = StyleHelper.Instance.ListBoxBackgroundColor,
+                Background = StyleHelper.Instance.ListBackgroundColor,
                 ItemContainerStyle = CreateListBoxItemStyle()
         };
         panel.Children.Add(header);

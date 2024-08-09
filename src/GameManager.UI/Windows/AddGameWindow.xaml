@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common"
   mc:Ignorable="d"
   Title="Add new game..."
   Height="600"
@@ -27,14 +27,10 @@
         <StackPanel Grid.Column="0" Orientation="Horizontal">
           <Label
             Content="Title"
-            FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-            FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-            FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}"
             VerticalAlignment="Center" />
           <TextBox
             x:Name="TitleBox"
             MinWidth="250"
-            Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             KeyDown="TitleBox_Rename" />
@@ -69,8 +65,7 @@
         <StackPanel Orientation="Horizontal">
           <Label Content="Dates" />
           <Button Content="Pick dates..."
-                  Command="{Binding PickDateCommand}"
-                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
+                  Command="{Binding PickDateCommand}" />
         </StackPanel>
       </Grid>
     </Grid>

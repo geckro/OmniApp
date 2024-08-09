@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common"
   mc:Ignorable="d"
   Title="Add new tag..."
   SizeToContent="Height"
@@ -19,50 +19,31 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="0">
-      <Label Content="Tag Key:"
-             FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-             FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-             FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}"/>
-      <TextBox x:Name="TagKeyTextBox"
-               MinWidth="150"
-               Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
+      <Label Content="Tag Key:" />
+      <TextBox x:Name="TagKeyTextBox" MinWidth="150" />
 
       <StackPanel Orientation="Horizontal">
         <StackPanel>
-          <Label Content="Yes or No"
-                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <Label Content="Yes or No" />
           <CheckBox x:Name="YesCheckBox" Content="Yes" Checked="CheckBox_IsEitherChecked" Unchecked="CheckBox_IsEitherChecked" />
           <CheckBox x:Name="NoCheckBox" Content="No" Checked="CheckBox_IsEitherChecked" Unchecked="CheckBox_IsEitherChecked" />
         </StackPanel>
         <StackPanel>
-          <Label Content="Tag Text Values: "
-                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+          <Label Content="Tag Text Values: " />
           <TextBox x:Name="TagValuesTextBox"
                    MinWidth="150"
-                   TextChanged="TagValuesTextBox_OnTextChanged"
-                   Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}"/>
+                   TextChanged="TagValuesTextBox_OnTextChanged" />
           <Label Content="Separate the values with ;" />
         </StackPanel>
         <StackPanel>
-          <Label Content="Linked Game: "
-                 FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-                 FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-                 FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
-          <Button Content="Pick game..."
-                  Command="{Binding PickGameCommand}"
-                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
+          <Label Content="Linked Game: " />
+          <Button Content="Pick game..." Command="{Binding PickGameCommand}" />
           <TextBlock Text="No game selected" />
         </StackPanel>
       </StackPanel>
     </StackPanel>
     <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-      <Button Content="Add"
-              Click="AddNewTag_OnClick"
-              Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
+      <Button Content="Add" Click="AddNewTag_OnClick" />
     </StackPanel>
   </Grid>
 </Window>

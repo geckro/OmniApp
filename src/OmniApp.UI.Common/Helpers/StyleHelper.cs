@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace GameManager.UI.Helpers;
+namespace OmniApp.UI.Common.Helpers;
 
 public class StyleHelper
 {
@@ -46,6 +46,8 @@ public class StyleHelper
     /// </summary>
     public SolidColorBrush BaseFontColor { get; private set; } = null!;
 
+    public SolidColorBrush BaseBackgroundColor { get; private set; } = null!;
+
     #endregion
 
     #region Game Table Styles
@@ -65,14 +67,32 @@ public class StyleHelper
 
     #endregion
 
+    #region Header Styles
+
+    public SolidColorBrush HeaderFontColor { get; private set; } = null!;
     public FontFamily HeaderFontFamily { get; private set; } = null!;
     public FontWeight HeaderFontWeight { get; private set; }
-    public SolidColorBrush ButtonColor { get; private set; } = null!;
+    public double HeaderFontSize { get; private set; }
+
+    #endregion
+
+    #region List Styles
+
+    public SolidColorBrush ListBackgroundColor { get; private set; } = null!;
+
+    #endregion
+
+    #region Button Styles
+
+    public SolidColorBrush ButtonBackgroundColor { get; private set; } = null!;
+    public SolidColorBrush ButtonFontColor { get; private set; } = null!;
+    public FontFamily ButtonFontFamily { get; private set; } = null!;
+    public FontWeight ButtonFontWeight { get; private set; }
+    public double ButtonFontSize { get; private set; }
+
+    #endregion
     public SolidColorBrush ContextMenuBackgroundColor { get; private set; } = null!;
-    public SolidColorBrush ListBoxBackgroundColor { get; private set; } = null!;
     public SolidColorBrush TextBoxBackgroundColor { get; private set; } = null!;
-    public SolidColorBrush WindowBackgroundColor { get; private set; } = null!;
-    public int HeaderFontSize { get; private set; }
     public SolidColorBrush DatePickerBackgroundColor { get; private set; } = null!;
 
     private void InitializeDefaultStyles()
@@ -83,6 +103,7 @@ public class StyleHelper
         BaseFontSize = 14.0d;
         BaseFontFamily = new FontFamily("Segoe UI");
         BaseFontColor = new SolidColorBrush(Colors.Black);
+        BaseBackgroundColor = new SolidColorBrush(Colors.White);
 
         #endregion
 
@@ -103,14 +124,34 @@ public class StyleHelper
 
         #endregion
 
-        ButtonColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+        #region Header Styles Initialization
+
+        HeaderFontFamily = BaseFontFamily;
+        HeaderFontSize = BaseFontSize + 2.0d;
+        HeaderFontWeight = FontWeights.Medium;
+        HeaderFontColor = new SolidColorBrush(Colors.DimGray);
+
+        #endregion
+
+        #region List Styles Initialization
+
+        ListBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+
+        #endregion
+
+        #region Button Styles
+
+        ButtonBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+        ButtonFontColor = BaseFontColor;
+        ButtonFontFamily = BaseFontFamily;
+        ButtonFontWeight = BaseFontWeight;
+        ButtonFontSize = BaseFontSize;
+
+        #endregion
+
         ContextMenuBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
         DatePickerBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
-        HeaderFontFamily = new FontFamily("Segoe UI");
-        HeaderFontSize = 18;
-        HeaderFontWeight = FontWeights.Medium;
-        ListBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+
         TextBoxBackgroundColor = new SolidColorBrush(Color.FromRgb(230, 230, 230));
-        WindowBackgroundColor = new SolidColorBrush(Color.FromRgb(255, 255, 255));
     }
 }

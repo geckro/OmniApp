@@ -4,15 +4,11 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
   mc:Ignorable="d"
   Title="Date Setter..."
   Height="600"
   Loaded="GameDateSetterWindow_OnLoaded"
   Width="300">
-  <Window.Resources>
-    <helpers:StyleHelper x:Key="Styles" />
-  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -48,8 +44,7 @@
     </ScrollViewer>
     <Button Grid.Row="1" Content="Set Dates"
             Command="{Binding SetDateCommand}"
-            MaxWidth="200"
-            Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}" />
+            MaxWidth="200" />
   </Grid>
 </Window>
 

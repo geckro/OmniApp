@@ -1,6 +1,6 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
-using GameManager.UI.Helpers;
+using OmniApp.UI.Common.Helpers;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;

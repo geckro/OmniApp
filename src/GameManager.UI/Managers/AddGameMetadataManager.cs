@@ -1,7 +1,7 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
-using GameManager.UI.Helpers;
 using GameManager.UI.Windows;
+using OmniApp.UI.Common.Helpers;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,7 +64,7 @@ public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFacto
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
                 FontSize = 14,
-                Background = StyleHelper.Instance.ListBoxBackgroundColor,
+                Background = StyleHelper.Instance.ListBackgroundColor,
                 ItemContainerStyle = CreateListBoxItemStyle()
         };
         addGame.RegisterName(listBox.Name, listBox);

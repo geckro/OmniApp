@@ -3,7 +3,9 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:gameMgrWindows="clr-namespace:GameManager.UI.Windows;assembly=GameManager.UI"
   xmlns:omniAppWindows="clr-namespace:OmniApp.UI.Windows"
-  xmlns:financeWindows="clr-namespace:FinancialManager.UI.Windows;assembly=FinancialManager.UI">
+  xmlns:financeWindows="clr-namespace:FinancialManager.UI.Windows;assembly=FinancialManager.UI"
+  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common">
+  <helpers:StyleHelper x:Key="Styles" />
   <Style x:Key="BaseWindowStyle">
     <Style.Resources>
       <Style TargetType="Control" x:Key="BaseControlStyle">
@@ -17,6 +19,11 @@
       </Style>
       <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.ButtonBackgroundColor}" />
+        <Setter Property="Foreground" Value="{Binding Source={StaticResource Styles}, Path=Instance.ButtonFontColor}" />
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=Instance.ButtonFontFamily}" />
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=Instance.ButtonFontSize}" />
+        <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=Instance.ButtonFontWeight}" />
         <Style.Triggers>
           <Trigger Property="IsMouseOver" Value="True">
             <Setter Property="Effect">
@@ -29,21 +36,58 @@
       </Style>
       <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
       </Style>
       <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
+      </Style>
+      <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.DatePickerBackgroundColor}" />
+      </Style>
+      <Style TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
+      </Style>
+      <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseControlStyle}">
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}" />
+        <Setter Property="Foreground" Value="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontColor}" />
+        <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+        <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}" />
       </Style>
     </Style.Resources>
   </Style>
-  <Style TargetType="{x:Type omniAppWindows:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type financeWindows:FinanceManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:GameManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:AddGameWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:ModifyMetadataWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:EditGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:PreferencesWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:GameDateSetterWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-  <Style TargetType="{x:Type gameMgrWindows:PickGameDialog}" BasedOn="{StaticResource BaseWindowStyle}" />
+  <Style TargetType="{x:Type omniAppWindows:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type financeWindows:FinanceManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:GameManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:AddGameWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:ModifyMetadataWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:EditGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:PreferencesWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:GameDateSetterWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:PickGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
 </ResourceDictionary>

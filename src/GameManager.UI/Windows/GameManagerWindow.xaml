@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common"
   mc:Ignorable="d"
   Title="Game Manager"
   WindowStartupLocation="CenterScreen"
@@ -15,9 +15,6 @@
   <Window.Resources>
     <helpers:StyleHelper x:Key="Styles" />
   </Window.Resources>
-  <Window.Background>
-    <SolidColorBrush Color="{Binding Source={StaticResource Styles}, Path=WindowBackgroundColor.Color}" />
-  </Window.Background>
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -30,49 +27,39 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Add a new title"
           Command="{Binding AddGameCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Modify metadata categories"
           Command="{Binding ModifyMetadataCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Open raw JSON games file"
           Command="{Binding OpenGamesJsonCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Open Game Manager preferences"
           Command="{Binding OpenPreferencesCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Preferences.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
           ToolTip="Pick a random game"
           Command="{Binding PickRandomGameCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Shuffle.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
-        <Label
-          Content="Search"
-          FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-          FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-          FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
-        <TextBox MinWidth="150" Background="{Binding Source={StaticResource Styles}, Path=TextBoxBackgroundColor}" />
+        <Label Content="Search" />
+        <TextBox MinWidth="150" />
       </StackPanel>
     </Grid>
 
@@ -88,24 +75,24 @@
           BorderThickness="0"
           CanUserDeleteRows="False"
           IsReadOnly="True"
-          AlternatingRowBackground="{Binding Source={StaticResource Styles}, Path=DataGridAlternatingRowBackgroundColor}"
+          AlternatingRowBackground="{Binding Source={StaticResource Styles}, Path=Instance.DataGridAlternatingRowBackgroundColor}"
           GridLinesVisibility="None"
           RowHeaderWidth="0">
           <DataGrid.ColumnHeaderStyle>
             <Style TargetType="DataGridColumnHeader">
-              <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=DataGridColumnHeaderBackgroundColor}" />
-              <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=DataGridColumnHeaderFontFamily}" />
-              <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=DataGridColumnHeaderFontWeight}" />
-              <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=DataGridColumnHeaderFontSize}" />
+              <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridColumnHeaderBackgroundColor}" />
+              <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridColumnHeaderFontFamily}" />
+              <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridColumnHeaderFontWeight}" />
+              <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridColumnHeaderFontSize}" />
               <Setter Property="Padding" Value="5, 2, 5, 2" />
             </Style>
           </DataGrid.ColumnHeaderStyle>
           <DataGrid.RowStyle>
             <Style TargetType="DataGridRow">
-              <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowBackgroundColor}" />
-              <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowFontFamily}" />
-              <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowFontWeight}" />
-              <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowFontSize}" />
+              <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowBackgroundColor}" />
+              <Setter Property="FontFamily" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowFontFamily}" />
+              <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowFontWeight}" />
+              <Setter Property="FontSize" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowFontSize}" />
             </Style>
           </DataGrid.RowStyle>
           <DataGrid.CellStyle>
@@ -113,9 +100,9 @@
               <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
                   <Setter Property="BorderThickness" Value="0" />
-                  <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowSelectedBackgroundColor}" />
-                  <Setter Property="Foreground" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowSelectedTextColor}" />
-                  <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=DataGridRowSelectedFontWeight}" />
+                  <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowSelectedBackgroundColor}" />
+                  <Setter Property="Foreground" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowSelectedTextColor}" />
+                  <Setter Property="FontWeight" Value="{Binding Source={StaticResource Styles}, Path=Instance.DataGridRowSelectedFontWeight}" />
                 </Trigger>
               </Style.Triggers>
             </Style>
@@ -125,13 +112,8 @@
 
       <StackPanel Grid.Column="1">
         <Grid>
-          <!-- Filters -->
           <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label
-              Content="Filters"
-              FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
-              FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
-              FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
+            <Label Content="Filters" />
             <StackPanel x:Name="FilterStackPanel" />
           </StackPanel>
         </Grid>

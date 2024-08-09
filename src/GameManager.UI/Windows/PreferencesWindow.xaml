@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:helpers="clr-namespace:GameManager.UI.Helpers"
+  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common"
   mc:Ignorable="d"
   Title="Preferences (Game Manager)"
   Height="450"
@@ -23,8 +23,7 @@
           HorizontalScrollBarVisibility="Auto"
           VerticalScrollBarVisibility="Disabled"
           MaxWidth="400">
-          <ItemsControl ItemsSource="{Binding TableColumns}"
-                        Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBoxBackgroundColor}">
+          <ItemsControl ItemsSource="{Binding TableColumns}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
                 <StackPanel Orientation="Horizontal" />
@@ -56,8 +55,7 @@
                 <DataTemplate>
                   <TextBox Text="{Binding Path=.}"
                            Padding="2"
-                           Margin="2"
-                           Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}"/>
+                           Margin="2" />
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>

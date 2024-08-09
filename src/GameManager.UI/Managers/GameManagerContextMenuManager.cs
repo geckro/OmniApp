@@ -1,7 +1,7 @@
-﻿using GameManager.UI.Helpers;
-using GameManager.UI.ViewModels;
+﻿using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
+using OmniApp.UI.Common.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
