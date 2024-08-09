@@ -12,7 +12,6 @@
     <ProjectReference Include="..\OmniApp.Common\OmniApp.Common.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Resource Include="Images\Add.png" />
     <Resource Include="Images\AlignBottom.png" />
     <Resource Include="Images\AlignLeft.png" />
@@ -32,5 +31,7 @@
     <Resource Include="Images\Refresh.png" />
     <Resource Include="Images\Shuffle.png" />
     <Resource Include="Images\Tags.png" />
+    <Resource Include="Images\Sort.png" />
+    <Resource Include="Images\SortReverse.png" />
   </ItemGroup>
 </Project>

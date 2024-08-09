@@ -49,6 +49,10 @@ public class GameMgrWindowViewModel : ViewModelBase
     public ICommand EditTagsCommand { get; private set; } = null!;
     public ICommand DeleteCommand { get; private set; } = null!;
     public ICommand FilterGameTableCommand { get; private set; } = null!;
+    public ICommand SortHeaderCommand { get; private set; } = null!;
+    public ICommand ShowColumnsCommand { get; private set; } = null!;
+    public ICommand CopyValueCommand { get; private set; } = null!;
+    public ICommand ChangeColumnHeaderName { get; private set; } = null!;
 
     public void SetFilter(FilterHelper filterHelper)
     {

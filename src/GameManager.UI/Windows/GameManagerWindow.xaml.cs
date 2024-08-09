@@ -49,7 +49,7 @@ public partial class GameManagerWindow
     private async Task InitializeAsync()
     {
         await _viewModel.InitializeAsync(GameDataGrid);
-        _contextMenuManager.PopulateDataGridContextMenu();
+        _contextMenuManager.PopulateContextMenus();
         _filterHelper.PopulateFilterMenus();
         RegisterKeyboardShortcuts();
     }
