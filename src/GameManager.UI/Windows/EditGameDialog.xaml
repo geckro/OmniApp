@@ -6,6 +6,13 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   mc:Ignorable="d"
   Title="Edit entry..." Height="450" Width="800">
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/GameManager.UI;component/ContextMenus/EditContextMenu.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -21,11 +28,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
           <Label Content="Platforms" />
-          <ListBox x:Name="PlatformListBox" Height="100" />
+          <ListBox x:Name="PlatformListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
           <Label Content="Developers" />
-          <ListBox x:Name="DeveloperListBox" Height="100" />
+          <ListBox x:Name="DeveloperListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
           <Label Content="Publishers" />
-          <ListBox x:Name="PublisherListBox" Height="100" />
+          <ListBox x:Name="PublisherListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
         </StackPanel>
 
         <StackPanel Grid.Column="1">
@@ -33,10 +40,10 @@
           <DatePicker x:Name="ReleaseDatePicker" />
 
           <Label Content="Genres" />
-          <ListBox x:Name="GenreListBox" Height="100" />
+          <ListBox x:Name="GenreListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
 
           <Label Content="Series" />
-          <ListBox x:Name="SeriesListBox" Height="100" />
+          <ListBox x:Name="SeriesListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />

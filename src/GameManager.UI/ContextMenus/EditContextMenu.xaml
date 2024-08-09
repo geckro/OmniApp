@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ContextMenu x:Key="ItemContextMenu">
+    <MenuItem Header="Add new"
+              Command="{Binding AddNewItemToGameCommand}">
+      <MenuItem.Icon>
+        <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" RenderOptions.BitmapScalingMode="HighQuality" />
+      </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Edit item"
+              Command="{Binding EditCurrentItemCommand}">
+      <MenuItem.Icon>
+        <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" RenderOptions.BitmapScalingMode="HighQuality" />
+      </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Delete item"
+              Command="{Binding DeleteCurrentItemCommand}">
+      <MenuItem.Icon>
+        <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Delete.png" RenderOptions.BitmapScalingMode="HighQuality" />
+      </MenuItem.Icon>
+    </MenuItem>
+  </ContextMenu>
+</ResourceDictionary>
