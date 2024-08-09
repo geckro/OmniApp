@@ -73,18 +73,19 @@
                   </Grid.ColumnDefinitions>
                   <CheckBox x:Name="CheckBoxElement"
                             Grid.Column="0"
-                            Margin="4,4,4,4"
+                            Margin="4"
                             VerticalAlignment="Center"
                             IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                             Visibility="{Binding IsCheckable, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                   <ContentPresenter x:Name="Icon"
                                     Grid.Column="0"
-                                    Margin="4,4,4,4"
+                                    Margin="4"
                                     MaxWidth="18"
                                     MinWidth="12"
                                     ContentSource="Icon" />
                   <ContentPresenter x:Name="HeaderHost"
                                     Grid.Column="1"
+                                    Margin="4"
                                     ContentSource="Header"
                                     RecognizesAccessKey="True"
                                     VerticalAlignment="Center" />
