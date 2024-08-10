@@ -15,10 +15,21 @@ public class EditGameViewModel : ViewModelBase
     public EditGameViewModel(WindowHelper windowHelper)
     {
         _windowHelper = windowHelper;
-        RenameTitleCommand = new RelayCommand<Game>(RenameTitle);
+        InitializeCommands();
     }
 
-    public ICommand RenameTitleCommand { get; }
+    private void InitializeCommands()
+    {
+        RenameTitleCommand = new RelayCommand<Game>(RenameTitle);
+        RenameCurrentItemCommand = new RelayCommand<Game>(RenameItem);
+        AddNewItemToGameCommand = new RelayCommand<Game>(AddNewItem);
+        DeleteCurrentItemCommand = new RelayCommand<Game>(DeleteCurrentItem);
+    }
+
+    public ICommand RenameTitleCommand { get; private set; } = null!;
+    public ICommand RenameCurrentItemCommand { get; private set; } = null!;
+    public ICommand AddNewItemToGameCommand { get; private set; } = null!;
+    public ICommand DeleteCurrentItemCommand { get; private set; } = null!;
 
     public void SetCloseAction(Action? closeAction)
     {
@@ -51,5 +62,37 @@ public class EditGameViewModel : ViewModelBase
                 Logger.Error(LogClass.GameMgrUiViewModels, $"Expected RenameDialog window, got {window.GetType().Name}");
             }
         });
+    }
+
+    private void RenameItem(Game? game)
+    {
+        Logger.Debug(LogClass.GameMgrUiViewModels, "RenameItem called.");
+        if (game == null)
+        {
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to edit an item of a null game");
+            return;
+        }
+    }
+
+    private void AddNewItem(Game? game)
+    {
+        Logger.Debug(LogClass.GameMgrUiViewModels, "AddNewItem called.");
+
+        if (game == null)
+        {
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to add a new item of a null game");
+            return;
+        }
+    }
+
+    private void DeleteCurrentItem(Game? game)
+    {
+        Logger.Debug(LogClass.GameMgrUiViewModels, "DeleteCurrentItem called.");
+
+        if (game == null)
+        {
+            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to delete an item of a null game");
+            return;
+        }
     }
 }

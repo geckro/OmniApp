@@ -38,7 +38,7 @@ public partial class EditGameDialog
         _viewModel = sp.GetRequiredService<EditGameViewModel>();
         _viewModel.SetCloseAction(Close);
         DataContext = _viewModel;
-        Loaded += (_, _) => SetListBoxPaddingAndMargin();
+        Loaded += (_, _) => SetListBoxStyleAndContextMenuParameters();
     }
 
     public void SetGame(Game? game)
@@ -87,7 +87,7 @@ public partial class EditGameDialog
         return entities?.Select(e => accessor.GetItemById(e.Id)?.Name ?? "Unknown").ToList() ?? [];
     }
 
-    private void SetListBoxPaddingAndMargin()
+    private void SetListBoxStyleAndContextMenuParameters()
     {
         Thickness listBoxThickness = new(2);
         foreach (ListBox listBox in FindVisualChildren<ListBox>(this))
@@ -99,6 +99,19 @@ public partial class EditGameDialog
             style.Setters.Add(new Setter(PaddingProperty, listBoxThickness));
             style.Setters.Add(new Setter(MarginProperty, listBoxThickness));
             listBox.ItemContainerStyle = style;
+
+            if (listBox.ContextMenu == null)
+            {
+                continue;
+            }
+
+            foreach (object? item in listBox.ContextMenu.Items)
+            {
+                if (item is MenuItem menuItem)
+                {
+                    menuItem.CommandParameter = _gameData;
+                }
+            }
         }
     }
 
