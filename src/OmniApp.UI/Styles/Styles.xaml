@@ -135,30 +135,39 @@
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:GameManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:AddGameWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:ModifyMetadataWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:EditGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:PreferencesWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:AddNewTagGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:GameDateSetterWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:PickGameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
 </ResourceDictionary>
