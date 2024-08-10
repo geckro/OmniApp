@@ -28,11 +28,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
           <Label Content="Platforms" />
-          <ListBox x:Name="PlatformListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
+          <ListBox x:Name="PlatformListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" SelectionChanged="ListBox_OnSelectionChanged" />
           <Label Content="Developers" />
-          <ListBox x:Name="DeveloperListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
+          <ListBox x:Name="DeveloperListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" SelectionChanged="ListBox_OnSelectionChanged" />
           <Label Content="Publishers" />
-          <ListBox x:Name="PublisherListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
+          <ListBox x:Name="PublisherListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" SelectionChanged="ListBox_OnSelectionChanged" />
         </StackPanel>
 
         <StackPanel Grid.Column="1">
@@ -40,10 +40,10 @@
           <DatePicker x:Name="ReleaseDatePicker" />
 
           <Label Content="Genres" />
-          <ListBox x:Name="GenreListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
+          <ListBox x:Name="GenreListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" SelectionChanged="ListBox_OnSelectionChanged" />
 
           <Label Content="Series" />
-          <ListBox x:Name="SeriesListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" />
+          <ListBox x:Name="SeriesListBox" Height="100" ContextMenu="{StaticResource ItemContextMenu}" SelectionChanged="ListBox_OnSelectionChanged" />
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />

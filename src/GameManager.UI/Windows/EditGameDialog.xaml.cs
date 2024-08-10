@@ -136,4 +136,15 @@ public partial class EditGameDialog
     {
         _viewModel.RenameTitleCommand.Execute(_gameData);
     }
+
+    private void ListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ListBox listBox = (ListBox)sender;
+        if (listBox.SelectedItem == null)
+        {
+            return;
+        }
+
+        _viewModel.SetSelectedItem(listBox.SelectedItem.ToString());
+    }
 }

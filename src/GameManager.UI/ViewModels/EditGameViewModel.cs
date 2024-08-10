@@ -1,4 +1,5 @@
-﻿using GameManager.Core.Data.MetadataConstructors;
+﻿using GameManager.Core.Data;
+using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using OmniApp.UI.Common;
@@ -11,11 +12,25 @@ public class EditGameViewModel : ViewModelBase
 {
     private readonly WindowHelper _windowHelper;
     private Action? _closeEditEntryWindow;
+    private string _currentSelectedItem = null!;
+    private readonly MetadataAccessor<Game> _gameAcc;
 
-    public EditGameViewModel(WindowHelper windowHelper)
+    public EditGameViewModel(WindowHelper windowHelper, MetadataAccessor<Game> gameAcc)
     {
         _windowHelper = windowHelper;
+        _gameAcc = gameAcc;
         InitializeCommands();
+    }
+
+    public void SetSelectedItem(string? item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        _currentSelectedItem = item;
+        Logger.Debug(LogClass.GameMgrUiViewModels, $"Current selected item {_currentSelectedItem}");
     }
 
     private void InitializeCommands()
