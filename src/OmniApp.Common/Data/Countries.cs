@@ -41,6 +41,7 @@ public record Algeria : ICountry
 
 public record Argentina : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 54;
     public string Currency => "ARS";
     public string CurrencyTitle => "Argentine Peso";
@@ -105,6 +106,7 @@ public record Belgium : ICountry
 
 public record Bolivia : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public string Currency => "BOB";
     public string CurrencyTitle => "Boliviano";
     public string Name => "Bolivia";
@@ -112,6 +114,7 @@ public record Bolivia : ICountry
 
 public record Brazil : ICountry
 {
+    public IEnumerable<string> Languages => ["Portugese"];
     public string NativeName => "Brasil";
     public ushort CallingCode => 55;
     public string Currency => "BRL";
@@ -144,6 +147,7 @@ public record Canada : ICountry
 
 public record Chile : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 56;
     public string Currency => "CLP";
     public string CurrencyTitle => "Chilean Peso";
@@ -166,6 +170,7 @@ public record China : ICountry
 
 public record Colombia : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 57;
     public string Currency => "COP";
     public string CurrencyTitle => "Colombian Peso";
@@ -174,6 +179,7 @@ public record Colombia : ICountry
 
 public record CostaRica : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 506;
     public string Currency => "CRC";
     public string CurrencyTitle => "Costa Rican Colon";
@@ -191,6 +197,7 @@ public record Croatia : ICountry
 
 public record Cuba : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 53;
     public string Currency => "CUP";
     public string CurrencyTitle => "Cuban Peso";
@@ -217,6 +224,7 @@ public record Denmark : ICountry
 
 public record DominicanRepublic : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public string NativeName => "República Dominicana";
     public string Currency => "DOP";
     public string CurrencyTitle => "Dominican Peso";
@@ -225,6 +233,7 @@ public record DominicanRepublic : ICountry
 
 public record Ecuador : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public string Currency => "USD";
     public string CurrencyTitle => "United States Dollar";
     public string Name => "Ecuador";
@@ -242,6 +251,7 @@ public record Egypt : ICountry
 
 public record ElSalvador : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 503;
     public string Currency => "SVC";
     public string CurrencyTitle => "Salvadoran Colon";
@@ -314,6 +324,7 @@ public record Greece : ICountry
 
 public record Guatemala : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 502;
     public string Currency => "GTQ";
     public string CurrencyTitle => "Guatemalan Quetzal";
@@ -331,6 +342,7 @@ public record Haiti : ICountry
 
 public record Honduras : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 504;
     public string Currency => "HNL";
     public string CurrencyTitle => "Honduran Lempira";
@@ -384,6 +396,8 @@ public record Iraq : ICountry
 
 public record Ireland : ICountry
 {
+    public IEnumerable<string> Languages => ["Irish", "English"];
+    public IEnumerable<string> Regions => ["Europe"];
     public string NativeName => "Éire";
     public ushort CallingCode => 353;
     public string Currency => "EUR";
@@ -472,6 +486,7 @@ public record Malaysia : ICountry
 
 public record Mexico : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 52;
     public string Currency => "MXN";
     public string CurrencyTitle => "Mexican Peso";
@@ -509,6 +524,7 @@ public record NewZealand : ICountry
 
 public record Nicaragua : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 505;
     public string Currency => "NIO";
     public string CurrencyTitle => "Nicaraguan Cordoba";
@@ -578,6 +594,7 @@ public record Palestine : ICountry
 
 public record Panama : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 507;
     public string Currency => "PAB";
     public string CurrencyTitle => "Panamanian Balboa";
@@ -586,6 +603,7 @@ public record Panama : ICountry
 
 public record Paraguay : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public string Currency => "PYG";
     public string CurrencyTitle => "Paraguayan Guarani";
     public string Name => "Paraguay";
@@ -593,6 +611,7 @@ public record Paraguay : ICountry
 
 public record Peru : ICountry
 {
+    public IEnumerable<string> Languages => ["Spanish"];
     public ushort CallingCode => 51;
     public string Currency => "PEN";
     public string CurrencyTitle => "Peruvian Sol";
@@ -601,6 +620,7 @@ public record Peru : ICountry
 
 public record Poland : ICountry
 {
+    public string Demonym => "Polish";
     public string NativeName => "Polska";
     public IEnumerable<string> Languages => ["Polish"];
     public IEnumerable<string> Regions => ["Europe"];
@@ -613,7 +633,7 @@ public record Poland : ICountry
 
 public record Portugal : ICountry
 {
-    public IEnumerable<string> Languages => ["Portugese"];
+    public IEnumerable<string> Languages => ["Portugese", "Spanish"];
     public IEnumerable<string> Regions => ["Europe"];
     public string Iso3166Code => "PT";
     public ushort CallingCode => 351;
@@ -672,7 +692,7 @@ public record SouthKorea : ICountry
 public record Spain : ICountry
 {
     public string NativeName => "España";
-    public IEnumerable<string> Languages => ["Spanish"];
+    public IEnumerable<string> Languages => ["Spanish", "Basque", "Catalan", "Galician", "Valencian", "Aranese"];
     public IEnumerable<string> Regions => ["Europe"];
     public ushort CallingCode => 34;
     public string Iso3166Code => "ES";
@@ -763,6 +783,11 @@ public record UnitedStates : ICountry
 
 public record Uruguay : ICountry
 {
+    public string Demonym => "Uruguayan";
+    public ushort CallingCode => 598;
+    public string Iso3166Code => "UY";
+    public IEnumerable<string> Languages => ["Spanish"];
+    public IEnumerable<string> Regions => ["America", "South America"];
     public string Currency => "UYU";
     public string CurrencyTitle => "Uruguayan Peso";
     public string Name => "Uruguay";
@@ -770,7 +795,11 @@ public record Uruguay : ICountry
 
 public record Venezuela : ICountry
 {
+    public string Demonym => "Venezuelan";
     public ushort CallingCode => 58;
+    public IEnumerable<string> Languages => ["Spanish"];
+    public IEnumerable<string> Regions => ["America", "South America"];
+    public string Iso3166Code => "VE";
     public string Currency => "VES";
     public string CurrencyTitle => "Venezuelan Sovereign Bolivar";
     public string Name => "Venezuela";
@@ -778,8 +807,13 @@ public record Venezuela : ICountry
 
 public record Yemen : ICountry
 {
+    public string Demonym => "Yemini";
+    public ushort CallingCode => 967;
     public string NativeName => "ٱلْيَمَنْ";
     public string NativeNameTranslation => "al-Yaman";
+    public IEnumerable<string> Languages => ["Arabic", "Mehri"];
+    public IEnumerable<string> Regions => ["Middle East"];
+    public string Iso3166Code => "YE";
     public string Currency => "YER";
     public string CurrencyTitle => "Yemeni Rial";
     public string Name => "Yemen";
