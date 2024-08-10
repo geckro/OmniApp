@@ -61,13 +61,13 @@ public class EditGameViewModel : ViewModelBase
 
         _windowHelper.ShowDialogWindow<RenameDialog>(window =>
         {
-            if (window is RenameDialog renameDialog)
+            if (window is RenameDialog)
             {
-                renameDialog.SetCurrentGame(game);
+                window.SetCurrentGame(game);
 
-                Logger.Info(LogClass.GameMgrUiViewModels, $"{renameDialog.WasRenamed}");
+                Logger.Info(LogClass.GameMgrUiViewModels, $"{window.WasRenamed}");
 
-                renameDialog.Closed += (_, _) =>
+                window.Closed += (_, _) =>
                 {
                     _closeEditEntryWindow?.Invoke();
                 };

@@ -255,16 +255,6 @@ public class GameTableHelper
 
         _dataGrid.ItemsSource = filteredRows.ToList();
     }
-
-    private IEnumerable<Game> GetAllGameTableRows()
-    {
-        if (_dataGrid.ItemsSource is IEnumerable<Game> games)
-        {
-            return games;
-        }
-
-        return [];
-    }
 }
 
 public class AsyncCollectionToStringConverter<T>(MetadataAccessor<T> accessor) : IValueConverter where T : IMetadata

@@ -19,9 +19,11 @@ public class MainWindowViewModel
         OpenDietManagerCommand = new RelayCommand<object>(_ => OpenDietManager());
     }
 
+    // ReSharper disable UnusedAutoPropertyAccessor.Global
     public ICommand OpenGameManagerCommand { get; }
     public ICommand OpenFinanceManagerCommand { get; }
     public ICommand OpenDietManagerCommand { get; }
+    // ReSharper restore UnusedAutoPropertyAccessor.Global
 
     private void OpenGameManager()
     {

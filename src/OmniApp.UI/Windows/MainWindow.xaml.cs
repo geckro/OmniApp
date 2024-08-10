@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common.Logging;
 using OmniApp.UI.ViewModels;
-using System.Windows;
 
 namespace OmniApp.UI.Windows;
 
