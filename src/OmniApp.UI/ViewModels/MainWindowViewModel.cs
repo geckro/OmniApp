@@ -1,4 +1,5 @@
-﻿using FinancialManager.UI.Windows;
+﻿using DietManager.UI.Windows;
+using FinancialManager.UI.Windows;
 using GameManager.UI.Windows;
 using OmniApp.UI.Common;
 using OmniApp.UI.Common.Helpers;
@@ -15,10 +16,12 @@ public class MainWindowViewModel
         _windowHelper = windowHelper;
         OpenGameManagerCommand = new RelayCommand<object>(_ => OpenGameManager());
         OpenFinanceManagerCommand = new RelayCommand<object>(_ => OpenFinanceManager());
+        OpenDietManagerCommand = new RelayCommand<object>(_ => OpenDietManager());
     }
 
     public ICommand OpenGameManagerCommand { get; }
     public ICommand OpenFinanceManagerCommand { get; }
+    public ICommand OpenDietManagerCommand { get; }
 
     private void OpenGameManager()
     {
@@ -28,5 +31,10 @@ public class MainWindowViewModel
     private void OpenFinanceManager()
     {
         _windowHelper.ShowDialogWindow<FinanceManagerWindow>();
+    }
+
+    private void OpenDietManager()
+    {
+        _windowHelper.ShowDialogWindow<DietManagerWindow>();
     }
 }

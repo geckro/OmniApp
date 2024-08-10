@@ -35,6 +35,7 @@
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Grid.Column="0" Content="Game Manager" Command="{Binding OpenGameManagerCommand}" />
         <Button Grid.Row="0" Grid.Column="1" Content="Finances Manager" Command="{Binding OpenFinanceManagerCommand}" />
+        <Button Grid.Row="0" Grid.Column="2" Content="Diet Manager" Command="{Binding OpenDietManagerCommand}" />
       </Grid>
     </StackPanel>
   </Grid>
