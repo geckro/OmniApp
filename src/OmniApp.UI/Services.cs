@@ -1,4 +1,6 @@
-﻿using FinancialManager.UI.ViewModels;
+﻿using DietManager.UI.ViewModels;
+using DietManager.UI.Windows;
+using FinancialManager.UI.ViewModels;
 using FinancialManager.UI.Windows;
 using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
@@ -11,7 +13,6 @@ using OmniApp.Common.WindowsUtils;
 using OmniApp.UI.Common.Helpers;
 using OmniApp.UI.ViewModels;
 using OmniApp.UI.Windows;
-using System.Diagnostics;
 
 namespace OmniApp.UI;
 
@@ -69,6 +70,9 @@ public static class Services
 
         // Finance Manager
         sv.AddScoped<FinanceManagerViewModel>();
+
+        // Diet Manager
+        sv.AddScoped<DietManagerViewModel>();
     }
 
     /// <summary>
@@ -95,6 +99,9 @@ public static class Services
 
         // FinanceManager
         sv.AddTransient<FinanceManagerWindow>();
+
+        // DietManager
+        sv.AddTransient<DietManagerWindow>();
     }
 
     /// <summary>
