@@ -15,7 +15,7 @@
     <helpers:StyleHelper x:Key="Styles" />
   </Window.Resources>
   <Window.Background>
-    <SolidColorBrush Color="{Binding Source={StaticResource Styles}, Path=WindowBackgroundColor.Color}" />
+    <SolidColorBrush Color="{Binding Source={StaticResource Styles}, Path=Instance.WindowBackgroundColor.Color}" />
   </Window.Background>
   <Grid Margin="10">
     <Grid.RowDefinitions>
@@ -29,31 +29,31 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Orientation="Horizontal">
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
           ToolTip="Add a new finance"
           Command="{Binding AddFinanceCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
           ToolTip="Modify finance categories"
           Command="{Binding ModifyFinanceCategoriesCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
           ToolTip="Refresh the table"
           Command="{Binding RefreshDataGridCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Refresh.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
           ToolTip="Open raw JSON finances file"
           Command="{Binding OpenFinancesJsonCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Json.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
         <Button
-          Background="{Binding Source={StaticResource Styles}, Path=ButtonColor}"
+          Background="{Binding Source={StaticResource Styles}, Path=Instance.ButtonColor}"
           ToolTip="Open Finance Manager preferences"
           Command="{Binding OpenPreferencesCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Preferences.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
@@ -65,7 +65,7 @@
           FontWeight="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontWeight}"
           FontFamily="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontFamily}"
           FontSize="{Binding Source={StaticResource Styles}, Path=Instance.HeaderFontSize}" />
-        <TextBox MinWidth="150" Background="{Binding Source={StaticResource Styles}, Path=TextBoxBackgroundColor}" />
+        <TextBox MinWidth="150" Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
       </StackPanel>
     </Grid>
   </Grid>
