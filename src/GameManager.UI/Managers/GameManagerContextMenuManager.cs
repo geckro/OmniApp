@@ -1,5 +1,6 @@
 ﻿using GameManager.UI.ViewModels;
 using GameManager.UI.Windows;
+using OmniApp.Common.Logging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -86,8 +87,10 @@ public class GameManagerContextMenuManager
 
     private void GameDataGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
+        Logger.Debug(LogClass.GameMgrUiManagers, "Context menu has opened on the Game Table.");
         if (e.OriginalSource is not DependencyObject source)
         {
+            Logger.Debug(LogClass.GameMgrUiManagers, $"Original source {e.OriginalSource} is not the Dependency source.");
             e.Handled = true;
             return;
         }
@@ -96,6 +99,7 @@ public class GameManagerContextMenuManager
 
         if (header != null)
         {
+            Logger.Debug(LogClass.GameMgrUiManagers, "Context menu is of type: Header");
             _mainWindow.GameDataGrid.ContextMenu = _dataGridHeaderContextMenu;
             foreach (MenuItem item in _dataGridHeaderContextMenu.Items.OfType<MenuItem>())
             {
@@ -104,6 +108,7 @@ public class GameManagerContextMenuManager
         }
         else if (row != null)
         {
+            Logger.Debug(LogClass.GameMgrUiManagers, "Context menu is of type: Row");
             _mainWindow.GameDataGrid.ContextMenu = _dataGridRowContextMenu;
             foreach (MenuItem item in _dataGridRowContextMenu.Items.OfType<MenuItem>())
             {
@@ -112,6 +117,7 @@ public class GameManagerContextMenuManager
         }
         else
         {
+            Logger.Debug(LogClass.GameMgrUiManagers, "Header and row are both null on Game Table context menu.");
             e.Handled = true;
         }
     }
