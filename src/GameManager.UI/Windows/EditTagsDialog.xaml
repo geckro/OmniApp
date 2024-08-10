@@ -25,7 +25,30 @@
                 MaxWidth="200" />
       </StackPanel>
       <StackPanel x:Name="TagStackPanel"
-                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
+                  Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}">
+        <StackPanel.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add new tag"
+                      Command="{Binding AddNewTagCommand}">
+              <MenuItem.Icon>
+                <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" RenderOptions.BitmapScalingMode="HighQuality" />
+              </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Rename tag"
+                      Command="{Binding RenameCurrentTagCommand}">
+              <MenuItem.Icon>
+                <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Edit.png" RenderOptions.BitmapScalingMode="HighQuality" />
+              </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Delete tag on game"
+                      Command="{Binding DeleteCurrentTagOnGameCommand}">
+              <MenuItem.Icon>
+                <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Delete.png" RenderOptions.BitmapScalingMode="HighQuality" />
+              </MenuItem.Icon>
+            </MenuItem>
+          </ContextMenu>
+        </StackPanel.ContextMenu>
+      </StackPanel>
     </StackPanel>
   </Grid>
 </Window>

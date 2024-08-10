@@ -21,6 +21,8 @@ public class EditTagsViewModel : ViewModelBase
     }
 
     public ICommand AddNewTagCommand { get; private set; } = null!;
+    public ICommand RenameCurrentTagCommand { get; private set; } = null!;
+    public ICommand DeleteCurrentTagOnGameCommand { get; private set; } = null!;
     public ICommand RenameTitleCommand { get; private set; } = null!;
     public Game? GameEntry { get; set; }
 
@@ -28,6 +30,8 @@ public class EditTagsViewModel : ViewModelBase
     {
         RenameTitleCommand = new RelayCommand<object>(_ => RenameTitle());
         AddNewTagCommand = new RelayCommand<object>(_ => AddNewTagToGame());
+        RenameCurrentTagCommand = new RelayCommand<object>(_ => RenameTag());
+        DeleteCurrentTagOnGameCommand = new RelayCommand<object>(_ => DeleteCurrentTag());
     }
 
     public void SetCloseAction(Action? closeAction)
@@ -105,5 +109,15 @@ public class EditTagsViewModel : ViewModelBase
                 Logger.Error(LogClass.GameMgrUiViewModels, $"Expected AddNewTagGameDialog window, got {window.GetType().Name}");
             }
         });
+    }
+
+    private void RenameTag()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void DeleteCurrentTag()
+    {
+        throw new NotImplementedException();
     }
 }
