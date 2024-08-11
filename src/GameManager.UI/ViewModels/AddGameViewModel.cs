@@ -112,7 +112,16 @@ public sealed class AddGameViewModel : ViewModelBase
     private void UpdateListBoxVisibility()
     {
         Visibility oldVisibility = ListBoxVisibility;
-        ListBoxVisibility = CurrentMetadata.Any() ? Visibility.Visible : Visibility.Collapsed;
+
+        if (CurrentMetadata.Any() && MetadataSearchText.Trim() != string.Empty)
+        {
+            ListBoxVisibility = Visibility.Visible;
+        }
+        else
+        {
+            ListBoxVisibility = Visibility.Collapsed;
+        }
+
         Logger.Debug(LogClass.GameMgrUiViewModels,
                 $"Updating listbox visibility: New value {ListBoxVisibility}, Old vis: {oldVisibility}");
     }
