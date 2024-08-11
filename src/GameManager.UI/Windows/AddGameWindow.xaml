@@ -4,70 +4,70 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:helpers="clr-namespace:OmniApp.UI.Common.Helpers;assembly=OmniApp.UI.Common"
   mc:Ignorable="d"
   Title="Add new game..."
   Height="600"
   Width="900">
-  <Window.Resources>
-    <helpers:StyleHelper x:Key="Styles" />
-  </Window.Resources>
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <StackPanel Orientation="Horizontal" Grid.Row="0">
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Horizontal">
-          <Label
-            Content="Title"
-            VerticalAlignment="Center" />
-          <TextBox
-            x:Name="TitleBox"
-            MinWidth="250"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch"
-            KeyDown="TitleBox_Rename" />
-        </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
-          <Button Content="Add new game" Click="AddNewGameFinish_Click" />
-        </StackPanel>
-      </Grid>
-    </StackPanel>
+    <DockPanel Grid.Row="0">
+      <Label Content="Title" />
+      <TextBox
+        x:Name="TitleBox"
+        MinWidth="200"
+        MaxWidth="350"
+        KeyDown="TitleBox_Rename" />
+      <Button
+        Content="Add new game"
+        Click="AddNewGameFinish_Click"
+        HorizontalAlignment="Right" />
+    </DockPanel>
     <Grid Grid.Row="1">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
 
-      <Grid Grid.Row="0">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel x:Name="GenrePanel" Orientation="Vertical" Grid.Column="0" />
-        <StackPanel x:Name="PlatformPanel" Orientation="Vertical" Grid.Column="1" />
-        <StackPanel x:Name="DeveloperPanel" Orientation="Vertical" Grid.Column="2" />
-        <StackPanel x:Name="PublisherPanel" Orientation="Vertical" Grid.Column="3" />
-        <StackPanel x:Name="SeriesPanel" Orientation="Vertical" Grid.Column="4" />
-      </Grid>
-
-      <Grid Grid.Row="1">
-        <StackPanel Orientation="Horizontal">
-          <Label Content="Dates" />
-          <Button Content="Pick dates..."
-                  Command="{Binding PickDateCommand}" />
+      <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ComboBox
+          x:Name="MetadataComboBox"
+          Text="Choose Metadata..."
+          ItemsSource="{Binding MetadataCategories}"
+          SelectedItem="{Binding SelectedCategory}"
+          Grid.Row="0">
+        </ComboBox>
+        <StackPanel Grid.Row="1">
+          <TextBox
+            x:Name="MetadataTextBox"
+            Text="{Binding MetadataSearchText, UpdateSourceTrigger=PropertyChanged}" />
+          <ListBox
+            x:Name="MetadataListBox"
+            Visibility="{Binding ListBoxVisibility}"
+            ItemsSource="{Binding CurrentMetadata}"
+            DisplayMemberPath="Name"
+            MaxHeight="250" />
         </StackPanel>
+
+        <!-- <StackPanel Orientation="Horizontal"> -->
+        <!--   <Label Content="Dates" /> -->
+        <!--   <Button Content="Pick dates..." -->
+        <!--           Command="{Binding PickDateCommand}" /> -->
+        <!-- </StackPanel> -->
       </Grid>
+
+      <DockPanel Grid.Column="1" Dock="Right">
+        <Label Content="Selected Metadata" VerticalAlignment="Top" />
+        <ItemsControl>
+
+        </ItemsControl>
+      </DockPanel>
     </Grid>
   </Grid>
 </Window>

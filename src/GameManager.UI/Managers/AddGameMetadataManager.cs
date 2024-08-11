@@ -1,223 +1,136 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
 using GameManager.UI.Windows;
-using OmniApp.UI.Common.Helpers;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using OmniApp.Common.Logging;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace GameManager.UI.Managers;
 
-public class AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory mtdAccessorFactory)
+public sealed class AddGameMetadataManager : INotifyPropertyChanged
 {
-    private readonly Dictionary<string, bool> _checkedStates = new();
-    private readonly Dictionary<string, object> _metadata = new();
+    // private readonly AddGameWindow _addGame;
+    private readonly Dictionary<string, ObservableCollection<IMetadata>> _metadataCollections;
+    private readonly MetadataAccessorFactory _mtdAccessorFactory;
+    private string _currentCategory = string.Empty;
 
-    /// <summary>
-    ///     Initializes the metadata areas for various Game categories.
-    /// </summary>
-    public async Task InitializeMetadataAreasAsync()
+    public AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory mtdAccessorFactory)
     {
-        await MakeMetadataAreasAsync("Genre", addGame.GenrePanel,
-                mtdAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadata());
-        await MakeMetadataAreasAsync("Platform", addGame.PlatformPanel,
-                mtdAccessorFactory.CreateMetadataAccessor<Platform>().LoadMetadata());
-        await MakeMetadataAreasAsync("Developer", addGame.DeveloperPanel,
-                mtdAccessorFactory.CreateMetadataAccessor<Developer>().LoadMetadata());
-        await MakeMetadataAreasAsync("Publisher", addGame.PublisherPanel,
-                mtdAccessorFactory.CreateMetadataAccessor<Publisher>().LoadMetadata());
-        await MakeMetadataAreasAsync("Series", addGame.SeriesPanel,
-                mtdAccessorFactory.CreateMetadataAccessor<Series>().LoadMetadata());
+        // _addGame = addGame;
+        _mtdAccessorFactory = mtdAccessorFactory;
+        _metadataCollections = new Dictionary<string, ObservableCollection<IMetadata>>();
+        CurrentMetadata = new ObservableCollection<IMetadata>();
+
+        InitializeMetadataCollections();
     }
 
-    /// <summary>
-    ///     Creates metadata areas for a specific category.
-    /// </summary>
-    /// <param name="name">The name of the metadata category.</param>
-    /// <param name="stackPanel">The stack panel to add the generated controls to.</param>
-    /// <param name="dataSource">The actual data source of the metadata.</param>
-    /// <typeparam name="T">The type of IMetadata.</typeparam>
-    private Task MakeMetadataAreasAsync<T>(string name, StackPanel stackPanel, ICollection<T> dataSource)
-            where T : IMetadata
+    public ObservableCollection<IMetadata> CurrentMetadata { get; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void UpdateCurrentCategory(string category)
     {
-        Label label = new()
-        {
-                Content = name,
-                FontFamily = StyleHelper.Instance.HeaderFontFamily,
-                FontWeight = StyleHelper.Instance.HeaderFontWeight,
-                FontSize = StyleHelper.Instance.HeaderFontSize
-        };
+        Logger.Debug(LogClass.GameMgrUiManagers, $"Updating current category to: {category}");
 
-        TextBox textBox = new() { Name = $"{name}TextBox", Background = StyleHelper.Instance.TextBoxBackgroundColor };
-        addGame.RegisterName(textBox.Name, textBox);
-
-        UpdateMetadata(name, dataSource);
-        textBox.TextChanged += (sender, _) => TextBox_TextChanged(sender);
-        textBox.KeyDown += (sender, e) => TextBox_KeyDown(sender, e, typeof(T));
-
-        ListBox listBox = new()
-        {
-                Name = $"{name}ListBox",
-                MaxHeight = 250,
-                Visibility = Visibility.Collapsed,
-                Padding = new Thickness(0),
-                Margin = new Thickness(0),
-                FontSize = 14,
-                Background = StyleHelper.Instance.ListBackgroundColor,
-                ItemContainerStyle = CreateListBoxItemStyle()
-        };
-        addGame.RegisterName(listBox.Name, listBox);
-
-        stackPanel.Children.Add(label);
-        stackPanel.Children.Add(textBox);
-        stackPanel.Children.Add(listBox);
-
-        return Task.CompletedTask;
+        _currentCategory = category;
+        RefreshCurrentMetadata();
     }
 
-    private void UpdateMetadata<T>(string metadataCategory, ICollection<T> dataSource) where T : IMetadata
+    public void UpdateSearchText(string searchText)
     {
-        _metadata.Add(metadataCategory, dataSource);
+        Logger.Debug(LogClass.GameMgrUiManagers, $"Updating search text to: {_currentCategory}:{searchText}");
+        if (string.IsNullOrEmpty(_currentCategory))
+        {
+            return;
+        }
+
+        CurrentMetadata.Clear();
+        foreach (IMetadata item in _metadataCollections[_currentCategory]
+                         .Where(m => m.Name.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)))
+        {
+            // This foreach loop should work. If it doesn't, good luck.
+            // Logger.Debug(LogClass.GameMgrUiManagers, $"Item: {item.Name}, {item.Id}");
+
+            CurrentMetadata.Add(item);
+        }
+
+        OnPropertyChanged(nameof(CurrentMetadata));
     }
 
-    /// <summary>
-    ///     Creates a style for the list box item for the metadata areas.
-    /// </summary>
-    /// <returns>The created list box item style.</returns>
-    private static Style CreateListBoxItemStyle()
+    private void InitializeMetadataCollections()
     {
-        Style style = new(typeof(ListBoxItem));
-        style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(2)));
-        style.Setters.Add(new Setter(FrameworkElement.MarginProperty, new Thickness(0)));
-
-        return style;
+        _metadataCollections["Genres"] =
+                new ObservableCollection<IMetadata>(_mtdAccessorFactory.CreateMetadataAccessor<Genre>().LoadMetadata());
+        _metadataCollections["Platforms"] =
+                new ObservableCollection<IMetadata>(_mtdAccessorFactory.CreateMetadataAccessor<Platform>()
+                        .LoadMetadata());
+        _metadataCollections["Developers"] =
+                new ObservableCollection<IMetadata>(_mtdAccessorFactory.CreateMetadataAccessor<Developer>()
+                        .LoadMetadata());
+        _metadataCollections["Publishers"] =
+                new ObservableCollection<IMetadata>(_mtdAccessorFactory.CreateMetadataAccessor<Publisher>()
+                        .LoadMetadata());
+        _metadataCollections["Series"] =
+                new ObservableCollection<IMetadata>(_mtdAccessorFactory.CreateMetadataAccessor<Series>()
+                        .LoadMetadata());
+        Logger.Debug(LogClass.GameMgrUiManagers, "Metadata collections initialized");
     }
 
-    /// <summary>
-    ///     Handles the TextChanged event of the current text box.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    private void TextBox_TextChanged(object sender)
+    private void RefreshCurrentMetadata()
     {
-        if (sender is not TextBox textBox)
+        Logger.Debug(LogClass.GameMgrUiManagers, "Refreshing current metadata");
+
+        CurrentMetadata.Clear();
+        foreach (IMetadata item in _metadataCollections[_currentCategory])
         {
-            return;
+            CurrentMetadata.Add(item);
         }
 
-        string metadataCategory = textBox.Name.Replace("TextBox", "");
-        string listBoxName = $"{metadataCategory}ListBox";
-        if (addGame.FindName(listBoxName) is not ListBox listBox)
-        {
-            return;
-        }
-
-        string text = textBox.Text.Trim();
-
-        if (string.IsNullOrEmpty(text))
-        {
-            listBox.Visibility = Visibility.Collapsed;
-            return;
-        }
-
-        if (!_metadata.TryGetValue(metadataCategory, out object? metadataCollection) ||
-            metadataCollection is not IEnumerable<IMetadata> collection)
-        {
-            return;
-        }
-
-        foreach (CheckBox cb in listBox.Items.OfType<CheckBox>())
-        {
-            _checkedStates[cb.Content.ToString()!] = cb.IsChecked ?? false;
-        }
-
-        List<IMetadata> filteredSuggestionList = collection
-                .Where(item => item.Name.Contains(text, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-        List<CheckBox> checkBoxList = filteredSuggestionList.Select(item => new CheckBox
-        {
-                Content = item.Name,
-                Tag = item.Id,
-                IsChecked = _checkedStates.GetValueOrDefault(item.Name, false)
-        }).ToList();
-
-        listBox.ItemsSource = checkBoxList;
-        listBox.Visibility = checkBoxList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+        OnPropertyChanged(nameof(CurrentMetadata));
     }
 
-    /// <summary>
-    ///     Handles the KeyDown event of the TextBox.
-    /// </summary>
-    /// <param name="sender">The source of the event</param>
-    /// <param name="keyEventArgs">KeyEventArgs event data</param>
-    /// <param name="dataType">The type of data</param>
-    private void TextBox_KeyDown(object sender, KeyEventArgs keyEventArgs, Type dataType)
+    public void CreateNewMetadataItem(string name)
     {
-        if (keyEventArgs.Key != Key.Enter)
+        if (string.IsNullOrEmpty(_currentCategory))
         {
             return;
         }
 
-        if (sender is not TextBox textBox)
+        IMetadata newItem;
+        switch (_currentCategory)
         {
-            return;
+            case "Genres":
+                newItem = new Genre { Id = Guid.NewGuid(), Name = name };
+                _mtdAccessorFactory.CreateMetadataAccessor<Genre>().AddItemAndSave((Genre)newItem);
+                break;
+            case "Platforms":
+                newItem = new Platform { Id = Guid.NewGuid(), Name = name };
+                _mtdAccessorFactory.CreateMetadataAccessor<Platform>().AddItemAndSave((Platform)newItem);
+                break;
+            case "Developers":
+                newItem = new Developer { Id = Guid.NewGuid(), Name = name };
+                _mtdAccessorFactory.CreateMetadataAccessor<Developer>().AddItemAndSave((Developer)newItem);
+                break;
+            case "Publishers":
+                newItem = new Publisher { Id = Guid.NewGuid(), Name = name };
+                _mtdAccessorFactory.CreateMetadataAccessor<Publisher>().AddItemAndSave((Publisher)newItem);
+                break;
+            case "Series":
+                newItem = new Series { Id = Guid.NewGuid(), Name = name };
+                _mtdAccessorFactory.CreateMetadataAccessor<Series>().AddItemAndSave((Series)newItem);
+                break;
+            default:
+                return;
         }
 
-        string text = textBox.Text.Trim();
-
-        if (string.IsNullOrEmpty(text))
-        {
-            return;
-        }
-
-        CreateMetadata(dataType, text);
-
-        textBox.Clear();
+        _metadataCollections[_currentCategory].Add(newItem);
+        CurrentMetadata.Add(newItem);
+        OnPropertyChanged(nameof(CurrentMetadata));
     }
 
-    /// <summary>
-    ///     Create Name metadata for the specified type
-    /// </summary>
-    /// <param name="dataType">The type to add</param>
-    /// <param name="text">The text to add to Name for IMetadata</param>
-    private void CreateMetadata(Type dataType, string text)
+    private void OnPropertyChanged(string propertyName)
     {
-        Dictionary<Type, Func<object>> typeMap = new()
-        {
-                { typeof(Genre), () => new Genre { Id = Guid.NewGuid(), Name = text } },
-                { typeof(Platform), () => new Platform { Id = Guid.NewGuid(), Name = text } },
-                { typeof(Developer), () => new Developer { Id = Guid.NewGuid(), Name = text } },
-                { typeof(Publisher), () => new Publisher { Id = Guid.NewGuid(), Name = text } },
-                { typeof(Series), () => new Series { Id = Guid.NewGuid(), Name = text } }
-        };
-
-        if (!typeMap.TryGetValue(dataType, out Func<object>? createInstance))
-        {
-            return;
-        }
-
-        object instance = createInstance();
-        MethodInfo? method = typeof(MetadataAccessorFactory).GetMethod("CreateMetadataAccessor")
-                ?.MakeGenericMethod(dataType);
-
-        object? data = method?.Invoke(mtdAccessorFactory, null);
-        data?.GetType().GetMethod("AddItemAndSave")?.Invoke(data, [instance]);
-
-        RefreshMetadata(dataType);
-    }
-
-    private void RefreshMetadata(Type dataType)
-    {
-        string metadataCategory = dataType.Name;
-        MethodInfo? method = typeof(MetadataAccessorFactory).GetMethod("CreateMetadataAccessor")
-                ?.MakeGenericMethod(dataType);
-
-        object? accessor = method?.Invoke(mtdAccessorFactory, null);
-        MethodInfo? loadMethod = accessor?.GetType().GetMethod("LoadMetadata");
-
-        if (loadMethod?.Invoke(accessor, null) is IEnumerable<IMetadata> refreshedCollection)
-        {
-            _metadata[metadataCategory] = refreshedCollection;
-        }
+        Logger.Debug(LogClass.GameMgrUiManagers, $"Property changed: {propertyName}");
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

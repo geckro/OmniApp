@@ -31,19 +31,12 @@ public partial class AddGameWindow
 
     public event EventHandler<Game>? GameAdded;
 
-    private async void InitializeMetadataAreas()
+    private void InitializeMetadataAreas()
     {
-        await new AddGameMetadataManager(this, _mtdAccessorFactory).InitializeMetadataAreasAsync();
+        AddGameMetadataManager metadataManager = new(this, _mtdAccessorFactory);
+        _viewModel.Initialize(metadataManager);
     }
 
-    /// <summary>
-    ///     Extracts checked boxes from a ListBox.
-    /// </summary>
-    /// <param name="listBox">The ListBox to extract CheckBoxes from.</param>
-    /// <param name="metadataFactory">Method to create metadata instances.</param>
-    /// <typeparam name="T">The type of IMetadata.</typeparam>
-    /// <returns>Collection of an IMetadata instance.</returns>
-    /// <exception cref="Exception"></exception>
     private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory)
             where T : IMetadata
     {
@@ -97,11 +90,11 @@ public partial class AddGameWindow
         {
                 Id = Guid.NewGuid(),
                 Title = title,
-                Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox")!, id => new Genre { Id = id }),
-                Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox")!, id => new Platform { Id = id }),
-                Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox")!, id => new Developer { Id = id }),
-                Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox")!, id => new Publisher { Id = id }),
-                Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox")!, id => new Series { Id = id }),
+                // Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox")!, id => new Genre { Id = id }),
+                // Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox")!, id => new Platform { Id = id }),
+                // Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox")!, id => new Developer { Id = id }),
+                // Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox")!, id => new Publisher { Id = id }),
+                // Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox")!, id => new Series { Id = id }),
                 // ReleaseDateWw = Date.SelectedDate,
                 CreatedOn = currentTime,
                 LastUpdated = currentTime,
@@ -161,11 +154,11 @@ public partial class AddGameWindow
 
         ICollection<string> wordsToNotCapitalize =
         [
-            "and",
-            "of",
-            "the",
-            "vs",
-            "vs."
+                "and",
+                "of",
+                "the",
+                "vs",
+                "vs."
         ];
 
         foreach (string word in words)
