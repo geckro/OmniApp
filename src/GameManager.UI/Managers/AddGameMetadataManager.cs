@@ -46,7 +46,7 @@ public sealed class AddGameMetadataManager : INotifyPropertyChanged
 
         CurrentMetadata.Clear();
         foreach (IMetadata item in _metadataCollections[_currentCategory]
-                         .Where(m => m.Name.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)))
+                         .Where(m => m.Name.Contains(searchText.Trim(), StringComparison.CurrentCultureIgnoreCase)))
         {
             // This foreach loop should work. If it doesn't, good luck.
             // Logger.Debug(LogClass.GameMgrUiManagers, $"Item: {item.Name}, {item.Id}");
