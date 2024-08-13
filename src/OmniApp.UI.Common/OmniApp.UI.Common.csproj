@@ -25,6 +25,7 @@
     <Resource Include="Images\Edit.png" />
     <Resource Include="Images\Font.png" />
     <Resource Include="Images\Hyperlink.png" />
+    <Resource Include="Images\Info.png" />
     <Resource Include="Images\Json.png" />
     <Resource Include="Images\Paste.png" />
     <Resource Include="Images\Preferences.png" />

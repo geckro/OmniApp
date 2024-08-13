@@ -50,6 +50,7 @@ public static class Services
         sv.AddScoped<AddGameViewModel>();
         sv.AddScoped<EditTagsViewModel>();
         sv.AddScoped<AddNewTagGameViewModel>();
+        sv.AddScoped<AboutViewModel>();
         sv.AddScoped<PreferencesViewModel>();
         sv.AddScoped<PickGameViewModel>();
         sv.AddScoped<GameDateSetterViewModel>();
@@ -89,6 +90,7 @@ public static class Services
         sv.AddTransient<GameManagerWindow>();
         sv.AddTransient<ModifyMetadataWindow>();
         sv.AddTransient<PreferencesWindow>();
+        sv.AddTransient<AboutDialog>();
         sv.AddTransient<AddGameWindow>();
         sv.AddTransient<GameDateSetterWindow>();
         sv.AddTransient<EditGameDialog>();

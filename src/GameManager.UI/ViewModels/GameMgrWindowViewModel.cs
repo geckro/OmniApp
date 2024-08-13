@@ -42,6 +42,7 @@ public class GameMgrWindowViewModel : ViewModelBase
     public ICommand OpenGamesJsonCommand { get; private set; } = null!;
     public ICommand OpenPreferencesCommand { get; private set; } = null!;
     public ICommand PickRandomGameCommand { get; private set; } = null!;
+    public ICommand AboutCommand { get; private set; } = null!;
     public ICommand MarkAsPlayedCommand { get; private set; } = null!;
     public ICommand MarkAsFinishedCommand { get; private set; } = null!;
     public ICommand MarkAsCompletedCommand { get; private set; } = null!;
@@ -70,6 +71,7 @@ public class GameMgrWindowViewModel : ViewModelBase
                 new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
         PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
+        AboutCommand = new RelayCommand<object>(_ => About());
 
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasPlayed"));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasFinished"));
@@ -120,6 +122,11 @@ public class GameMgrWindowViewModel : ViewModelBase
     private void Preferences()
     {
         _windowHelper.ShowWindow<PreferencesWindow>();
+    }
+
+    private void About()
+    {
+        _windowHelper.ShowDialogWindow<AboutDialog>();
     }
 
     private async Task MarkAsTrueFalse(Game game, string key)

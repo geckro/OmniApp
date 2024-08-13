@@ -56,6 +56,11 @@
           Command="{Binding PickRandomGameCommand}">
           <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Shuffle.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
         </Button>
+        <Button
+          ToolTip="About"
+          Command="{Binding AboutCommand}">
+          <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Info.png" MaxWidth="24" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Button>
       </StackPanel>
       <StackPanel Grid.Column="1" Orientation="Horizontal">
         <Label Content="Search" />
