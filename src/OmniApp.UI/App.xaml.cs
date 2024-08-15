@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Extensions.DependencyInjection;
 using OmniApp.Common;
 using OmniApp.Common.Logging;
 using OmniApp.UI.Windows;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace OmniApp.UI;
 
@@ -33,5 +35,11 @@ public partial class App
 
         MainWindow mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
         mainWindow.Show();
+
+        TaskbarIcon _ = new()
+        {
+                IconSource = new BitmapImage(new Uri("pack://application:,,,/OmniApp.UI.Common;component/Images/IconOmniApp.ico")),
+                Visibility = Visibility.Visible
+        };
     }
 }

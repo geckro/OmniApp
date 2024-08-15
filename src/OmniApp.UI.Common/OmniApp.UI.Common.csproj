@@ -35,5 +35,7 @@
     <Resource Include="Images\Sort.png" />
     <Resource Include="Images\SortReverse.png" />
     <Resource Include="Images\IconGameMgr.png" />
+    <Resource Include="Images\IconOmniApp.png" />
+    <Resource Include="Images\IconOmniApp.ico" />
   </ItemGroup>
 </Project>
