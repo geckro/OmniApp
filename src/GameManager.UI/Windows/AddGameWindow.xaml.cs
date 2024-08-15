@@ -186,4 +186,20 @@ public partial class AddGameWindow
 
         textBox.Text = string.Join(' ', capitalizedWords);
     }
+
+    private void MetadataListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        foreach (IMetadata addedItem in e.AddedItems)
+        {
+            if (!_viewModel.SelectedMetadata.Contains($"{addedItem.GetType().Name}: {addedItem.Name}"))
+            {
+                _viewModel.SelectedMetadata.Add($"{addedItem.GetType().Name}: {addedItem.Name}");
+            }
+        }
+
+        foreach (IMetadata removedItem in e.RemovedItems)
+        {
+            _viewModel.SelectedMetadata.Remove($"{removedItem.GetType().Name}: {removedItem.Name}");
+        }
+    }
 }

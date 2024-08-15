@@ -20,11 +20,13 @@ public sealed class AddGameMetadataManager : INotifyPropertyChanged
         _mtdAccessorFactory = mtdAccessorFactory;
         _metadataCollections = new Dictionary<string, ObservableCollection<IMetadata>>();
         CurrentMetadata = new ObservableCollection<IMetadata>();
+        SelectedMetadata = new ObservableCollection<string>();
 
         InitializeMetadataCollections();
     }
 
     public ObservableCollection<IMetadata> CurrentMetadata { get; }
+    public ObservableCollection<string> SelectedMetadata { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

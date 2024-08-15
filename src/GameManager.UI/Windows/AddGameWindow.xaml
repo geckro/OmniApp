@@ -50,6 +50,8 @@
           <ListBox
             x:Name="MetadataListBox"
             Visibility="{Binding ListBoxVisibility}"
+            SelectionMode="Multiple"
+            SelectionChanged="MetadataListBox_OnSelectionChanged"
             ItemsSource="{Binding CurrentMetadata}"
             DisplayMemberPath="Name"
             MaxHeight="250" />
@@ -64,8 +66,14 @@
 
       <DockPanel Grid.Column="1" Dock="Right">
         <Label Content="Selected Metadata" VerticalAlignment="Top" />
-        <ItemsControl>
-
+        <ItemsControl ItemsSource="{Binding SelectedMetadata}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <ListBoxItem Content="{Binding Path=.}"
+                           Padding="6"
+                           Background="{Binding Source={StaticResource Styles}, Path=Instance.ListBackgroundColor}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
         </ItemsControl>
       </DockPanel>
     </Grid>

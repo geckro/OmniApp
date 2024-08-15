@@ -68,6 +68,7 @@ public sealed class AddGameViewModel : ViewModelBase
     }
 
     public ObservableCollection<IMetadata> CurrentMetadata => _metadataManager.CurrentMetadata;
+    public ObservableCollection<string> SelectedMetadata => _metadataManager.SelectedMetadata;
 
     public Visibility ListBoxVisibility
     {
