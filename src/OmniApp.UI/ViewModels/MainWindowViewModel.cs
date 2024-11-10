@@ -4,6 +4,7 @@ using GameManager.UI.Windows;
 using OmniApp.UI.Common;
 using OmniApp.UI.Common.Helpers;
 using System.Windows.Input;
+using WindowsManager.UI.Windows;
 
 namespace OmniApp.UI.ViewModels;
 
@@ -17,12 +18,14 @@ public class MainWindowViewModel
         OpenGameManagerCommand = new RelayCommand<object>(_ => OpenGameManager());
         OpenFinanceManagerCommand = new RelayCommand<object>(_ => OpenFinanceManager());
         OpenDietManagerCommand = new RelayCommand<object>(_ => OpenDietManager());
+        OpenWindowsManagerCommand = new RelayCommand<object>(_ => OpenWindowsManager());
     }
 
     // ReSharper disable UnusedAutoPropertyAccessor.Global
     public ICommand OpenGameManagerCommand { get; }
     public ICommand OpenFinanceManagerCommand { get; }
     public ICommand OpenDietManagerCommand { get; }
+    public ICommand OpenWindowsManagerCommand { get; }
     // ReSharper restore UnusedAutoPropertyAccessor.Global
 
     private void OpenGameManager()
@@ -38,5 +41,10 @@ public class MainWindowViewModel
     private void OpenDietManager()
     {
         _windowHelper.ShowDialogWindow<DietManagerWindow>();
+    }
+
+    private void OpenWindowsManager()
+    {
+        _windowHelper.ShowDialogWindow<WindowsManagerWindow>();
     }
 }

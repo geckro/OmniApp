@@ -33,41 +33,28 @@ public partial class AddGameWindow
 
     private void InitializeMetadataAreas()
     {
-        AddGameMetadataManager metadataManager = new(this, _mtdAccessorFactory);
+        AddGameMetadataManager metadataManager = new(_mtdAccessorFactory);
         _viewModel.Initialize(metadataManager);
     }
 
-    private static Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory)
+    private Collection<T> ExtractCheckBoxes<T>(ListBox? listBox, Func<Guid, T> metadataFactory)
             where T : IMetadata
     {
-        if (listBox == null)
-        {
-            throw new Exception($"ListBox {listBox} does not exist");
-        }
-
         Collection<T> result = [];
 
-        foreach (object? item in listBox.Items)
+        // Get all selected items of type T from SelectedMetadata
+        List<string> selectedItems = _viewModel.SelectedMetadata
+                .Where(s => s.StartsWith(typeof(T).Name + ":"))
+                .Select(s => s.Split(':')[1].Trim())
+                .ToList();
+
+        // Find matching items in CurrentMetadata
+        IEnumerable<IMetadata> matchingItems = _viewModel.CurrentMetadata
+                .Where(m => m is T && selectedItems.Contains(m.Name));
+
+        foreach (IMetadata item in matchingItems)
         {
-            CheckBox? checkBox = item switch
-            {
-                    CheckBox cb => cb,
-                    ListBoxItem lbi => lbi.Content as CheckBox,
-                    _ => null
-            };
-
-            if (checkBox?.IsChecked != true)
-            {
-                continue;
-            }
-
-            if (checkBox.Tag is not Guid guid)
-            {
-                continue;
-            }
-
-            T metadata = metadataFactory(guid);
-            result.Add(metadata);
+            result.Add(metadataFactory(item.Id));
         }
 
         return result;
@@ -90,12 +77,11 @@ public partial class AddGameWindow
         {
                 Id = Guid.NewGuid(),
                 Title = title,
-                // Genres = ExtractCheckBoxes((ListBox)FindName("GenreListBox")!, id => new Genre { Id = id }),
-                // Platforms = ExtractCheckBoxes((ListBox)FindName("PlatformListBox")!, id => new Platform { Id = id }),
-                // Developers = ExtractCheckBoxes((ListBox)FindName("DeveloperListBox")!, id => new Developer { Id = id }),
-                // Publishers = ExtractCheckBoxes((ListBox)FindName("PublisherListBox")!, id => new Publisher { Id = id }),
-                // Series = ExtractCheckBoxes((ListBox)FindName("SeriesListBox")!, id => new Series { Id = id }),
-                // ReleaseDateWw = Date.SelectedDate,
+                Genres = ExtractCheckBoxes(MetadataListBox, id => new Genre { Id = id }),
+                Platforms = ExtractCheckBoxes(MetadataListBox, id => new Platform { Id = id }),
+                Developers = ExtractCheckBoxes(MetadataListBox, id => new Developer { Id = id }),
+                Publishers = ExtractCheckBoxes(MetadataListBox, id => new Publisher { Id = id }),
+                Series = ExtractCheckBoxes(MetadataListBox, id => new Series { Id = id }),
                 CreatedOn = currentTime,
                 LastUpdated = currentTime,
                 Tags = new Dictionary<string, ICollection<string>>() // not actually used
@@ -191,15 +177,17 @@ public partial class AddGameWindow
     {
         foreach (IMetadata addedItem in e.AddedItems)
         {
-            if (!_viewModel.SelectedMetadata.Contains($"{addedItem.GetType().Name}: {addedItem.Name}"))
+            string metadataString = $"{addedItem.GetType().Name}: {addedItem.Name}";
+            if (!_viewModel.SelectedMetadata.Contains(metadataString))
             {
-                _viewModel.SelectedMetadata.Add($"{addedItem.GetType().Name}: {addedItem.Name}");
+                _viewModel.SelectedMetadata.Add(metadataString);
             }
         }
 
         foreach (IMetadata removedItem in e.RemovedItems)
         {
-            _viewModel.SelectedMetadata.Remove($"{removedItem.GetType().Name}: {removedItem.Name}");
+            string metadataString = $"{removedItem.GetType().Name}: {removedItem.Name}";
+            _viewModel.SelectedMetadata.Remove(metadataString);
         }
     }
 }

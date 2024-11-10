@@ -22,6 +22,7 @@ public partial class RenameDialog
     {
         _game = game;
         OldTitleTextBlock.Text = _game.Title;
+        NewTitleTextBox.Text = _game.Title;
     }
 
     private void RenameButton_OnClick(object sender, RoutedEventArgs e)

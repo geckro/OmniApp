@@ -11,10 +11,10 @@
     <Style.Resources>
       <Style TargetType="Control" x:Key="BaseControlStyle">
         <Setter Property="Margin" Value="4" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="6" />
         <Style.Resources>
           <Style TargetType="Border">
-            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="CornerRadius" Value="6" />
           </Style>
         </Style.Resources>
       </Style>
@@ -29,7 +29,7 @@
           <Trigger Property="IsMouseOver" Value="True">
             <Setter Property="Effect">
               <Setter.Value>
-                <DropShadowEffect Color="DimGray" BlurRadius="8" ShadowDepth="1" Direction="270" />
+                <DropShadowEffect Color="Gray" BlurRadius="4" ShadowDepth="1" Direction="270" />
               </Setter.Value>
             </Setter>
           </Trigger>
@@ -130,6 +130,7 @@
     </Style.Resources>
   </Style>
   <Style TargetType="{x:Type omniAppWindows:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconOmniApp.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type financeWindows:FinanceManagerWindow}" BasedOn="{StaticResource BaseWindowStyle}">
@@ -152,6 +153,10 @@
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>
   <Style TargetType="{x:Type gameMgrWindows:EditTagsDialog}" BasedOn="{StaticResource BaseWindowStyle}">
+    <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
+    <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
+  </Style>
+  <Style TargetType="{x:Type gameMgrWindows:RenameDialog}" BasedOn="{StaticResource BaseWindowStyle}">
     <Setter Property="Icon" Value="pack://application:,,,/OmniApp.UI.Common;component/Images/IconGameMgr.png" />
     <Setter Property="Background" Value="{Binding Source={StaticResource Styles}, Path=Instance.BaseBackgroundColor}" />
   </Style>

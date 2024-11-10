@@ -1,6 +1,5 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
-using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,7 +13,7 @@ public sealed class AddGameMetadataManager : INotifyPropertyChanged
     private readonly MetadataAccessorFactory _mtdAccessorFactory;
     private string _currentCategory = string.Empty;
 
-    public AddGameMetadataManager(AddGameWindow addGame, MetadataAccessorFactory mtdAccessorFactory)
+    public AddGameMetadataManager(MetadataAccessorFactory mtdAccessorFactory)
     {
         // _addGame = addGame;
         _mtdAccessorFactory = mtdAccessorFactory;
@@ -46,13 +45,13 @@ public sealed class AddGameMetadataManager : INotifyPropertyChanged
             return;
         }
 
-        CurrentMetadata.Clear();
-        foreach (IMetadata item in _metadataCollections[_currentCategory]
-                         .Where(m => m.Name.Contains(searchText.Trim(), StringComparison.CurrentCultureIgnoreCase)))
-        {
-            // This foreach loop should work. If it doesn't, good luck.
-            // Logger.Debug(LogClass.GameMgrUiManagers, $"Item: {item.Name}, {item.Id}");
+        List<IMetadata> filteredItems = _metadataCollections[_currentCategory]
+                .Where(m => m.Name.Contains(searchText.Trim(), StringComparison.CurrentCultureIgnoreCase))
+                .ToList();
 
+        CurrentMetadata.Clear();
+        foreach (IMetadata item in filteredItems)
+        {
             CurrentMetadata.Add(item);
         }
 
@@ -82,51 +81,21 @@ public sealed class AddGameMetadataManager : INotifyPropertyChanged
     {
         Logger.Debug(LogClass.GameMgrUiManagers, "Refreshing current metadata");
 
+        List<string> selectedMetadataStrings = SelectedMetadata.ToList();
+
         CurrentMetadata.Clear();
+
         foreach (IMetadata item in _metadataCollections[_currentCategory])
         {
             CurrentMetadata.Add(item);
         }
 
-        OnPropertyChanged(nameof(CurrentMetadata));
-    }
-
-    public void CreateNewMetadataItem(string name)
-    {
-        if (string.IsNullOrEmpty(_currentCategory))
+        SelectedMetadata.Clear();
+        foreach (string selectedItem in selectedMetadataStrings)
         {
-            return;
+            SelectedMetadata.Add(selectedItem);
         }
 
-        IMetadata newItem;
-        switch (_currentCategory)
-        {
-            case "Genres":
-                newItem = new Genre { Id = Guid.NewGuid(), Name = name };
-                _mtdAccessorFactory.CreateMetadataAccessor<Genre>().AddItemAndSave((Genre)newItem);
-                break;
-            case "Platforms":
-                newItem = new Platform { Id = Guid.NewGuid(), Name = name };
-                _mtdAccessorFactory.CreateMetadataAccessor<Platform>().AddItemAndSave((Platform)newItem);
-                break;
-            case "Developers":
-                newItem = new Developer { Id = Guid.NewGuid(), Name = name };
-                _mtdAccessorFactory.CreateMetadataAccessor<Developer>().AddItemAndSave((Developer)newItem);
-                break;
-            case "Publishers":
-                newItem = new Publisher { Id = Guid.NewGuid(), Name = name };
-                _mtdAccessorFactory.CreateMetadataAccessor<Publisher>().AddItemAndSave((Publisher)newItem);
-                break;
-            case "Series":
-                newItem = new Series { Id = Guid.NewGuid(), Name = name };
-                _mtdAccessorFactory.CreateMetadataAccessor<Series>().AddItemAndSave((Series)newItem);
-                break;
-            default:
-                return;
-        }
-
-        _metadataCollections[_currentCategory].Add(newItem);
-        CurrentMetadata.Add(newItem);
         OnPropertyChanged(nameof(CurrentMetadata));
     }
 

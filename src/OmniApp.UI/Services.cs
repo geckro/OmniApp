@@ -13,6 +13,8 @@ using OmniApp.Common.WindowsUtils;
 using OmniApp.UI.Common.Helpers;
 using OmniApp.UI.ViewModels;
 using OmniApp.UI.Windows;
+using WindowsManager.UI.ViewModels;
+using WindowsManager.UI.Windows;
 
 namespace OmniApp.UI;
 
@@ -49,6 +51,7 @@ public static class Services
         sv.AddScoped<EditGameViewModel>();
         sv.AddScoped<AddGameViewModel>();
         sv.AddScoped<EditTagsViewModel>();
+        sv.AddScoped<AddMetadataViewModel>();
         sv.AddScoped<AddNewTagGameViewModel>();
         sv.AddScoped<AboutViewModel>();
         sv.AddScoped<PreferencesViewModel>();
@@ -74,6 +77,9 @@ public static class Services
 
         // Diet Manager
         sv.AddScoped<DietManagerViewModel>();
+
+        // Windows Manager
+        sv.AddScoped<WindowsManagerViewModel>();
     }
 
     /// <summary>
@@ -94,6 +100,7 @@ public static class Services
         sv.AddTransient<AddGameWindow>();
         sv.AddTransient<GameDateSetterWindow>();
         sv.AddTransient<EditGameDialog>();
+        sv.AddTransient<AddMetadataDialog>();
         sv.AddTransient<EditTagsDialog>();
         sv.AddTransient<RenameDialog>();
         sv.AddTransient<AddNewTagGameDialog>();
@@ -104,6 +111,9 @@ public static class Services
 
         // DietManager
         sv.AddTransient<DietManagerWindow>();
+
+        // WindowsManager
+        sv.AddTransient<WindowsManagerWindow>();
     }
 
     /// <summary>

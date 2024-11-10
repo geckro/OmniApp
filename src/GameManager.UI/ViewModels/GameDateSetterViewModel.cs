@@ -1,5 +1,6 @@
 ﻿using OmniApp.Common.Data;
 using OmniApp.Common.Logging;
+using OmniApp.UI.Common;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

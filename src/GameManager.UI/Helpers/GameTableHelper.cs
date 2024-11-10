@@ -121,7 +121,7 @@ public class GameTableHelper
         [
                 new DataGridTextColumn { Header = "Title", Binding = new Binding(nameof(Game.Title)) },
                 CreateBooleanColumn("Played", nameof(Game.HasPlayed)),
-                CreateBooleanColumn("Finished", nameof(Game.HasFinished)),
+                CreateBooleanColumn("Beaten", nameof(Game.HasFinished)),
                 CreateBooleanColumn("Complete", nameof(Game.HasCompleted)),
                 CreateAsyncColumn("Platforms", nameof(Game.Platforms),
                         new AsyncCollectionToStringConverter<Platform>(_platformAcc)),

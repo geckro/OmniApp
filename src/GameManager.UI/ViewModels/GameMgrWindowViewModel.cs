@@ -30,7 +30,6 @@ public class GameMgrWindowViewModel : ViewModelBase
         _gameTableHelper = gameTableHelper;
         _gameAcc = gameAcc;
         _windowHelper = windowHelper;
-
         _refreshManager = new RefreshManager(_gameTableHelper);
 
         InitializeCommands();
@@ -65,29 +64,22 @@ public class GameMgrWindowViewModel : ViewModelBase
     {
         AddGameCommand = new RelayCommand<object>(_ => AddGame());
         ModifyMetadataCommand = new RelayCommand<object>(_ => ModifyMetadata());
-        RefreshDataGridCommand =
-                new RelayCommand<object>(async _ => await _refreshManager.RefreshControls(RefreshOptions.DataGrid));
-        OpenGamesJsonCommand =
-                new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
+        RefreshDataGridCommand = new RelayCommand<object>(async _ => await _refreshManager.RefreshControls(RefreshOptions.DataGrid));
+        OpenGamesJsonCommand = new RelayCommand<object>(_ => FileHelper.OpenFileWithDefaultProgram(@"Data\GameMgr\games.json"));
         OpenPreferencesCommand = new RelayCommand<object>(_ => Preferences());
         PickRandomGameCommand = new RelayCommand<object>(_ => PickRandomGame());
         AboutCommand = new RelayCommand<object>(_ => About());
-
         MarkAsPlayedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasPlayed"));
         MarkAsFinishedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasFinished"));
         MarkAsCompletedCommand = new RelayCommand<Game>(async game => await MarkAsTrueFalse(game, "HasCompleted"));
         EditCommand = new RelayCommand<Game>(Edit);
         EditTagsCommand = new RelayCommand<Game>(EditTags);
         DeleteCommand = new RelayCommand<Game>(async game => await Delete(game));
-
-        FilterGameTableCommand =
-                new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
+        CopyValueCommand = new RelayCommand<Game>(CopyValue);
+        FilterGameTableCommand = new RelayCommand<object>(async _ => await _gameTableHelper.FilterGameTableAsync(_filterHelper));
     }
 
-    public async Task InitializeAsync(DataGrid gameDataGrid)
-    {
-        await _gameTableHelper.PopulateGameTableAsync(gameDataGrid);
-    }
+    public async Task InitializeAsync(DataGrid gameDataGrid) => await _gameTableHelper.PopulateGameTableAsync(gameDataGrid);
 
     private void AddGame()
     {
@@ -95,10 +87,7 @@ public class GameMgrWindowViewModel : ViewModelBase
         addGameWindow.GameAdded += async (_, _) => await _refreshManager.RefreshControls(RefreshOptions.DataGrid);
     }
 
-    private void ModifyMetadata()
-    {
-        _windowHelper.ShowWindow<ModifyMetadataWindow>();
-    }
+    private void ModifyMetadata() => _windowHelper.ShowWindow<ModifyMetadataWindow>();
 
     private void PickRandomGame()
     {
@@ -119,15 +108,9 @@ public class GameMgrWindowViewModel : ViewModelBase
                 MessageBoxImage.Information);
     }
 
-    private void Preferences()
-    {
-        _windowHelper.ShowWindow<PreferencesWindow>();
-    }
+    private void Preferences() => _windowHelper.ShowWindow<PreferencesWindow>();
 
-    private void About()
-    {
-        _windowHelper.ShowDialogWindow<AboutDialog>();
-    }
+    private void About() => _windowHelper.ShowDialogWindow<AboutDialog>();
 
     private async Task MarkAsTrueFalse(Game game, string key)
     {
@@ -180,6 +163,11 @@ public class GameMgrWindowViewModel : ViewModelBase
                 Logger.Error(LogClass.GameMgrUiViewModels, $"Expected EditTagsDialog window, got {window.GetType().Name}");
             }
         });
+    }
+
+    private static void CopyValue(Game game)
+    {
+        Clipboard.SetText(game.Title);
     }
 
     private async Task Delete(Game game)

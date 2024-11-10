@@ -8,8 +8,6 @@
   mc:Ignorable="d"
   Title="Game Manager"
   WindowStartupLocation="CenterScreen"
-  d:DesignWidth="1280"
-  d:DesignHeight="720"
   MinWidth="800"
   MinHeight="600">
   <Window.Resources>
@@ -75,6 +73,9 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0">
         <DataGrid
+          VerticalScrollBarVisibility="Auto"
+          HorizontalScrollBarVisibility="Auto"
+          MaxHeight="600"
           x:Name="GameDataGrid"
           CanUserAddRows="False"
           BorderThickness="0"

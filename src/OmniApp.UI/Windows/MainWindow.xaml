@@ -17,7 +17,7 @@
       HorizontalAlignment="Center"
       FontWeight="Bold"
       FontSize="32"
-      FontFamily="Cascadia Mono"
+      FontFamily="Aptos"
       Content="Omni App" />
     <StackPanel Grid.Row="1">
       <Grid>
@@ -36,6 +36,7 @@
         <Button Grid.Row="0" Grid.Column="0" Content="Game Manager" Command="{Binding OpenGameManagerCommand}" />
         <Button Grid.Row="0" Grid.Column="1" Content="Finances Manager" Command="{Binding OpenFinanceManagerCommand}" />
         <Button Grid.Row="0" Grid.Column="2" Content="Diet Manager" Command="{Binding OpenDietManagerCommand}" />
+        <Button Grid.Row="0" Grid.Column="3" Content="Windows Manager" Command="{Binding OpenWindowsManagerCommand}" />
       </Grid>
     </StackPanel>
   </Grid>

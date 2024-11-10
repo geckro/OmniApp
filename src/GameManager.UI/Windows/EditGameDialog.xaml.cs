@@ -44,6 +44,7 @@ public partial class EditGameDialog
     public void SetGame(Game? game)
     {
         _gameData = game;
+        _viewModel.SetGameData(game);
         if (_gameData != null)
         {
             PopulateEditWindow();
@@ -105,13 +106,13 @@ public partial class EditGameDialog
                 continue;
             }
 
-            foreach (object? item in listBox.ContextMenu.Items)
-            {
-                if (item is MenuItem menuItem)
-                {
-                    menuItem.CommandParameter = _gameData;
-                }
-            }
+            // foreach (object? item in listBox.ContextMenu.Items)
+            // {
+            //     if (item is MenuItem menuItem)
+            //     {
+            //         menuItem.CommandParameter = _gameData;
+            //     }
+            // }
         }
     }
 

@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietManager.UI", "src\DietM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DietManager.Core", "src\DietManager.Core\DietManager.Core.csproj", "{35F4CA48-2765-4D6D-9CCE-164AD17FFF99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsManager.UI", "WindowsManager.UI\WindowsManager.UI.csproj", "{CF2D0FA3-6D7A-4117-907A-2AF61556B281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsManager.Common", "WindowsManager.Common\WindowsManager.Common.csproj", "{383E98A6-8C4F-40A9-AD15-9EEE5341CB76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +64,13 @@ Global
 		{35F4CA48-2765-4D6D-9CCE-164AD17FFF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F4CA48-2765-4D6D-9CCE-164AD17FFF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F4CA48-2765-4D6D-9CCE-164AD17FFF99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2D0FA3-6D7A-4117-907A-2AF61556B281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2D0FA3-6D7A-4117-907A-2AF61556B281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2D0FA3-6D7A-4117-907A-2AF61556B281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2D0FA3-6D7A-4117-907A-2AF61556B281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{383E98A6-8C4F-40A9-AD15-9EEE5341CB76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{383E98A6-8C4F-40A9-AD15-9EEE5341CB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{383E98A6-8C4F-40A9-AD15-9EEE5341CB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{383E98A6-8C4F-40A9-AD15-9EEE5341CB76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

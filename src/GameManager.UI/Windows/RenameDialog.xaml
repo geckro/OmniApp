@@ -8,7 +8,7 @@
   mc:Ignorable="d"
   Title="Rename title..."
   SizeToContent="Height"
-  Height="200" Width="200">
+  Height="300" Width="400">
   <Window.Resources>
     <helpers:StyleHelper x:Key="Styles" />
   </Window.Resources>
@@ -20,8 +20,9 @@
     <StackPanel Grid.Row="0">
       <StackPanel Orientation="Horizontal">
         <Label Content="Old title: " />
-        <TextBlock x:Name="OldTitleTextBlock"
-                   Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
+        <TextBox x:Name="OldTitleTextBlock"
+                 IsReadOnly="True"
+                 Background="{Binding Source={StaticResource Styles}, Path=Instance.TextBoxBackgroundColor}" />
       </StackPanel>
       <StackPanel Orientation="Horizontal">
         <Label Content="New title: " />

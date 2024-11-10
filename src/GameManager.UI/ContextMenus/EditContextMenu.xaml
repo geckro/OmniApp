@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <ContextMenu x:Key="ItemContextMenu">
     <MenuItem Header="Add new"
-              Command="{Binding AddNewItemToGameCommand}">
+              Command="{Binding AddNewItemToGameCommand}"
+              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}}">
       <MenuItem.Icon>
         <Image Source="pack://application:,,,/OmniApp.UI.Common;component/Images/Add.png" RenderOptions.BitmapScalingMode="HighQuality" />
       </MenuItem.Icon>

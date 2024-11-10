@@ -1,9 +1,12 @@
 ﻿using GameManager.Core.Data;
 using GameManager.Core.Data.MetadataConstructors;
+using GameManager.UI.Helpers;
+using GameManager.UI.Managers;
 using GameManager.UI.Windows;
 using OmniApp.Common.Logging;
 using OmniApp.UI.Common;
 using OmniApp.UI.Common.Helpers;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GameManager.UI.ViewModels;
@@ -12,14 +15,23 @@ public class EditGameViewModel : ViewModelBase
 {
     private readonly WindowHelper _windowHelper;
     private Action? _closeEditEntryWindow;
+    private readonly RefreshManager _refreshManager;
     private string _currentSelectedItem = null!;
+    private string? _currentCategory;
     private readonly MetadataAccessor<Game> _gameAcc;
+    private Game? _gameData;
 
-    public EditGameViewModel(WindowHelper windowHelper, MetadataAccessor<Game> gameAcc)
+    public EditGameViewModel(WindowHelper windowHelper, MetadataAccessor<Game> gameAcc, GameTableHelper gameTableHelper)
     {
         _windowHelper = windowHelper;
         _gameAcc = gameAcc;
+        _refreshManager = new RefreshManager(gameTableHelper);
         InitializeCommands();
+    }
+
+    public void SetGameData(Game? game)
+    {
+        _gameData = game;
     }
 
     public void SetSelectedItem(string? item)
@@ -37,7 +49,7 @@ public class EditGameViewModel : ViewModelBase
     {
         RenameTitleCommand = new RelayCommand<Game>(RenameTitle);
         RenameCurrentItemCommand = new RelayCommand<Game>(RenameItem);
-        AddNewItemToGameCommand = new RelayCommand<Game>(AddNewItem);
+        AddNewItemToGameCommand = new RelayCommand<object>(AddNewItem);
         DeleteCurrentItemCommand = new RelayCommand<Game>(DeleteCurrentItem);
     }
 
@@ -89,24 +101,45 @@ public class EditGameViewModel : ViewModelBase
         }
     }
 
-    private void AddNewItem(Game? game)
+    private void AddNewItem(object? parameter)
     {
-        Logger.Debug(LogClass.GameMgrUiViewModels, "AddNewItem called.");
-
-        if (game == null)
+        if (parameter is not ContextMenu contextMenu)
         {
-            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to add a new item of a null game");
+            Logger.Error(LogClass.GameMgrUiViewModels, $"Expected ContextMenu, got: {parameter?.GetType().FullName ?? "null"}");
             return;
         }
+
+        if (contextMenu.PlacementTarget is not ListBox listBox || _gameData == null)
+        {
+            Logger.Error(LogClass.GameMgrUiViewModels, "Invalid parameter or null game");
+            return;
+        }
+
+        _currentCategory = listBox.Name.Replace("ListBox", "");
+        Logger.Debug(LogClass.GameMgrUiViewModels, $"Current category set to {_currentCategory}");
+
+        _windowHelper.ShowDialogWindow<AddMetadataDialog>(window =>
+        {
+            if (window is not AddMetadataDialog)
+            {
+                return;
+            }
+
+            window.SetCurrentGame(_gameData);
+            window.SetCurrentCategory(GetClickedCategory());
+            window.Closed += (_, _) => _ = _refreshManager.RefreshControls(RefreshOptions.DataGrid);
+        });
+    }
+
+    private string GetClickedCategory()
+    {
+        return _currentCategory ?? throw new InvalidOperationException("No category selected");
     }
 
     private void DeleteCurrentItem(Game? game)
     {
-        Logger.Debug(LogClass.GameMgrUiViewModels, "DeleteCurrentItem called.");
-
-        if (game == null)
+        if (game == null || string.IsNullOrEmpty(_currentSelectedItem))
         {
-            Logger.Warning(LogClass.GameMgrUiViewModels, "Attempted to delete an item of a null game");
             return;
         }
     }

@@ -27,8 +27,7 @@ public sealed class AddGameViewModel : ViewModelBase
     }
 
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public static ObservableCollection<string> MetadataCategories =>
-            ["Genres", "Platforms", "Developers", "Publishers", "Series"];
+    public static ObservableCollection<string> MetadataCategories => ["Genres", "Platforms", "Developers", "Publishers", "Series"];
 
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public string SelectedCategory
@@ -36,16 +35,12 @@ public sealed class AddGameViewModel : ViewModelBase
         get => _selectedCategory;
         set
         {
-            if (_selectedCategory == value)
+            if (SetProperty(ref _selectedCategory, value))
             {
-                return;
+                _metadataManager.UpdateCurrentCategory(value);
+                MetadataSearchText = string.Empty; // Reset search text when switching categories
+                UpdateListBoxVisibility();
             }
-
-            _selectedCategory = value;
-            _metadataManager.UpdateCurrentCategory(value);
-            OnPropertyChanged(nameof(SelectedCategory));
-            MetadataSearchText = string.Empty; // reset search text when you switch categories
-            UpdateListBoxVisibility();
         }
     }
 
@@ -55,15 +50,11 @@ public sealed class AddGameViewModel : ViewModelBase
         get => _metadataSearchText;
         set
         {
-            if (_metadataSearchText == value)
+            if (SetProperty(ref _metadataSearchText, value))
             {
-                return;
+                _metadataManager.UpdateSearchText(value);
+                UpdateListBoxVisibility();
             }
-
-            _metadataSearchText = value;
-            _metadataManager.UpdateSearchText(value);
-            OnPropertyChanged(nameof(MetadataSearchText));
-            UpdateListBoxVisibility();
         }
     }
 
@@ -75,28 +66,18 @@ public sealed class AddGameViewModel : ViewModelBase
         get => _listBoxVisibility;
         set
         {
-            Logger.Debug(LogClass.GameMgrUiViewModels,
-                    $"ListBoxVisibility is getting updated from {_listBoxVisibility} to {value}");
-            if (_listBoxVisibility == value)
-            {
-                return;
-            }
-
-            _listBoxVisibility = value;
-            OnPropertyChanged(nameof(ListBoxVisibility));
+            Logger.Debug(LogClass.GameMgrUiViewModels, $"Updating ListBoxVisibility from {_listBoxVisibility} to {value}");
+            SetProperty(ref _listBoxVisibility, value);
         }
     }
 
-    // ReSharper disable UnusedAutoPropertyAccessor.Global
     public ICommand PickDateCommand { get; private set; } = null!;
-    // ReSharper restore UnusedAutoPropertyAccessor.Global
-
-    public override event PropertyChangedEventHandler? PropertyChanged;
 
     public void Initialize(AddGameMetadataManager metadataManager)
     {
         _metadataManager = metadataManager;
         _metadataManager.PropertyChanged += MetadataManager_PropertyChanged;
+        _metadataSearchText = _selectedCategory = string.Empty;
     }
 
     private void MetadataManager_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -114,23 +95,10 @@ public sealed class AddGameViewModel : ViewModelBase
     {
         Visibility oldVisibility = ListBoxVisibility;
 
-        if (CurrentMetadata.Any() && MetadataSearchText.Trim() != string.Empty)
-        {
-            ListBoxVisibility = Visibility.Visible;
-        }
-        else
-        {
-            ListBoxVisibility = Visibility.Collapsed;
-        }
+        ListBoxVisibility = !string.IsNullOrEmpty(SelectedCategory) ? Visibility.Visible : Visibility.Collapsed;
 
         Logger.Debug(LogClass.GameMgrUiViewModels,
                 $"Updating listbox visibility: New value {ListBoxVisibility}, Old vis: {oldVisibility}");
-    }
-
-    protected override void OnPropertyChanged(string? propertyName = null)
-    {
-        Logger.Debug(LogClass.GameMgrUiManagers, $"OnPropertyChanged called with property name: {propertyName}");
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private void InitializeCommands()

@@ -7,6 +7,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WindowsManager.UI\WindowsManager.UI.csproj" />
     <ProjectReference Include="..\DietManager.UI\DietManager.UI.csproj" />
     <ProjectReference Include="..\FinancialManager.UI\FinancialManager.UI.csproj"/>
     <ProjectReference Include="..\GameManager.UI\GameManager.UI.csproj"/>

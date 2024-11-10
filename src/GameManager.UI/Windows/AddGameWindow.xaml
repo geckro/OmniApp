@@ -54,10 +54,16 @@
             SelectionChanged="MetadataListBox_OnSelectionChanged"
             ItemsSource="{Binding CurrentMetadata}"
             DisplayMemberPath="Name"
-            MaxHeight="250" />
+            MaxHeight="250">
+            <ListBox.ItemContainerStyle>
+              <Style TargetType="ListBoxItem">
+                <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"/>
+              </Style>
+            </ListBox.ItemContainerStyle>
+          </ListBox>
         </StackPanel>
 
-        <!-- <StackPanel Orientation="Horizontal"> -->
+        <!-- <StackPanel Orientation="Horizontmetadatalistboxal"> -->
         <!--   <Label Content="Dates" /> -->
         <!--   <Button Content="Pick dates..." -->
         <!--           Command="{Binding PickDateCommand}" /> -->

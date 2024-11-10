@@ -44,7 +44,7 @@ public class GameManagerContextMenuManager
         AddMenuItem(_dataGridRowContextMenu, "Mark as finished", _viewModel.MarkAsFinishedCommand, true);
         AddMenuItem(_dataGridRowContextMenu, "Mark as completed", _viewModel.MarkAsCompletedCommand, true);
         _dataGridRowContextMenu.Items.Add(new Separator());
-        AddMenuItem(_dataGridRowContextMenu, "Copy Value", _viewModel.CopyValueCommand, false, "Copy");
+        AddMenuItem(_dataGridRowContextMenu, "Copy Title", _viewModel.CopyValueCommand, false, "Copy");
         AddMenuItem(_dataGridRowContextMenu, "Edit", _viewModel.EditCommand, false, "Edit");
         AddMenuItem(_dataGridRowContextMenu, "Edit Tags", _viewModel.EditTagsCommand, false, "Tags");
         AddMenuItem(_dataGridRowContextMenu, "Delete", _viewModel.DeleteCommand, false, "Delete");
@@ -68,7 +68,7 @@ public class GameManagerContextMenuManager
     /// <param name="command"> The command when the menu item gets clicked.</param>
     /// <param name="isCheckable">Whether the menu item can be checked or not.</param>
     /// <param name="image">The image name to use.</param>
-    private void AddMenuItem(ContextMenu menu, string header, ICommand command, bool isCheckable, string? image = null)
+    private static void AddMenuItem(ContextMenu menu, string header, ICommand command, bool isCheckable, string? image = null)
     {
         MenuItem menuItem = new() { Header = header, Command = command, IsCheckable = isCheckable };
         if (image != null)
